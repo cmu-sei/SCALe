@@ -38,7 +38,7 @@ gem "best_in_place", '= 3.0.2'
 
 gem 'populator'
 
-gem 'will_paginate', '= 3.0.4'
+gem 'will_paginate', '= 3.0.5'
 
 gem 'thin'
 
@@ -58,5 +58,5 @@ gem 'thin'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # To create/export zip files
-gem 'rubyzip', '=1.1.0'
+gem 'rubyzip', '=1.2.1'
 gem 'zip-zip'
