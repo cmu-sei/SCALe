@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : MSVC&#39;s Static Analyzer</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Audit-Instructions_215846700.html">Audit Instructions</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Static-Analysis-Tools_215846701.html">Static Analysis Tools</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : MSVC&#39;s Static Analyzer
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span> on Dec 04, 2017
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>Microsoft Visual Studio comes with a static analyzer for C/C++ code.  MSVC's different categories of diagnostics are documented  <img class="emoticon emoticon-light-on" src="images/icons/emoticons/lightbulb_on.png" data-emoticon-name="light-on" alt="(lightbulb)"/> <a href="https://msdn.microsoft.com/en-US/library/a5b9aa09.aspx" class="external-link" rel="nofollow"><span style="color: rgb(0,128,0);">on MSDN</span></a>.</p><p>To harvest the warnings from MSVC's static analyzer on a project (that already builds correctly under MSVC), first import a <code style="line-height: 1.4285;">.sln</code> (solution) file into MSVC. Then select <code>Build <strong>→ </strong>Run Code Analysis on Solution</code> or press <code>Alt-F11</code>.</p><h2 id="MSVC&#39;sStaticAnalyzer-FormattingOutputForSCALe">Formatting Output For SCALe</h2><p>Once MSVC has finished its analysis, select all of its output, right-click, and select <code style="line-height: 1.4285;">Copy</code>. Then paste into Notepad (or any other text editor) and save the text output to a file.</p><p><span style="color: rgb(0,0,0);">CAUTION: This output provides warnings about a different set of code flaws than the output from running MSVC normally. (This output is not a superset!) To also obtain warnings for the MSVC compiler's (additional) checkers, output from running MSVC normally is also needed. SCALe includes mappings between MSVC compiler checkers and CERT rules (from MSVC compiler standard runs), as well as mappings</span> between MSVC's Static Analyzer Tool and CERT rules.</p><p> </p><p><a href="Fortify_215846712.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Static-Analysis-Tools_215846701.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="PC-Lint_215846717.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

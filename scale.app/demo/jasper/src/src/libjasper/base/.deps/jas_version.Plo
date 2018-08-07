@@ -1,0 +1,7 @@
+jas_version.lo: jas_version.c \
+ ../../../src/libjasper/include/jasper/jas_version.h \
+ ../../../src/libjasper/include/jasper/jas_config.h
+
+../../../src/libjasper/include/jasper/jas_version.h:
+
+../../../src/libjasper/include/jasper/jas_config.h:

@@ -1,0 +1,22 @@
+<!-- This file contains the pagination code that not only
+contains the pagination links, but also form elements that submit 
+the number of diagnostics to show per page -->
+<div class="diags-per-page">
+  
+ <%= will_paginate @temp, :renderer => DiagnosticsHelper::LinkRenderer %>
+
+  <div id="pageCount">
+  Showing <%= @diagsStart %> to <%= @diagsEnd %> of <span id="totalRecords"><%= @diagsTotal %></span> |
+      <%= label_tag(:diagsPerPage, "Diagnostics per page: ") %>
+      <%= select_tag(:diagsPerPage, options_for_select([["10",10], ["25",25], ["50",50], ["100",100], ["500",500]], @diagsPerPage)) %>
+      <%= submit_tag("Go") %>
+  </div>
+</div>
+<div>
+  <%= link_to "New Diagnostic", "/projects/#{@project_id}/add", class: "button diagnostic_button" %>
+  <%= label_tag(:fusedView, "Fused View: ") %>
+  <%= link_to "On", "/projects/#{@project_id}/", class: "button", id: "fused_on_button" %>
+  <%= link_to "Off", "/projects/#{@project_id}/unfused", class: "button", id: "fused_off_button" %>
+</div>
+
+

@@ -1,0 +1,94 @@
+<!-- This page is the main view for editing a project's name and description, and also for adding GNU Global pages -->
+<h1>Edit project:</h1>
+ 
+ <!-- The top part of this form simply lets you change the name and description of the project -->
+<div class="edit-bigcontainer">
+<div class="edit-container">
+<%= form_for @project do |f| %>
+    <% if @project.errors.any? %>  
+    <div id="errorExplanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited
+          this project from being saved:</h2>
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div><%= f.label :name, "Name: " %><br>
+    <%= f.text_field :name %></div>
+    <div><%= f.label :description, "Description: " %><br>
+    <%= f.text_area :description %></div>
+    <div><%= f.submit %></div>
+<% end %>
+</div>
+
+<!-- This part of the page is for manual uploading of the 
+scale database or gnu global pages if done off the server independently. -->
+These tools are provided for convenience: 
+
+<div class="edit-container">
+  <%= form_tag("/projects/#{@project.id}/upload/scale", {:multipart => true}) do %>
+    Upload SCALe Database 
+    <div><%= file_field_tag 'database' %></div>
+    <%= hidden_field_tag :project_id, @project.id %>
+    <%= submit_tag "Upload SCALe database" %>
+  <% end %>
+</div> 
+
+<div class="edit-container">
+  <%= form_tag("/projects/#{@project.id}/upload/gnu", {:multipart => true}) do %>
+    Upload GNU Global Pages Archive (.zip or .tgz)
+    <div><%= file_field_tag 'gnu_global' %></div>
+    <%= hidden_field_tag :project_id, @project.id %>
+    <%= submit_tag "Upload pages" %>
+  <% end %>
+</div>
+
+
+<%= link_to 'Show', @project %> |
+<%= link_to 'Back', projects_path %>
+</div>
+<!-- This part of the page is for uploading/replacing static analysis tool output -->
+<div class="edit-table">
+Upload new Diagnostics/Metric Tool Outputs:
+<table>
+    <%= form_tag("/projects/#{@project.id}/update_project", { :multipart => true}) do %>
+    <% for i in 0..(Rails.configuration.ids.length-1) do %>
+      <tr>
+        <!-- Checkbox input for analysis file. Files will be ignored
+        unless checked off.  -->
+        <td class="tdToolName">
+          <input type="checkbox" class="selectTool" name="selectedTools[]" value="<%= Rails.configuration.ids[i] %>" <%= params[:selectedTools] && params[:selectedTools].include?(Rails.configuration.ids[i].to_s) ? "checked" : "" %> > <%= Rails.configuration.ids[i] %> / <%= Rails.configuration.names[i] %> / <%= Rails.configuration.platforms[i] %>
+        </td>
+        <!-- file field for uploading analysis files. If the file is 
+        already uploaded, then we display a warning. -->
+        <td>
+          <% if @uploaded[Rails.configuration.ids[i].to_s] == true %>
+              <b><p style="color:red">Tool output already uploaded, but will be backed up if replaced.</p> <br>
+          <% end %>
+          <%= label_tag(Rails.configuration.ids[i],"Tool output: ") %>
+          <%= file_field(:file, Rails.configuration.ids[i], class: 'file') %> 
+        </td>
+        <td> 
+          <!-- If an analysis file has been run through digest,
+           diagnostics, then the output for a tool with tool id i is
+           passed in @out[i]. Note we use the h flag and simple_format
+           helper to escape characters. -->
+          <%=h @out && @out[Rails.configuration.ids[i].to_s] ? simple_format(@out[Rails.configuration.ids[i].to_s]) : ""%>
+        </td>
+      </tr>
+    <% end %>
+    <!-- Finally, a button to trigger the action to run the scripts -->
+    <tr>
+      <td colspan=3 class='center'>
+        <%= submit_tag("Update project database", {class: 'submitButton', id: 'update_project_button'}) %>
+      </td>
+    </tr>
+<% end %>
+</table>
+</div>
+
+

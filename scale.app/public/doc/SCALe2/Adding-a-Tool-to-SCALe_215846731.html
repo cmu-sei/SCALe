@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Adding a Tool to SCALe</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Adding a Tool to SCALe
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span>, last modified by <span class='editor'> Lori Flynn</span> on Jan 12, 2018
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h2 style="margin-left: 30.0px;" id="AddingaTooltoSCALe-StaticAnalysisAlertTools">Static Analysis Alert Tools</h2><p style="margin-left: 30.0px;">A new <strong>general flaw-finding static analysis tool</strong> can be added to SCALe by performing the following steps:</p><ol><li>Map diagnostics from the new tool to <a href="https://www.securecoding.cert.org/confluence/display/seccode/SEI+CERT+Coding+Standards" class="external-link" rel="nofollow">SEI CERT coding rules</a>. A method that has been used to perform mapping is: <ol><li>Enumerate checkers from the tool’s documentation</li><li>Map the checkers to CERT coding rules (as well as possible) based on their description</li><li>Do spot checking with the actual tool on some test code (e.g., Jasper).</li><li>Note: Initial mappings are improved/evolved over time. CERT does an initial attempt at mapping, then improves the mappings over the course of each subsequent audit using that tool.</li></ol></li><li>Create a new web page about the new tool linked from <a href="Static-Analysis-Tools_215846701.html">Static Analysis Tools</a>. Each such page should contain the following:</li><ol><li>Instructions on how to run the tool such that it produces output that can be fed into SCALe (these instructions should produce a single human-readable output file containing the information reported by the tool. The file could be text, XML, or some other format)</li><li>Any operational information about the tool</li></ol><li>The new tool needs a numeric ID; you will add the tool, language, and ID to the <code>
+      <a href="Back-End-Script-Design_215846946.html#Back-EndScriptDesign-tools.org">tools.org</a>
+    </code> file.<br/><span>Design and implement a parser to create ORG files from the new tool's output. The parser should be named <code>$TOOL2org.py</code>, and it should follow the same conventions as the other <code>
+        <a href="Back-End-Script-Design_215846946.html#Back-EndScriptDesign-*2org.py">*2org.py</a>
+      </code>scripts.</span><ol><li>If your tool does not provide line numbers for the flaws it finds, use the integer 0 for <code>&lt;line&gt;</code>.</li><li>If the path to a file in the codebase is not available, provide a UNIX-style path (including a file name) for the <code>&lt;path&gt;</code> variable <em>and</em> put a dummy file with that file name in that path. Empty path names are not permitted.<span> <br/> </span></li></ol>You need to create a new  <a href="Back-End-Script-Design_215846946.html#Back-EndScriptDesign-*.*.properties">properties</a> file for the new tool. The file should follow the same conventions as the other properties files, including:<ol><li>Name the properties file as follows: &lt;language&gt;.&lt;toolname&gt;.properties</li><li>Put the version number of the tool in a comment line at the top of the properties file.</li></ol></li></ol><p><span style="line-height: 1.4285;font-size: 14.0px;">Once you have extended the infrastructure with your tool, you will want to test it. For this test, you need your source codebase and some suitable output that your tool produced while analyzing the codebase:</span></p><ul><li>Build the SCALe database by using the program <code>
+      <span style="color: rgb(51,51,51);font-size: 10.0pt;"> <a href="Back-End-Script-Design_215846946.html#Back-EndScriptDesign-digest_diagnostics.py">digest_diagnostics.py</a> </span>
+    </code>. This script invokes your parser.</li><li>Give <span> <code>digest_diagnostics.py</code> </span>the outputs from running your tool as well as your tool's numeric ID. You can find more information here: <a href="Manual-Project-Creation_215846733.html">Manual Project Creation</a> <span style="color: rgb(0,51,102);font-family: &quot;Times New Roman&quot;;font-size: medium;"> <span style="line-height: 20.77px;">.</span> <span style="color: rgb(0,51,102);font-family: &quot;Times New Roman&quot;;font-size: medium;"><br/></span></span></li></ul><h2 style="margin-left: 30.0px;" id="AddingaTooltoSCALe-StaticAnalysisMetricTools">Static Analysis Metric Tools</h2><p>A new <strong>general code-metric static analysis tool</strong> can be added to SCALe by performing the following steps:</p><ol><li>Determine a schema for new database tables that will hold the new code metrics (one field for each metric)<ol><li>For the external.sqlite3 and exported databases, the new table should be named &quot;&lt;*&gt;Metrics&quot;, where &lt;*&gt; is a short text version of the toolname. For example, &quot;CCSMMetrics&quot; or &quot;LizardMetrics&quot;.</li><li>Enter that info in <a href="Database-Design_215846941.html">Database Design</a>, <a href="https://wiki-int.sei.cmu.edu/confluence/display/SCALe2/DB+Design+for+external.sqlite3" rel="nofollow">DB Design for external.sqlite3</a>, <a href="https://wiki-int.sei.cmu.edu/confluence/display/SCALe2/DB+Design+for+development.sqlite3" rel="nofollow">DB Design for development.sqlite3</a>, and <a href="https://wiki-int.sei.cmu.edu/confluence/display/SCALe2/DB+Design+for+per-project+SQLite+files+in+backup" rel="nofollow">DB Design for per-project SQLite files in backup</a></li></ol></li><li>Create a new web page about the new tool linked from <a href="Static-Analysis-Tools_215846701.html">Static Analysis Tools</a>. Each such page should contain the following:<ol><li>Instructions on how to run the tool such that it produces output that can be fed into SCALe (these instructions should consist of a single human-readable file; the file could be text, XML, or some other format)</li><li>Any operational information about the tool.</li></ol></li><li>The new tool needs a numeric ID; you will add the tool and ID to the <code>
+      <a href="Back-End-Script-Design_215846946.html#Back-EndScriptDesign-tools.org">tools.org</a>
+    </code> file. The id number should be unique and large, but under 100. Currently used metric IDs are 91-93. Use &quot;metric&quot; as the platform.</li><li><span>Design and implement a parser to create a SQL file from the new tool's output. The parser should be named <code>$TOOL2sql.py</code>, and it should follow the same conventions as the other <code>
+        <a href="Back-End-Script-Design_215846946.html#Back-EndScriptDesign-*2org.py">*2sql.py</a>
+      </code>scripts.</span></li></ol><p><span>Once you have extended the infrastructure with your tool, you will want to test it. For this test, you need your source codebase and some suitable output that your tool produced while analyzing the codebase:</span></p><ul><li>Build the SCALe database by using the program <code>
+      <span style="color: rgb(51,51,51);"> <a href="Back-End-Script-Design_215846946.html#Back-EndScriptDesign-digest_diagnostics.py">digest_diagnostics.py</a> </span>
+    </code>. This script invokes your parser.</li><li>Give <span> <code>digest_diagnostics.py</code> </span>the outputs from running your tool as well as your tool's numeric ID. You can find more information here: <a href="Manual-Project-Creation_215846733.html">Manual Project Creation</a><span style="color: rgb(0,51,102);"> <span>.</span> <span style="color: rgb(0,51,102);"><br/></span></span></li></ul><p><br/></p><hr/><p><span style="color: rgb(255,0,0);font-family: &quot;Times New Roman&quot;;font-size: medium;"> <span style="line-height: 20.77px;"> </span> </span> <a href="Database-Design_215846941.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="215846575.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Manual-Project-Creation_215846733.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p><p><span style="color: rgb(255,0,0);font-family: &quot;Times New Roman&quot;;font-size: medium;"> <span style="line-height: 20.77px;"> </span> </span></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

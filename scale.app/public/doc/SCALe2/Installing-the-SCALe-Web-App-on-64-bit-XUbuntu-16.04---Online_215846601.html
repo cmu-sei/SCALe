@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Installing the SCALe Web App on 64-bit XUbuntu 16.04 - Online</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Installing-SCALe_215846594.html">Installing SCALe</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Installing the SCALe Web App on 64-bit XUbuntu 16.04 - Online
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span>, last modified by <span class='editor'> Lori Flynn</span> on Jun 26, 2018
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>This section describes how to install the SCALe web app on 64-bit Ubuntu 16.04, Xenial Xerus.<strong>  </strong>These instructions make heavy use of the apt-get package manager and reference URLs on the web. Therefore, Internet access is required. </p><h2 id="InstallingtheSCALeWebAppon64-bitXUbuntu16.04-Online-SecurityNote">Security Note</h2><p>The SCALe web app is, by nature, a networked application. Other machines in the system talk to the web app over a network to upload the outputs and view the diagnostics. However, because of the sensitive nature of the data on this machine, it should not be accessible from the Internet. An Internet connection may be required to configure this machine initially, using the instructions below. However, we recommend that this web server, once operational, should be accessible only through an intranet.</p><h2 id="InstallingtheSCALeWebAppon64-bitXUbuntu16.04-Online-DocumentationConventions(Usingsudoorsu)forInstallationInstructions">Documentation Conventions (Using <code>sudo</code> or <code>su</code>) for Installation Instructions</h2><p>This documentation contains many code blocks that explain how to perform some action. These blocks are written using the Bash shell language. Because the syntax of different shells can vary, you may need to tweak the syntax if you use a different shell, such as csh. </p><p>Some commands must be run with root privileges. In code blocks, these commands are prepended <span>with the </span> <code>sudo</code> <span> command. If you get an error when running <code>sudo</code>, then you will need to execute these commands in an account that has administrator access. Alternatively, you can run these commands using a root account, in which case you do not need to prepend <code>sudo</code> to the command. If you use a proxy with your local user, you may need to use it for your <code>sudo</code> commands. You can do so with the -E flag as follows: <code>sudo</code> -E</span></p><h2 id="InstallingtheSCALeWebAppon64-bitXUbuntu16.04-Online-Instructions"><span>Instructions<br/></span></h2><ol><li><p>Ensure your source list is up to date. Then you must install a number of packages, summarized in this table:</p><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Package</th><th colspan="1" class="confluenceTh">Version String tested in the past (<u>not necessarily what you will get</u> in online install)</th></tr><tr><td class="confluenceTd"><p class="_mce_tagged_br"><code>build-essential</code></p></td><td colspan="1" class="confluenceTd"><p><code>12.1ubuntu2<br/></code></p></td></tr><tr><td class="confluenceTd"><p><code>sqlite3</code></p></td><td colspan="1" class="confluenceTd"><p><code>3.11.0-1ubuntu1<br/></code></p></td></tr><tr><td colspan="1" class="confluenceTd"><p><code>sqlite3-pcre</code></p></td><td colspan="1" class="confluenceTd"><p><code>0~git20070120091816+4229ecc-0ubuntu1</code></p></td></tr><tr><td class="confluenceTd"><p><code>ruby</code></p></td><td colspan="1" class="confluenceTd"><p><code>1:2.3.0+1<br/></code></p></td></tr><tr><td colspan="1" class="confluenceTd"><pre>ruby2.3-dev</pre></td><td colspan="1" class="confluenceTd"><br/></td></tr><tr><td colspan="1" class="confluenceTd"><p><code>rubygems-integration</code></p></td><td colspan="1" class="confluenceTd"><p><code>1.10</code></p></td></tr><tr><td colspan="1" class="confluenceTd"><p><code>python</code></p></td><td colspan="1" class="confluenceTd"><p><code>2.7.11-1</code></p></td></tr><tr><td colspan="1" class="confluenceTd"><p><code>libncurses5-dev</code></p></td><td colspan="1" class="confluenceTd"><p><code>6.0+20160213-1ubuntu1</code></p></td></tr><tr><td colspan="1" class="confluenceTd"><p><code>libssl-dev</code></p></td><td colspan="1" class="confluenceTd"><p><code>1.0.2g-1ubuntu4.10</code></p></td></tr><tr><td colspan="1" class="confluenceTd"><p><code>libsqlite3-dev</code></p></td><td colspan="1" class="confluenceTd"><p><code>3.11.0-1ubuntu1</code></p></td></tr></tbody></table></div><p>The following commands update your sources list and install all of these packages:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo apt-get update
+sudo apt-get install build-essential sqlite3 sqlite3-pcre ruby ruby2.3-dev rubygems-integration python libncurses5-dev libssl-dev libsqlite3-dev
+</pre>
+</div></div><p><strong>A Note on Versions</strong></p><p>It is possible the above command will install different versions of the packages than listed in the table.  For example, the package maintainer may release an update.  This may result in incorrect behavior in the SCALe web application.  To install a specific version of a particular package, use the following command.  The package name and version string should be drawn from the table above.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo apt-get install &lt;package_name&gt;=&lt;version_string&gt;</pre>
+</div></div></li></ol><ol><li><p>Next, you must download, build, and install GNU Global.  (This program is available in the Ubuntu repositories, but it is an older version.) The source is available from<span> </span> <img class="emoticon emoticon-light-on" src="images/icons/emoticons/lightbulb_on.png" data-emoticon-name="light-on" alt="(lightbulb)"/> <a href="http://www.gnu.org/software/global/download.html" class="external-link" rel="nofollow"> <span style="color: rgb(0,128,0);">http://www.gnu.org/software/global/download.html</span>.</a> You should be able to use these commands:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd $SCALE_HOME/scale.app
+wget http://tamacom.com/global/global-6.5.1.tar.gz
+tar -xzf global-6.5.1.tar.gz
+cd global-6.5.1
+./configure
+make
+sudo make install</pre>
+</div></div></li><li><p>Next, you need to install some &quot;gems.&quot;  Gem<em> </em>is a package manager for Ruby, which you installed in the previous step. Packages are called <em>gems</em> in this system. The following command installs the required gems:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo -E gem install json_pure bundler
+</pre>
+</div></div><p><strong>A Note on Versions</strong></p><p>It is possible the above command will install different versions of the gems than have been tested (version 1.8.3 of<code> json_pure</code> and version 1.8.3 of <code>bundler</code>).  For example, the gem maintainer may release an update.  This may result in incorrect behavior in the SCALe web application. To install a specific version of a particular gem, use the following command. </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo gem install &lt;package_name&gt; -v &lt;version_number&gt;
+</pre>
+</div></div><p><span><br/></span></p></li><li><p><span>If you have not already extracted the SCALe web app software as described below, you must do so now.  The SCALe web app is provided in a tarball archive, referred to as </span> <code>&lt;scale_webapp_archive&gt;.tgz</code> <span> below. This archive should be extracted on your web app server in a location of your choosing. From here forward, we refer to this location as </span> <code>SCALE_HOME</code> <span>. You may find it useful to define this environment variable in your system to point to the root of your SCALe installation. Extracting the archive might look something like this (note 1. the following commands do <strong>not </strong>use sudo; 2. you should substitute your own path to the folder that scale.app will be installed to where it says &quot;/location/of/SCALe/install&quot; AND no slash is needed at the end of this path AND you should NOT have scale.app at the end of this path; and 3. you should substitute your own path to the scale webapp tarball (if you are using that), in the last command):</span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">export SCALE_HOME=&quot;/location/of/SCALe/install&quot;
+mkdir -p $SCALE_HOME
+cd $SCALE_HOME
+tar xzf /location/of/&lt;scale_webapp_archive&gt;.tgz</pre>
+</div></div><p><span> <br/> </span></p></li><li><p>Next, run the following commands to install the remaining web app dependencies and create the initial database. (Note the following commands do <strong>not </strong>use sudo.)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd $SCALE_HOME/scale.app
+bundle install --path vendor/bundle/
+bundle exec rake db:migrate</pre>
+</div></div><p><span style="color: rgb(23,43,77);text-decoration: none;"> </span></p></li><li><p><a style="text-decoration: none;text-align: left;" href="https://wiki-int.sei.cmu.edu/confluence/display/SCALe2/Tips+for+SCALe+performance+improvement" rel="nofollow">Tips for SCALe performance improvement</a></p><hr/><p><a href="Installing-SCALe_215846594.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="215846575.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> </p><p><br/></p></li></ol>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846601/219809950.sh">scale-packages.sh</a> (text/plain)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846601/222594369.txt">scale-packages.txt</a> (text/plain)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846601/219809954.txt">scale-packages.txt</a> (text/plain)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Jun 28, 2018 11:38</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

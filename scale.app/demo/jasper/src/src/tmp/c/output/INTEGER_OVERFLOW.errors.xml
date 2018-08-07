@@ -1,0 +1,426 @@
+<error>
+<checker>INTEGER_OVERFLOW</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jp2/jp2_cod.c</file>
+<function>jp2_getint</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;i &lt; m&quot;}}</description>
+<line>889</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>loop_end</tag>
+<description>{CovLStr{v1}{Reached end of loop}}</description>
+<line>894</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;s&quot;}}</description>
+<line>896</line>
+<path_event></path_event>
+</event>
+<event>
+<main>true</main>
+<tag>overflow_const</tag>
+<description>{CovLStr{v1}{Add  operation overflows on operands {0} and {1}, whose values are unsigned constants, {2} and {3}, respectively}{&quot;~v&quot;}{&quot;1U&quot;}{11111111111111111111111111111111}{00000000000000000000000000000001}}</description>
+<line>899</line>
+</event>
+<extra></extra>
+<subcategory>const_overflow</subcategory>
+</error>
+<error>
+<checker>INTEGER_OVERFLOW</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_seq.c</file>
+<function>jas_seq2d_input</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%d %d&quot;, &amp;xoff, &amp;yoff) != 2&quot;}}</description>
+<line>391</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>392</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%d %d&quot;, &amp;numcols, &amp;numrows) != 2&quot;}}</description>
+<line>393</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>394</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;!(matrix = jas_seq2d_create(xoff, yoff, xoff + numcols, yoff + numrows))&quot;}}</description>
+<line>395</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>396</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;matrix-&gt;numrows_ != numrows&quot;}}</description>
+<line>398</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;i &lt; matrix-&gt;numrows_&quot;}}</description>
+<line>403</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;j &lt; matrix-&gt;numcols_&quot;}}</description>
+<line>404</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%ld&quot;, &amp;x) != 1&quot;}}</description>
+<line>405</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>408</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>410</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>404</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;j &lt; matrix-&gt;numcols_&quot;}}</description>
+<line>404</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%ld&quot;, &amp;x) != 1&quot;}}</description>
+<line>405</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>408</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>410</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>404</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;j &lt; matrix-&gt;numcols_&quot;}}</description>
+<line>404</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>loop_end</tag>
+<description>{CovLStr{v1}{Reached end of loop}}</description>
+<line>410</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>411</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>403</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;i &lt; matrix-&gt;numrows_&quot;}}</description>
+<line>403</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;j &lt; matrix-&gt;numcols_&quot;}}</description>
+<line>404</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%ld&quot;, &amp;x) != 1&quot;}}</description>
+<line>405</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>408</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>410</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>404</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;j &lt; matrix-&gt;numcols_&quot;}}</description>
+<line>404</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%ld&quot;, &amp;x) != 1&quot;}}</description>
+<line>405</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>408</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>410</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>404</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;j &lt; matrix-&gt;numcols_&quot;}}</description>
+<line>404</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>loop_end</tag>
+<description>{CovLStr{v1}{Reached end of loop}}</description>
+<line>410</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>411</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>403</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;i &lt; matrix-&gt;numrows_&quot;}}</description>
+<line>403</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>loop_end</tag>
+<description>{CovLStr{v1}{Reached end of loop}}</description>
+<line>411</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>overflow</tag>
+<description>{CovLStr{v1}{Add operation overflows on operands {0} and {1}.}{&quot;xoff&quot;}{&quot;numcols&quot;}}{CovLStr{v1}{ Example values for operands: {0} = {1}, {2} = {3}.}{&quot;xoff&quot;}{01000000000000000000000000000000}{&quot;numcols&quot;}{01000000000000000000000000000000}}</description>
+<line>395</line>
+</event>
+<event>
+<tag>overflow_assign</tag>
+<description>{CovLStr{v1}{Assigning overflowed or truncated value (or a value computed from an overflowed or a truncated value) to {0}.}{&quot;matrix&quot;}}</description>
+<line>395</line>
+</event>
+<event>
+<main>true</main>
+<tag>overflow_sink</tag>
+<description>{CovLStr{v1}{Overflowed or truncated value (or a value computed from an overflowed or truncated value) {0} used as return value.}{&quot;matrix&quot;}}</description>
+<line>413</line>
+</event>
+<extra></extra>
+<subcategory>return_value_error</subcategory>
+</error>
+<error>
+<checker>INTEGER_OVERFLOW</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_seq.c</file>
+<function>jas_seq2d_input</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%d %d&quot;, &amp;xoff, &amp;yoff) != 2&quot;}}</description>
+<line>391</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>392</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;fscanf(in, &quot;%d %d&quot;, &amp;numcols, &amp;numrows) != 2&quot;}}</description>
+<line>393</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>394</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>overflow</tag>
+<description>{CovLStr{v1}{Add operation overflows on operands {0} and {1}.}{&quot;yoff&quot;}{&quot;numrows&quot;}}{CovLStr{v1}{ Example values for operands: {0} = {1}, {2} = {3}.}{&quot;yoff&quot;}{01000000000000000000000000000000}{&quot;numrows&quot;}{01000000000000000000000000000000}}</description>
+<line>395</line>
+</event>
+<event>
+<main>true</main>
+<tag>overflow_sink</tag>
+<description>{CovLStr{v1}{Overflowed or truncated value (or a value computed from an overflowed or truncated value) {0} used as critical argument to function.}{&quot;yoff + numrows&quot;}}</description>
+<line>395</line>
+<model_ptr>
+<module>security</module>
+<property>tainted_data_sink</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_seq.c</file>
+<function>jas_seq2d_create</function>
+<key>d7687e5c3f42bf16ffd709590728b54b</key>
+<id>0</id>
+</model_ptr>
+</event>
+<extra></extra>
+<subcategory>critical_argument</subcategory>
+</error>

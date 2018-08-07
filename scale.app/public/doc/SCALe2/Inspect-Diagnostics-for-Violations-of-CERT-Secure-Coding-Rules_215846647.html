@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Inspect Diagnostics for Violations of CERT Secure Coding Rules</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe-Quick-Start-Demo-for-Auditors_215846628.html">SCALe Quick Start Demo for Auditors</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Inspect Diagnostics for Violations of CERT Secure Coding Rules
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span>, last modified by <span class='editor'> Lori Flynn</span> on Jan 16, 2018
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>This step involves inspecting diagnostics for violations of specific conditions. In this example, the conditions are CERT Secure Coding Rules. </p><h2 id="InspectDiagnosticsforViolationsofCERTSecureCodingRules-PrerequisitesforThisStep">Prerequisites for This Step</h2><ol><li>Access to a SCALe web app (you need the URL of the application plus a username and password, obtainable from your SCALe administrator)</li><li>a supported web browser (currently Chrome, Firefox, or Internet Explorer)</li><li>The dos2unix diagnostics from Rosecheckers uploaded to the web app (as done in the <a href="Upload-Source-Code-and-Analysis-Outputs_215846637.html">previous step</a>)</li></ol><h2 id="InspectDiagnosticsforViolationsofCERTSecureCodingRules-DiagnosticViewer">Diagnostic Viewer</h2><p>After creating the dos2unix project, you are redirected to the diagnostic viewer page. This page allows you to view all of the diagnostics produced by the static analysis tools. You can filter the diagnostics using various criteria. Information pertinent to auditing is provided for each diagnostic. For example, the location of the diagnostic in the source code is provided. The source code associated with each diagnostic can also be viewed in the browser. A link is provided to the CERT Secure Coding rule associated with the diagnostic. The task of the auditor is to determine if the diagnostic is indeed a violation of this Secure Coding rule. </p><p>Here is a graphical overview of the diagnostic viewer page.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="1200" src="attachments/215846647/219808703.jpg" data-image-src="attachments/215846647/219808703.jpg" data-unresolved-comment-count="0" data-linked-resource-id="219808703" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="updated_image.jpg" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p><br/></p><p>The <strong>Diagnostic Filters </strong>toolbar allows you to filter the displayed diagnostics by various criteria. In the Diagnostic Filters section, <span style="color: rgb(255,0,0);">select the Fused View &quot;On&quot;, for efficient meta-alert auditing</span>.</p><p>The <strong>Diagnostic List</strong> section displays the diagnostics. The meta-alert row for a fused alert is shown with a yellow-colored background, and in the ID column the meta-alert ID is displayed. When editable fields (or the hyperlinked line number) are selected, the fused alert expands so the separate alerts show (with aqua-colored background) in rows below the meta-alert row and those rows show the diagnostic ID in the ID column. Separate rows of fused alerts may be otherwise identical but contain different secondary message sets (visible in popup windows if the user selects the hyperlinked &quot;More&quot; or &quot;Secondary Message Set&quot; text). Meta-alerts that contain only a single unfused alert have a white-colored background, do not expand, and show the diagnostic ID in the ID column.  </p><p>The <strong>Source Code Viewer</strong> section displays the code associated with a given meta-alert (a single alert or fused alerts). <a href="The-SCALe-Web-App_215846603.html#TheSCALeWebApp-diagprops">This table</a> describes the fields displayed in the Diagnostic List section (not all of these are visible in the screenshot above).</p><h2 id="InspectDiagnosticsforViolationsofCERTSecureCodingRules-ExampleAuditingofDiagnostics">Example Auditing of Diagnostics</h2><p>Audit determinations encompass primary verdicts and supplemental verdicts, and it is often useful to enter comments in a notes field. The auditing lexicon and auditing rules that should be used are described in our IEEE Secure Development paper, <img class="emoticon emoticon-light-on" src="images/icons/emoticons/lightbulb_on.png" data-emoticon-name="light-on" alt="(lightbulb)"/> <a href="http://resources.sei.cmu.edu/library/asset-view.cfm?assetid=484185" class="external-link" rel="nofollow">Static Analysis Alert Audits: Lexicon &amp; Rules</a>. That paper is attached to this manual: <a href="attachments/215846647/220726288.pdf" data-linked-resource-id="220726288" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="audit-rules-lex-secdev-final-ieee.pdf" data-nice-type="PDF Document" data-linked-resource-content-type="application/pdf" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4">audit-rules-lex-secdev-final-ieee.pdf</a>.</p><p>Let's look at some diagnostics from dos2unix and decide whether they violate a CERT Secure Coding rule. If the answer is yes, we've found a <strong>true positive</strong>. If the answer is no, we've found a <strong>false positive</strong>.</p><h3 id="InspectDiagnosticsforViolationsofCERTSecureCodingRules-AuditExample1">Audit Example 1</h3><p>In the filters section, set the &quot;Rule&quot; field to STR31-C, then click the <strong>Filter</strong> button.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" width="764" src="attachments/215846647/215846654.png" data-image-src="attachments/215846647/215846654.png" data-unresolved-comment-count="0" data-linked-resource-id="215846654" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-9 14:13:47.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>This filter should produce 10 diagnostics, shown below. We will focus on the diagnostic that occurs on line 460. (<span style="color: rgb(0,0,255);">NOTE: the screenshots below are slightly outdated and do not show all the current fields like Notes or Supplemental, which are shown in the large graphical overview figure above</span>.)</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="470" width="975" src="attachments/215846647/215846653.png" data-image-src="attachments/215846647/215846653.png" data-unresolved-comment-count="0" data-linked-resource-id="215846653" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-9 14:15:13.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>STR31-C is a CERT Secure Coding rule that states: &quot;Guarantee that storage for strings has sufficient space for character data and the null terminator.&quot; If a buffer is used to store a string that exceeds its bounds, the program may be susceptible to a buffer overflow attack. Let's inspect the source code to determine if this diagnostic is a true positive. Click the hyperlinked line number (460) from the diagnostic. The source code viewer will show the suspect source code line, highlighted in yellow.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="167" width="601" src="attachments/215846647/215846651.png" data-image-src="attachments/215846647/215846651.png" data-unresolved-comment-count="0" data-linked-resource-id="215846651" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-9 14:21:2.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>A call to the function <code>strcpy</code> occurs on line 460, storing the string constant <code>&quot;dos2unix&quot;</code> into the buffer named <code>progname</code>. Is the buffer large enough to hold this string and the accompanying null terminator? We can see from its declaration on line 451 that the <code>progname</code> buffer can store up to 9 elements. The string <code>&quot;dos2unix&quot;</code> has only 8 characters, therefore this string plus the null terminator perfectly fit into the buffer. Therefore, this diagnostic is a false positive. You should set the <strong>Verdict</strong> of the diagnostic to <strong>False</strong>, in the diagnostic list, by clicking the Verdict field and selecting <strong>False</strong>. The first click converts the raw verdict text into a drop-down selector.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="86" width="478" src="attachments/215846647/215846650.png" data-image-src="attachments/215846647/215846650.png" data-unresolved-comment-count="0" data-linked-resource-id="215846650" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-9 14:25:11.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>The next click activates the drop-down selector. You then select the appropriate verdict from the drop-down. (<span style="color: rgb(0,0,255);"><strong>NOTE: screenshot below is out of date. Options are actually:</strong> Unknown, Complex, Dependent, False, True</span>)</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="176" width="478" src="attachments/215846647/215846649.png" data-image-src="attachments/215846647/215846649.png" data-unresolved-comment-count="0" data-linked-resource-id="215846649" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-9 14:26:17.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>The diagnostic now has the desired verdict.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="85" width="476" src="attachments/215846647/215846648.png" data-image-src="attachments/215846647/215846648.png" data-unresolved-comment-count="0" data-linked-resource-id="215846648" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-9 14:26:49.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><h3 id="InspectDiagnosticsforViolationsofCERTSecureCodingRules-AuditExample2">Audit Example 2</h3><p>Let's look at another diagnostic. In the filter section, set the &quot;Rule&quot; field to EXP34-C. Then click the <strong>Filter</strong> button.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="80" width="655" src="attachments/215846647/215846660.png" data-image-src="attachments/215846647/215846660.png" data-unresolved-comment-count="0" data-linked-resource-id="215846660" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-8 19:35:27.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>You should see the following three diagnostics. We will focus on the diagnostic that occurs on line 489. (<span style="color: rgb(0,0,255);">NOTE: screenshot below does not show all the current fields like Notes or Supplemental, which are shown in the large graphical overview figure above</span>.)</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="168" width="851" src="attachments/215846647/215846658.png" data-image-src="attachments/215846647/215846658.png" data-unresolved-comment-count="0" data-linked-resource-id="215846658" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-8 19:36:53.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>CERT Secure Coding rule EXP34-C states: &quot;Do not dereference null pointers.&quot; Dereferencing a null pointer is undefined behavior, and may result in abnormal program termination. In rare cases, more serious exploits are possible.</p><p>Let's look at the source code for this diagnostic by clicking the hyperlinked line number, 489.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="65" width="589" src="attachments/215846647/215846657.png" data-image-src="attachments/215846647/215846657.png" data-unresolved-comment-count="0" data-linked-resource-id="215846657" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-8 19:38:39.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p>The function <code>malloc</code> is used to dynamically allocate a chunk of memory for a struct. A pointer to this memory is stored in a local variable, <code>pFlag</code>. This pointer is then dereferenced to initialize the fields of the struct. However, a call to <code>malloc</code> may return a null pointer, in the case when memory allocation fails. The code does not check for this possibility and may result in a null pointer dereference. Therefore, this diagnostic is a true positive. You should set the <strong>Verdict</strong> of the diagnostic to <strong>True</strong> in the diagnostic viewer. (<span style="color: rgb(0,0,255);">NOTE: screenshot below does not show all the current fields like Notes or Supplemental, which are shown in the large graphical overview figure above</span>.)</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="64" width="800" src="attachments/215846647/215846656.png" data-image-src="attachments/215846647/215846656.png" data-unresolved-comment-count="0" data-linked-resource-id="215846656" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2017-8-8 19:44:2.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846647" data-linked-resource-container-version="4"></span></p><p> </p><hr/><p><a href="Upload-Source-Code-and-Analysis-Outputs_215846637.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="SCALe-Quick-Start-Demo-for-Auditors_215846628.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Export-Analysis-Results-from-the-Web-Application_215846685.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846648.png">image2017-8-9 14:26:49.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846649.png">image2017-8-9 14:26:17.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846650.png">image2017-8-9 14:25:11.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846651.png">image2017-8-9 14:21:2.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846652.png">image2017-8-9 14:18:0.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846653.png">image2017-8-9 14:15:13.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846654.png">image2017-8-9 14:13:47.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846655.png">image2017-8-9 14:10:32.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846656.png">image2017-8-8 19:44:2.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846657.png">image2017-8-8 19:38:39.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846658.png">image2017-8-8 19:36:53.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846659.png">image2017-8-8 19:36:6.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846660.png">image2017-8-8 19:35:27.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846661.png">image2017-8-8 19:27:32.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846662.png">image2017-8-8 19:24:50.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846663.png">image2017-8-8 19:22:0.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846664.png">image2017-8-8 19:18:55.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846665.png">Untitled.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846666.png">click1.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846667.png">click2.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846668.png">click3.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846669.png">image2015-7-28 19:41:36.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846670.png">image2015-7-28 19:38:15.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846671.png">image2015-7-28 19:28:40.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846672.png">image2015-7-28 19:27:32.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846673.png">image2015-7-28 19:26:39.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846674.png">image2015-7-28 19:25:45.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846675.png">image2015-7-28 19:15:30.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846676.png">image2015-7-28 19:8:29.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846677.png">image2015-7-28 19:7:4.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846678.png">image2015-7-28 16:27:4.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846679.png">image2015-7-28 16:4:59.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846680.png">image2015-7-28 16:4:22.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846681.png">image2015-7-28 16:2:45.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846682.png">image2015-7-28 15:58:46.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846683.png">image2015-7-28 15:54:28.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/215846684.png">image2015-7-28 10:56:48.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/219808703.jpg">updated_image.jpg</a> (image/jpeg)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846647/220726288.pdf">audit-rules-lex-secdev-final-ieee.pdf</a> (application/pdf)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

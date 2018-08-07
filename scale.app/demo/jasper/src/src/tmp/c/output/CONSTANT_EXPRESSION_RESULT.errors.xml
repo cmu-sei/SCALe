@@ -1,0 +1,30 @@
+<error>
+<checker>CONSTANT_EXPRESSION_RESULT</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_cs.c</file>
+<function>jpc_qcx_getcompparms</function>
+<score>100</score>
+<ordered>false</ordered>
+<event>
+<main>true</main>
+<tag>missing_parentheses</tag>
+<description>{CovLStr{v1}{{0} is always {1} regardless of the values of its operands.}{(tmp &gt;&gt; 3) &amp; -32 /* ~0x1f */}{0}}{CovLStr{v1}{This occurs as the logical operand of '!'.}}{CovLStr{v1}{Did you intend to apply '{0}' to {1} and {2}?}{&amp;}{3}{-32 /* ~0x1f */}}{CovLStr{v1}{If so, parentheses would be required to force this interpretation.}}</description>
+<line>992</line>
+</event>
+<extra>tmp</extra>
+<subcategory>missing_parentheses</subcategory>
+</error>
+<error>
+<checker>CONSTANT_EXPRESSION_RESULT</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jp2/jp2_cod.c</file>
+<function>jp2_box_put</function>
+<score>100</score>
+<ordered>false</ordered>
+<event>
+<main>true</main>
+<tag>result_independent_of_operands</tag>
+<description>{CovLStr{v1}{{0} is always false regardless of the values of its operands.}{box-&gt;len &gt;= (4294967296ULL /* (uint_fast64_t)1 &lt;&lt; 32 */)}}{CovLStr{v1}{This occurs as a value.}}</description>
+<line>493</line>
+</event>
+<extra>box,len</extra>
+<subcategory>result_independent_of_operands</subcategory>
+</error>

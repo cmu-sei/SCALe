@@ -1,0 +1,19 @@
+<error>
+<checker>NO_EFFECT</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/mif/mif_cod.c</file>
+<function>mif_getc</function>
+<score>100</score>
+<ordered>false</ordered>
+<event>
+<tag>no_effect_deref</tag>
+<description>{CovLStr{v1}{The dereference in {0} has no effect.}{&quot;(int)*in-&gt;ptr_++&quot;}}</description>
+<line>710</line>
+</event>
+<event>
+<tag>no_effect_deref</tag>
+<description>{CovLStr{v1}{The dereference in {0} has no effect.}{&quot;*in-&gt;ptr_++&quot;}}</description>
+<line>710</line>
+</event>
+<extra></extra>
+<subcategory>no_effect_deref</subcategory>
+</error>

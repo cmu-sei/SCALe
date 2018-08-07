@@ -1,0 +1,7 @@
+Copyright (c) 2007-2018 Carnegie Mellon University. All Rights Reserved. See COPYRIGHT file for details.
+
+| RULE00-JS | Dynamic Code Evaluation: Code Injection    | High   | Unlikely | Low | 12 | 1 |
+| RULE01-JS | Insecure Randomness                        | Medium | Unlikely | Low |  8 | 2 |
+| RULE02-JS | JavaScript Hijacking: Ad Hoc Ajax          | Low    | Unlikely | Low |  4 | 3 |
+| RULE03-JS | JavaScript Hijacking: Vulnerable Framework | Low    | Unlikely | Low |  4 | 3 |
+| RULE04-JS | Password Management: Password in Comment   | Low    | Unlikely | Low |  4 | 3 |

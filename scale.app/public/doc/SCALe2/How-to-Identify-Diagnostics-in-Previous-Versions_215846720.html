@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : How to Identify Diagnostics in Previous Versions</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Audit-Instructions_215846700.html">Audit Instructions</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : How to Identify Diagnostics in Previous Versions
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span>, last modified by <span class='editor'> Lori Flynn</span> on Jan 12, 2018
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div>The instructions on this page apply for re-audits. A typical re-audit scenario involves performing an initial audit on a codebase and later re-auditing a new version of the codebase. The re-audit process leverages the audit work performed on the old codebase while doing a thorough audit of the new codebase. When analyzing any diagnostic in the new codebase (from a <a href="CSV-file_215846721.html">CSV</a>, <a href="Emacs-ORG-files_215846722.html">ORG</a>, or <a href="ORG-Dump-files_215846723.html">ORG Dump </a>file), you should know if the diagnostic existed in the old codebase and that diagnostic's previous verdict.</div><div>This helps to answer critical questions: Were all the previously-cited problems fixed? Were fixes only done for diagnostics marked <code>True</code>, and diagnostics marked with other determinations (e.g., <code>Ignored</code>) were ignored? Was anything changed in the code? If yes, were new problems introduced into the code?</div><div>This scenario assumes you have the following:</div><div><ul><li>source for the codebase, old version</li><li>source for the codebase, new version</li><li>the SCALe database from the old audit</li><li>the (incomplete) SCALe database from the new audit (This means that you need to have run all analysis tools and built a database, manually or via the web app. But you do not have to audit any diagnostics in the new codebase. The web app can provide the database for any audit.)</li></ul></div><div>The goal of the re-auditing process is to fill in the &quot;previous verdict&quot; field for every diagnostic in the new database. The field should contain the verdicts from the old database.<span style="line-height: 1.4285;"> <br/> </span></div><div><ul><li><span style="line-height: 1.4285;">Generate the patch from the old codebase to the new, using the following command:</span> </li></ul></div><div><p> </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">diff -E -b -r &lt;old-source&gt; &lt;new-source&gt; 2&gt;&amp;1 &gt; codebase.patch</pre>
+</div></div><ul><li><span>Use the resulting patch file to update the line numbers in the old database. The <code>patch_links.py</code> program lives in the SCALe app's <code>scripts</code> directory:</span></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">patch_links.py codebase.patch old_database.sqlite</pre>
+</div></div><p>This modifies the <code>old_database.sqlite</code> file; you may wish to make a backup copy before running <code>patch_links.py</code>.</p><ul><li>Use <code>transfer_verdicts.py</code> (again from the <code>scripts</code> directory to copy the verdicts from the [modified] old database to the 'previous' fields in the new database:</li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">transfer_verdicts.py old_database.sqlite new_database.sqlite</pre>
+</div></div><p>That's it! </p><p> </p></div><p><a href="Static-Analysis-Tools_215846701.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Audit-Instructions_215846700.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="CSV-file_215846721.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

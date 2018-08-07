@@ -1,0 +1,213 @@
+timer                                            ms      calls
+--------------------------------------------------------------
+sequential initialization                        83          2
+  Looking for translation units                   2          1
+  Computing links for translation units          27          1
+  xfer symbol cache                               2          1
+  Computing virtual overrides                     2          1
+  Computing callgraph                            11          1
+  Topologically sorting functions                24          1
+  (left over)                                    15
+Computing node costs                             59          1
+Analysis run                                 372732          1
+  loadFromEmit                                 9425       2929
+    LOCK_ORDER                                  154        732
+    LOCK_FINDER                                 144        732
+  CHECKED_RETURN_STAT                             0          1
+  ADDR_ARG_STAT                                   0          1
+  concurrency_DERIVERS                            0          1
+    LOCK_ALIAS                                    0          1
+  LOCK_ORDER                                      0          1
+    LOCK_ORDER                                    0          1
+  LOCK_FINDER                                     0          1
+  VIRTUAL_DTOR                                    0        733
+    VIRTUAL_DTOR                                  0          1
+  generic_DERIVERS                                0          1
+  ptr_arith_DERIVERS                              0          1
+  security_DERIVERS                               0          1
+  stack_use_DERIVERS                              0          1
+  uninit_DERIVERS                                 0          1
+  exceptions_DERIVERS                             0          1
+  OVERRUN_SYMBOLIC                                0          1
+  ARRAY_VS_SINGLETON                              0          1
+  ASSERT_SIDE_EFFECT                              0          1
+  BAD_ALLOC_ARITHMETIC                            0          1
+  BAD_ALLOC_STRLEN                                0          1
+  BAD_COMPARE                                     0          1
+  BAD_FREE                                        0          1
+  BAD_SIZEOF                                      0          1
+  CHAR_IO                                         0          1
+  CONSTANT_EXPRESSION_RESULT                      0          1
+  DEADCODE                                        0          1
+  DELETE_VOID                                     0          1
+  USE_AFTER_FREE                                  0          1
+  EVALUATION_ORDER                                0          1
+  FORWARD_NULL                                    0          1
+  INFINITE_LOOP                                   0          1
+    INFINITE_LOOP                                 0          1
+  MISSING_BREAK                                   0          1
+    MISSING_BREAK                                 0          1
+  MISSING_RETURN                                  0          1
+  NEGATIVE_RETURNS                                0          1
+  NO_EFFECT                                       0          1
+  NULL_RETURNS                                    0          1
+  OVERRUN_DYNAMIC                                 0          1
+  OVERRUN_STATIC                                  0          1
+  READLINK                                        0          1
+  RESOURCE_LEAK                                   0          1
+  RETURN_LOCAL                                    0          1
+  REVERSE_NEGATIVE                                0          1
+  REVERSE_INULL                                   0          1
+    REVERSE_INULL                                 0          1
+  SIGN_EXTENSION                                  0          1
+  SIZECHECK                                       0          1
+  SIZEOF_MISMATCH                                 0          1
+  STRAY_SEMICOLON                                 0          1
+  STREAM_FORMAT_STATE                             0          1
+  UNINIT                                          0          1
+  UNREACHABLE                                     0          1
+  VARARGS                                         0          1
+  CTOR_DTOR_LEAK                                  0          1
+  DELETE_ARRAY                                    0          1
+  INVALIDATE_ITERATOR                             0          1
+  PASS_BY_VALUE                                   0          1
+  UNCAUGHT_EXCEPT                                 0          1
+  UNINIT_CTOR                                     0          1
+  WRAPPER_ESCAPE                                  0          1
+  UNUSED_VALUE                                    0          1
+  CHECKED_RETURN                                  0          1
+  ORDER_REVERSAL                                  0          1
+  LOCK                                            0          1
+  ATOMICITY                                       0          1
+  MISSING_LOCK                                    0          1
+  SLEEP                                           0          1
+  TAINTED_SCALAR                                  0          1
+  TAINTED_STRING                                  0          1
+  STRING_SIZE                                     0          1
+  STRING_NULL                                     0          1
+  STRING_OVERFLOW                                 0          1
+  BUFFER_SIZE                                     0          1
+  CHROOT                                          0          1
+  OPEN_ARGS                                       0          1
+  SECURE_TEMP                                     0          1
+  TOCTOU                                          0          1
+  COPY_PASTE_ERROR                                0          1
+  DIVIDE_BY_ZERO                                  0          1
+    NOTEQUAL_DPP                                  0          1
+    CONSTANT_OPP                                  0          1
+    INTERVAL_OPP                                  0          1
+  INCOMPATIBLE_CAST                               0          1
+    INCOMPATIBLE_CAST                             0          1
+  INTEGER_OVERFLOW                                0          1
+  MISMATCHED_ITERATOR                             0          1
+  MIXED_ENUMS                                     0          1
+  OVERRUN                                         0          1
+    NOTEQUAL_DPP                                  0          2
+    CONSTANT_OPP                                  0          2
+    INTERVAL_OVERRUN                              0          2
+  OVERFLOW_BEFORE_WIDEN                           0          1
+  SECURE_CODING                                   0          1
+  STACK_USE                                       0          1
+    STACK_USE                                     0          1
+types/warning pass                               39          1
+
+activity                                         ms      calls
+--------------------------------------------------------------
+CHECKED_RETURN_STAT                               0          1
+ADDR_ARG_STAT                                     0          1
+LOCK_ORDER                                      154        734
+LOCK_FINDER                                     144        733
+ARRAY_VS_SINGLETON                                0          1
+ASSERT_SIDE_EFFECT                                0          1
+BAD_ALLOC_ARITHMETIC                              0          1
+BAD_ALLOC_STRLEN                                  0          1
+BAD_COMPARE                                       0          1
+BAD_FREE                                          0          1
+BAD_SIZEOF                                        0          1
+CHAR_IO                                           0          1
+CONSTANT_EXPRESSION_RESULT                        0          1
+DEADCODE                                          0          1
+DELETE_VOID                                       0          1
+USE_AFTER_FREE                                    0          1
+EVALUATION_ORDER                                  0          1
+FORWARD_NULL                                      0          1
+INFINITE_LOOP                                     0          2
+MISSING_BREAK                                     0          2
+MISSING_RETURN                                    0          1
+NEGATIVE_RETURNS                                  0          1
+NO_EFFECT                                         0          1
+NULL_RETURNS                                      0          1
+NOTEQUAL_DPP                                      0          3
+CONSTANT_OPP                                      0          3
+INTERVAL_OPP                                      0          1
+OVERRUN_DYNAMIC                                   0          1
+OVERRUN_STATIC                                    0          1
+READLINK                                          0          1
+RESOURCE_LEAK                                     0          1
+RETURN_LOCAL                                      0          1
+REVERSE_NEGATIVE                                  0          1
+REVERSE_INULL                                     0          2
+SIGN_EXTENSION                                    0          1
+SIZECHECK                                         0          1
+SIZEOF_MISMATCH                                   0          1
+STRAY_SEMICOLON                                   0          1
+STREAM_FORMAT_STATE                               0          1
+UNINIT                                            0          1
+UNREACHABLE                                       0          1
+VARARGS                                           0          1
+CTOR_DTOR_LEAK                                    0          1
+DELETE_ARRAY                                      0          1
+INVALIDATE_ITERATOR                               0          1
+PASS_BY_VALUE                                     0          1
+UNCAUGHT_EXCEPT                                   0          1
+UNINIT_CTOR                                       0          1
+WRAPPER_ESCAPE                                    0          1
+UNUSED_VALUE                                      0          1
+CHECKED_RETURN                                    0          1
+ORDER_REVERSAL                                    0          1
+LOCK                                              0          1
+ATOMICITY                                         0          1
+MISSING_LOCK                                      0          1
+SLEEP                                             0          1
+TAINTED_SCALAR                                    0          1
+TAINTED_STRING                                    0          1
+STRING_SIZE                                       0          1
+STRING_NULL                                       0          1
+STRING_OVERFLOW                                   0          1
+BUFFER_SIZE                                       0          1
+CHROOT                                            0          1
+OPEN_ARGS                                         0          1
+SECURE_TEMP                                       0          1
+TOCTOU                                            0          1
+COPY_PASTE_ERROR                                  0          1
+DIVIDE_BY_ZERO                                    0          1
+INCOMPATIBLE_CAST                                 0          2
+INTEGER_OVERFLOW                                  0          1
+MISMATCHED_ITERATOR                               0          1
+MIXED_ENUMS                                       0          1
+INTERVAL_OVERRUN                                  0          2
+OVERRUN                                           0          1
+OVERFLOW_BEFORE_WIDEN                             0          1
+VIRTUAL_DTOR                                      0        734
+SECURE_CODING                                     0          1
+STACK_USE                                         0          2
+OVERRUN_SYMBOLIC                                  0          1
+LOCK_ALIAS                                        0          1
+concurrency_DERIVERS                              0          1
+generic_DERIVERS                                  0          1
+ptr_arith_DERIVERS                                0          1
+security_DERIVERS                                 0          1
+stack_use_DERIVERS                                0          1
+uninit_DERIVERS                                   0          1
+exceptions_DERIVERS                               0          1
+sequential initialization                        83          2
+Looking for translation units                     2          1
+Computing links for translation units            27          1
+xfer symbol cache                                 2          1
+Computing virtual overrides                       2          1
+Computing callgraph                              11          1
+Topologically sorting functions                  24          1
+Computing node costs                             59          1
+Analysis run                                 372732          1
+loadFromEmit                                   9425       2929
+types/warning pass                               39          1

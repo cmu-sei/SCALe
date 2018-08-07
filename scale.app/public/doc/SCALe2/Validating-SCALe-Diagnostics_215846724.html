@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Validating SCALe Diagnostics</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Audit-Instructions_215846700.html">Audit Instructions</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Validating SCALe Diagnostics
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span>, last modified by <span class='editor'> Lori Flynn</span> on Jan 12, 2018
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>A couple of alternatives for procedures that can be used for auditing SCALe diagnostics are as follows:</p><p>1. <strong>Audit all there's time/effort for:</strong></p><ul><li>List (prioritize) fused meta-alerts according to a value such as priority or confidence. Filter for conditions and/or directories your particular organization cares about most, if that is appropriate.</li><li>Examine each meta-alert (with unique condition, filepath, and line number) sequentially, starting from the top shown in the list.</li><li>For each meta-alert:<ul><li>Examine all the fused alerts' messages and secondary message.</li><li>Set the meta-alert's verdict (e.g., <code>True</code> or <code>False</code>), supplemental verdict(s), Note field text (as needed), and flag (as needed).</li></ul></li><li>Proceed to the next meta-alert.</li></ul><p>2. <strong>Audit via sampling method: </strong>For each condition (e.g., CERT rule or CWE):</p><ul><li>List (prioritize) fused meta-alerts according to a value such as priority or confidence. Filter for conditions and/or directories your particular organization cares about most, if that is appropriate.</li><li>For each checker associated with a condition:<ul><li>If there are more than 14 meta-alerts:<ul><li>You need only audit <a href="Creating-a-Random-Sample_215846725.html">a random sample</a> of meta-alerts for that checker and condition.</li></ul></li><li> Otherwise, audit all of the meta-alerts.</li><li>For each meta-alert in your sample:<ul><li>Analyze the meta-alert (and all fused alert messages and secondary messages).</li><li>Set the meta-alert's verdict (e.g., <code>True</code> or <code>False</code>), supplemental verdict(s), Note field text (as needed), and flag (as needed).</li><li>If it is a true positive:<ul><li>Mark every other un-audited meta-alert associated with this condition as flagged (to indicate <code>Suspicious).</code></li><li>Proceed to the next condition.</li></ul></li></ul></li><li>If you audited a random sample and had no true positives:<ul><li>Mark every remaining un-audited diagnostic associated with this checker as <code>Ignored.</code></li><li>Proceed to the next checker.</li></ul></li></ul></li></ul><p>Reference the <a href="The-SCALe-Web-App_215846603.html#TheSCALeWebApp-inspectdiag">SCALe Web Application documentation</a> and the <a href="SCALe-Quick-Start-Demo-for-Auditors_215846628.html">Quick Start Demo</a> for information on how to use the web interface to verify diagnostics.</p><p>If you create a <a href="Building-an-Audit-Report_215846726.html">SCALe Audit Report</a>, then Section 3 of that report will contain several blurbs, describing important diagnostics. When you find a true meta-alert with a high priority you should write a blurb about it for the report. After Section 3 is full, you can analyze the remaining diagnostics without writing more blurbs. However, they are also useful in convincing yourself (and others) that your reasoning is sound and you have not made any mistakes.</p><p><a href="ORG-Dump-files_215846723.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Audit-Instructions_215846700.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Building-an-Audit-Report_215846726.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

@@ -1,0 +1,166 @@
+<!-- This file outputs all the diagnostics as table rows -->
+<!-- This file is rendered within the _diagsTable partial -->
+<%  @fusedDiagIds.each do |id| %>
+<% if @metaAlerts.include?($diagsHash[id][:id].to_i)  %>
+<tr id="<%= $diagsHash[id][:id] %>" class="<%= $diagsHash[id][:meta_alert_id] %> meta_alert">
+<% elsif @subAlerts.include?($diagsHash[id][:id].to_i)  %>
+<tr id="<%= $diagsHash[id][:id] %>" class="<%= $diagsHash[id][:meta_alert_id] %> sub_alert">
+<% else %>
+<tr id="<%= $diagsHash[id][:id] %>" class="<%= $diagsHash[id][:meta_alert_id] %>">
+<% end %>
+
+<td class="selectDiag">
+<span>
+<input type="checkbox" class="selectDiag" name="selectedDiags[]" value="<%= $diagsHash[id][:id] %>">
+</span>
+</td>
+
+<!--use meta_alert_id for meta alerts-->
+<% if @metaAlerts.include?($diagsHash[id][:id].to_i)  %>
+<%     [:meta_alert_id].each do |col| %>
+<td class="id_cell">
+<div class="<%= col %>">
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+<% else %>
+<!--otherwise use diagnostic id-->
+<%     [:id].each do |col| %>
+<td class="<%= col %>_cell">
+<div class="<%= col %>">
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+<% end %>
+
+<!--flag -->
+<%     [:flag].each do |col| %>
+<% if @metaAlerts.include?($diagsHash[id][:id].to_i)  %>
+<td class="<%= col %>_cell expandable_cell">
+<% else %>
+<td>
+<% end %>
+
+<div class="best_in_place_flag">
+<%=         getContentFast(col, $diagsHash[id]) %>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+<!--verdict-->
+<%     [:verdict].each do |col| %>
+<% if @metaAlerts.include?($diagsHash[id][:id].to_i)  %>
+<td class="<%= col %>_cell expandable_cell">
+<% else %>
+<td>
+<% end %>
+
+<div>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+
+
+<!--supplemental-->
+<%     [:supplemental].each do |col| %>
+<% if @metaAlerts.include?($diagsHash[id][:id].to_i)  %>
+<td class="<%= col %>_cell expandable_cell">
+<% else %>
+<td>
+<% end %>
+
+<div>
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+
+<%     [:notes].each do |col| %>
+<% if @metaAlerts.include?($diagsHash[id][:id].to_i)  %>
+<td class="<%= col %>_cell expandable_cell">
+<% else %>
+<td>
+<% end %>
+<div class="<%= col %>">
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+
+<!--previous and path-->
+<%     [:previous, :path].each do |col| %>
+<td class="<%= col %>_cell">
+<div class="<%= col %>_cell<%= col %>">
+
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+<!--line-->
+<%     [:line].each do |col| %>
+<% if @metaAlerts.include?($diagsHash[id][:id].to_i)  %>
+<td class="<%= col %>_cell expandable_cell">
+<% else %>
+<td>
+<% end %>
+<div class="<%= col %>">
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+<!--message, checker, and tool-->
+<%     [:message, :checker, :tool].each do |col| %>
+
+
+<td class="<%= col %>_cell">
+<div class="<%= col %>">
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+<!--rule, title, confidence, alert_priority, severity, liklihood, remediation, priority, level, and cwe_likelihood-->
+<%     [:rule, :title, :confidence,
+        :alert_priority, :severity, :liklihood, :remediation, :priority, 
+        :level, :cwe_likelihood].each do |col| %>
+
+
+<td class="<%= col %>_cell">
+<div class="<%= col %>">
+
+<span>
+<%=         getContentFast(col, $diagsHash[id]) %>
+</span>
+</div>
+</td> 
+<%      end %>  <!--end do-->
+
+</tr>
+<%  end %><!--end do-->
+
+
+<!-- For the fused alert, show all parts EXCEPT message, tool name, checker id. -->
+<!-- On expanded alerts, show ONLY message, tool name, checker id (eg 170_S).-->

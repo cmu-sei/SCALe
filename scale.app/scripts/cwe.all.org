@@ -1,0 +1,722 @@
+Copyright (c) 2007-2018 Carnegie Mellon University. All Rights Reserved. See COPYRIGHT file for details.
+
+| CWE-1004 | N/A | Language-independent | Medium |
+| CWE-102 | N/A | Java | N/A |
+| CWE-103 | N/A | Java | N/A |
+| CWE-104 | N/A | Java | N/A |
+| CWE-105 | N/A | Java | N/A |
+| CWE-106 | N/A | Java | N/A |
+| CWE-107 | N/A | Java | N/A |
+| CWE-108 | N/A | Java | N/A |
+| CWE-109 | N/A | Java | N/A |
+| CWE-11 | N/A | .NET | N/A |
+| CWE-110 | N/A | Java | N/A |
+| CWE-111 | N/A | Java | N/A |
+| CWE-112 | N/A | All | N/A |
+| CWE-113 | N/A | All | N/A |
+| CWE-114 | N/A | All | N/A |
+| CWE-115 | N/A | All | N/A |
+| CWE-116 | N/A | N/A | Very High |
+| CWE-117 | N/A | All | Medium |
+| CWE-118 | N/A | All | N/A |
+| CWE-119 | N/A | N/A | High |
+| CWE-12 | N/A | .NET | N/A |
+| CWE-120 | N/A | C,C++,Assembly | High to Very High |
+| CWE-121 | N/A | C,C++ | Very High |
+| CWE-122 | N/A | C,C++ | High to Very High |
+| CWE-123 | N/A | C,C++ | High |
+| CWE-124 | N/A | C,C++ | Medium |
+| CWE-125 | N/A | C,C++ | N/A |
+| CWE-126 | N/A | C,C++ | N/A |
+| CWE-127 | N/A | C,C++ | N/A |
+| CWE-128 | N/A | N/A | Medium |
+| CWE-129 | N/A | N/A | High |
+| CWE-13 | N/A | N/A | N/A |
+| CWE-130 | N/A | N/A | N/A |
+| CWE-131 | N/A | C,C++ | High to Very High |
+| CWE-132 | N/A | N/A | N/A |
+| CWE-134 | N/A | N/A | Very High |
+| CWE-135 | N/A | C,C++ | N/A |
+| CWE-138 | N/A | Language-independent | N/A |
+| CWE-14 | N/A | C,C++ | N/A |
+| CWE-140 | N/A | N/A | N/A |
+| CWE-141 | N/A | All | N/A |
+| CWE-142 | N/A | All | N/A |
+| CWE-143 | N/A | All | N/A |
+| CWE-144 | N/A | All | N/A |
+| CWE-145 | N/A | All | N/A |
+| CWE-146 | N/A | Language-independent | N/A |
+| CWE-147 | N/A | All | N/A |
+| CWE-148 | N/A | N/A | N/A |
+| CWE-149 | N/A | N/A | N/A |
+| CWE-15 | N/A | N/A | N/A |
+| CWE-150 | N/A | All | N/A |
+| CWE-151 | N/A | All | N/A |
+| CWE-152 | N/A | All | N/A |
+| CWE-153 | N/A | All | N/A |
+| CWE-154 | N/A | All | N/A |
+| CWE-155 | N/A | All | N/A |
+| CWE-156 | N/A | All | N/A |
+| CWE-157 | N/A | Language-independent | N/A |
+| CWE-158 | N/A | All | N/A |
+| CWE-159 | N/A | All | N/A |
+| CWE-160 | N/A | All | N/A |
+| CWE-161 | N/A | All | N/A |
+| CWE-162 | N/A | All | N/A |
+| CWE-163 | N/A | All | N/A |
+| CWE-164 | N/A | All | N/A |
+| CWE-165 | N/A | All | N/A |
+| CWE-166 | N/A | All | N/A |
+| CWE-167 | N/A | All | N/A |
+| CWE-168 | N/A | All | N/A |
+| CWE-170 | N/A | C,C++ | Medium |
+| CWE-172 | N/A | All | N/A |
+| CWE-173 | N/A | All | N/A |
+| CWE-174 | N/A | All | N/A |
+| CWE-175 | N/A | All | N/A |
+| CWE-176 | N/A | All | N/A |
+| CWE-177 | N/A | All | N/A |
+| CWE-178 | N/A | All | N/A |
+| CWE-179 | N/A | All | N/A |
+| CWE-180 | N/A | All | N/A |
+| CWE-181 | N/A | All | N/A |
+| CWE-182 | N/A | All | N/A |
+| CWE-183 | N/A | All | N/A |
+| CWE-184 | N/A | All | N/A |
+| CWE-185 | N/A | Language-independent | N/A |
+| CWE-186 | N/A | All | N/A |
+| CWE-187 | N/A | All | N/A |
+| CWE-188 | N/A | C,C++ | Low |
+| CWE-190 | N/A | Language-independent | Medium |
+| CWE-191 | N/A | C,C++,Java,.NET | N/A |
+| CWE-193 | N/A | All | N/A |
+| CWE-194 | N/A | C,C++ | High |
+| CWE-195 | N/A | C,C++ | N/A |
+| CWE-196 | N/A | C,C++ | Medium |
+| CWE-197 | N/A | C,C++,Java,.NET | Low |
+| CWE-198 | N/A | All | N/A |
+| CWE-20 | N/A | Language-independent | High |
+| CWE-200 | N/A | Language-independent | High |
+| CWE-201 | N/A | All | N/A |
+| CWE-202 | N/A | All | Medium |
+| CWE-203 | N/A | All | N/A |
+| CWE-204 | N/A | All | N/A |
+| CWE-205 | N/A | All | N/A |
+| CWE-206 | N/A | All | N/A |
+| CWE-207 | N/A | All | N/A |
+| CWE-208 | N/A | All | N/A |
+| CWE-209 | N/A | N/A | High |
+| CWE-210 | N/A | All | N/A |
+| CWE-211 | N/A | N/A | N/A |
+| CWE-212 | N/A | Language-independent | N/A |
+| CWE-213 | N/A | All | N/A |
+| CWE-214 | N/A | All | N/A |
+| CWE-215 | N/A | All | N/A |
+| CWE-216 | N/A | All | N/A |
+| CWE-217 | N/A | N/A | N/A |
+| CWE-218 | N/A | N/A | N/A |
+| CWE-219 | N/A | All | N/A |
+| CWE-22 | N/A | Language-independent | High to Very High |
+| CWE-220 | N/A | All | N/A |
+| CWE-221 | N/A | All | N/A |
+| CWE-222 | N/A | All | N/A |
+| CWE-223 | N/A | All | N/A |
+| CWE-224 | N/A | All | N/A |
+| CWE-225 | N/A | N/A | N/A |
+| CWE-226 | N/A | Language-independent | N/A |
+| CWE-227 | N/A | N/A | N/A |
+| CWE-228 | N/A | N/A | N/A |
+| CWE-229 | N/A | N/A | N/A |
+| CWE-23 | N/A | All | N/A |
+| CWE-230 | N/A | All | N/A |
+| CWE-231 | N/A | All | N/A |
+| CWE-232 | N/A | All | N/A |
+| CWE-233 | N/A | N/A | N/A |
+| CWE-234 | N/A | All | High |
+| CWE-235 | N/A | All | N/A |
+| CWE-236 | N/A | All | N/A |
+| CWE-237 | N/A | N/A | N/A |
+| CWE-238 | N/A | All | N/A |
+| CWE-239 | N/A | All | N/A |
+| CWE-24 | N/A | All | N/A |
+| CWE-240 | N/A | All | N/A |
+| CWE-241 | N/A | All | N/A |
+| CWE-242 | N/A | C,C++ | High |
+| CWE-243 | N/A | C,C++ | High |
+| CWE-244 | N/A | C,C++ | N/A |
+| CWE-245 | N/A | Java | N/A |
+| CWE-246 | N/A | Java | N/A |
+| CWE-247 | N/A | N/A | N/A |
+| CWE-248 | N/A | C++,Java,.NET | N/A |
+| CWE-249 | N/A | N/A | N/A |
+| CWE-25 | N/A | All | N/A |
+| CWE-250 | N/A | Language-independent | Medium |
+| CWE-252 | N/A | All | Low |
+| CWE-253 | N/A | All | Low |
+| CWE-256 | N/A | All | Very High |
+| CWE-257 | N/A | All | Very High |
+| CWE-258 | N/A | All | Very High |
+| CWE-259 | N/A | Language-independent | Very High |
+| CWE-26 | N/A | N/A | N/A |
+| CWE-260 | N/A | All | N/A |
+| CWE-261 | N/A | All | N/A |
+| CWE-262 | N/A | All | Very Low |
+| CWE-263 | N/A | All | Very Low |
+| CWE-266 | N/A | Language-independent | N/A |
+| CWE-267 | N/A | All | N/A |
+| CWE-268 | N/A | All | High |
+| CWE-269 | N/A | All | Medium |
+| CWE-27 | N/A | All | N/A |
+| CWE-270 | N/A | All | N/A |
+| CWE-271 | N/A | All | High |
+| CWE-272 | N/A | All | N/A |
+| CWE-273 | N/A | All | Medium |
+| CWE-274 | N/A | All | N/A |
+| CWE-276 | N/A | All | Medium |
+| CWE-277 | N/A | All | N/A |
+| CWE-278 | N/A | All | N/A |
+| CWE-279 | N/A | All | N/A |
+| CWE-28 | N/A | All | N/A |
+| CWE-280 | N/A | All | N/A |
+| CWE-281 | N/A | All | N/A |
+| CWE-282 | N/A | All | N/A |
+| CWE-283 | N/A | All | N/A |
+| CWE-284 | N/A | N/A | N/A |
+| CWE-285 | N/A | N/A | High |
+| CWE-286 | N/A | Language-independent | N/A |
+| CWE-287 | N/A | Language-independent | Medium to High |
+| CWE-288 | N/A | All | N/A |
+| CWE-289 | N/A | All | N/A |
+| CWE-29 | N/A | All | N/A |
+| CWE-290 | N/A | N/A | N/A |
+| CWE-291 | N/A | Language-independent | High |
+| CWE-292 | N/A | N/A | High |
+| CWE-293 | N/A | All | High |
+| CWE-294 | N/A | All | High |
+| CWE-295 | N/A | Language-independent | N/A |
+| CWE-296 | N/A | Language-independent | Low |
+| CWE-297 | N/A | Language-independent | High |
+| CWE-298 | N/A | Language-independent | Low |
+| CWE-299 | N/A | Language-independent | Medium |
+| CWE-30 | N/A | All | N/A |
+| CWE-300 | N/A | All | N/A |
+| CWE-301 | N/A | All | Medium |
+| CWE-302 | N/A | All | N/A |
+| CWE-303 | N/A | All | N/A |
+| CWE-304 | N/A | All | N/A |
+| CWE-305 | N/A | All | N/A |
+| CWE-306 | N/A | Language-independent | Medium to High |
+| CWE-307 | N/A | Language-independent | N/A |
+| CWE-308 | N/A | All | High |
+| CWE-309 | N/A | All | Very High |
+| CWE-31 | N/A | All | N/A |
+| CWE-311 | N/A | Language-independent | High to Very High |
+| CWE-312 | N/A | Language-independent | N/A |
+| CWE-313 | N/A | Language-independent | N/A |
+| CWE-314 | N/A | Language-independent | N/A |
+| CWE-315 | N/A | Language-independent | N/A |
+| CWE-316 | N/A | Language-independent | N/A |
+| CWE-317 | N/A | N/A | N/A |
+| CWE-318 | N/A | Language-independent | N/A |
+| CWE-319 | N/A | Language-independent | Medium to High |
+| CWE-32 | N/A | All | N/A |
+| CWE-321 | N/A | All | High |
+| CWE-322 | N/A | Language-independent | High |
+| CWE-323 | N/A | All | High |
+| CWE-324 | N/A | Language-independent | Low |
+| CWE-325 | N/A | All | N/A |
+| CWE-326 | N/A | All | N/A |
+| CWE-327 | N/A | Language-independent | Medium to High |
+| CWE-328 | N/A | All | N/A |
+| CWE-329 | N/A | All | Medium |
+| CWE-33 | N/A | All | N/A |
+| CWE-330 | N/A | Language-independent | Medium to High |
+| CWE-331 | N/A | All | N/A |
+| CWE-332 | N/A | All | Medium |
+| CWE-333 | N/A | All | Low to Medium |
+| CWE-334 | N/A | All | N/A |
+| CWE-335 | N/A | All | N/A |
+| CWE-336 | N/A | All | N/A |
+| CWE-337 | N/A | All | N/A |
+| CWE-338 | N/A | Language-independent | Medium |
+| CWE-339 | N/A | All | N/A |
+| CWE-34 | N/A | All | N/A |
+| CWE-340 | N/A | N/A | N/A |
+| CWE-341 | N/A | All | N/A |
+| CWE-342 | N/A | All | N/A |
+| CWE-343 | N/A | All | N/A |
+| CWE-344 | N/A | All | N/A |
+| CWE-345 | N/A | All | N/A |
+| CWE-346 | N/A | Language-independent | N/A |
+| CWE-347 | N/A | All | N/A |
+| CWE-348 | N/A | All | N/A |
+| CWE-349 | N/A | All | N/A |
+| CWE-35 | N/A | All | N/A |
+| CWE-350 | N/A | Language-independent | N/A |
+| CWE-351 | N/A | All | N/A |
+| CWE-353 | N/A | All | Medium |
+| CWE-354 | N/A | All | Medium |
+| CWE-356 | N/A | All | N/A |
+| CWE-357 | N/A | All | N/A |
+| CWE-358 | N/A | All | N/A |
+| CWE-359 | N/A | Language-independent | N/A |
+| CWE-36 | N/A | All | N/A |
+| CWE-360 | N/A | All | High |
+| CWE-362 | N/A | N/A | Medium |
+| CWE-363 | N/A | All | N/A |
+| CWE-364 | N/A | N/A | Medium |
+| CWE-365 | N/A | C,C++,Java,.NET | Medium |
+| CWE-366 | N/A | C,C++,Java,.NET | Medium |
+| CWE-367 | N/A | All | Low to Medium |
+| CWE-368 | N/A | All | N/A |
+| CWE-369 | N/A | N/A | Medium |
+| CWE-37 | N/A | All | N/A |
+| CWE-370 | N/A | Language-independent | Medium |
+| CWE-372 | N/A | All | N/A |
+| CWE-373 | N/A | N/A | N/A |
+| CWE-374 | N/A | C,C++,Java,.NET | Medium |
+| CWE-375 | N/A | C,C++,Java,.NET | Medium |
+| CWE-377 | N/A | All | N/A |
+| CWE-378 | N/A | All | High |
+| CWE-379 | N/A | All | Low |
+| CWE-38 | N/A | All | N/A |
+| CWE-382 | N/A | Java | N/A |
+| CWE-383 | N/A | Java | N/A |
+| CWE-385 | N/A | All | Medium |
+| CWE-386 | N/A | All | N/A |
+| CWE-39 | N/A | All | N/A |
+| CWE-390 | N/A | All | Medium |
+| CWE-391 | N/A | All | Medium |
+| CWE-392 | N/A | All | N/A |
+| CWE-393 | N/A | All | N/A |
+| CWE-394 | N/A | All | N/A |
+| CWE-395 | N/A | Java | N/A |
+| CWE-396 | N/A | C++,Java,.NET | N/A |
+| CWE-397 | N/A | C++,Java,.NET | N/A |
+| CWE-398 | N/A | N/A | N/A |
+| CWE-40 | N/A | All | N/A |
+| CWE-400 | N/A | All | Medium to High |
+| CWE-401 | N/A | C,C++ | Medium |
+| CWE-402 | N/A | N/A | N/A |
+| CWE-403 | N/A | All | N/A |
+| CWE-404 | N/A | All | Low to Medium |
+| CWE-405 | N/A | All | N/A |
+| CWE-406 | N/A | All | N/A |
+| CWE-407 | N/A | Language-independent | Low to Medium |
+| CWE-408 | N/A | All | N/A |
+| CWE-409 | N/A | All | N/A |
+| CWE-41 | N/A | All | N/A |
+| CWE-410 | N/A | All | N/A |
+| CWE-412 | N/A | All | N/A |
+| CWE-413 | N/A | All | N/A |
+| CWE-414 | N/A | All | N/A |
+| CWE-415 | N/A | C,C++ | Low to Medium |
+| CWE-416 | N/A | C,C++ | High |
+| CWE-419 | N/A | Language-independent | N/A |
+| CWE-42 | N/A | All | N/A |
+| CWE-420 | N/A | Language-independent | N/A |
+| CWE-421 | N/A | All | N/A |
+| CWE-422 | N/A | All | N/A |
+| CWE-423 | N/A | N/A | N/A |
+| CWE-424 | N/A | All | N/A |
+| CWE-425 | N/A | Language-independent | N/A |
+| CWE-427 | N/A | Language-independent | N/A |
+| CWE-428 | N/A | N/A | N/A |
+| CWE-43 | N/A | All | N/A |
+| CWE-430 | N/A | All | N/A |
+| CWE-431 | N/A | All | N/A |
+| CWE-432 | N/A | Language-independent | N/A |
+| CWE-433 | N/A | All | N/A |
+| CWE-434 | N/A | N/A | Medium to High |
+| CWE-435 | N/A | All | N/A |
+| CWE-436 | N/A | Language-independent | N/A |
+| CWE-437 | N/A | All | N/A |
+| CWE-439 | N/A | All | N/A |
+| CWE-44 | N/A | All | N/A |
+| CWE-440 | N/A | All | N/A |
+| CWE-441 | N/A | Language-independent | N/A |
+| CWE-443 | N/A | N/A | N/A |
+| CWE-444 | N/A | All | N/A |
+| CWE-446 | N/A | All | N/A |
+| CWE-447 | N/A | All | N/A |
+| CWE-448 | N/A | All | N/A |
+| CWE-449 | N/A | All | N/A |
+| CWE-45 | N/A | All | N/A |
+| CWE-450 | N/A | All | N/A |
+| CWE-451 | N/A | Language-independent | N/A |
+| CWE-453 | N/A | N/A | N/A |
+| CWE-454 | N/A | N/A | N/A |
+| CWE-455 | N/A | All | N/A |
+| CWE-456 | N/A | Language-independent | N/A |
+| CWE-457 | N/A | N/A | High |
+| CWE-458 | N/A | N/A | N/A |
+| CWE-459 | N/A | All | N/A |
+| CWE-46 | N/A | All | N/A |
+| CWE-460 | N/A | C,C++,Java,.NET | Medium |
+| CWE-462 | N/A | C,C++,Java,.NET | Low |
+| CWE-463 | N/A | C,C++ | N/A |
+| CWE-464 | N/A | C,C++ | High to Very High |
+| CWE-466 | N/A | C,C++ | N/A |
+| CWE-467 | N/A | C,C++ | High |
+| CWE-468 | N/A | C,C++ | Medium |
+| CWE-469 | N/A | C,C++ | Medium |
+| CWE-47 | N/A | All | N/A |
+| CWE-470 | N/A | N/A | N/A |
+| CWE-471 | N/A | Language-independent | N/A |
+| CWE-472 | N/A | All | N/A |
+| CWE-473 | N/A | PHP | N/A |
+| CWE-474 | N/A | N/A | N/A |
+| CWE-475 | N/A | All | N/A |
+| CWE-476 | N/A | C,C++,Java,.NET | Medium |
+| CWE-477 | N/A | All | N/A |
+| CWE-478 | N/A | C,C++,Java,.NET | N/A |
+| CWE-479 | N/A | C,C++ | Low |
+| CWE-48 | N/A | Language-independent | N/A |
+| CWE-480 | N/A | N/A | Low |
+| CWE-481 | N/A | C,C++,Java,.NET | Low |
+| CWE-482 | N/A | C,C++ | Low |
+| CWE-483 | N/A | N/A | Low |
+| CWE-484 | N/A | C,C++,Java,.NET,PHP | Medium |
+| CWE-485 | N/A | N/A | N/A |
+| CWE-486 | N/A | Java | High |
+| CWE-487 | N/A | Java | Medium |
+| CWE-488 | N/A | All | N/A |
+| CWE-489 | N/A | All | N/A |
+| CWE-49 | N/A | All | N/A |
+| CWE-491 | N/A | Java | N/A |
+| CWE-492 | N/A | Java | Medium |
+| CWE-493 | N/A | Java,C++ | High |
+| CWE-494 | N/A | Language-independent | Medium |
+| CWE-495 | N/A | C,C++,Java,.NET | N/A |
+| CWE-496 | N/A | C,C++,Java,.NET | N/A |
+| CWE-497 | N/A | All | N/A |
+| CWE-498 | N/A | C++,Java,.NET | Medium |
+| CWE-499 | N/A | Java | High |
+| CWE-5 | N/A | Java | N/A |
+| CWE-50 | N/A | All | N/A |
+| CWE-500 | N/A | C++,Java | High |
+| CWE-501 | N/A | All | N/A |
+| CWE-502 | N/A | Java,Ruby,PHP,Python,Node.js,Language-independent | Medium |
+| CWE-506 | N/A | N/A | N/A |
+| CWE-507 | N/A | N/A | N/A |
+| CWE-508 | N/A | N/A | N/A |
+| CWE-509 | N/A | N/A | N/A |
+| CWE-51 | N/A | All | N/A |
+| CWE-510 | N/A | N/A | N/A |
+| CWE-511 | N/A | Language-independent | N/A |
+| CWE-512 | N/A | N/A | N/A |
+| CWE-514 | N/A | N/A | N/A |
+| CWE-515 | N/A | N/A | High |
+| CWE-516 | N/A | N/A | N/A |
+| CWE-52 | N/A | All | N/A |
+| CWE-520 | N/A | N/A | N/A |
+| CWE-521 | N/A | N/A | N/A |
+| CWE-522 | N/A | N/A | N/A |
+| CWE-523 | N/A | N/A | N/A |
+| CWE-524 | N/A | N/A | N/A |
+| CWE-525 | N/A | N/A | N/A |
+| CWE-526 | N/A | N/A | N/A |
+| CWE-527 | N/A | N/A | N/A |
+| CWE-528 | N/A | N/A | N/A |
+| CWE-529 | N/A | N/A | N/A |
+| CWE-53 | N/A | All | N/A |
+| CWE-530 | N/A | N/A | N/A |
+| CWE-531 | N/A | N/A | N/A |
+| CWE-532 | N/A | N/A | Medium |
+| CWE-533 | N/A | N/A | N/A |
+| CWE-534 | N/A | N/A | N/A |
+| CWE-535 | N/A | N/A | N/A |
+| CWE-536 | N/A | N/A | N/A |
+| CWE-537 | N/A | Java | N/A |
+| CWE-538 | N/A | All | N/A |
+| CWE-539 | N/A | N/A | N/A |
+| CWE-54 | N/A | All | N/A |
+| CWE-540 | N/A | N/A | N/A |
+| CWE-541 | N/A | N/A | N/A |
+| CWE-542 | N/A | N/A | N/A |
+| CWE-543 | N/A | Java,C++ | N/A |
+| CWE-544 | N/A | N/A | N/A |
+| CWE-545 | N/A | N/A | N/A |
+| CWE-546 | N/A | N/A | N/A |
+| CWE-547 | N/A | N/A | N/A |
+| CWE-548 | N/A | N/A | N/A |
+| CWE-549 | N/A | N/A | N/A |
+| CWE-55 | N/A | All | N/A |
+| CWE-550 | N/A | N/A | N/A |
+| CWE-551 | N/A | N/A | N/A |
+| CWE-552 | N/A | N/A | N/A |
+| CWE-553 | N/A | N/A | N/A |
+| CWE-554 | N/A | .NET | N/A |
+| CWE-555 | N/A | N/A | N/A |
+| CWE-556 | N/A | N/A | N/A |
+| CWE-558 | N/A | C,C++ | N/A |
+| CWE-56 | N/A | All | N/A |
+| CWE-560 | N/A | C | N/A |
+| CWE-561 | N/A | N/A | N/A |
+| CWE-562 | N/A | C,C++ | N/A |
+| CWE-563 | N/A | N/A | N/A |
+| CWE-564 | N/A | N/A | N/A |
+| CWE-565 | N/A | N/A | N/A |
+| CWE-566 | N/A | N/A | N/A |
+| CWE-567 | N/A | Java | N/A |
+| CWE-568 | N/A | Java | N/A |
+| CWE-57 | N/A | All | N/A |
+| CWE-570 | N/A | All | N/A |
+| CWE-571 | N/A | All | N/A |
+| CWE-572 | N/A | Java | N/A |
+| CWE-573 | N/A | N/A | N/A |
+| CWE-574 | N/A | Java | N/A |
+| CWE-575 | N/A | Java | N/A |
+| CWE-576 | N/A | Java | N/A |
+| CWE-577 | N/A | Java | N/A |
+| CWE-578 | N/A | Java | N/A |
+| CWE-579 | N/A | Java | N/A |
+| CWE-58 | N/A | All | N/A |
+| CWE-580 | N/A | Java | N/A |
+| CWE-581 | N/A | Java | N/A |
+| CWE-582 | N/A | Java | N/A |
+| CWE-583 | N/A | Java | N/A |
+| CWE-584 | N/A | N/A | N/A |
+| CWE-585 | N/A | Java | N/A |
+| CWE-586 | N/A | Java | N/A |
+| CWE-587 | N/A | C,C++,C#,Assembly | N/A |
+| CWE-588 | N/A | N/A | N/A |
+| CWE-589 | N/A | N/A | N/A |
+| CWE-59 | N/A | N/A | Low to Medium |
+| CWE-590 | N/A | N/A | N/A |
+| CWE-591 | N/A | N/A | N/A |
+| CWE-592 | N/A | N/A | N/A |
+| CWE-593 | N/A | N/A | N/A |
+| CWE-594 | N/A | Java | N/A |
+| CWE-595 | N/A | Java,Language-independent | N/A |
+| CWE-596 | N/A | N/A | N/A |
+| CWE-597 | N/A | N/A | N/A |
+| CWE-598 | N/A | N/A | N/A |
+| CWE-599 | N/A | N/A | N/A |
+| CWE-6 | N/A | Java | N/A |
+| CWE-600 | N/A | N/A | N/A |
+| CWE-601 | N/A | Language-independent | Low to Medium |
+| CWE-602 | N/A | N/A | Medium |
+| CWE-603 | N/A | N/A | N/A |
+| CWE-605 | N/A | All | N/A |
+| CWE-606 | N/A | N/A | N/A |
+| CWE-607 | N/A | Java | N/A |
+| CWE-608 | N/A | Java | N/A |
+| CWE-609 | N/A | Java | N/A |
+| CWE-610 | N/A | N/A | N/A |
+| CWE-611 | N/A | XML | N/A |
+| CWE-612 | N/A | All | N/A |
+| CWE-613 | N/A | N/A | N/A |
+| CWE-614 | N/A | N/A | N/A |
+| CWE-615 | N/A | N/A | N/A |
+| CWE-616 | N/A | PHP | N/A |
+| CWE-617 | N/A | N/A | N/A |
+| CWE-618 | N/A | N/A | N/A |
+| CWE-619 | N/A | SQL | N/A |
+| CWE-62 | N/A | All | N/A |
+| CWE-620 | N/A | All | N/A |
+| CWE-621 | N/A | PHP | N/A |
+| CWE-622 | N/A | All | N/A |
+| CWE-623 | N/A | N/A | N/A |
+| CWE-624 | N/A | PHP,Perl | N/A |
+| CWE-625 | N/A | Perl,PHP | N/A |
+| CWE-626 | N/A | PHP,Perl,ASP.NET | N/A |
+| CWE-627 | N/A | PHP,Perl | N/A |
+| CWE-628 | N/A | All | N/A |
+| CWE-636 | N/A | All | N/A |
+| CWE-637 | N/A | All | N/A |
+| CWE-638 | N/A | All | N/A |
+| CWE-639 | N/A | Language-independent | High |
+| CWE-64 | N/A | All | Medium to High |
+| CWE-640 | N/A | All | High |
+| CWE-641 | N/A | All | Low |
+| CWE-642 | N/A | N/A | High |
+| CWE-643 | N/A | All | High |
+| CWE-644 | N/A | All | High |
+| CWE-645 | N/A | All | High |
+| CWE-646 | N/A | Language-independent | High |
+| CWE-647 | N/A | Language-independent | High |
+| CWE-648 | N/A | All | Low |
+| CWE-649 | N/A | All | High |
+| CWE-65 | N/A | All | N/A |
+| CWE-650 | N/A | All | High |
+| CWE-651 | N/A | N/A | N/A |
+| CWE-652 | N/A | All | High |
+| CWE-653 | N/A | All | N/A |
+| CWE-654 | N/A | All | N/A |
+| CWE-655 | N/A | All | N/A |
+| CWE-656 | N/A | All | N/A |
+| CWE-657 | N/A | N/A | N/A |
+| CWE-66 | N/A | All | N/A |
+| CWE-662 | N/A | N/A | N/A |
+| CWE-663 | N/A | N/A | N/A |
+| CWE-664 | N/A | N/A | N/A |
+| CWE-665 | N/A | Language-independent | Medium |
+| CWE-666 | N/A | N/A | N/A |
+| CWE-667 | N/A | N/A | N/A |
+| CWE-668 | N/A | N/A | N/A |
+| CWE-669 | N/A | N/A | N/A |
+| CWE-67 | N/A | All | High to Very High |
+| CWE-670 | N/A | N/A | N/A |
+| CWE-671 | N/A | N/A | N/A |
+| CWE-672 | N/A | Language-independent | N/A |
+| CWE-673 | N/A | N/A | N/A |
+| CWE-674 | N/A | All | N/A |
+| CWE-675 | N/A | All | N/A |
+| CWE-676 | N/A | C,C++ | High |
+| CWE-681 | N/A | Language-independent | Medium to High |
+| CWE-682 | N/A | Language-independent | High |
+| CWE-683 | N/A | N/A | N/A |
+| CWE-684 | N/A | N/A | N/A |
+| CWE-685 | N/A | C,Perl | N/A |
+| CWE-686 | N/A | N/A | N/A |
+| CWE-687 | N/A | N/A | N/A |
+| CWE-688 | N/A | C,Perl | N/A |
+| CWE-69 | N/A | All | N/A |
+| CWE-691 | N/A | All | N/A |
+| CWE-693 | N/A | All | N/A |
+| CWE-694 | N/A | Language-independent | N/A |
+| CWE-695 | N/A | N/A | N/A |
+| CWE-696 | N/A | N/A | N/A |
+| CWE-697 | N/A | N/A | N/A |
+| CWE-698 | N/A | N/A | N/A |
+| CWE-7 | N/A | Java | N/A |
+| CWE-703 | N/A | All | N/A |
+| CWE-704 | N/A | N/A | N/A |
+| CWE-705 | N/A | All | N/A |
+| CWE-706 | N/A | All | N/A |
+| CWE-707 | N/A | Language-independent | N/A |
+| CWE-708 | N/A | All | N/A |
+| CWE-71 | N/A | All | N/A |
+| CWE-710 | N/A | All | N/A |
+| CWE-72 | N/A | All | N/A |
+| CWE-73 | N/A | N/A | High to Very High |
+| CWE-732 | N/A | Language-independent | Medium to High |
+| CWE-733 | N/A | N/A | N/A |
+| CWE-74 | N/A | All | Very High |
+| CWE-749 | N/A | Language-independent | Low to Medium |
+| CWE-75 | N/A | All | N/A |
+| CWE-754 | N/A | Language-independent | Medium |
+| CWE-755 | N/A | Language-independent | Low to Medium |
+| CWE-756 | N/A | N/A | N/A |
+| CWE-757 | N/A | N/A | N/A |
+| CWE-758 | N/A | N/A | N/A |
+| CWE-759 | N/A | N/A | N/A |
+| CWE-76 | N/A | All | High to Very High |
+| CWE-760 | N/A | N/A | N/A |
+| CWE-761 | N/A | N/A | N/A |
+| CWE-762 | N/A | C,C++,Manual Memory Managed Languages | Low |
+| CWE-763 | N/A | N/A | N/A |
+| CWE-764 | N/A | N/A | N/A |
+| CWE-765 | N/A | N/A | N/A |
+| CWE-766 | N/A | C++,C#,Java | Low to Medium |
+| CWE-767 | N/A | C++,C#,Java | Low to Medium |
+| CWE-768 | N/A | N/A | Very Low |
+| CWE-77 | N/A | Language-independent | Very High |
+| CWE-770 | N/A | Language-independent | Medium to High |
+| CWE-771 | N/A | N/A | Medium to High |
+| CWE-772 | N/A | Mobile Application | Medium to High |
+| CWE-773 | N/A | N/A | Medium to High |
+| CWE-774 | N/A | N/A | Medium to High |
+| CWE-775 | N/A | N/A | Medium to High |
+| CWE-776 | N/A | XML | Low to Medium |
+| CWE-777 | N/A | N/A | Low to Medium |
+| CWE-778 | N/A | Language-independent | Medium |
+| CWE-779 | N/A | Language-independent | Low to Medium |
+| CWE-78 | N/A | Language-independent | High |
+| CWE-780 | N/A | N/A | Medium |
+| CWE-781 | N/A | N/A | Low to Medium |
+| CWE-782 | N/A | N/A | Low to Medium |
+| CWE-783 | N/A | N/A | Low |
+| CWE-784 | N/A | N/A | High |
+| CWE-785 | N/A | C,C++ | N/A |
+| CWE-786 | N/A | N/A | N/A |
+| CWE-787 | N/A | N/A | N/A |
+| CWE-788 | N/A | N/A | N/A |
+| CWE-789 | N/A | C,C++,All | Low |
+| CWE-79 | N/A | N/A | High to Very High |
+| CWE-790 | N/A | N/A | N/A |
+| CWE-791 | N/A | N/A | N/A |
+| CWE-792 | N/A | N/A | N/A |
+| CWE-793 | N/A | N/A | N/A |
+| CWE-794 | N/A | N/A | N/A |
+| CWE-795 | N/A | N/A | N/A |
+| CWE-796 | N/A | N/A | N/A |
+| CWE-797 | N/A | N/A | N/A |
+| CWE-798 | N/A | Language-independent | Very High |
+| CWE-799 | N/A | Language-independent | N/A |
+| CWE-8 | N/A | N/A | N/A |
+| CWE-80 | N/A | All | High to Very High |
+| CWE-804 | N/A | N/A | Medium to High |
+| CWE-805 | N/A | N/A | Medium to High |
+| CWE-806 | N/A | N/A | Medium to High |
+| CWE-807 | N/A | Language-independent | Medium to High |
+| CWE-81 | N/A | All | N/A |
+| CWE-82 | N/A | All | N/A |
+| CWE-820 | N/A | N/A | N/A |
+| CWE-821 | N/A | N/A | N/A |
+| CWE-822 | N/A | N/A | N/A |
+| CWE-823 | N/A | N/A | N/A |
+| CWE-824 | N/A | N/A | N/A |
+| CWE-825 | N/A | N/A | N/A |
+| CWE-826 | N/A | N/A | N/A |
+| CWE-827 | N/A | XML | N/A |
+| CWE-828 | N/A | N/A | N/A |
+| CWE-829 | N/A | N/A | N/A |
+| CWE-83 | N/A | All | N/A |
+| CWE-830 | N/A | N/A | N/A |
+| CWE-831 | N/A | N/A | N/A |
+| CWE-832 | N/A | N/A | N/A |
+| CWE-833 | N/A | N/A | N/A |
+| CWE-834 | N/A | N/A | N/A |
+| CWE-835 | N/A | Language-independent | N/A |
+| CWE-836 | N/A | Language-independent | N/A |
+| CWE-837 | N/A | Language-independent | N/A |
+| CWE-838 | N/A | Language-independent | N/A |
+| CWE-839 | N/A | N/A | N/A |
+| CWE-84 | N/A | All | N/A |
+| CWE-841 | N/A | N/A | N/A |
+| CWE-842 | N/A | Language-independent | N/A |
+| CWE-843 | N/A | C,C++,Language-independent,Type-unsafe Languages | N/A |
+| CWE-85 | N/A | All | N/A |
+| CWE-86 | N/A | All | N/A |
+| CWE-862 | N/A | N/A | High |
+| CWE-863 | N/A | N/A | High |
+| CWE-87 | N/A | All | N/A |
+| CWE-88 | N/A | All | N/A |
+| CWE-89 | N/A | All | Very High |
+| CWE-9 | N/A | N/A | N/A |
+| CWE-90 | N/A | All | N/A |
+| CWE-908 | N/A | Language-independent | Medium |
+| CWE-909 | N/A | Language-independent | Medium |
+| CWE-91 | N/A | All | N/A |
+| CWE-910 | N/A | N/A | Medium |
+| CWE-911 | N/A | N/A | Medium |
+| CWE-912 | N/A | N/A | N/A |
+| CWE-913 | N/A | N/A | N/A |
+| CWE-914 | N/A | N/A | N/A |
+| CWE-915 | N/A | Ruby,ASP.NET,PHP,Python,Language-independent | N/A |
+| CWE-916 | N/A | Language-independent | N/A |
+| CWE-917 | N/A | Java | N/A |
+| CWE-918 | N/A | Language-independent | N/A |
+| CWE-92 | N/A | N/A | N/A |
+| CWE-920 | N/A | Language-independent | N/A |
+| CWE-921 | N/A | Language-independent | N/A |
+| CWE-922 | N/A | Language-independent | N/A |
+| CWE-923 | N/A | Language-independent | N/A |
+| CWE-924 | N/A | Language-independent | N/A |
+| CWE-925 | N/A | Language-independent | N/A |
+| CWE-926 | N/A | Language-independent | N/A |
+| CWE-927 | N/A | Language-independent | N/A |
+| CWE-93 | N/A | All | Medium to High |
+| CWE-939 | N/A | Mobile Application | N/A |
+| CWE-94 | N/A | N/A | Medium |
+| CWE-940 | N/A | Language-independent | N/A |
+| CWE-941 | N/A | Language-independent | N/A |
+| CWE-942 | N/A | Language-independent | N/A |
+| CWE-943 | N/A | Language-independent | N/A |
+| CWE-95 | N/A | Java,Javascript,Python,Perl,PHP,Ruby,Interpreted Languages | Medium |
+| CWE-96 | N/A | PHP,Perl,All Interpreted Languages | N/A |
+| CWE-97 | N/A | All | N/A |
+| CWE-98 | N/A | N/A | High to Very High |
+| CWE-99 | N/A | All | High |

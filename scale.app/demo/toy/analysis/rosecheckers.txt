@@ -1,0 +1,54 @@
+ rosecheckers -c -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic ARR36-C/arr36-c-false-1.c ARR36-C/arr36-c-true-1.c DCL31-C/dcl31-c-true-1.c EXP33-C/exp33-c-false-1.c EXP33-C/exp33-c-true-1.c EXP34-C/exp34-c-false-1.c EXP34-C/exp34-c-true-1.c EXP36-C/exp36-c-false-1.c EXP36-C/exp36-c-true-1.c INT31-C/int31-c-false-1.c INT31-C/int31-c-true-1.c INT33-C/int33-c-false-1.c INT33-C/int33-c-true-1.c STR31-C/str31-c-false-1.c STR31-C/str31-c-true-1.c
+"/home/svoboda_mgr/Desktop/toy/src/DCL31-C/dcl31-c-true-1.c", line 6: warning: 
+          explicit type is missing ("int" assumed)
+  parse(const char *str) {
+  ^
+
+"/home/svoboda_mgr/Desktop/toy/src/EXP36-C/exp36-c-false-1.c", line 9: warning: 
+          variable "four_byte_chunks" was declared but never referenced
+      uint32_t *four_byte_chunks = (uint32_t*)(bytes);
+                ^
+
+rosecheckers front-end complete
+arr36-c-false-1.c:36: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+arr36-c-false-1.c:41: warning: DCL00-C: Const-qualify immutable objects: diff
+arr36-c-true-1.c:5: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+arr36-c-true-1.c:6: error: STR36-C: Do not specify the dimension of a character array initialized with a string literal
+arr36-c-true-1.c:7: error: STR36-C: Do not specify the dimension of a character array initialized with a string literal
+dcl31-c-true-1.c:9: warning: DCL00-C: Const-qualify immutable objects: val
+dcl31-c-true-1.c:20: warning: DCL00-C: Const-qualify immutable objects: parsed
+exp33-c-false-1.c:9: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+exp33-c-true-1.c:7: warning: EXP12-C: Do not ignore values returned by functions: sscanf
+exp33-c-true-1.c:7: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+exp34-c-false-1.c:13: error: EXP34-C: Ensure pointer is valid before dereferencing it
+exp34-c-false-1.c:30: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp34-c-false-1.c:38: error: MEM34-C: Only free memory allocated dynamically
+exp34-c-true-1.c:11: error: EXP34-C: Ensure pointer is valid before dereferencing it
+exp34-c-true-1.c:23: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp34-c-true-1.c:27: error: MEM34-C: Only free memory allocated dynamically
+exp36-c-false-1.c:5: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp36-c-false-1.c:8: warning: EXP09-C: malloc called using something other than sizeof()
+exp36-c-false-1.c:8: error: EXP34-C: Ensure pointer is valid before dereferencing it
+exp36-c-false-1.c:9: warning: DCL00-C: Const-qualify immutable objects: four_byte_chunks
+exp36-c-false-1.c:9: warning: EXP11-C: Do not apply operators expecting one type to data of an incompatible type
+exp36-c-false-1.c:9: error: EXP36-C: Do not convert pointers into more strictly aligned pointer types
+exp36-c-true-1.c:11: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp36-c-true-1.c:13: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:14: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:15: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:16: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:17: warning: EXP11-C: Do not apply operators expecting one type to data of an incompatible type
+exp36-c-true-1.c:17: error: EXP36-C: Do not convert pointers into more strictly aligned pointer types
+int31-c-false-1.c:9: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+int31-c-false-1.c:32: error: EXP34-C: Ensure pointer is valid before dereferencing it
+int31-c-false-1.c:32: warning: MEM04-C: Do not perform zero length allocations
+int31-c-true-1.c:9: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+int31-c-true-1.c:26: error: EXP34-C: Ensure pointer is valid before dereferencing it
+int31-c-true-1.c:26: warning: MEM04-C: Do not perform zero length allocations
+int33-c-false-1.c:24: error: INT33-C: Ensure that division and modulo operations do not result in divide-by-zero errors
+int33-c-false-1.c:31: warning: EXP12-C: Do not ignore values returned by functions: sscanf
+int33-c-false-1.c:31: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+int33-c-true-1.c:24: error: INT33-C: Ensure that division and modulo operations do not result in divide-by-zero errors
+int33-c-true-1.c:31: warning: EXP12-C: Do not ignore values returned by functions: sscanf
+int33-c-true-1.c:31: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+rosecheckers complete

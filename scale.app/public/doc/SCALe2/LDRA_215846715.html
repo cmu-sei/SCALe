@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : LDRA</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Audit-Instructions_215846700.html">Audit Instructions</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Static-Analysis-Tools_215846701.html">Static Analysis Tools</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : LDRA
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span> on Dec 04, 2017
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p><span>LDRA is a proprietary static analysis tool. The instructions for generating textual diagnostics from LDRA are as follows:</span></p><ol><li>Select <code>Set</code> in the menu bar and then <code>Select/Create/Delete Set</code>.</li><li>In the &quot;<code>Select/Create Set</code>&quot; text box, enter a name for the set.</li><li>Press <code>Enter</code> and select <code>group</code>.</li><li>Select <code>Add/Remove Source Files</code>.</li><li>There should now be a visible set of C/C++ files from the codebase. Add all the files in the set.</li><li>Press <code>F2</code> or select <code>Analysis/Select Analysis</code> to open the analysis window.</li><li>Select <code>Start analysis</code> to start the analysis.</li><li>If the selected file has any <code>#include</code> statements and the file is not found, then it opens an interactive include file analysis dialog window. In this dialog window, you should select the folders where the include files are located.</li><li>Once all files are found, the analysis starts and a dialog box appears, indicating that the file analysis is complete.</li></ol><p>For MS Visual Studio projects, the only deviation from these instructions is that you need to select the project <code>.sln</code> (solution) file.</p><h2 id="LDRA-FormattingOutputForSCALe">Formatting Output For SCALe</h2><div>Once the analysis is complete, you can create the file to be used by SCALe by doing the following, in the LDRA GUI:</div><ol><li>Select <code>Group Results</code> and then <code>Text Results/Analysis Scope Report.</code></li><li>Select <code>Group Results</code> and then <code>Text Results/Code Review Report(ASCII)</code>.</li><li>Save the two results and concatenate them into one file. This can be accomplished by opening both files in Notepad on Windows, selecting the contents of the code review report, and copying and pasting them to thend of the analysis scope report.  In Linux you could simply use the <code>cat</code> command:</li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cat analysis_scope_report.txt code_revew_report.txt &gt; ldra_results.txt</pre>
+</div></div><p><a href="PC-Lint_215846717.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Static-Analysis-Tools_215846701.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Eclipse_215846708.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

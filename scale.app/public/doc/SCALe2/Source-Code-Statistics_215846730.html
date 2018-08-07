@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Source Code Statistics</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Audit-Instructions_215846700.html">Audit Instructions</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Building-an-Audit-Report_215846726.html">Building an Audit Report</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Source Code Statistics
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span> on Dec 04, 2017
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>For each codebase we analyze in SCALe, we capture the following statistics:</p><p><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1521066407418 {padding: 0px;}
+div.rbtoc1521066407418 ul {list-style: disc;margin-left: 0px;}
+div.rbtoc1521066407418 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1521066407418'>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-QualitativeValues'>Qualitative Values</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Codebase'>Codebase</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Nameofcodebasetoanalyze'>Name of codebase to analyze</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Customer'>Customer</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Whowedidtheauditfor'>Who we did the audit for</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Language'>Language</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Programminglanguageusedbycodebase'>Programming language used by codebase</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-License'>License</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Issoftwareproprietaryoropen-source?'>Is software proprietary or open-source?</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Iterations'>Iterations</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-NumberofSCALeauditsonthiscodebase'>Number of SCALe audits on this codebase</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-StartDate'>Start Date</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Datewhensourcecodereceived'>Date when source code received</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-EndDate'>End Date</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Datewhenauditreportcompleted'>Date when audit report completed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-BasicMeasuredValues'>Basic Measured Values</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Distribution'>Distribution</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Sizeofcodebase(inkilobytes)'>Size of codebase (in kilobytes)</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Source'>Source</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Sizeofsourcecodefiles(inkilobytes)(includingblanklines&amp;comments)'>Size of source code files (in kilobytes) (including blanklines &amp; comments)</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Files'>Files</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Numberofsourcefiles'>Number of source files</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-kLoC'>kLoC</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-linesofsourcecode(/1000)'>lines of source code (/ 1000)</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-ksigLoC'>ksigLoC</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-linesofsignificantsourcecode(/1000)(w/oblanklines&amp;comments)'>lines of significant source code (/ 1000) (w/o blanklines &amp; comments)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-BasicDerivedValues'>Basic Derived Values</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Filesize'>Filesize</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Linesofcodeperfile'>Lines of code per file</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Comment'>Comment</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Percentageofsignificantsourcecodetototalcode'>Percentage of significant source code to total code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-AuditMeasuredValues'>Audit Measured Values</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Rules'>Rules</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-NumberofCERTrulesthatwereviolatedbyaTruediagnostic'>Number of CERT rules that were violated by a True diagnostic</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-True'>True</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Numberoftrueviolations'>Number of true violations</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Suspicious'>Suspicious</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Numberofsuspiciousviolations'>Number of suspicious violations</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Unknown'>Unknown</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Numberofunknownviolations'>Number of unknown violations</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-False'>False</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Numberoffalsepositives'>Number of false positives</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-AuditDerivedValues'>Audit Derived Values</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Diagnostics'>Diagnostics</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Totalnumberofdiagnosticsreported'>Total number of diagnostics reported</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-Uncertainty'>Uncertainty</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-RationofreporteddiagnosticsperTruediagnostic'>Ration of reported diagnostics per True diagnostic</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-FileDensity'>File Density</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Ratioofreporteddefectsperfile'>Ratio of reported defects per file</a></li>
+</ul>
+</li>
+<li><a href='#SourceCodeStatistics-LineDensity'>Line Density</a>
+<ul class='toc-indentation'>
+<li><a href='#SourceCodeStatistics-Ratioofdefectspercodesize'>Ratio of defects per code size</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div></p><h2 id="SourceCodeStatistics-QualitativeValues">Qualitative Values</h2><p>These items are not measured</p><h3 id="SourceCodeStatistics-Codebase">Codebase</h3><h4 id="SourceCodeStatistics-Nameofcodebasetoanalyze">Name of codebase to analyze</h4><h3 id="SourceCodeStatistics-Customer">Customer</h3><h4 id="SourceCodeStatistics-Whowedidtheauditfor">Who we did the audit for</h4><h3 id="SourceCodeStatistics-Language">Language</h3><h4 id="SourceCodeStatistics-Programminglanguageusedbycodebase">Programming language used by codebase</h4><h3 id="SourceCodeStatistics-License">License</h3><h4 id="SourceCodeStatistics-Issoftwareproprietaryoropen-source?">Is software proprietary or open-source?</h4><h3 id="SourceCodeStatistics-Iterations">Iterations</h3><h4 id="SourceCodeStatistics-NumberofSCALeauditsonthiscodebase">Number of SCALe audits on this codebase</h4><h3 id="SourceCodeStatistics-StartDate">Start Date</h3><h4 id="SourceCodeStatistics-Datewhensourcecodereceived">Date when source code received</h4><h3 id="SourceCodeStatistics-EndDate">End Date</h3><h4 id="SourceCodeStatistics-Datewhenauditreportcompleted">Date when audit report completed</h4><h2 id="SourceCodeStatistics-BasicMeasuredValues">Basic Measured Values</h2><p>These are items we measure, but they do not require an audit to be complete.<br/> For these items, we will provide a POSIX command that produces the measurement when run in a directory that contains all of the source code (and perhaps other files). We will assume the language is Java.</p><h3 id="SourceCodeStatistics-Distribution">Distribution</h3><h4 id="SourceCodeStatistics-Sizeofcodebase(inkilobytes)">Size of codebase (in kilobytes)</h4><pre>du | tail -1</pre><h3 id="SourceCodeStatistics-Source">Source</h3><h4 id="SourceCodeStatistics-Sizeofsourcecodefiles(inkilobytes)(includingblanklines&amp;comments)">Size of source code files (in kilobytes) (including blanklines &amp; comments)</h4><pre>expr `find . -name *.java -exec cat {} \; | wc -c` / 1024</pre><h3 id="SourceCodeStatistics-Files">Files</h3><h4 id="SourceCodeStatistics-Numberofsourcefiles">Number of source files</h4><pre>find . -name *.java -print | wc -l</pre><h3 id="SourceCodeStatistics-kLoC">kLoC</h3><h4 id="SourceCodeStatistics-linesofsourcecode(/1000)">lines of source code (/ 1000)</h4><pre>expr `find . -name *.java -exec cat {} \; | wc -l` / 1000</pre><h3 id="SourceCodeStatistics-ksigLoC">ksigLoC</h3><h4 id="SourceCodeStatistics-linesofsignificantsourcecode(/1000)(w/oblanklines&amp;comments)">lines of significant source code (/ 1000) (w/o blanklines &amp; comments)</h4><pre>expr `find . -name *.java -exec cat {} \; | sloc.py -l c | wc -l` / 1000</pre><p>The <code>sloc.py</code> script is part of the SCALe app, in the scripts directory. It filters out blanklines and comments. the -l option indicates the comment style, either 'c' for C-style comments (/* */, //) or 'sh' for Perl-style comments (#).</p><h2 id="SourceCodeStatistics-BasicDerivedValues">Basic Derived Values</h2><p>These values are determined by calculations on the Basic Measured Values</p><h3 id="SourceCodeStatistics-Filesize">Filesize</h3><h4 id="SourceCodeStatistics-Linesofcodeperfile">Lines of code per file</h4><pre>1000 * kLoC / Files</pre><h3 id="SourceCodeStatistics-Comment">Comment</h3><h4 id="SourceCodeStatistics-Percentageofsignificantsourcecodetototalcode">Percentage of significant source code to total code</h4><pre>ksigLoC / kLoC</pre><h2 id="SourceCodeStatistics-AuditMeasuredValues">Audit Measured Values</h2><p>These are items we measure based on a completed SCALe audit.</p><h3 id="SourceCodeStatistics-Rules">Rules</h3><h4 id="SourceCodeStatistics-NumberofCERTrulesthatwereviolatedbyaTruediagnostic">Number of CERT rules that were violated by a True diagnostic</h4><h3 id="SourceCodeStatistics-True">True</h3><h4 id="SourceCodeStatistics-Numberoftrueviolations">Number of true violations</h4><h3 id="SourceCodeStatistics-Suspicious">Suspicious</h3><h4 id="SourceCodeStatistics-Numberofsuspiciousviolations">Number of suspicious violations</h4><h3 id="SourceCodeStatistics-Unknown">Unknown</h3><h4 id="SourceCodeStatistics-Numberofunknownviolations">Number of unknown violations</h4><h3 id="SourceCodeStatistics-False">False</h3><h4 id="SourceCodeStatistics-Numberoffalsepositives">Number of false positives</h4><h2 id="SourceCodeStatistics-AuditDerivedValues">Audit Derived Values</h2><p>These values are determined by calculations on the Basic and Audit Measured Values</p><h3 id="SourceCodeStatistics-Diagnostics">Diagnostics</h3><h4 id="SourceCodeStatistics-Totalnumberofdiagnosticsreported">Total number of diagnostics reported</h4><pre>True + Suspicious + Unknown</pre><h3 id="SourceCodeStatistics-Uncertainty">Uncertainty</h3><h4 id="SourceCodeStatistics-RationofreporteddiagnosticsperTruediagnostic">Ration of reported diagnostics per True diagnostic</h4><pre>(Suspicious + Unknown) / True</pre><p>This represents the likelihood that a non-false diagnostic is to be True</p><h3 id="SourceCodeStatistics-FileDensity">File Density</h3><h4 id="SourceCodeStatistics-Ratioofreporteddefectsperfile">Ratio of reported defects per file</h4><pre>Diagnostics / Files</pre><h3 id="SourceCodeStatistics-LineDensity">Line Density</h3><h4 id="SourceCodeStatistics-Ratioofdefectspercodesize">Ratio of defects per code size</h4><pre>Diagnostics / ksigLoC</pre><p> </p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

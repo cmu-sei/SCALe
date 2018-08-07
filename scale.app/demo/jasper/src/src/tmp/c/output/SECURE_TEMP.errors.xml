@@ -1,0 +1,15 @@
+<error>
+<checker>SECURE_TEMP</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_stream.c</file>
+<function>jas_stream_tmpfile</function>
+<score>100</score>
+<ordered>false</ordered>
+<event>
+<main>true</main>
+<tag>secure_temp</tag>
+<description>{CovLStr{v1}{{0} creates files with predictable names, which is unsafe.}{&quot;tmpnam(char *)&quot;}}</description>
+<line>368</line>
+</event>
+<extra></extra>
+<subcategory>none</subcategory>
+</error>

@@ -1,0 +1,28 @@
+<error>
+<checker>REVERSE_INULL</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_image.c</file>
+<function>jas_image_copy</function>
+<score>100</score>
+<ordered>false</ordered>
+<event>
+<tag>deref_ptr_in_call</tag>
+<description>{CovLStr{v1}{Dereferencing pointer {0}.}{&quot;newimage&quot;}}</description>
+<line>214</line>
+<model_ptr>
+<module>generic</module>
+<property>dereference</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_image.c</file>
+<function>jas_image_growcmpts</function>
+<key>bdd980becb021a6a4e9887c4f8c442de</key>
+<id>5</id>
+</model_ptr>
+</event>
+<event>
+<main>true</main>
+<tag>check_after_deref</tag>
+<description>{CovLStr{v1}{Null-checking {0} suggests that it may be null, but it has already been dereferenced on all paths leading to the check.}{&quot;newimage&quot;}}</description>
+<line>233</line>
+</event>
+<extra>newimage</extra>
+<subcategory>none</subcategory>
+</error>

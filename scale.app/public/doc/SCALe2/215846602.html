@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Installing the SCALe Web App on 64-bit CentOS Linux 6.6  (minimal version, with gnome and browser added) - Offline</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Installing-SCALe_215846594.html">Installing SCALe</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Installing the SCALe Web App on 64-bit CentOS Linux 6.6  (minimal version, with gnome and browser added) - Offline
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span> on Dec 04, 2017
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>In this scenario, you install a SCALe distribution onto a CentOS 6.6 machine that has no net access. The SCALe CentOS Offline bundle has no external network requirements; it is entirely self-contained. The bundle is provided to you as a tarball archive, referred to below as <code>&lt;scale-offline-tarball&gt;.tgz</code>.  Remember to review the &quot;Documentation Conventions (Using <code>sudo</code> or <code>su</code>) for Installation Instructions&quot; section, security notes, and more on the main <a href="Installing-SCALe_215846594.html">Installing SCALe</a> page.</p><p>This distribution is designed for 64-bit CentOS 6.6 Linux  (<a href="ttp://vault.centos.org/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso" rel="nofollow"><u><span style="color: rgb(0,102,204);">minimal version</span></u></a> with gnome and a browser added).   Method used to install the third-party packages is similar to what’s documented on this page: <a href="http://www.idevelopment.info/data/Unix/Linux/LINUX_AddGNOMEToCentOSMinimalInstall.shtml" class="external-link" rel="nofollow"><u><span style="color: rgb(0,102,204);">http://www.idevelopment.info/data/Unix/Linux/LINUX_AddGNOMEToCentOSMinimalInstall.shtml</span></u></a>. So,</p><p style="margin-left: 60.0px;"><code><strong>yum -y groupinstall &quot;Desktop&quot; &quot;Desktop Platform&quot; &quot;X Window System&quot; &quot;Fonts&quot;</strong></code></p><p style="margin-left: 60.0px;"><code><strong>yum -y groupinstall &quot;Internet Browser&quot;</strong></code></p><p>After completing these instructions, do <strong>not</strong> update your system with newer packages.  They may cause the installation to fail due to obsolete dependencies.</p><h2 id="InstallingtheSCALeWebAppon64-bitCentOSLinux6.6(minimalversion,withgnomeandbrowseradded)-Offline-DocumentationConventions(Usingsudoorsu)forInstallationInstructions">Documentation Conventions (Using <code>sudo</code> or <code>su</code>) for Installation Instructions</h2><p>This documentation contains many code blocks that explain how to perform some action. These blocks are written using the Bash shell language. Because the syntax of different shells can vary, you may need to tweak the syntax if you use a different shell, such as csh. </p><p>Some commands must be run with root privileges. In code blocks, these commands are prepended <span>with the </span> <code>sudo</code> <span> command. If you get an error when running <code>sudo</code>, then you will need to execute these commands in an account that has administrator access. Alternatively, you can run these commands using a root account, in which case you do not need to prepend <code>sudo</code> to the command.</span></p><h2 id="InstallingtheSCALeWebAppon64-bitCentOSLinux6.6(minimalversion,withgnomeandbrowseradded)-Offline-Instructions"><span>Instructions</span></h2><p>To install SCALe, you must do the following.</p><ol><li><p><span>If you have not already extracted the SCALe web app software as described below, you must do so now:</span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">export SCALE_HOME=&quot;/location/of/SCALe/install&quot;
+mkdir -p $SCALE_HOME
+cd $SCALE_HOME
+tar xzf &lt;scale-offline-tarball&gt;.tgz
+</pre>
+</div></div></li><li><p>Install all RPMs provided.  This command will ask you for confirmation before installing the packages.  Type 'y &lt;Enter&gt;' at the confirmation prompt to install the packages as <strong>root</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd $SCALE_HOME/scale.app/extern
+yum localinstall rpm/*</pre>
+</div></div></li><li><p>Install SQLITE from source as <strong>root</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd $SCALE_HOME/scale.app/extern/sqlite-autoconf-3090200
+./configure
+make
+make install</pre>
+</div></div></li><li><p>Install <span>the SQLite PCRE package as <strong>root</strong></span><span style="color: rgb(0,128,0);"><span> </span> </span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd ../sqlite3-pcre-master
+make
+make install</pre>
+</div></div></li><li><p>Install Ruby from source as <strong>root</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd ../ruby-2.0.0-p647
+./configure
+make
+make install</pre>
+</div></div></li><li><p>Install Python from source as <strong>root</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd ../Python-2.7.5
+./configure
+make
+make altinstall</pre>
+</div></div></li><li>Install GNU Global from source as <strong>root</strong><br/><div class="container" title="Hint: double-click to select code"><p> </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd ../global-6.5.1
+./configure
+make
+make install</pre>
+</div></div></div></li><li><p><span>Install prerequisite gems as <strong>root</strong><br/></span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd ..
+gem install -f --local  gem/json_pure-1.8.3.gem gem/bundler-1.10.6.gem</pre>
+</div></div></li><li><p>Install the webapp in a new terminal, <span style="color: rgb(255,0,0);">as <strong>NOT root (Careful: do <u>not</u> install this as root!)</strong></span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd $SCALE_HOME/scale.app
+cp -r extern/gem/cache vendor
+bundle install --local --path vendor/bundle/
+bundle exec rake db:migrate
+</pre>
+</div></div></li><li><p>Make a symlink for Python, as <strong>root</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">ln -s /usr/local/bin/python2.7 /usr/local/bin/python </pre>
+</div></div><p>Note that the account on which the app runs should have 'python' invoke Python 2.7 by default. This can be accomplished by the account having <code>/usr/local/bin</code> before <code>/usr/bin</code> in their <code>$PATH</code> environment variable.</p></li></ol><hr/><p><a href="Installing-SCALe_215846594.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="215846575.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> </p><p> </p><p> </p><p> </p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

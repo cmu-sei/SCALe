@@ -1,0 +1,519 @@
+<error>
+<checker>NULL_RETURNS</checker>
+<template>null_returns_multievent_v1</template>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_image.c</file>
+<function>jas_image_copy</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>returned_null</tag>
+<description>{CovLStr{v1}{Function {0} returns null (checked {1} out of {2} times).}{&quot;jas_image_create0(void)&quot;}{5}{6}}</description>
+<line>213</line>
+<model_ptr>
+<module>generic</module>
+<property>returnsnull</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_image.c</file>
+<function>jas_image_create0</function>
+<key>6eb5ef056f8a6447ec01ef52f67d2630</key>
+<id>3</id>
+</model_ptr>
+</event>
+<event>
+<event_set>1</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_image_create0()&quot;}{&quot;image = jas_image_create0()&quot;}}</description>
+<line>136</line>
+</event>
+<event>
+<event_set>2</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_image_create0()&quot;}{&quot;outimage = jas_image_create0()&quot;}}</description>
+<line>1345</line>
+</event>
+<event>
+<event_set>3</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_image_create0()&quot;}{&quot;image = jas_image_create0()&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/mif/mif_cod.c</file>
+<line>170</line>
+</event>
+<event>
+<event_set>4</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_image_create0()&quot;}{&quot;tmpimage = jas_image_create0()&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/mif/mif_cod.c</file>
+<line>301</line>
+</event>
+<event>
+<event_set>5</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_image_create0()&quot;}{&quot;image = jas_image_create0()&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/pgx/pgx_dec.c</file>
+<line>114</line>
+</event>
+<event>
+<tag>var_assigned</tag>
+<description>{CovLStr{v1}{Assigning: {0} = null return value from {1}.}{&quot;newimage&quot;}{&quot;jas_image_create0(void)&quot;}}</description>
+<line>213</line>
+</event>
+<event>
+<main>true</main>
+<tag>dereference</tag>
+<description>{CovLStr{v1}{Dereferencing a pointer that might be null {0} when calling {1}.}{&quot;newimage&quot;}{&quot;jas_image_growcmpts(jas_image_t *, int)&quot;}}</description>
+<line>214</line>
+<model_ptr>
+<module>generic</module>
+<property>dereference</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_image.c</file>
+<function>jas_image_growcmpts</function>
+<key>bdd980becb021a6a4e9887c4f8c442de</key>
+<id>5</id>
+</model_ptr>
+</event>
+<extra>jas_image_create0</extra>
+<subcategory>none</subcategory>
+</error>
+<error>
+<checker>NULL_RETURNS</checker>
+<template>null_returns_multievent_v1</template>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_enc.c</file>
+<function>jpc_enc_encodemainhdr</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;!(enc-&gt;mrk = jpc_ms_create(65359))&quot;}}</description>
+<line>918</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>920</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;jpc_putms(enc-&gt;out, enc-&gt;cstate, enc-&gt;mrk)&quot;}}</description>
+<line>921</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>924</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;!(enc-&gt;mrk = jpc_ms_create(65361))&quot;}}</description>
+<line>929</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>931</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;siz-&gt;comps&quot;}}</description>
+<line>944</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;i &lt; (int)cp-&gt;numcmpts&quot;}}</description>
+<line>945</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>950</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>945</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;i &lt; (int)cp-&gt;numcmpts&quot;}}</description>
+<line>945</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>loop</tag>
+<description>{CovLStr{v1}{Jumping back to the beginning of the loop}}</description>
+<line>950</line>
+<path_event>
+<jump>true</jump>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>loop_begin</tag>
+<description>{CovLStr{v1}{Jumped back to beginning of loop}}</description>
+<line>945</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;i &lt; (int)cp-&gt;numcmpts&quot;}}</description>
+<line>945</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>loop_end</tag>
+<description>{CovLStr{v1}{Reached end of loop}}</description>
+<line>950</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;jpc_putms(enc-&gt;out, enc-&gt;cstate, enc-&gt;mrk)&quot;}}</description>
+<line>951</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>954</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;!(enc-&gt;mrk = jpc_ms_create(65380))&quot;}}</description>
+<line>958</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>960</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;!(com-&gt;data = (unsigned char *)jas_strdup(buf))&quot;}}</description>
+<line>965</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>967</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;jpc_putms(enc-&gt;out, enc-&gt;cstate, enc-&gt;mrk)&quot;}}</description>
+<line>968</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>971</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;cmptno &lt; cp-&gt;numcmpts&quot;}}</description>
+<line>991</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>returned_null</tag>
+<description>{CovLStr{v1}{Function {0} returns null (checked {1} out of {2} times).}{&quot;jpc_cod_gettsfb(int, int)&quot;}{2}{3}}</description>
+<line>992</line>
+<model_ptr>
+<module>generic</module>
+<property>returnsnull</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_tsfb.c</file>
+<function>jpc_cod_gettsfb</function>
+<key>6e853c357e441b18c5d403bfb2dc3649</key>
+<id>1</id>
+</model_ptr>
+</event>
+<event>
+<event_set>1</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jpc_cod_gettsfb(ccp-&gt;qmfbid, tcomp-&gt;numrlvls - 1)&quot;}{&quot;tcomp-&gt;tsfb = jpc_cod_gettsfb(ccp-&gt;qmfbid, tcomp-&gt;numrlvls - 1)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_dec.c</file>
+<line>705</line>
+</event>
+<event>
+<event_set>2</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jpc_cod_gettsfb(tcmpt-&gt;qmfbid, tcmpt-&gt;numrlvls - 1)&quot;}{&quot;tcmpt-&gt;tsfb = jpc_cod_gettsfb(tcmpt-&gt;qmfbid, tcmpt-&gt;numrlvls - 1)&quot;}}</description>
+<line>2090</line>
+</event>
+<event>
+<tag>var_assigned</tag>
+<description>{CovLStr{v1}{Assigning: {0} = null return value from {1}.}{&quot;tsfb&quot;}{&quot;jpc_cod_gettsfb(int, int)&quot;}}</description>
+<line>992</line>
+</event>
+<event>
+<main>true</main>
+<tag>dereference</tag>
+<description>{CovLStr{v1}{Dereferencing a pointer that might be null {0} when calling {1}.}{&quot;tsfb&quot;}{&quot;jpc_tsfb_getbands(jpc_tsfb_t *, uint_fast32_t, uint_fast32_t, uint_fast32_t, uint_fast32_t, jpc_tsfb_band_t *)&quot;}}</description>
+<line>993</line>
+<model_ptr>
+<module>generic</module>
+<property>dereference</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_tsfb.c</file>
+<function>jpc_tsfb_getbands</function>
+<key>ea21f8432d7b6447820112ab097b5e64</key>
+<id>3</id>
+</model_ptr>
+</event>
+<extra>jpc_cod_gettsfb</extra>
+<subcategory>none</subcategory>
+</error>
+<error>
+<checker>NULL_RETURNS</checker>
+<template>null_returns_multievent_v1</template>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jp2/jp2_cod.c</file>
+<function>jp2_box_put</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;!(box-&gt;info-&gt;flags &amp; 3)&quot;}}</description>
+<line>481</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;!(box-&gt;info-&gt;flags &amp; 3)&quot;}}</description>
+<line>481</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;dataflag&quot;}}</description>
+<line>483</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>returned_null</tag>
+<description>{CovLStr{v1}{Function {0} returns null (checked {1} out of {2} times).}{&quot;jas_stream_memopen(char *, int)&quot;}{12}{15}}</description>
+<line>484</line>
+<model_ptr>
+<module>generic</module>
+<property>returnsnull</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_stream.c</file>
+<function>jas_stream_memopen</function>
+<key>a169e3c20075b8a08e5f0119409ffc53</key>
+<id>8</id>
+</model_ptr>
+</event>
+<event>
+<event_set>1</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_stream_memopen((char *)buf, len)&quot;}{&quot;in = jas_stream_memopen((char *)buf, len)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_icc.c</file>
+<line>1695</line>
+</event>
+<event>
+<event_set>2</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_stream_memopen(NULL, 0)&quot;}{&quot;newcmpt-&gt;stream_ = jas_stream_memopen(NULL, 0)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_image.c</file>
+<line>267</line>
+</event>
+<event>
+<event_set>3</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_stream_memopen(NULL, 0)&quot;}{&quot;tmpstream = jas_stream_memopen(NULL, 0)&quot;}}</description>
+<line>281</line>
+</event>
+<event>
+<event_set>4</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_stream_memopen(NULL, 0)&quot;}{&quot;tmpstream = jas_stream_memopen(NULL, 0)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jp2/jp2_enc.c</file>
+<line>162</line>
+</event>
+<event>
+<event_set>5</event_set>
+<tag>example_assign</tag>
+<description>{CovLStr{v1}{Assigning: {0} = return value from {1}.}{&quot;iccstream&quot;}{&quot;jas_stream_memopen(NULL, 0)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jp2/jp2_enc.c</file>
+<line>230</line>
+</event>
+<event>
+<event_set>5</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;iccstream&quot;}{&quot;iccstream&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jp2/jp2_enc.c</file>
+<line>231</line>
+</event>
+<event>
+<tag>var_assigned</tag>
+<description>{CovLStr{v1}{Assigning: {0} = null return value from {1}.}{&quot;tmpstream&quot;}{&quot;jas_stream_memopen(char *, int)&quot;}}</description>
+<line>484</line>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;box-&gt;ops-&gt;putdata&quot;}}</description>
+<line>485</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_false</tag>
+<description>{CovLStr{v1}{Condition {0}, taking false branch}{&quot;(*box-&gt;ops-&gt;putdata)(box, tmpstream)&quot;}}</description>
+<line>486</line>
+<path_event>
+<jump>true</jump>
+</path_event>
+</event>
+<event>
+<tag>if_end</tag>
+<description>{CovLStr{v1}{End of if statement}}</description>
+<line>488</line>
+<path_event>
+<suppressible>true</suppressible>
+</path_event>
+</event>
+<event>
+<main>true</main>
+<tag>dereference</tag>
+<description>{CovLStr{v1}{Dereferencing a pointer that might be null {0} when calling {1}.}{&quot;tmpstream&quot;}{&quot;jas_stream_tell(jas_stream_t *)&quot;}}</description>
+<line>490</line>
+<model_ptr>
+<module>generic</module>
+<property>dereference</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_stream.c</file>
+<function>jas_stream_tell</function>
+<key>e0376020dacca2902397b82b40139a0e</key>
+<id>3</id>
+</model_ptr>
+</event>
+<extra>jas_stream_memopen</extra>
+<subcategory>none</subcategory>
+</error>
+<error>
+<checker>NULL_RETURNS</checker>
+<template>null_returns_multievent_v1</template>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_seq.c</file>
+<function>jas_matrix_copy</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>returned_null</tag>
+<description>{CovLStr{v1}{Function {0} returns null (checked {1} out of {2} times).}{&quot;jas_matrix_create(int, int)&quot;}{11}{15}}</description>
+<line>183</line>
+<model_ptr>
+<module>generic</module>
+<property>returnsnull</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_seq.c</file>
+<function>jas_matrix_create</function>
+<key>91fb7478a24c9083f3874a4a90784771</key>
+<id>0</id>
+</model_ptr>
+</event>
+<event>
+<event_set>1</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_matrix_create(height, width)&quot;}{&quot;diffdata[i] = jas_matrix_create(height, width)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/appl/imgcmp.c</file>
+<line>509</line>
+</event>
+<event>
+<event_set>2</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_matrix_create(height, width)&quot;}{&quot;origdata = jas_matrix_create(height, width)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/appl/imgcmp.c</file>
+<line>303</line>
+</event>
+<event>
+<event_set>3</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_matrix_create(height, width)&quot;}{&quot;recondata = jas_matrix_create(height, width)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/appl/imgcmp.c</file>
+<line>307</line>
+</event>
+<event>
+<event_set>4</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_matrix_create(yend - ystart, xend - xstart)&quot;}{&quot;matrix = jas_matrix_create(yend - ystart, xend - xstart)&quot;}}</description>
+<line>90</line>
+</event>
+<event>
+<event_set>5</event_set>
+<tag>example_checked</tag>
+<description>{CovLStr{v1}{{0} has its value checked in {1}.}{&quot;jas_matrix_create(1, info-&gt;width)&quot;}{&quot;cmpts[i] = jas_matrix_create(1, info-&gt;width)&quot;}}</description>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/bmp/bmp_dec.c</file>
+<line>340</line>
+</event>
+<event>
+<tag>var_assigned</tag>
+<description>{CovLStr{v1}{Assigning: {0} = null return value from {1}.}{&quot;y&quot;}{&quot;jas_matrix_create(int, int)&quot;}}</description>
+<line>183</line>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;i &lt; x-&gt;numrows_&quot;}}</description>
+<line>184</line>
+<path_event></path_event>
+</event>
+<event>
+<tag>cond_true</tag>
+<description>{CovLStr{v1}{Condition {0}, taking true branch}{&quot;j &lt; x-&gt;numcols_&quot;}}</description>
+<line>185</line>
+<path_event></path_event>
+</event>
+<event>
+<main>true</main>
+<tag>dereference</tag>
+<description>{CovLStr{v1}{Dereferencing a null pointer {0}.}{&quot;y&quot;}}</description>
+<line>186</line>
+</event>
+<extra>jas_matrix_create</extra>
+<subcategory>none</subcategory>
+</error>

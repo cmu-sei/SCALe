@@ -1,0 +1,28 @@
+<error>
+<checker>SIZECHECK</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_cs.c</file>
+<function>jpc_crg_getparms</function>
+<score>100</score>
+<ordered>true</ordered>
+<event>
+<tag>buffer_alloc</tag>
+<description>{CovLStr{v1}{{0} allocates memory.}{&quot;jas_malloc(cstate-&gt;numcomps * 4U)&quot;}}</description>
+<line>1331</line>
+<model_ptr>
+<module>generic</module>
+<property>bufferalloc</property>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/base/jas_malloc.c</file>
+<function>jas_malloc</function>
+<key>80c0a8e45167339283c645768f713548</key>
+<id>1</id>
+</model_ptr>
+</event>
+<event>
+<main>true</main>
+<tag>incorrect_multiplication</tag>
+<description>{CovLStr{v1}{Allocating a multiple of {0} bytes to pointer of type {1}, which needs {2} bytes.}{4}{jpc_crgcomp_t}{8}}</description>
+<line>1331</line>
+</event>
+<extra></extra>
+<subcategory>incorrect_multiplication</subcategory>
+</error>

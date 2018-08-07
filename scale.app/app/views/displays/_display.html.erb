@@ -1,0 +1,15 @@
+<!-- This file allows for additional messages that refer to a diagnostic to be displayed 
+It is injected into the jquery UI modal as a response from the server-->
+<h1>Additional messages for diagnostic <%= @display.id %></h1>
+<table>
+  <tr><th>Message</th><th>Line</th><th>Path</th></tr>
+  <% @messages.each do |m| %>
+  	<tr>
+    <td><%= m.message %></td>
+	  <td class="message-link"><%= content_tag(:a, { href: m.link.to_s }) do  %> 
+        <%= m.line %>
+      <% end %></td>
+    <td><%= m.path %></td>
+	</tr>
+  <% end %>   
+</table>

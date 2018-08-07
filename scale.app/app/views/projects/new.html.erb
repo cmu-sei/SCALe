@@ -1,0 +1,24 @@
+<!-- New projects are uploaded here. It is a simple form that
+just includes a name and description field.  -->
+<%= form_for @project, :html => {:multipart => true} do |f| %>
+  <h1>New project</h1>
+    <% if @project.errors.any? %>  
+    <div id="errorExplanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited
+          this project from being saved:</h2>
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div><%= f.label :name, "Name: " %><br>
+    <%= f.text_field :name, class: "createProject" %></div>
+    <div><%= f.label :description, "Description: " %><br>
+    <%= f.text_area :description, class: "createProject" %></div>
+    <div><%= f.submit nil, class: "submitButton" %></div>
+    <%= link_to 'Back', projects_path %>
+<% end %>
+ 

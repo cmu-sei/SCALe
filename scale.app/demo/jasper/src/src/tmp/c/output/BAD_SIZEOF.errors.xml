@@ -1,0 +1,15 @@
+<error>
+<checker>BAD_SIZEOF</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_enc.c</file>
+<function>tcmpt_create</function>
+<score>100</score>
+<ordered>false</ordered>
+<event>
+<main>true</main>
+<tag>bad_sizeof</tag>
+<description>{CovLStr{v1}{Taking the size of arithmetic expression {0} is suspicious.  Did you intend &quot;sizeof({1}) {2} {3}&quot;?}{&quot;tcmpt-&gt;numstepsizes * 4U&quot;}{tcmpt-&gt;numstepsizes}{*}{4U /* sizeof (uint_fast16_t) */}}</description>
+<line>2105</line>
+</event>
+<extra>numstepsizes,tcmpt</extra>
+<subcategory>none</subcategory>
+</error>

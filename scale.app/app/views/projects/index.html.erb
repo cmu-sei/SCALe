@@ -1,0 +1,37 @@
+<!-- This is the main portal page that lists all the current projects -->
+<h1>Active SCALe projects:</h1>
+ 
+<table id="project_list">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th colspan=5></th>
+  </tr>
+ 
+<!-- For each project we show some basic information and
+the links corresponding to the various actions.
+Create DB brings you to the database page
+Edit brings you to the edit project page
+Export Tables is a download link for the diagnostics for this project, similar to past excel spreadsheets
+Export DB is a download link for a sqlite database with David's original scale structure, with the verdicts properly set and manual diagnostics added. 
+Destroy is a link that will purge the Rails database of all diagnostics and messages associated with this project. It does not delete from the scale archive as a safety. -->
+<% @projects.each do |p| %>
+  <tr>
+    <td><%= link_to p.name, p %></td>
+    <td><%= p.description %></td>
+    <td><%= link_to 'Create DB', "/projects/#{p.id}/database" %></td>
+    <td><%= link_to 'Edit', edit_project_path(p) %></td>
+    <td><%= link_to 'Export Tables', "/projects/#{p.id}/export" %></td>
+    <td><%= link_to 'Export DB', "/projects/#{p.id}/exportdb" %></td>
+    <td><%= link_to 'Destroy', p, :confirm => 'Are you sure?',
+                                     :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr> 
+    <td style="text-align:center;" colspan=7> <%= link_to 'New project', new_project_path %> </td>
+  </tr>
+</table>
+
+<br />
+ 
+

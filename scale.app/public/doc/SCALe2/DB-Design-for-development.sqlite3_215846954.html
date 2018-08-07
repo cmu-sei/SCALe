@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : DB Design for development.sqlite3</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : DB Design for development.sqlite3
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span>, last modified by <span class='editor'> Lori Flynn</span> on Jan 09, 2018
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>The database location is: <code>$SCALE_HOME/scale.app/db/development.sqlite3 </code></p><p>Updates to development.sqlite3 happen when the user:</p><ul><li>creates a new project</li><li>creates a project from database</li><li>changes a verdict or flag</li><li>creates a new diagnostic</li><li>“set all selected” (mass update verdict and flag)</li><li>edits a project (updates a project)</li><li>destroys a project</li></ul><p>For the minnow branch of scale.app, tables in development.sqlite3 are detailed below.  </p><h3 id="DBDesignfordevelopment.sqlite3-Tables">Tables </h3><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/><col/></colgroup><tbody><tr><td colspan="2" class="confluenceTd"><p align="center"> </p></td><td class="confluenceTd"><p align="center"><strong>NOTES </strong></p></td></tr><tr><td colspan="2" class="confluenceTd"><p align="center"><strong>displays</strong></p></td><td class="confluenceTd"><p align="center">There are multiple displays table entries with the same   metaalert ID (each alert within a metadata fused alert has a separate   displays table entry) </p></td></tr><tr><td class="confluenceTd"><p>id</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p>The primary key on the table entry (values start at 1 and are   incremented by 1 for each new alert).</p></td></tr><tr><td class="confluenceTd"><p>flag</p></td><td class="confluenceTd"><p>BOOLEAN</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>verdict</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>previous</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>path</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>line</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>link</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>message</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>checker</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>tool</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>rule</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>title</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>severity</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>liklihood (sic)</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>remediation</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>priority</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>level</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>cwe_likelihood</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>notes</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>ignored</p></td><td class="confluenceTd"><p>BOOLEAN</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>dead</p></td><td class="confluenceTd"><p>BOOLEAN</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>inapplicable_environment</p></td><td class="confluenceTd"><p>BOOLEAN</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>dangerous_construct</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>confidence</p></td><td class="confluenceTd"><p>DECIMAL</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>alert_priority</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>project_id</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p> </p></td></tr><tr><td class="confluenceTd"><p>meta_data_id</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p>Metadata id (in the external.sqlite3 DB).</p></td></tr><tr><td class="confluenceTd"><p>Diagnostic_id</p></td><td class="confluenceTd"><p>INTEGER</p></td><td class="confluenceTd"><p>Diagnostic id (in the external.sqlite3 DB).</p></td></tr></tbody></table></div><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td colspan="2" class="confluenceTd"><p align="center"><strong>messages</strong></p></td></tr><tr><td class="confluenceTd"><p>id</p></td><td class="confluenceTd"><p>INTEGER</p></td></tr><tr><td class="confluenceTd"><p>project_id</p></td><td class="confluenceTd"><p>INTEGER</p></td></tr><tr><td class="confluenceTd"><p>diagnostic_id</p></td><td class="confluenceTd"><p>INTEGER</p></td></tr><tr><td class="confluenceTd"><p>path</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td></tr><tr><td class="confluenceTd"><p>line</p></td><td class="confluenceTd"><p>INTEGER</p></td></tr><tr><td class="confluenceTd"><p>link</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td></tr><tr><td class="confluenceTd"><p>message</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td></tr></tbody></table></div><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td colspan="2" class="confluenceTd"><p align="center"><strong>projects</strong></p></td></tr><tr><td class="confluenceTd"><p>id</p></td><td class="confluenceTd"><p>INTEGER</p></td></tr><tr><td class="confluenceTd"><p>name</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td></tr><tr><td class="confluenceTd"><p>description</p></td><td class="confluenceTd"><p>TEXT</p></td></tr><tr><td class="confluenceTd"><p>created_at</p></td><td class="confluenceTd"><p>DATETIME</p></td></tr><tr><td class="confluenceTd"><p>updated_at</p></td><td class="confluenceTd"><p>DATETIME</p></td></tr></tbody></table></div><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td colspan="2" class="confluenceTd"><p align="center"><strong>schema_migrations</strong></p></td></tr><tr><td class="confluenceTd"><p>version</p></td><td class="confluenceTd"><p>VARCHAR(255)</p></td></tr></tbody></table></div><p> </p><h3 id="DBDesignfordevelopment.sqlite3-development.sqlite3updates">development.sqlite3 updates</h3><ul><li>create new project</li><li>create project from database</li><li>change notes, flag, supplemental tag, verdict</li><li>create a new diagnostic</li><li>“set all selected” (mass update verdict and flag)</li><li>edit project (update project)</li><li>destroy project</li></ul>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

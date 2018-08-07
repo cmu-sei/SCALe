@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Manual Project Creation</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Manual Project Creation
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span> on Dec 04, 2017
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>This page describes how to manually create a SCALe project. This step is not strictly necessary, as the web app will create a project for you given just the source code and tool output. However, manual creation allows you greater flexibility and power when auditing source code.</p><p><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1521066407585 {padding: 0px;}
+div.rbtoc1521066407585 ul {list-style: disc;margin-left: 0px;}
+div.rbtoc1521066407585 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1521066407585'>
+<ul class='toc-indentation'>
+<li><a href='#ManualProjectCreation-Requirements'>Requirements</a></li>
+<li><a href='#ManualProjectCreation-Overview'>Overview</a></li>
+<li><a href='#ManualProjectCreation-PrepareaCopyoftheSourceCodeprepare_source'>Prepare a Copy of the Source Code</a>
+<ul class='toc-indentation'>
+<li><a href='#ManualProjectCreation-Exampled2u_ex_source'>Example</a></li>
+</ul>
+</li>
+<li><a href='#ManualProjectCreation-GenerateaSCALeDatabasefromYourToolOutputs'>Generate a SCALe Database from Your Tool Outputs</a>
+<ul class='toc-indentation'>
+<li><a href='#ManualProjectCreation-Example'>Example</a></li>
+</ul>
+</li>
+<li><a href='#ManualProjectCreation-GenerateGNUGlobalPages'>Generate GNU Global Pages</a>
+<ul class='toc-indentation'>
+<li><a href='#ManualProjectCreation-Example.1'>Example</a></li>
+</ul>
+</li>
+<li><a href='#ManualProjectCreation-CreateaNewProjectintheSCALeWebApp'>Create a New Project in the SCALe Web App</a></li>
+<li><a href='#ManualProjectCreation-UploadtheSCALeDatabase'>Upload the SCALe Database</a></li>
+<li><a href='#ManualProjectCreation-UploadtheGNUGlobalPages'>Upload the GNU Global Pages</a></li>
+<li><a href='#ManualProjectCreation-ViewYourProject'>View Your Project</a></li>
+</ul>
+</div></p><h2 id="ManualProjectCreation-Requirements">Requirements</h2><ol><li>A local copy of the source code you are auditing</li><li>GNU Global version 6.3.3 or greater</li><li>Outputs from static analyzers run against the source code</li><li>Access to the <code>scripts </code>directory of the SCALe web app, or a local copy of this directory</li></ol><h2 id="ManualProjectCreation-Overview">Overview</h2><p>The following diagram illustrates the process of creating a project manually.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="600" src="attachments/215846733/215846734.png" data-image-src="attachments/215846733/215846734.png" data-unresolved-comment-count="0" data-linked-resource-id="215846734" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="scale_manual.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><p>A SQLite database is generated from the static analyzer outputs.  A collection of HTML pages representing the source code is generated with the <code>htags</code> utility from GNU Global.  Both of these artifacts are then uploaded directly to the SCALe web app in a new project.  We now cover each step of this process in more detail.   </p><h2 id="ManualProjectCreation-PrepareaCopyoftheSourceCodeprepare_source">Prepare a Copy of the Source Code<span class="confluence-anchor-link" id="ManualProjectCreation-prepare_source"></span></h2><p>Some of the following steps require access to the source code of the application being auditing. You should deploy your source code using a particular directory structure for best results. You should create a new directory, called <code>src</code>, at a location of your choosing, then place a directory containing your source code inside of <code>src</code>.</p><h3 id="ManualProjectCreation-Exampled2u_ex_source">Example<span class="confluence-anchor-link" id="ManualProjectCreation-d2u_ex_source"></span></h3><p>Suppose that, when following the <a href="SCALe-Quick-Start-Demo-for-Auditors_215846628.html">SCALe Quick Start Demo</a>, you opt to create the database manually, and upload it to the web app, rather than uploading tool output to the web app directly. First, you download the source code from here:</p><p><a class="external-link" href="http://waterlan.home.xs4all.nl/dos2unix/dos2unix-7.2.2.tar.gz" rel="nofollow" style="line-height: 1.42857;"><img class="emoticon emoticon-light-on" src="images/icons/emoticons/lightbulb_on.png" data-emoticon-name="light-on" alt="(lightbulb)"/> <span style="color: rgb(0,128,0);">dos2unix-7.2.2.tar.gz</span></a></p><p>Then, you extract this tarball inside of an empty <code style="line-height: 1.42857;">src</code> directory.  Here, the <code style="line-height: 1.42857;">src</code> directory is created in your home directory:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd ~
+mkdir src
+
+cd src
+tar xzf dos2unix-7.2.2.tar.gz</pre>
+</div></div><h2 id="ManualProjectCreation-GenerateaSCALeDatabasefromYourToolOutputs">Generate a SCALe Database from Your Tool Outputs</h2><p>The first step requires converting static analyzer outputs into a common format. The <code>
+    <span> <a href="Back-End-Script-Design_215846946.html">digest_diagnostics.py</a> </span>
+  </code> script is responsible for this task. It accepts tool outputs and produces a SQLite database. It is available in the <code>$SCALE_HOME/scale.app/scripts </code>directory of your SCALe installation. If you do not have access to the machine hosting your SCALe installation, you should request a copy of the scripts directory from your SCALe administrator.</p><p>This script takes the following arguments:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>Database</p></td><td class="confluenceTd"><p>File name of a SQLite database (may or may not already exist)</p></td></tr><tr><td class="confluenceTd"><p>Input</p></td><td class="confluenceTd"><p>File name of output from a specific tool</p></td></tr><tr><td class="confluenceTd"><p>Tool</p></td><td class="confluenceTd"><p>Number associated with a platform and analysis tool (see the<code> $SCALE_HOME/scale.app/scripts/tools.org</code> file for valid numbers)</p></td></tr></tbody></table></div><p>If the database does not already exist, the script creates and initializes it. If the database does exist, the script first removes any diagnostics already associated with the specified tool. Therefore, if you run the script multiple times with the same tool ID, each instance erases any data entered by the previous instance. However, data associated with other tools is not overwritten.</p><p>Each diagnostic typically refers to a location in the source code where the violation occurs. The location typically consists of a file name and a line number. The <code>digest_diagnostics.py</code> script will attempt to normalize these file name references, for example, by removing machine-specific path prefixes and converting Windows-style paths to UNIX-style paths. This normalization facilitates the display of source code in the web app when auditing diagnostics. To this end, the script takes two optional parameters.</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><td class="confluenceTd"><p><code>-s</code></p></td><td class="confluenceTd"><p><code>--source</code></p></td><td class="confluenceTd"><p>Path to look for source files</p></td></tr><tr><td class="confluenceTd"><p><code>-m</code></p></td><td class="confluenceTd"><p><code>--map</code></p></td><td class="confluenceTd"><p>Prefix substitution to try when finding files</p></td></tr></tbody></table></div><p>The <code>--source</code> argument specifies directories where source files may live.  At minimum, you should include the <code>src</code> directory <a href="#ManualProjectCreation-prepare_source">prepared above</a>. However, multiple <code>--source</code> arguments may be provided.</p><p>The <code style="line-height: 1.42857;">--map</code> argument prompts the system to try replacing prefixes when hunting for files. For instance, if the tool output contains the path <code style="line-height: 1.42857;">c:/Documents and Settings/you/Desktop/src/example/example.cpp</code>, but your distribution only contains <code style="line-height: 1.42857;">src/example/example.cpp</code>, you could provide the following argument:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">--map &quot;/Documents and Settings/you/Desktop/src=src&quot;
+</pre>
+</div></div><p>This argument makes the script look for the program in <code>src/example/example.cpp</code>, and if it finds it there, it updates the database with this substitution.</p><p>The <code>digest_diagnostics.py</code> <span> </span>script fills the database with the tool's output, adjusts the paths, and makes sure that every diagnostic produced by the tool corresponds with a known CERT Secure Coding rule (or corresponds with no rule). It will produce errors if</p><ul><li>it encounters a source file it cannot find.</li><li>it encounters a diagnostic with a checker it does not recognize.</li></ul><p>If it can't find a source file, you can help it by rerunning the script with an additional <code>--source</code> argument to direct it to the file.</p><p>If it can't find a diagnostic, then edit the tool's <code>.properties</code> file to include the diagnostic, and next re-create the database. (You can always choose to let these errors remain unfixed.)</p><h3 id="ManualProjectCreation-Example">Example</h3><p>Continuing our working example with the <code>dos2unix</code> source code, suppose that you have Rosecheckers output for this code base. You can produce this output by following this demonstration: <a href="https://wiki-int.sei.cmu.edu/confluence/pages/viewpage.action?pageId=215846892">Collect Output from Static Analyzers (Moved)</a>. Alternatively, you can use this sample output: <a href="https://www.securecoding.cert.org/confluence/download/attachments/167805271/rosecheckers.txt?version=1&amp;modificationDate=1502233936000&amp;api=v2" class="external-link" rel="nofollow">rosecheckers.txt</a>. You should have a copy of the <code>dos2unix</code> source as described <a href="#ManualProjectCreation-d2u_ex_source">above</a>. Below, we assume you have placed this output in your home directory.</p><p>First, we process the Fortify output using the following command. This command creates a new SQLite database, called <code>out.sqlite3</code>, containing the Fortify diagnostics for <code>dos2unix</code>. <span>Note that the tool identifier for Rosecheckers on C/Linux is 12.</span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd $SCALE_HOME/scale.app/scripts
+./digest_diagnostics.py out.sqlite3 ~/d2u_fortify.xml 12 -s ~/src</pre>
+</div></div><p>Note that it was unnecessary to specify a <code>--map</code> parameter. The script was able to normalize paths simply by scanning the provided source directory.</p><h2 id="ManualProjectCreation-GenerateGNUGlobalPages">Generate GNU Global Pages</h2><p>To generate the GNU Global pages for your source code, first <a href="#ManualProjectCreation-prepare_source">prepare your source directory</a>. Next, run the <code>htags</code> command to generate the pages, and then archive them into a zip or tar file.</p><h3 id="ManualProjectCreation-Example.1">Example</h3><p>To generate the GNU Global pages for <code>dos2unix</code>, run the following commands:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd ~/src
+htags --suggest
+zip html.zip -r HTML</pre>
+</div></div><h2 id="ManualProjectCreation-CreateaNewProjectintheSCALeWebApp">Create a New Project in the SCALe Web App</h2><p>From the home page of the web app, click <strong>New project</strong>. Give the new project a name and a description, then click <strong>Create Project</strong>.</p><p>Clicking <strong>Create Project</strong> takes you to a page where you can upload tool outputs and source code, <em>but you should do nothing on this page and should instead return to the home page of the SCALe web app.</em> You can do so by clicking the <strong>SCALe Analysis Tool</strong> link in the upper left corner.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-content-image-border" src="attachments/215846733/215846740.png" data-image-src="attachments/215846733/215846740.png" data-unresolved-comment-count="0" data-linked-resource-id="215846740" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="go_home.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><h2 id="ManualProjectCreation-UploadtheSCALeDatabase">Upload the SCALe Database</h2><p>From the home page, click the <strong>Edit</strong> link for the project that you just created.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-content-image-border" src="attachments/215846733/215846739.png" data-image-src="attachments/215846733/215846739.png" data-unresolved-comment-count="0" data-linked-resource-id="215846739" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="edit_project.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><p>The <strong>Edit</strong> option takes you to a page where you can edit various properties of the existing project. Upload the database you created in the first step by clicking the <strong>Browse...</strong> button under the <strong>Upload SCALe Database </strong>heading and selecting your SQLite database. Then click <strong>Upload SCALe database</strong>.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-content-image-border" src="attachments/215846733/215846738.png" data-image-src="attachments/215846733/215846738.png" data-unresolved-comment-count="0" data-linked-resource-id="215846738" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="upload_scale.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><p>You are directed to a page where you can view the diagnostics in the database. You should see an error message in the lower half of this page, which looks something like this:</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="144" width="443" src="attachments/215846733/215846737.png" data-image-src="attachments/215846733/215846737.png" data-unresolved-comment-count="0" data-linked-resource-id="215846737" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="error.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><p>This error is expected, as we have not yet uploaded the GNU Global pages.</p><h2 id="ManualProjectCreation-UploadtheGNUGlobalPages">Upload the GNU Global Pages</h2><p>Return to the home page of the web app, and again click the <strong>Edit</strong> link for the project you created.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="141" width="419" src="attachments/215846733/215846739.png" data-image-src="attachments/215846733/215846739.png" data-unresolved-comment-count="0" data-linked-resource-id="215846739" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="edit_project.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><p>Upload the zip file containing the GNU Global pages, generated above, by clicking the <strong>Browse...</strong> button underneath the <strong>Upload GNU Global Pages Archive (.zip or .tgz) </strong>heading and selecting the archive from your local disk. Then click the <strong>Upload pages</strong> button.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-content-image-border" src="attachments/215846733/215846736.png" data-image-src="attachments/215846733/215846736.png" data-unresolved-comment-count="0" data-linked-resource-id="215846736" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="upload_pages.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><h2 id="ManualProjectCreation-ViewYourProject">View Your Project</h2><p>From the web app home page, click the linked name of the project you created and view the diagnostics with associated source code.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-content-image-border" height="109" width="387" src="attachments/215846733/215846735.png" data-image-src="attachments/215846733/215846735.png" data-unresolved-comment-count="0" data-linked-resource-id="215846735" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="project_link.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="215846733" data-linked-resource-container-version="1"></span></p><p> </p><hr/><p><a href="Adding-a-Tool-to-SCALe_215846731.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="215846575.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Terms-and-Definitions_215846944.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846733/215846734.png">scale_manual.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846733/215846735.png">project_link.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846733/215846736.png">upload_pages.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846733/215846737.png">error.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846733/215846738.png">upload_scale.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846733/215846739.png">edit_project.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/215846733/215846740.png">go_home.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

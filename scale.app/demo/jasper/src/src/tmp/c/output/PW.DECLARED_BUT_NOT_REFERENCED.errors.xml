@@ -1,0 +1,44 @@
+<error>
+<checker>PW.DECLARED_BUT_NOT_REFERENCED</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_enc.c</file>
+<function>unknown</function>
+<score>20</score>
+<ordered>true</ordered>
+<event>
+<main>true</main>
+<tag>declared_but_not_referenced</tag>
+<description>{CovLStr{v1}{{0} was declared but never referenced}{function &quot;jpc_calcssexp&quot;}}</description>
+<line>883</line>
+</event>
+<event>
+<tag>caretline</tag>
+<description>           ^</description>
+<line>883</line>
+</event>
+<mergekey>f07247ecc5ea2908ea3b433a6a32cca4</mergekey>
+<extra>static int jpc_calcssexp(jpc_fix_t stepsize)
+</extra>
+<subcategory>none</subcategory>
+</error>
+<error>
+<checker>PW.DECLARED_BUT_NOT_REFERENCED</checker>
+<file>/home/rose/Desktop/jasper-1.900.1/src/libjasper/jpc/jpc_enc.c</file>
+<function>unknown</function>
+<score>20</score>
+<ordered>true</ordered>
+<event>
+<main>true</main>
+<tag>declared_but_not_referenced</tag>
+<description>{CovLStr{v1}{{0} was declared but never referenced}{function &quot;jpc_calcssmant&quot;}}</description>
+<line>867</line>
+</event>
+<event>
+<tag>caretline</tag>
+<description>           ^</description>
+<line>867</line>
+</event>
+<mergekey>cd77c69cde88027ccaa5756bfa7008d7</mergekey>
+<extra>static int jpc_calcssmant(jpc_fix_t stepsize)
+</extra>
+<subcategory>none</subcategory>
+</error>

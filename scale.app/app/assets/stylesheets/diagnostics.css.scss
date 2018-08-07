@@ -1,0 +1,448 @@
+
+// Place all the styles related to the Diagnostics controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+header {
+  position: fixed;
+  top: 0px;
+  z-index: 99;
+  width: 100%;
+  background-color: #444444;
+  div {
+    li {
+      display: inline-block;
+      padding: 5px;
+      a {
+        color:#BBBBBB;
+        text-decoration: none;
+      }
+      &:hover {
+        background-color: #666666;
+      }
+    }
+  }
+}
+
+
+
+.main-container {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding-top: 30px;
+  height: 100%
+}
+
+body {
+  font:10px Verdana,Arial;
+  font-size: 12px;
+}
+
+div.pagination {
+  a, span, em {
+    border:0; margin:0; padding:0;
+    font-size:11px;
+    margin-right:2px;
+    float: left;
+  }
+  a {
+    border:solid 1px #9aafe5;
+    margin-right:2px;
+  }
+
+  a:link, a:visited {
+    color:#0e509e;
+    display:block;
+    float:left;
+    padding:3px 6px;
+    text-decoration:none;
+  }
+
+  a:hover {
+    border:solid 1px #0e509e;
+  }
+
+  .next_page, .previous_page {
+    font-weight:bold;
+  }
+  .disabled {
+    border:solid 1px #DEDEDE;
+    color:#888888;
+    display:block;
+    float:left;
+    font-weight:bold;
+    margin-right:2px;
+    padding:3px 4px;
+  }
+  .current {
+    background:#2e6ab1;
+    color:#FFFFFF;
+    font-weight:bold;
+    display:block;
+    float:left;
+    padding:4px 6px;
+  }
+  .gap {
+    width: 14px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  clear: both;
+  margin-left: 2px;
+  margin-top: 2px;
+  display: inline-block;
+}
+
+table
+{
+  clear: both;
+  font:10px Verdana,Arial;
+  margin-left: 2px;
+  margin-bottom: 5px;
+  /*height: 100%;*/
+
+  border: {
+    top: 1px solid #c6d5e1;
+    left: 1px solid #c6d5e1;
+    bottom: none;
+    margin:0;
+  }
+
+  tr {
+    &:nth-child(odd) {
+      background:#ecf2f6; /*very light blue*/
+    }
+    &:nth-child(even) {
+      background:#fff; /*white*/
+    }
+    //&:nth-child(odd):hover {
+    //  background:#dce6ee; /*light blue*/
+    //}
+    //&:nth-child(even):hover {
+    //  background:#ecf2f6; /*very light blue*/
+    //}
+
+    th {
+      text-align: left;
+      color:#cfdce7;
+      border: 1px solid #fff;
+      border-right: none;
+      background:url('header-bg.gif');
+      font-size: 10px;
+      padding: 2px 8px 6px;
+      height:14px;
+    }
+
+    td
+    {
+      padding: 4px 6px 6px;
+      border: {
+        bottom: 1px solid #c6d5e1;
+        right:1px solid #c6d5e1;
+      }
+
+      .path {
+        max-width: 200px;
+       }
+
+      .message {
+        max-width: 260px;
+      }
+    }
+  }
+
+span.hidden_cell{
+     visibility: hidden;
+}
+
+tr.meta_alert{
+    background-color: #ffff99;
+}
+
+tr.sub_alert{
+    background-color: #7FFFD4;
+    display: none;
+}
+
+
+
+}
+
+
+table.diag_table div {
+  //max-height: 4em;
+  word-wrap: break-word;
+  //overflow: hidden;
+}
+
+table.diag_table div.show {
+  max-height: none;
+}
+
+div.flag {
+  text-align: center;
+  height: 100%;
+  min-width: 2em;
+}
+
+div.verdict {
+  select {
+    font:10px Verdana,Arial;
+  }
+  width: 9em;
+  height: 100%;
+}
+
+div.message, div.title {
+  min-width: 150px;
+}
+
+.severity, .liklihood, .remediation, .priority, .level, .cwe_likelihood {
+  text-align: center;
+}
+
+.diags-per-page {
+  display: block;
+  padding: 5px;
+
+  .pagination{
+    float: left;
+  }
+
+  #pageCount {
+    float: left;
+  }
+}
+
+#wrapperForm{
+  height:104px;
+}
+
+#filterForm {
+  display:inline-block;
+  padding: 3px;
+  margin-left: 2px;
+  border:solid 2px #b7ddf2;
+  background:#ebf4fb;
+  border-radius: 2px;
+
+  span {
+    display:inline-block;
+  }
+
+  #diagID {
+    width: 2.5em;
+    text-align: right;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  label {
+    display:inline-block;
+    font-weight:bold;
+    text-align:right;
+    margin-right: 0px;
+    margin-left: 5px;
+  }
+  input, select {
+    margin-right: 5px;
+  }
+}
+
+#massUpdateForm{
+  height: 100%;
+}
+
+#massUpdate {
+  padding: 5px;
+  height: 25px;
+}
+
+#diag_scroll{
+  overflow: auto;
+  height: calc(100% - 35px);
+}
+
+.input_style {
+
+  font-size:12px;
+  padding:4px 2px;
+  border:solid 1px #aacfe4;
+  width:50px;
+  border-radius:2px;
+
+  &[type='submit']:hover{
+    background-color: #BBBBBB;
+  }
+}
+
+#loader, #overlay {
+
+  top:0;
+  right:0;
+  width:100%;
+  height:100%;
+  position:fixed;
+  text-align:center;
+  /* IE filter */
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  -moz-opacity:0.5;    /* Mozilla extension */
+  -khtml-opacity:0.5;  /* Safari/Conqueror extension */
+  z-index:1000;
+  background-color:white;
+  display:block;
+
+
+  img{
+    position: absolute;
+    top: 50%;
+    left: 50;
+    width: 80px;
+    height: 80px;
+    margin-top: -40px;
+    margin-left: -40px;
+  }
+}
+
+#loader {
+  opacity:0.5; /* CSS3 */
+}
+#overlay {
+  opacity:0;
+}
+
+#new_display {
+  margin: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+  .create-display-form {
+    margin-bottom: 10px;
+  }
+}
+
+input[value='Export'] {
+  margin: 10px;
+}
+
+iframe {
+  overflow-x: scroll;
+  overflow-y: scroll; 
+  width: 100%;
+  height: 100%;
+}
+#tableContainer {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  clear: both;
+  border: 1px solid #CCCCCC;
+  width: auto;
+  height: calc(100% - 117px);
+}
+
+#iframeContainer {
+  padding: 5px;
+  border: 1px solid #CCCCCC;
+  height: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+
+a.button {
+  border:solid 1px #a5a5a5;
+  border-radius:2px;
+  padding-top: 4px;
+  padding-bottom: 2px;
+  padding-left: 3px;
+  padding-right: 3px;
+  font-size:12px;
+  background-color: #EEEEEE;
+  &:visited {
+    color: black;
+  }
+  &:link{
+    text-decoration:none;
+  }
+  &:hover{
+    background-color: #BBBBBB;
+  }
+}
+
+
+.diagnostic_button{
+  margin-left: 10px;
+  margin-right: 8px;
+}
+
+html, body {
+  height: 100%;
+}
+
+#MySplitter {
+  height: 100%;
+  width: 100%;
+}
+
+#upper {
+  height: 50%;
+  z-index: 10;
+  overflow: auto;
+}
+
+#lower {
+  height: 49%;
+  z-index: 8;
+  overflow: auto;
+}
+
+#overlay {
+  z-index: 9;
+}
+
+.splitter-bar-horizontal {
+  height: 1%;
+  background: #aaa;
+}
+
+.yellow-highlighter {
+}
+
+.hspliter {
+  z-index: 100;
+}
+
+.modal h1 {
+  text-align: right; 
+}
+
+.purr {
+  z-index: 99;
+  position: fixed;
+  top: 30px;
+  right: 100px;
+  width: 250px;
+  padding: 20px;
+  background-color: #FCC;
+  border: solid 2px #666;
+  &:first-letter { text-transform: uppercase };
+}
+
+.best_in_place.disabled{
+  opacity: .5;
+  pointer-events: none;
+}
+
+.inactive{
+  display: none;
+}
+
+#error{
+    font-size: 12pt;
+    color: red;
+}
+
+

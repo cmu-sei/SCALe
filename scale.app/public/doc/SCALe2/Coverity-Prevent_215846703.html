@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Coverity Prevent</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Audit-Instructions_215846700.html">Audit Instructions</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Static-Analysis-Tools_215846701.html">Static Analysis Tools</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Coverity Prevent
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span> on Dec 04, 2017
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>Coverity is a proprietary static analysis tool, which strives to minimize false positives. It operates by watching a standard build, and learns what source files are compiled and which arguments they are compiled with. To use Coverity in SCALe, perform the following steps:</p><h2 id="CoverityPrevent-Usecov-buildtobuildyourcode.">Use <code>cov-build</code> to build your code.</h2><h3 id="CoverityPrevent-Linux">Linux</h3><p>You should prepend <code>cov-build</code> before your build command. Go in to your codebase's top-level directory, and type the following:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">mkdir tmp
+$COVERITY_HOME/bin/cov-build --dir tmp ant
+</pre>
+</div></div><p>Coverity monitors the build for doing its analysis. Coverity pipes its output to <code>tmp/build-log.txt</code>; you can follow it using the <code>tail -f</code> command.</p><h3 id="CoverityPrevent-Windows">Windows</h3><p>In this scenario, your codebase is a project in <a href="Terms-and-Definitions_215846944.html#TermsandDefinitions-MSVC">MSVC</a>. You must use the MS Command prompt, and run MSVC with Coverity monitoring it. (This command does not work in Cygwin.)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">$COVERITY_HOME\bin\cov-build --dir tmp &quot;C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe&quot;</pre>
+</div></div><p>When MSVC starts up, do a complete build. Quit MSVC when done.</p><p>If you only have one C file to build, you can dispense with the command line and do this in MSVC:</p><p>Select <code>Tools -&gt; Visual Studio 2008 Command Prompt</code>:</p><p>Then enter the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cov-build --dir tmp cl -c test.c
+</pre>
+</div></div><h2 id="CoverityPrevent-UsetheCoverityanalyzer.">Use the Coverity analyzer.</h2><p>The following command runs the static analysis on the source files in the codebase:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">$COVERITY_HOME/bin/cov-analyze --dir tmp --aggressiveness-level medium --all
+</pre>
+</div></div><h2 id="CoverityPrevent-FormattingOutputForSCALe">Formatting Output For SCALe</h2><p>The following command saves the Coverity diagnostics into a a single output file named <code>coverity_results.json</code>.  This file can be uploaded to the SCALe web application:<code>
+    <br/>
+  </code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">$COVERITY_HOME/bin/cov-format-errors --dir tmp --json-output-v2 coverity_results.json
+</pre>
+</div></div><p><br/></p><p><a href="Rosecheckers_215846719.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Static-Analysis-Tools_215846701.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Fortify_215846712.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Mar 14, 2018 18:26</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

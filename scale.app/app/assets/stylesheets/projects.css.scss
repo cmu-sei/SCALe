@@ -1,0 +1,74 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new_project {
+  padding:10px;
+}
+
+.edit-bigcontainer {
+  float: left;
+}
+
+.edit-container {
+  border: 1px solid #CCCCCC;
+  margin: 5px;
+  padding: 5px;
+  textarea, input {
+    width: 400px;
+  }
+  //float: left;
+  width: 410px;
+  background-color: #ecf2f6;
+}
+
+.edit-table {
+  float: left;
+  border: 1px solid #CCCCCC;
+  margin: 5px;
+  padding: 5px;
+  background-color: #ecf2f6;
+}
+
+#project_list {
+	height: auto;
+
+  td {
+    max-width: 40em;
+    word-wrap: break-word;
+  }
+}
+
+#iframeContainer, footer {
+	clear:both;
+}
+
+.last {
+	float: right;
+	color: #EEEEEE;
+}
+
+.createProject {
+  width: auto;
+}
+
+.filepathInput {
+  width: 100%;
+}
+
+.submitButton {
+  width: 300px;
+}
+
+
+.file {
+  width:200px;
+}
+
+.tdToolName {
+  width:200px;
+}
+
+td.center {
+  text-align: center;
+}

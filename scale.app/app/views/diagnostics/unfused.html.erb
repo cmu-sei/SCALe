@@ -1,0 +1,131 @@
+<!-- 
+This page us the core of the web interface. This shows all diagnostics pertaining to a project, and is
+where scale auditing occurs 
+This file is split into two parts: an upper and a lower div, which 
+correspond to the upper and lower halves of the webpage. 
+-->
+<div id="MySplitter">
+  <div id="upper">
+    <%= form_tag("/diagnostics", :method => "get", :remote => true, :id=>"wrapperForm") do %>
+      <div id="filterForm">
+        <!-- A heading for the form -->
+        <h1><%= @project.name %></h1>
+        <%= hidden_field_tag(:project_id, @project_id) %>
+
+        <!-- Form input for filtering by diagnostic scale ID -->
+        <span>
+          <%= select_tag(:id_type, options_for_select(@options_for_ids, selected: @ids[@selected_id_type])) %>  
+          <%= number_field_tag(:ID, @ID) %>
+        </span>
+
+        <!-- Form input for filtering by verdict -->
+        <span>
+          <%= label_tag(:verdict, "Verdict: ") %>  
+          <%= select_tag(:verdict, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3],['True',4]],selected: @verdict)) %>
+        </span>
+
+        <!-- Form input for filtering by previous -->
+        <span>
+          <%= label_tag(:previous, "Previous: ") %>  
+          <%= select_tag(:previous, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3],['True',4]], selected: @previous)) %>
+        </span>
+
+        <!-- Form input for filtering by checker -->
+        <span>
+          <%= label_tag(:path, " Path: ") %>
+          <%= text_field_tag(:path, @path) %>
+        </span>
+        
+        <!-- Form input for filtering by checker -->
+        <span>
+          <%= label_tag(:line, " Line: ") %>
+          <%= number_field_tag(:line, @line) %>
+        </span>
+
+        <!-- Form input for filtering by checker -->
+        <span>
+          <%= label_tag(:checker, " Checker: ") %>
+          <%= select_tag(:checker, options_for_select(@checkers, selected: @checker)) %>
+        </span>
+
+        <!-- Form input for filtering by tool -->
+        <span>
+          <%= label_tag(:tool, " Tool: ") %> 
+          <%= select_tag(:tool, options_for_select(@tools, selected: @tool)) %>
+        </span>
+
+        <!-- Form input for filtering by rule -->
+        <span>
+          <%= label_tag(:rule, " Condition: ") %>
+          <%= select_tag(:rule, options_for_select(@rules, selected: @rule)) %>
+        </span>
+ 
+        <!-- Form input for filtering by rule -->
+        <span>
+          <%= label_tag(:taxonomy, " Taxonomy: ") %>
+          <%= puts @taxonomies[@selected_taxonomy] %>
+          <%= select_tag(:taxonomy, options_for_select(@options_for_categories, selected: @taxonomies[@selected_taxonomy])) %>
+        </span>
+        <!-- Next two inputs wrapped together to keep them on same line -->
+        <!-- Form input for deciding sort criterion-->
+        <span>
+          <%= label_tag(:sort_column, "Sort by: ") %>
+		  <%# add ["CWE Likelihood","cwe_likelihood"] later for filtering and also notes %>
+          <%= select_tag(:sort_column, options_for_select([["ID", "meta_alert_id"],["Flag", "flag"],["Line", "line"],["Severity", "severity"],["Liklihood","liklihood"],["Remediation","remediation"],["Priority","priority"],["Level","level"],["Checker","checker"],["Message","message"],["Path","path"]], selected: @sort_column)) %>
+
+        <!-- Form input for deciding sort direction -->
+          <%= label_tag(:sort_direction, " ") %>
+          <%= select_tag(:sort_direction, options_for_select([["asc", "asc"],["desc", "desc"]], selected: @sort_direction)) %>
+        </span>
+
+        <!-- Hidden form input to keep track of the page number -->
+        <%= hidden_field_tag "page", "1" %>
+
+        <%= submit_tag("Filter") %>
+      </div>
+    <div id="loader">
+      <!-- This loader div is simply to hold the loading gif -->
+      <img src="/ajax-loader.gif" alt="loading...">
+    </div>
+    <div class="pageContainer">
+      <!-- This div contains the pagination links, whihc
+      is loaded from the _diagsPerPage partial -->
+    </div>
+    <% end %>
+    <div id="error">
+    </div>
+    <div id="tableContainer">
+      <!-- This div contains the table of diagnostics, which is
+      loaded from the _diagsTable partial -->
+    </div>
+  </div>
+  <div id="lower">
+    <!-- GNU Global pages are loaded via an iframe -->
+    <div id="iframeContainer">
+    <iframe id="src_frame" name="src_frame" src="<%=request.protocol%><%=request.host%>:<%=request.port%>/GNU/<%= @project_id %>/HTML/index.html"></iframe>
+    </div>
+    <div id="overlay">
+      <!-- This overlay is to allow for smooth scrolling of the
+      divider between the top and bottom halves. It exists on 
+      mousedown and disappears on mouseup.  -->
+    </div>
+  </div>
+</div>
+
+<div class="modal" style="display:none;">
+  <!-- This modal is for displaying extra messages.  -->
+</div>
+
+
+<script type="text/javascript">
+  // This javascript is to initialize the splitter library
+  // for the bottom and top halves. 
+   $().ready(function(){
+    
+   $('#MySplitter').split({
+      orientation: 'horizontal',
+      limit: 10,
+      position: '50%' // if there is no percentage it interpret it as pixels
+    });
+ });
+</script>
