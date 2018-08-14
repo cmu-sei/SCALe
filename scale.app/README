@@ -11,12 +11,18 @@ If the SCALe web app is provided via a virtual machine (VM), then the SCALe app 
 
 If the SCALe web app is provided via a zip archive, it is referred to as <scale_webapp_archive>.zip below. This archive should be extracted on your web app server in a location of your choosing.
 
-We will refer to this location as SCALE_HOME. You may find it useful to define this environment variable in your system to point to the root of your SCALe installation. Extracting the archive might look something like this:
+We will refer to this location as SCALE_HOME. You may find it useful to define this environment variable in your system to point to the root of your SCALe installation. 
+
+If the zip is downloaded from Github, the scale.app folder will be inside another folder like "SCALe-Master". In this case, SCALe-Master would be the location of SCALE_HOME.
+
+Extracting the archive might look something like this:
 
   export SCALE_HOME="/location/of/SCALe/install"
   mkdir -p $SCALE_HOME
   cd $SCALE_HOME
   unzip /location/of/<scale_webapp_archive>.zip
+
+
 
 Use the instructions for installing and managing SCALe by opening the following file in a web browser:
 

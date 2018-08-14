@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SCALe2 : Cascading Determinations from Old Codebase to New Codebase</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">SCALe2</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SCALe2-Home_215846573.html">SCALe2 Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="215846575.html">Source Code Analysis Lab (SCALe)</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Audit-Instructions_215846700.html">Audit Instructions</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            SCALe2 : Cascading Determinations from Old Codebase to New Codebase
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wiki Administrator</span>, last modified by <span class='editor'> Lori Flynn</span> on Apr 25, 2018
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div>The instructions on this page apply for re-audits. A typical re-audit scenario involves performing an initial audit on a codebase and later re-auditing a new version of the codebase. </div><div>The re-audit process leverages the audit work performed on the old codebase while doing a thorough audit of the new codebase. When analyzing any alert in the new codebase, you should know if the alert existed in the old codebase and what determinations were made about that alert.</div><div>This helps to answer critical questions: Were all the previously-cited problems fixed? Were fixes only done for alerts marked <code style="letter-spacing: 0.0px;">True</code>, and other alerts  were ignored? Was anything changed in the code? If so, were new problems introduced into the code?</div><div>This scenario assumes you have the following:</div><div><ul><li>source for the codebase, old version</li><li>source for the codebase, new version</li><li>The SCALe web app should contain a project for the old source, complete with determinations</li><li>The SCALe web app should contain a project for the new source, preferably with no determinations. (This implies that you need to have run all analysis tools and built the database, manually or via the web app. But you do not have to audit any diagnostics in the new codebase.)<br/><br/></li></ul></div><div>To transfer any determinations from the old codebase to the new codebase, you must first edit the new codebase. Then, go to &quot;Cascade determinations from project&quot;, and select the project containing the old codbase, and select &quot;Cascade Determinations&quot;.  <span style="color: rgb(0,0,255);">NOTE: Need a screenshot here.<span style="color: rgb(0,0,255);"><br/></span></span></div><div>The new codebase receives determinations from the old codebase. Only determinations that apply to unchanged lines are preserved.</div><div>NOTE OF CAUTION: Cascaded verdicts are not as trustworthy as direct verdicts, because data, control, and type flow changes may cause the previously-correct determination to change. E.g., with different control flow, a previous True can become a currently-correct False.</div><div><p><br/></p></div><p><a href="Static-Analysis-Tools_215846701.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826568.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_left.png?version=1&amp;modificationDate=1513017863440&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_left.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="Audit-Instructions_215846700.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826570.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_up.png?version=1&amp;modificationDate=1513017872173&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_up.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a> <a href="CSV-file_215846721.html"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="attachments/216826567/216826569.png" data-image-src="https://wiki-int.sei.cmu.edu/confluence/download/attachments/216826567/button_arrow_right.png?version=1&amp;modificationDate=1513017872170&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="216826569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="button_arrow_right.png" data-base-url="https://wiki-int.sei.cmu.edu/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="216826567" data-linked-resource-container-version="3"></span></a></p><p><br/></p><p><br/></p><p><br/></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Aug 14, 2018 13:43</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>
