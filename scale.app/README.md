@@ -38,13 +38,13 @@ The current version of the CWEs is available at: https://cwe.mitre.org/
 
 ## Relevant Known Issues
 
-### During the quick start demonstration, the following superfluous error is generated in the web app console: ".../scale.app/archive/backup/6/analysis/...out: no such file or directory".
+* During the quick start demonstration, the following superfluous error is generated in the web app console: ".../scale.app/archive/backup/6/analysis/...out: no such file or directory".
 
-### The digest_diagnostics script does not follow symlinks in source directories.
+* The digest_diagnostics script does not follow symlinks in source directories.
 
-### The pathnames in Rosecheckers output are incorrect when executed on a project that compiles files outside of the directories they live in. This affects the web app's ability to display the source code associated with a diagnostic.
+* The pathnames in Rosecheckers output are incorrect when executed on a project that compiles files outside of the directories they live in. This affects the web app's ability to display the source code associated with a diagnostic.
 
-### Some of the links in the exported secure coding rule documentation point to online pages, and will fail on a machine with no Internet connection.
+* Some of the links in the exported secure coding rule documentation point to online pages, and will fail on a machine with no Internet connection.
 
 ## Support
 
