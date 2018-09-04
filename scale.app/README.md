@@ -48,4 +48,4 @@ The current version of the CWEs is available at: https://cwe.mitre.org/
 
 ## Support
 
-Questions and comments can be sent to [scale-support@cert.org](mailto:scale-support@cert.org).
+Questions and comments can be sent to [info@sei.cmu.edu](mailto:info@sei.cmu.edu).
