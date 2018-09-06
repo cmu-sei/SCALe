@@ -1,4 +1,4 @@
-SCALe 2.1.4.1
+SCALe 2.1.4.2
 Copyright 2018 Carnegie Mellon University. All Rights Reserved.
 MIT (SEI)
 
@@ -13,21 +13,21 @@ the following conditions:
 The above copyright notice and this permission notice shall be
 included in all copies or substantial portions of the Software.
 
-SCALe 2.1.4.0 includes and/or can make use of certain third party
+SCALe 2.1.4.2 includes and/or can make use of certain third party
 software ("Third Party Software"). The Third Party Software that is
-used by SCALe 2.1.4.0 is dependent upon your system configuration, but
+used by SCALe 2.1.4.2 is dependent upon your system configuration, but
 typically includes the software identified in the system requirements
 ([SCALE_HOME]/scale.app/public/doc/SCALe2/System-Requirements_215846591.html)
 and/or installation instructions
 ([SCALE_HOME]/scale.app/public/doc/SCALe2/Installing-SCALe_215846594.html). By
-using SCALe 2.1.4, You agree to comply with any and all relevant Third
+using SCALe 2.1.4.2, You agree to comply with any and all relevant Third
 Party Software terms and conditions contained in any such Third Party
 Software or separate license file distributed with such Third Party
 Software. The parties who own the Third Party Software ("Third Party
 Licensors") are intended third party beneficiaries to this License
 with respect to the terms applicable to their Third Party
 Software. Third Party Software licenses only apply to the Third Party
-Software and not any other portion of SCALe 2.1.4.0 or SCALe 2.1.4.0 as a
+Software and not any other portion of SCALe 2.1.4.2 or SCALe 2.1.4.2 as a
 whole.
 
 This material is based upon work funded and supported by the
