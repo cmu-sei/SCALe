@@ -328,45 +328,51 @@ class DiagnosticsController < ApplicationController
 
       zipname = "#{@project.name}-#{timestamp}.zip"
       zipfilename = Rails.root.join("db/backup/#{zipname}")
-      Zip::ZipFile.open(zipfilename, Zip::ZipFile::CREATE) do |zipfile|
+      Dir.chdir("tmp") do
+        Zip::ZipFile.open(zipfilename, Zip::ZipFile::CREATE) do |zipfile|
+          zipfile.get_output_stream("display.csv") do |output_entry_stream| #Filename
+            output_entry_stream.write(display_csv)            #generated content
+          end
+
         zipfile.get_output_stream("display.csv") do |output_entry_stream| #Filename
           output_entry_stream.write(display_csv)            #generated content
         end
 
-        ActiveRecord::Base.remove_connection
-        ActiveRecord::Base.establish_connection :external
-        con = ActiveRecord::Base.connection()
+          ActiveRecord::Base.remove_connection
+          ActiveRecord::Base.establish_connection :external
+          con = ActiveRecord::Base.connection()
 
-        ["Lizard", "Ccsm", "Understand"].each do |metric|  # TODO read table names from scripts/tools.org
-          table = con.quote_string("#{metric}Metrics")
-          query = "SELECT name FROM sqlite_master WHERE "+
-                  "type='table' AND name='#{table}'";
-          if con.execute(ActionController::Base.helpers.sanitize(query)).count > 0
-            query = "SELECT * FROM '#{table}'"
-            res = con.execute(ActionController::Base.helpers.sanitize(query))
-            if res.length > 0
-              columns = res[0].keys
-              columns = columns[0..columns.index(0) - 1]  # to remove numeric keys
-              metric_csv = CSV.generate do |csv| 
-                csv << columns
-                res.each do |r| 
-                  row = columns.map do |c|
-                    r[c]
-                  end
-                  csv << row
-                end # res.each
-              end # CSV.generate
-              zipfile.get_output_stream("#{table}.csv") do |output_entry_stream|
-                output_entry_stream.write(metric_csv)
-              end
+          ["Lizard", "Ccsm", "Understand"].each do |metric|  # TODO read table names from scripts/tools.org
+            table = con.quote_string("#{metric}Metrics")
+            query = "SELECT name FROM sqlite_master WHERE "+
+                    "type='table' AND name='#{table}'";
+            if con.execute(ActionController::Base.helpers.sanitize(query)).count > 0
+              query = "SELECT * FROM '#{table}'"
+              res = con.execute(ActionController::Base.helpers.sanitize(query))
+              if res.length > 0
+                columns = res[0].keys
+                columns = columns[0..columns.index(0) - 1]  # to remove numeric keys
+                metric_csv = CSV.generate do |csv|
+                  csv << columns
+                  res.each do |r|
+                    row = columns.map do |c|
+                      r[c]
+                    end
+                    csv << row
+                  end # res.each
+                end # CSV.generate
+                zipfile.get_output_stream("#{table}.csv") do |output_entry_stream|
+                  output_entry_stream.write(metric_csv)
+                end
+              end # if
             end # if
-          end # if
-        end # each
+          end # each
 
-        ActiveRecord::Base.remove_connection
-        ActiveRecord::Base.establish_connection :development
-        con = ActiveRecord::Base.connection()
-      end # open
+          ActiveRecord::Base.remove_connection
+          ActiveRecord::Base.establish_connection :development
+          con = ActiveRecord::Base.connection()
+        end # open
+      end # Dir.chdir
 
       send_data( zipfilename.read, type: 'application/zip', filename: zipname)
       if File.exists?(zipfilename)
