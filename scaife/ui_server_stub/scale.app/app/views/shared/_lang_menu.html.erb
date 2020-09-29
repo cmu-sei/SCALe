@@ -1,0 +1,36 @@
+<% lang_select_path = "/language_select" %>
+<% lang_upload_path = "/language_upload" %>
+<% lang_map_path = "/language_map" %>
+<% if modal %>
+  <% lang_select_path += "_modal" %>
+  <% lang_upload_path += "_modal" %>
+  <% lang_map_path += "_modal" %>
+<% end %>
+<% if @project.present? %>
+  <% lang_select_path = "/projects/#{@project.id}" + lang_select_path %>
+  <% lang_upload_path = "/projects/#{@project.id}" + lang_upload_path %>
+  <% lang_map_path = "/projects/#{@project.id}" + lang_map_path %>
+<% end %>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="languageMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Languages Config
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="languageMenuButton">
+    <% if @project.present? and disable_select_languages.blank? %>
+      <% if modal %>
+        <li><%= link_to "Select for SCALE", lang_select_path,  class: "dropdown-item", remote: true, id: "langselect-drop-select", "data-toggle" => "modal", "data-target" => "#scaife-integration-modal"  %></li>
+      <% else %>
+        <li><%= link_to "Select for SCALE", lang_select_path,  class: "dropdown-item", id: "langselect-drop-select" %></li>
+      <% end %>
+    <% end %>
+    <% if @scaife_active %>
+      <% if modal %>
+        <li><%= link_to "Upload to SCAIFE", lang_upload_path,  class: "dropdown-item", remote: true, id: "langupload-drop-select", "data-toggle" => "modal", "data-target" => "#langupload-modal"  %></li>
+        <li><%= link_to "Map to SCAIFE", lang_map_path,  class: "dropdown-item", remote: true, id: "langmap-drop-select", "data-toggle" => "modal", "data-target" => "#scaife-integration-modal"  %></li>
+      <% else %>
+        <li><%= link_to "Upload to SCAIFE", lang_upload_path,  class: "dropdown-item", id: "langupload-drop-select" %></li>
+        <li><%= link_to "Map to SCAIFE", lang_map_path,  class: "dropdown-item", id: "langmap-drop-select"  %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

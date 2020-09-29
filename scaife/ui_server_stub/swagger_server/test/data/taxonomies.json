@@ -1,0 +1,89 @@
+[
+  {
+    "user_org_id": "CERT",
+    "user_id": "CERT Secure Coding Team plus worldwide contributors",
+    "author_source": "SEI",
+    "type": "cert_rules",
+    "default_format": [
+              "severity",
+              "likelihood",
+              "remediation",
+              "priority",
+              "level",
+              "platform"
+            ],
+    "taxonomies": [
+      {
+        "name": "CERT C Rules",
+        "platform": "c",
+        "versions": [
+          {
+            "version_brief": "2016",
+            "version": "2016 Edition"
+          }
+        ]
+      },
+      {
+        "name": "CERT C++ Rules",
+        "platform": "cpp",
+        "versions": [
+          {
+            "version_brief": "2016",
+            "version": "2016 Edition (published 2017)"
+          }
+        ]
+      },
+      {
+        "name": "CERT Java Rules",
+        "platform": "java",
+        "versions": [
+          {
+            "version_brief": "2011",
+            "version": "2011 Edition"
+          }
+        ]
+      },
+      {
+        "name": "CERT JavaScript Rules",
+        "platform": "js",
+        "versions": [
+          {
+            "version_brief": "jshint",
+            "version": "JSHint tool from https://github.com/damian/jshint"
+          }
+        ]
+      },
+      {
+        "name": "CERT Perl Rules",
+        "platform": "perl",
+        "versions": [
+          {
+            "version_brief": "default",
+            "version": "SEI CERT Coding Standard Public Wiki"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "user_org_id": "MITRE",
+    "user_id": "MITRE plus worldwide contributors",
+    "author_source": "MITRE",
+    "type": "cwe",
+    "taxonomies": [
+      {
+        "name": "CWEs",
+        "platform": "all",
+        "versions": [
+          {
+            "version_brief": "2.11",
+            "format": [
+              "cwe_platform",
+              "cwe_likelihood"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

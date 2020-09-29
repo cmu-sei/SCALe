@@ -1,0 +1,36 @@
+{
+    "src_description": "Path of source code for match_paths.py to scan",
+    "input_description": "Path name to feed to match_paths.py",
+    "answer_description": "Path name that match_paths.py should produce given input",
+    "testcases": [{
+        "description":"Case to test SCALE-1512",
+        "src":"project-1512",
+        "input":"packet.c",
+        "answer":"/dir/packet.c"
+    },{
+        "description":"Case to test SCALE-1512 subdirectories",
+        "src":"project-1512",
+        "input":"test-file.c",
+        "answer":"/dir/sub-dir/test-file.c"
+    },{
+        "description":"A case without leading directory",
+        "src":"project-1512/dir",
+        "input":"packet.c",
+        "answer":"packet.c"
+    },{
+        "description":"Case to test SCALE-1512 for missing file",
+        "src":"project-1512",
+        "input":"/project-1512/dir/no-file.c",
+        "answer": null
+    },{
+        "description":"Case to test SCALE-1512 for file multiple paths found",
+        "src":"project-1512",
+        "input":"otest-file.c",
+        "answer": null
+    },{
+        "description":"Case to test SCALE-1512 for case insensitive matches",
+        "src":"project-1512",
+        "input":"diR/paCkET.c",
+        "answer": "/dir/packet.c"
+    }
+    ]}

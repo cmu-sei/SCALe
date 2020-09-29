@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Classifier Schemes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @classifier_schemes.each do |classifier_scheme| %>
+      <tr>
+        <td><%= link_to 'Show', classifier_scheme %></td>
+        <td><%= link_to 'Edit', edit_classifier_scheme_path(classifier_scheme) %></td>
+        <td><%= link_to 'Destroy', classifier_scheme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Classifier Scheme', new_classifier_scheme_path %>
+
+
+
+ <form id="modalForm" method="post" enctype="multipart/form-data">
+         <button type="button" id="prior-class-modal" class="close close-button" data-dismiss="modal">&times;</button>
+
+      <div id="modal-body">
+      </div>
+
+       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submit-modal" ></button>
+      </div>
+      </form>

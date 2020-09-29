@@ -1,0 +1,160 @@
+# This JSHint output comes from running the tool on the minnow branch of SCALe v3 on 3/1/2019
+#
+# JSHint tool is an open-source static analysis tool for JavaScript
+# It is available here:  https://github.com/damian/jshint
+
+
+app/assets/javascripts/filterStorage.js: line 2, col 10, 'setFilters' is defined but never used.
+app/assets/javascripts/filterStorage.js: line 34, col 10, 'getFilters' is defined but never used.
+app/assets/javascripts/filterStorage.js: line 51, col 10, 'clearFilters' is defined but never used.
+app/assets/javascripts/filterStorage.js: line 56, col 40, 'val' is defined but never used.
+app/assets/javascripts/modals.js: line 77, col 17, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 100, col 9, 'let' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+app/assets/javascripts/modals.js: line 100, col 9, 'destructuring expression' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+app/assets/javascripts/modals.js: line 131, col 21, 'ctype' is already defined.
+app/assets/javascripts/modals.js: line 135, col 9, 'let' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+app/assets/javascripts/modals.js: line 135, col 9, 'destructuring expression' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+app/assets/javascripts/modals.js: line 239, col 20, 'scheme' is already defined.
+app/assets/javascripts/modals.js: line 277, col 30, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 287, col 33, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 305, col 64, Missing semicolon.
+app/assets/javascripts/modals.js: line 309, col 9, Expected '{' and instead saw 'var'.
+app/assets/javascripts/modals.js: line 311, col 9, Expected '{' and instead saw 'var'.
+app/assets/javascripts/modals.js: line 311, col 22, 'inputVal' is already defined.
+app/assets/javascripts/modals.js: line 314, col 10, 'inputVal' used out of scope.
+app/assets/javascripts/modals.js: line 314, col 27, 'inputVal' used out of scope.
+app/assets/javascripts/modals.js: line 320, col 10, 'inputVal' used out of scope.
+app/assets/javascripts/modals.js: line 320, col 21, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 321, col 14, Expected '{' and instead saw 'weight'.
+app/assets/javascripts/modals.js: line 321, col 44, 'inputVal' used out of scope.
+app/assets/javascripts/modals.js: line 348, col 25, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 358, col 20, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 368, col 38, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 369, col 9, Expected '{' and instead saw '$'.
+app/assets/javascripts/modals.js: line 393, col 20, Missing semicolon.
+app/assets/javascripts/modals.js: line 398, col 33, Missing semicolon.
+app/assets/javascripts/modals.js: line 403, col 53, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 475, col 22, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 481, col 24, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 481, col 12, Confusing use of '!'.
+app/assets/javascripts/modals.js: line 481, col 49, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 483, col 29, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 486, col 28, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 521, col 26, 'validateGrouping' was used before it was defined.
+app/assets/javascripts/modals.js: line 526, col 28, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 527, col 8, Expected '{' and instead saw 'parenStack'.
+app/assets/javascripts/modals.js: line 528, col 35, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 530, col 11, Expected '{' and instead saw 'return'.
+app/assets/javascripts/modals.js: line 539, col 5, Expected '{' and instead saw 'return'.
+app/assets/javascripts/modals.js: line 542, col 28, 'validateTabFormula' was used before it was defined.
+app/assets/javascripts/modals.js: line 547, col 29, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 547, col 61, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 548, col 27, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 548, col 52, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 549, col 9, Expected '{' and instead saw 'operators'.
+app/assets/javascripts/modals.js: line 556, col 12, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 557, col 7, Expected '{' and instead saw 'colOptions'.
+app/assets/javascripts/modals.js: line 559, col 7, Expected '{' and instead saw 'colOptions'.
+app/assets/javascripts/modals.js: line 576, col 25, 'validateFormula' was used before it was defined.
+app/assets/javascripts/modals.js: line 585, col 13, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 585, col 26, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 586, col 15, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 586, col 28, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 587, col 9, Expected '{' and instead saw 'operators'.
+app/assets/javascripts/modals.js: line 592, col 3, 'let' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+app/assets/javascripts/modals.js: line 592, col 3, 'destructuring expression' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+app/assets/javascripts/modals.js: line 608, col 29, 'getAvailableColumns' was used before it was defined.
+app/assets/javascripts/modals.js: line 617, col 12, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 617, col 40, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 618, col 7, Expected '{' and instead saw 'taxnmOptions'.
+app/assets/javascripts/modals.js: line 619, col 24, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 620, col 7, Expected '{' and instead saw 'taxnmOptions'.
+app/assets/javascripts/modals.js: line 625, col 14, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 626, col 9, Expected '{' and instead saw 'colOptions'.
+app/assets/javascripts/modals.js: line 628, col 9, Expected '{' and instead saw 'colOptions'.
+app/assets/javascripts/modals.js: line 631, col 12, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 631, col 40, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 632, col 7, Expected '{' and instead saw 'colOptions'.
+app/assets/javascripts/modals.js: line 643, col 28, 'validateClassifier' was used before it was defined.
+app/assets/javascripts/modals.js: line 651, col 38, Expected '===' and instead saw '=='.
+app/assets/javascripts/modals.js: line 665, col 29, 'getClassifierValues' was used before it was defined.
+app/assets/javascripts/modals.js: line 668, col 16, Expected '!==' and instead saw '!='.
+app/assets/javascripts/modals.js: line 685, col 24, Missing semicolon.
+app/assets/javascripts/modals.js: line 688, col 11, Missing semicolon.
+app/assets/javascripts/modals.js: line 701, col 23, 'openEditModal' was used before it was defined.
+app/assets/javascripts/modals.js: line 49, col 9, 'alert' is not defined.
+app/assets/javascripts/modals.js: line 209, col 8, 'confirm' is not defined.
+app/assets/javascripts/modals.js: line 397, col 11, 'col_val' is not defined.
+app/assets/javascripts/modals.js: line 399, col 28, 'col_val' is not defined.
+app/assets/javascripts/modals.js: line 479, col 11, 'user_columns' is not defined.
+app/assets/javascripts/modals.js: line 487, col 17, 'user_columns' is not defined.
+app/assets/javascripts/modals.js: line 490, col 15, 'user_columns' is not defined.
+app/assets/javascripts/modals.js: line 494, col 34, 'user_columns' is not defined.
+app/assets/javascripts/modals.js: line 676, col 5, 'ahp_selector' is not defined.
+app/assets/javascripts/modals.js: line 678, col 11, 'ahp_selector' is not defined.
+app/assets/javascripts/modals.js: line 680, col 7, 'ahp_selector' is not defined.
+app/assets/javascripts/modals.js: line 681, col 7, 'ahp_label' is not defined.
+app/assets/javascripts/modals.js: line 683, col 13, 'inputFields' is not defined.
+app/assets/javascripts/modals.js: line 684, col 10, 'inputFields' is not defined.
+app/assets/javascripts/modals.js: line 685, col 9, 'ahp_values' is not defined.
+app/assets/javascripts/modals.js: line 686, col 9, 'inputFields' is not defined.
+app/assets/javascripts/modals.js: line 687, col 11, 'ahp_values' is not defined.
+app/assets/javascripts/modals.js: line 690, col 9, 'ahp_values' is not defined.
+app/assets/javascripts/modals.js: line 690, col 22, 'inputFields' is not defined.
+app/assets/javascripts/modals.js: line 692, col 17, 'ahp_label' is not defined.
+app/assets/javascripts/modals.js: line 692, col 30, 'ahp_values' is not defined.
+app/assets/javascripts/modals.js: line 721, col 7, 'alert' is not defined.
+app/assets/javascripts/modals.js: line 4, col 49, 'e' is defined but never used.
+app/assets/javascripts/modals.js: line 48, col 36, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 48, col 28, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 48, col 23, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 84, col 44, 'e' is defined but never used.
+app/assets/javascripts/modals.js: line 116, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 121, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 121, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 121, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 151, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 156, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 156, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 156, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 184, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 189, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 189, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 189, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 225, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 230, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 230, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 230, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 249, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 254, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 254, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 254, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 275, col 55, 'e' is defined but never used.
+app/assets/javascripts/modals.js: line 285, col 58, 'e' is defined but never used.
+app/assets/javascripts/modals.js: line 311, col 13, 'inputVal' is defined but never used.
+app/assets/javascripts/modals.js: line 415, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 420, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 420, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 420, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 439, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 444, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 444, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 444, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 505, col 29, 'result' is defined but never used.
+app/assets/javascripts/modals.js: line 508, col 40, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 508, col 32, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 508, col 27, 'xhr' is defined but never used.
+app/assets/javascripts/modals.js: line 720, col 34, 'err' is defined but never used.
+app/assets/javascripts/modals.js: line 720, col 26, 'status' is defined but never used.
+app/assets/javascripts/modals.js: line 720, col 21, 'xhr' is defined but never used.
+app/assets/javascripts/onload.js: line 27, col 2, Missing semicolon.
+app/assets/javascripts/onload.js: line 40, col 68, Missing semicolon.
+app/assets/javascripts/onload.js: line 45, col 5, 'setFilters' is not defined.
+app/assets/javascripts/onload.js: line 50, col 3, 'clearFilters' is not defined.
+app/assets/javascripts/onload.js: line 53, col 1, 'getFilters' is not defined.
+app/assets/javascripts/onload.js: line 73, col 5, 'cname' is not defined.
+app/assets/javascripts/onload.js: line 77, col 25, 'project_id' is not defined.
+app/assets/javascripts/onload.js: line 79, col 33, 'cname' is not defined.
+app/assets/javascripts/onload.js: line 82, col 25, 'result' is defined but never used.
+
+152 errors

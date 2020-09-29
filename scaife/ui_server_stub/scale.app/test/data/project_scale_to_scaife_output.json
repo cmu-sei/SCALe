@@ -1,0 +1,499 @@
+{
+	"project_name": "massUpdate1",
+	"project_description": "for massUpdate tests",
+	"package_id": "5",
+	"meta_alerts": [
+		{
+			"meta_alert_id": 4,
+			"alert_ids": [
+				"3",
+				"8"
+			],
+			"filepath": "",
+			"line_number": 0,
+			"condition_id": "4",
+			"determination": {
+				"flag_list": [
+					{
+						"flag": false,
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"flag": true,
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"inapplicable_environment_list": [
+					{
+						"inapplicable_environment": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"inapplicable_environment": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"ignored_list": [
+					{
+						"ignored": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"ignored": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"verdict_list": [
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dead_list": [
+					{
+						"dead": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dead": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dangerous_construct_list": [
+					{
+						"dangerous_construct": "Low Risk",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dangerous_construct": "Medium Risk",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"notes_list": [
+					{
+						"notes": "MyString",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"notes": "old",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				]
+			}
+		},
+		{
+			"meta_alert_id": 3,
+			"alert_ids": [
+				"7",
+				"2"
+			],
+			"filepath": "",
+			"line_number": 0,
+			"condition_id": "3",
+			"determination": {
+				"flag_list": [
+					{
+						"flag": false,
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"flag": true,
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"inapplicable_environment_list": [
+					{
+						"inapplicable_environment": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"inapplicable_environment": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"ignored_list": [
+					{
+						"ignored": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"ignored": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"verdict_list": [
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dead_list": [
+					{
+						"dead": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dead": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dangerous_construct_list": [
+					{
+						"dangerous_construct": "Low Risk",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dangerous_construct": "Medium Risk",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"notes_list": [
+					{
+						"notes": "MyString",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"notes": "old",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				]
+			}
+		},
+		{
+			"meta_alert_id": 1,
+			"alert_ids": [
+				"0",
+				"5"
+			],
+			"filepath": "",
+			"line_number": 0,
+			"condition_id": "1",
+			"determination": {
+				"flag_list": [
+					{
+						"flag": false,
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"flag": true,
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"inapplicable_environment_list": [
+					{
+						"inapplicable_environment": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"inapplicable_environment": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"ignored_list": [
+					{
+						"ignored": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"ignored": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"verdict_list": [
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dead_list": [
+					{
+						"dead": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dead": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dangerous_construct_list": [
+					{
+						"dangerous_construct": "Low Risk",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dangerous_construct": "Medium Risk",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"notes_list": [
+					{
+						"notes": "MyString",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"notes": "old",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				]
+			}
+		},
+		{
+			"meta_alert_id": 5,
+			"alert_ids": [
+				"4",
+				"9"
+			],
+			"filepath": "",
+			"line_number": 0,
+			"condition_id": "5",
+			"determination": {
+				"flag_list": [
+					{
+						"flag": false,
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"flag": true,
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"inapplicable_environment_list": [
+					{
+						"inapplicable_environment": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"inapplicable_environment": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"ignored_list": [
+					{
+						"ignored": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"ignored": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"verdict_list": [
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dead_list": [
+					{
+						"dead": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dead": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dangerous_construct_list": [
+					{
+						"dangerous_construct": "Low Risk",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dangerous_construct": "Medium Risk",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"notes_list": [
+					{
+						"notes": "MyString",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"notes": "old",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				]
+			}
+		},
+		{
+			"meta_alert_id": 6,
+			"alert_ids": [
+				"11"
+			],
+			"filepath": "",
+			"line_number": 0,
+			"condition_id": "6",
+			"determination": {
+				"flag_list": [
+					{
+						"flag": false,
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"flag": true,
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"inapplicable_environment_list": [
+					{
+						"inapplicable_environment": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"inapplicable_environment": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"ignored_list": [
+					{
+						"ignored": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"ignored": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"verdict_list": [
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dead_list": [
+					{
+						"dead": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dead": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dangerous_construct_list": [
+					{
+						"dangerous_construct": "Low Risk",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dangerous_construct": "Medium Risk",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"notes_list": [
+					{
+						"notes": "MyString",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"notes": "old",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				]
+			}
+		},
+		{
+			"meta_alert_id": 2,
+			"alert_ids": [
+				"1",
+				"6"
+			],
+			"filepath": "",
+			"line_number": 0,
+			"condition_id": "2",
+			"determination": {
+				"flag_list": [
+					{
+						"flag": false,
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"flag": true,
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"inapplicable_environment_list": [
+					{
+						"inapplicable_environment": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"inapplicable_environment": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"ignored_list": [
+					{
+						"ignored": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"ignored": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"verdict_list": [
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"verdict": "Unknown",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dead_list": [
+					{
+						"dead": "false",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dead": "true",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"dangerous_construct_list": [
+					{
+						"dangerous_construct": "Low Risk",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"dangerous_construct": "Medium Risk",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				],
+				"notes_list": [
+					{
+						"notes": "MyString",
+						"timestamp": "2018-02-21T15:57:54.000Z"
+					},
+					{
+						"notes": "old",
+						"timestamp": "2018-02-21T15:57:53.000Z"
+					}
+				]
+			}
+		}
+	]
+}
+

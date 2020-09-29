@@ -1,0 +1,35 @@
+<div id="scaife-integration-content" class="scaife-integration-content tab-pane fade in active">
+  <% if @form_title.present? %>
+    <h4 class="scaife-integration-title"><%= @form_title %></h4>
+  <% end %>
+  <%= render partial: "projects/scaife/tabs" %>
+  <div class="row top-buffer">
+    <div <%= @errors.present? ? "" : "hidden" %> id="scaife-integration-error-msg" class="alert alert-danger">
+      <% if @errors.present? %>
+        <% @errors.each do |err| %>
+          <%= "#{err}" %></br>
+        <% end %>
+      <% end %>
+    </div>
+    <div <%= @success.present? ? "" : "hidden" %> id="scaife-integration-success-msg" class="alert alert-success">
+      <% if @success.present? %>
+        <%= @success %>
+      <% end %>
+    </div>
+  </div>
+  <%= form_tag(@submit_path, remote: true, :id => "#{@current_action}-form") do %>
+    <%= render(:partial => @render_content_path) %>
+    <div class="row top-buffer">
+      <div class="col-xs-12 text-right">
+        <% if @scaife_active or ["langSelect", "taxoSelect"].include? @current_action %>
+          <%= submit_tag(@submit_label, :class => "btn btn-primary #{@current_action}-submit") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% if ["langSelect", "langUpload", "langMap"].include? @current_action %>
+  <%= javascript_tag('$("#scaife-integration").find("#lang-tab-link").tab("show")') %>
+<% elsif ["taxoUpload", "taxoMap"].include? @current_action %>
+  <%= javascript_tag('$("#scaife-integration").find("#taxo-tab-link").tab("show")') %>
+<% end %>

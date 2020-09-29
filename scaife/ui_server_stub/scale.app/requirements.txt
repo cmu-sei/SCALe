@@ -1,0 +1,8 @@
+wheel >= 0.32.0
+pyyaml >= 3.13
+lxml >= 4.5.0
+beautifulsoup4 >= 4.8.2
+requests>=2.24.0
+fastavro==0.24.2
+pulsar-client==2.5.0
+python-dateutil >= 2.6.0

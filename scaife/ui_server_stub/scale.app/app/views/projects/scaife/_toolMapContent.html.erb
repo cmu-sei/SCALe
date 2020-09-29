@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-md-offset-2 justify-content-center">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <td colspan="5" class="header_items">Existing mappings</td>
+            </tr>
+            <tr>
+              <td class="header_items" colspan="2">SCALe</td>
+              <td class="header_items"></td>
+              <td class="header_items" colspan="2">SCAIFE</td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+              <td>&lt;--&gt;</td>
+              <td>Name</td>
+              <td>Version</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @scaife_active %>
+              <% @tools_in_scaife.each do |tool| %>
+                <% scaife_tool = @scaife_tools_by_id[tool.scaife_tool_id] %>
+                <tr>
+                  <td class="col-xs-3"><%= "#{tool.name} - #{tool.platform_str}" %></td>
+                  <td class="col-xs-2"><%= tool.version %></td>
+                  <td class="col-xs-1" align="center"></td>
+                  <% if scaife_tool.present? %>
+                    <td class="col-xs-3"><%= scaife_tool["tool_name"] %></td>
+                    <td class="col-xs-2"><%= scaife_tool["tool_version"] %></td>
+                  <% else %>
+                    <td colspan="2">unknown</td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% else %>
+              <td colspan="5" class="header_items" align="center"><em>Not connected to SCAIFE</em></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row top-buffer">
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="table-fixed-scroll-outer">
+            <table class="table-fixed-scroll-inner table table-condensed">
+              <thead>
+                <tr>
+                  <% scope = @project.present? ? "Project" : "SCALe" %>
+                  <% if @tools_not_in_scaife.present? %>
+                    <td colspan="2"><%= scope %> Tools</td>
+                  <% else %>
+                    <td colspan="2"><em>All <%= scope %> Tools Already Uploaded/Mapped</em></td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td>Version</td>
+                </tr>
+              </thead>
+              <tbody class="src-tool-list">
+                <% @tools_not_in_scaife.each do |tool| %>
+                  <tr data-id="<%= tool.id %>" class="list-item" style="display:none">
+                    <td><%= "#{tool.name} - #{tool.platform_str}" %></td>
+                    <td><%= "#{tool.version}" %></td>
+                    <%= hidden_field(:map_tools, tool.id) %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="table-fixed-scroll-outer">
+            <table class="table-fixed-scroll-inner table table-condensed">
+              <thead>
+                <tr>
+                  <td colspan="2">SCAIFE Tools</td>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td>Version</td>
+                </tr>
+              </thead>
+              <tbody class="tgt-tool-list">
+                <% @scaife_tools_by_id.each_value do |scaife_tool| %>
+                  <tr data-id="<%= scaife_tool["tool_id"] %>" class="list-item">
+                    <td class="tgt-name"><%= scaife_tool["tool_name"] %></td>
+                    <td class="tgt-version"><%= scaife_tool["tool_version"] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row top-buffer text-center">
+        <div class="col-xs-6">
+          <div class="flop-buttons">
+            <button class="btn-md btn-default map-tool-button" type="button">Map Selected &gt;&gt;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="table-fixed-scroll-outer">
+            <table class="table-fixed-scroll-inner table table-condensed">
+              <thead>
+                <tr>
+                  <td colspan="5">Proposed mappings</td>
+                </tr>
+                <tr>
+                  <td colspan="2">SCALe</td>
+                  <td>&lt;--&gt;</td>
+                  <td colspan="2">SCAIFE</td>
+                </tr>
+              </thead>
+              <tbody class="map-tool-list">
+                <% @tools_not_in_scaife.each do |tool| %>
+                  <tr data-id="<%= tool.id %>" class="list-item" style="display:none">
+                    <td><%= "#{tool.name} - #{tool.platform_str}" %></td>
+                    <td><%= tool.version %></td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row top-buffer text-center">
+        <div class="col-xs-6">
+          <div class="flop-buttons">
+            <button class="btn-md btn-default unmap-tool-button" type="button">&lt;&lt; Unmap Selected</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

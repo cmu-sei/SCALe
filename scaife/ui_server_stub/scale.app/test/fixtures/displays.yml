@@ -1,0 +1,117 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+display_1: 
+  confidence: 1.0
+  meta_alert_id: 1
+  project_id: project_3
+
+display_2: 
+  confidence: 6.6
+  meta_alert_id: 1
+  project_id: project_3
+
+
+display_3: 
+  confidence: 2.0
+  meta_alert_id: 3
+  project_id: project_4
+
+<% 10.times do |n| %>
+display_<%= n + 3 %>:
+  confidence: <%= 1.3 + n %>
+  meta_alert_id: <%= 3 + n  %>
+  project_id: project_5
+<% end %>
+
+<% 10.times do |n| %>
+massupdate_display_<%= n %>:
+  meta_alert_id: <%= (n % 5) + 1 %>
+  project_id: 10
+  verdict: 0
+  flag: false
+  checker: "test_checker"
+  condition: "condition"
+  previous: -1
+  path: ""
+  line: 0
+  link: ""
+  message: ""
+  tool: ""
+  title: ""
+  severity: 1
+  likelihood: 1
+  remediation: 1
+  priority: 1
+  level: 1
+  cwe_likelihood: ""
+  notes: ""
+  ignored: false
+  dead: false
+  inapplicable_environment: false
+  dangerous_construct: 1
+  confidence: 1
+  meta_alert_priority: 1
+  alert_id: <%= n %>
+<% end %>
+
+massupdate_display_10:
+  meta_alert_id: 6
+  project_id: 10
+  verdict: 0
+  flag: false
+  checker: "other_checker"
+  condition: "condition"
+  previous: -1
+  path: ""
+  line: 0
+  link: ""
+  message: ""
+  tool: ""
+  title: ""
+  severity: 1
+  likelihood: 1
+  remediation: 1
+  priority: 1
+  level: 1
+  cwe_likelihood: ""
+  notes: ""
+  ignored: false
+  dead: false
+  inapplicable_environment: false
+  dangerous_construct: 1
+  confidence: 1
+  meta_alert_priority: 1
+  alert_id: 11
+
+
+massupdate_display_11:
+  meta_alert_id: 6
+  project_id: project_1
+  verdict: 0
+  flag: false
+  checker: "test_checker"
+  condition: "condition"
+  previous: -1
+  path: ""
+  line: 0
+  link: ""
+  message: ""
+  tool: ""
+  title: ""
+  severity: 1
+  likelihood: 1
+  remediation: 1
+  priority: 1
+  level: 1
+  cwe_likelihood: ""
+  notes: ""
+  ignored: false
+  dead: false
+  inapplicable_environment: false
+  dangerous_construct: 1
+  confidence: 1
+  meta_alert_priority: 1

@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: 
+  meta_alert_id: 1
+  user_columns: '{
+    "safeguard_countermeasure": "5",
+    "vulnerability": "1",
+    "residual_risk": "4",
+    "impact": "9",
+    "threat": "1",
+    "risk": "1",
+    "complexity": "5",
+    "severity": "5",
+    "coupling": "1"
+  }'
+
+two: 
+  meta_alert_id: 2
+  user_columns: '{
+    "safeguard_countermeasure": "9",
+    "vulnerability": "3",
+    "residual_risk": "3",
+    "impact": "3",
+    "threat": "1",
+    "risk": "1",
+    "complexity": "1",
+    "severity": "9",
+    "coupling": "3"
+  }'

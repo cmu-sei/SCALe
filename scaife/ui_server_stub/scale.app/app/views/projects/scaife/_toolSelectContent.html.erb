@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12" style="font-size: 90%">
+      <p class="text-center"><em>Tools that are initially selected are based on tool output uploads for this project</em></p>
+    </div>
+  </div>
+  <div class="row vertical-align">
+    <div class="col-xs-5">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <th colspan="3">Tools Available</th>
+            </tr>
+            <tr>
+              <th class="header_items">Name</th>
+              <th class="header_items">Version</th>
+              <th class="header_items">Author</th>
+            </tr>
+          </thead>
+          <tbody class="add-tool-list">
+            <% Tool.all.each() do |tool| %>
+              <% if @project.tools.exists? tool.id %>
+                <tr data-id="<%= tool.id %>" class="list-item" style="display:none">
+              <% else %>
+                <tr data-id="<%= tool.id %>" class="list-item orig-item">
+                <%= hidden_field(:select_tools, tool.id) %>
+              <% end %>
+                <td><%= "#{tool.name}" %></td>
+                <td><%= "#{tool.version}" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-xs-2" style="justify-content: center">
+      <div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default add-tool-button" type="button">Add &gt;&gt;</button>
+        </div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default remove-tool-button" type="button">&lt;&lt; Remove</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-5">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <th colspan="3">Tools Selected</th>
+            </tr>
+            <tr>
+              <th class="header_items">Name</th>
+              <th class="header_items">Version</th>
+            </tr>
+          </thead>
+          <tbody class="remove-tool-list">
+            <% Tool.all.each() do |tool| %>
+              <% if @project.tools.exists?(tool.id) %>
+                <tr data-id="<%= tool.id %>" class="list-item orig-item">
+                <%= hidden_field(:deselect_tools, tool.id) %>
+              <% else %>
+                <tr data-id="<%= tool.id %>" class="list-item" style="display: none">
+              <% end %>
+                <td><%= "#{tool.name}" %></td>
+                <td><%= "#{tool.version}" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

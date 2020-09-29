@@ -1,0 +1,16 @@
+{
+  "name": "scaleDependencies",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "description": "SCALE_DEPENDENCIES",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[ruby::ruby]",
+    "recipe[sqlite3::sqlite3]",
+    "recipe[python::python]",
+    "recipe[libs::libs]",
+    "recipe[gnu_global::gnu_global]",
+    "recipe[bundle::bundle]"
+  ]
+}

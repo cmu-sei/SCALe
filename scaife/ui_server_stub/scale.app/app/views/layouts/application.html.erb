@@ -1,0 +1,47 @@
+<!-- This is the main page template -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scale</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= controller_name %> <%= action_name %>">
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-12">
+  <%= render 'layouts/header.html.erb' %>
+
+  <!--Removes the extra space from the page unless there is a notice or alertCondition that needs to be shown -->
+  <% unless notice.nil? || notice.empty? || alert.nil? || alert.empty? %>
+  <p class="notice"><%= notice %></p>
+  <p class="alertCondition"><%= alertCondition %></p>
+    <% flash.each do |key, value| %>
+      <div class="alertCondition alertCondition-<%= key %>"><%= value %></div>
+    <% end %>
+  <% end %>
+
+  <div class="main_content">
+    <%= yield %>
+    <div id="scaife-register-modal" class="modal fade" role="dialog" aria-labelledby="scaifeRegisterModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+      </div>
+    </div>
+    <div id="scaife-integration-modal" class="modal fade" role="dialog" aria-labelledby="scaife-integration-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'layouts/footer.html.erb' %>
+
+  <!-- <%= debug(params) if Rails.env.development? %> -->
+</div>
+</div>
+</div><!-- end div container-fluid -->
+</body>
+</html>

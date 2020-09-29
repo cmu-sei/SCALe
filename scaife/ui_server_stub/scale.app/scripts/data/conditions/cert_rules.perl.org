@@ -1,0 +1,45 @@
+|IDS30-PL|Exclude user input from format strings|High|Probable|Low|18|1|
+|IDS31-PL|Do not use the two-argument form of open()|High|Likely|Low|27|1|
+|IDS32-PL|Validate any integer that is used as an array index|Low|Likely|High|3|3|
+|IDS33-PL|Sanitize untrusted data passed across a trust boundary|High|Likely|High|9|2|
+|IDS34-PL|Do not pass untrusted, unsanitized data to a command interpreter|High|Probable|Medium|12|1|
+|IDS35-PL|Do not invoke the eval form with a string argument|High|Likely|Medium|18|1|
+|DCL30-PL|Do not import deprecated modules|Medium|Likely|Low|18|1|
+|DCL31-PL|Do not overload reserved keywords or subroutines|Low|Probable|Medium|4|3|
+|DCL33-PL|Declare identifiers before using them|Low|Probable|High|2|3|
+|EXP30-PL|Do not use deprecated or obsolete functions or modules|Medium|Probable|Low|12|1|
+|EXP31-PL|Do not suppress or ignore exceptions|Low|Probable|Medium|4|3|
+|EXP32-PL|Do not ignore function return values|Medium|Probable|Low|12|1|
+|EXP33-PL|Do not invoke a function in a context for which it is not defined|Medium|Unlikely|Low|6|2|
+|EXP34-PL|Do not modify $_ in list or sorting functions|Medium|Likely|Low|18|1|
+|EXP35-PL|Use the correct operator type for comparing values|Low|Likely|Low|9|2|
+|EXP37-PL|Do not use the one-argument form of select()|Medium|Unlikely|Medium|4|3|
+|STR30-PL|Capture variables should be read only immediately after a successful regex match|Medium|Probable|Medium|8|2|
+|STR31-PL|Do not pass string literals to functions expecting regexes|Low|Likely|Low|9|2|
+|OOP31-PL|Do not access private variables or subroutines in other packages|Medium|Probable|Medium|8|2|
+|OOP32-PL|Prohibit indirect object call syntax|Low|Probable|Medium|4|3|
+|FIO30-PL|Use compatible character encodings when performing network or file I/O|Low|Unlikely|Medium|2|3|
+|MSC30-PL|Do not use comma to separate statements|Low|Probable|Medium|4|3|
+|MSC31-PL|Do not embed global statements|Low|Unlikely|Low|3|3|
+|MSC32-PL|Do not provide a module's version value from outside the module|Low|Unlikely|Medium|2|3|
+|DCL00-PL|Do not use subroutine prototypes|Low|Likely|Low|9|2|
+|DCL01-PL|Do not reuse variable names in subscopes|Low|Probable|Medium|4|3|
+|DCL02-PL|Any modified punctuation variable should be declared local|Low|Probable|Medium|4|3|
+|DCL03-PL|Do not read a foreach iterator variable after the loop has completed|Low|Unlikely|Low|3|3|
+|DCL04-PL|Always initialize local variables|Low|Probable|Medium|4|3|
+|DCL05-PL|Prohibit Perl4 package names|Low|Improbable|Low|6|2|
+|EXP00-PL|Do not return undef|Low|Unlikely|Low|3|3|
+|EXP01-PL|Do not depend on the return value of functions that lack a return statement|Medium|Likely|Low|18|1|
+|EXP03-PL|Do not diminish the benefits of constants by assuming their values in expressions|Low|Unlikely|Medium|2|3|
+|EXP04-PL|Do not mix the early-precedence logical operators with late-precedence logical operators|Low|Unlikely|Low|3|3|
+|EXP06-PL|Do not use an array in an implicit scalar context|Low|Unlikely|Medium|2|3|
+|FIO00-PL|Do not use bareword file handles|Medium|Probable|Low|12|1|
+|FIO01-PL|Do not operate on files that can be modified by untrusted users|Medium|Unlikely|Medium|4|3|
+|IDS00-PL|Canonicalize path names before validating them|Medium|Unlikely|Medium|4|3|
+|IDS01-PL|Use taint mode while being aware of its limitations|Medium|Probable|Medium|8|2|
+|INT00-PL|Do not prepend leading zeroes to integer literals|Low|Probable|Medium|4|3|
+|INT01-PL|Use small integers when precise computation is required|Medium|Probable|High|4|3|
+|MSC00-PL|Detect and remove dead code|Low|Unlikely|High|1|3|
+|MSC01-PL|Detect and remove unused variables|Low|Unlikely|High|1|3|
+|MSC02-PL|Run programs with full warnings and strict checking|Low|Unlikely|Medium|2|3|
+|OOP00-PL|Do not signify inheritence at runtime|Low|Unlikely|Low|3|3|

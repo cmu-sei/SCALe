@@ -1,0 +1,108 @@
+<div class="container">
+  <!--
+  <div class="row <%= @modal ? "top-buffer" : "" %>">
+  -->
+  <div class="row">
+    <div class="col-xs-6 col-md-offset-3 justify-content-center">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed scaife-tools">
+          <thead>
+            <tr>
+              <th colspan="2">Tools Present On SCAIFE</th>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @scaife_active %>
+              <% if @scaife_tools_by_id.present? %>
+                <% @scaife_tools_by_id.each_value do |scaife_tool| %>
+                  <tr>
+                    <td><%= "#{scaife_tool['tool_name']}" %></td>
+                    <td><%= "#{scaife_tool['tool_version']}" %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="2" align="center"><em>No tools uploaded yet</em></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <td colspan="2" align="center"><em>Not connected to SCAIFE</em></th>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row vertical-align top-buffer">
+    <div class="col-xs-5">
+      <% scope = @project.present? ? "Project" : "SCALe" %>
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <% if @scaife_active %>
+                <% if @tools_not_in_scaife.present? %>
+                  <td colspan="2">Select <%= scope %> Tools</td>
+                <% elsif @tools_available.present? %>
+                  <td colspan="2">All <%= scope[0].downcase %> tools already uploaded/mapped</td>
+                <% end %>
+              <% else %>
+                <td colspan="2"><em>Must log in to SCAIFE first</em></td>
+              <% end %>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+            </tr>
+          </thead>
+          <tbody class="add-tool-list">
+            <% @tools_not_in_scaife.each do |tool| %>
+              <tr data-id="<%= tool.id %>" class="list-item">
+                <td><%= "#{tool.name} - #{tool.platform_str}" %></td>
+                <td><%= "#{tool.version}" %></td>
+              </tr>
+              <%= hidden_field(:upload_tools, tool.id) %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default add-tool-button" type="button">Select &gt;&gt;</button>
+        </div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default remove-tool-button" type="button">&lt;&lt; Deselect</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-5">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <td colspan="2">Tools to Upload to SCAIFE</td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+            </tr>
+          </thead>
+          <tbody class="remove-tool-list">
+            <% @tools_not_in_scaife.each do |tool| %>
+              <tr data-id="<%= tool.id %>" class="list-item" style="display:none">
+                <td><%= "#{tool.name} - #{tool.platform_str}" %></td>
+                <td><%= "#{tool.version}" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="modal-header">
+<div class="panel panel-info">
+<div class="panel-heading">
+  <button type="button" class="close" data-dismiss="modal">x</button>
+  <h4 class="modal-title" id="scaifeLoginModalLabel">SCAIFE: Login</h4>
+</div>
+</div>
+</div>
+<div hidden id="login-form-msg" class="alert alert-danger"></div>
+<%= form_tag("/scaife-registration/login-submit", :remote => true, :id => "scaifeLoginForm") do %>
+<div class="modal-body">
+  <div class="row">
+    <%= label_tag 'Username', nil, class: 'col-md-12 form-label' %>
+  </div>
+  <div class="row">
+    <%= text_field_tag "user_field", nil, class: 'col-md-12' %>
+  </div>
+  </br>
+  <div class="row">
+    <%= label_tag 'Password', nil, class: 'col-md-12 form-label' %>
+  </div>
+  <div class="row">
+    <%= password_field_tag "password_field", nil, class: 'col-md-12' %>
+  </div>
+  </br>
+  <div class="row">
+    <%= submit_tag("Log In", :class => "form-btn btn btn-primary col-md-12") %>
+  </div>
+</div>
+<% end %>
+<div class="modal-footer">
+  <%= button_to 'Sign Up', scaife_registration_register_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#scaife-register-modal', method: :get, class: 'form-btn btn btn-secondary col-md-4'}  %>
+</div>

@@ -1,0 +1,5 @@
+$(document).ready(function() {
+  $("#scaife-login-modal").modal("hide");
+  $("#scaife-register-modal").find(".modal-content").html("<%= j (render 'getRegisterModal') %>");
+  $("#scaife-register-modal").modal("show");
+});

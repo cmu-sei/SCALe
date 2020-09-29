@@ -1,0 +1,118 @@
+/* CSS to make tables look a little better */
+table {
+	border: 3px solid #000000;
+	text-align: left;
+	border-collapse: collapse;
+  }
+  table td, table th {
+	border: 1px solid #000000;
+	padding: 5px 4px;
+  }
+  table tbody td {
+	font-size: 14px;
+  }
+  table thead {
+	background: #CFCFCF;
+	background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	border-bottom: 3px solid #000000;
+  }
+  table thead th {
+	font-size: 16px;
+	font-weight: bold;
+	color: #000000;
+	text-align: left;
+  }
+  table tfoot {
+	font-size: 14px;
+	font-weight: bold;
+	color: #000000;
+	border-top: 3px solid #000000;
+  }
+  table tfoot td {
+	font-size: 14px;
+  }
+/* End table CSS */
+/* CSS to improve code block display */
+code {
+	font-size: 125%;
+}
+pre > code {
+	display:block;
+	border: 1px solid black;
+	background-color: lightgray;
+}
+
+code span[class] {
+	font-weight: bold;
+}
+
+/* End code block CSS */
+
+/* CSS to color external links */
+.extlink, .uri {
+	color: green;
+}
+
+/* CSS to size the unitmark */
+.unitmark {
+	width: 20%;
+}
+
+/* CSS to make images look a bit better */
+img {
+	max-width: 75%;
+	filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.3));
+}
+
+a>img {
+	filter: none;
+}
+
+/* End Image CSS */
+
+/* CSS for main document and footer */
+body {
+	margin: 0;
+	padding: 0;
+	max-width: 100%;
+}
+
+footer {
+	background-color: #333;
+	Color: rgba(255,255,255,.9);
+	font-size: 90%;
+	letter-spacing: .05em;
+	max-width: 100%;
+	padding: 2.125rem 0;
+	display: block;
+}
+
+footer a {
+	Color: rgba(255,255,255,.9);
+}
+
+footer a:hover {
+	color: white;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+table.footerTable {
+	border: 0px;
+	margin-left: 10px;
+}
+
+table.footerTable td {
+	border: 0px;
+	text-align: left;
+}
+
+.mainContent {
+	margin: 10px;
+}
+
+html {
+	font-family: 'Open Sans',sans-serif,Helvetica;
+}
+/* End main document CSS */

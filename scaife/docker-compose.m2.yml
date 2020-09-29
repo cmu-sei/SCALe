@@ -1,0 +1,6 @@
+version: '3.5'
+
+services:
+  scale:
+    volumes:
+      - ${HOME}/.m2:/home/scale/.m2

@@ -1,0 +1,239 @@
+EXP12-C	/dos2unix.c	93	Do not ignore values returned by functions: d2u_ungetwc
+EXP12-C	/dos2unix.c	95	Do not ignore values returned by functions: d2u_putwc
+EXP12-C	/dos2unix.c	99	Do not ignore values returned by functions: d2u_putwc
+EXP12-C	/dos2unix.c	104	Do not ignore values returned by functions: d2u_putwc
+EXP12-C	/dos2unix.c	116	Do not ignore values returned by functions: ungetc
+EXP12-C	/dos2unix.c	118	Do not ignore values returned by functions: fputc
+EXP12-C	/dos2unix.c	122	Do not ignore values returned by functions: fputc
+EXP12-C	/dos2unix.c	127	Do not ignore values returned by functions: fputc
+FIO30-C	/dos2unix.c	169	Exclude user input from format strings
+FIO30-C	/dos2unix.c	183	Exclude user input from format strings
+FIO30-C	/dos2unix.c	206	Exclude user input from format strings
+FIO30-C	/dos2unix.c	220	Exclude user input from format strings
+EXP12-C	/dos2unix.c	229	Do not ignore values returned by functions: d2u_ungetwc
+EXP12-C	/dos2unix.c	232	Do not ignore values returned by functions: d2u_putwc
+FIO30-C	/dos2unix.c	243	Exclude user input from format strings
+EXP12-C	/dos2unix.c	251	Do not ignore values returned by functions: d2u_putwc
+FIO30-C	/dos2unix.c	268	Exclude user input from format strings
+FIO30-C	/dos2unix.c	327	Exclude user input from format strings
+FIO30-C	/dos2unix.c	351	Exclude user input from format strings
+ARR30-C	/dos2unix.c	358	Guarantee that array indices are within the valid range
+FIO30-C	/dos2unix.c	364	Exclude user input from format strings
+FIO30-C	/dos2unix.c	386	Exclude user input from format strings
+ARR30-C	/dos2unix.c	393	Guarantee that array indices are within the valid range
+FIO30-C	/dos2unix.c	399	Exclude user input from format strings
+EXP12-C	/dos2unix.c	407	Do not ignore values returned by functions: ungetc
+EXP12-C	/dos2unix.c	410	Do not ignore values returned by functions: fputc
+FIO30-C	/dos2unix.c	420	Exclude user input from format strings
+EXP12-C	/dos2unix.c	427	Do not ignore values returned by functions: fputc
+FIO30-C	/dos2unix.c	442	Exclude user input from format strings
+INT07-C	/dos2unix.c	459	Use only explicitly signed or unsigned char type for numeric values
+STR31-C	/dos2unix.c	460	String copy destination must contain sufficient storage
+ENV30-C	/dos2unix.c	463	Do not modify the string returned by getenv()
+STR31-C	/dos2unix.c	465	String copy destination must contain sufficient storage
+STR31-C	/dos2unix.c	468	String copy destination must contain sufficient storage
+STR31-C	/dos2unix.c	472	String copy destination must contain sufficient storage
+EXP12-C	/dos2unix.c	479	Do not ignore values returned by functions: setlocale
+EXP12-C	/dos2unix.c	483	Do not ignore values returned by functions: bindtextdomain
+EXP12-C	/dos2unix.c	484	Do not ignore values returned by functions: textdomain
+EXP34-C	/dos2unix.c	489	Ensure pointer is valid before dereferencing it
+EXP30-C	/dos2unix.c	493	Do not depend on order of evaluation between sequence points
+STR31-C	/dos2unix.c	500	String copy destination must contain sufficient storage
+FIO30-C	/common.c	254	Exclude user input from format strings
+FIO30-C	/common.c	255	Exclude user input from format strings
+FIO30-C	/common.c	256	Exclude user input from format strings
+FIO30-C	/common.c	257	Exclude user input from format strings
+FIO30-C	/common.c	258	Exclude user input from format strings
+FIO30-C	/common.c	259	Exclude user input from format strings
+FIO30-C	/common.c	260	Exclude user input from format strings
+FIO30-C	/common.c	261	Exclude user input from format strings
+FIO30-C	/common.c	262	Exclude user input from format strings
+FIO30-C	/common.c	263	Exclude user input from format strings
+EXP12-C	/common.c	264	Do not ignore values returned by functions: is_dos2unix
+FIO30-C	/common.c	265	Exclude user input from format strings
+FIO30-C	/common.c	267	Exclude user input from format strings
+FIO30-C	/common.c	268	Exclude user input from format strings
+FIO30-C	/common.c	270	Exclude user input from format strings
+FIO30-C	/common.c	276	Exclude user input from format strings
+FIO30-C	/common.c	277	Exclude user input from format strings
+FIO30-C	/common.c	279	Exclude user input from format strings
+FIO30-C	/common.c	280	Exclude user input from format strings
+FIO30-C	/common.c	281	Exclude user input from format strings
+FIO30-C	/common.c	282	Exclude user input from format strings
+FIO30-C	/common.c	283	Exclude user input from format strings
+FIO30-C	/common.c	286	Exclude user input from format strings
+FIO30-C	/common.c	288	Exclude user input from format strings
+EXP12-C	/common.c	289	Do not ignore values returned by functions: is_dos2unix
+FIO30-C	/common.c	290	Exclude user input from format strings
+FIO30-C	/common.c	292	Exclude user input from format strings
+FIO30-C	/common.c	293	Exclude user input from format strings
+FIO30-C	/common.c	295	Exclude user input from format strings
+FIO30-C	/common.c	296	Exclude user input from format strings
+FIO30-C	/common.c	297	Exclude user input from format strings
+FIO30-C	/common.c	299	Exclude user input from format strings
+FIO30-C	/common.c	301	Exclude user input from format strings
+FIO30-C	/common.c	304	Exclude user input from format strings
+FIO30-C	/common.c	306	Exclude user input from format strings
+FIO30-C	/common.c	308	Exclude user input from format strings
+EXP34-C	/common.c	428	Ensure pointer is valid before dereferencing it
+MEM01-C	/common.c	433	Store a new value in pointers immediately after free()
+EXP12-C	/common.c	479	Do not ignore values returned by functions: lstat
+EXP12-C	/common.c	557	Do not ignore values returned by functions: ungetc
+EXP12-C	/common.c	562	Do not ignore values returned by functions: ungetc
+EXP12-C	/common.c	567	Do not ignore values returned by functions: ungetc
+FIO13-C	/common.c	567	Never push back anything other than one read character
+EXP12-C	/common.c	568	Do not ignore values returned by functions: ungetc
+EXP12-C	/common.c	581	Do not ignore values returned by functions: ungetc
+FIO13-C	/common.c	581	Never push back anything other than one read character
+EXP12-C	/common.c	582	Do not ignore values returned by functions: ungetc
+FIO13-C	/common.c	582	Never push back anything other than one read character
+EXP12-C	/common.c	583	Do not ignore values returned by functions: ungetc
+EXP12-C	/common.c	597	Do not ignore values returned by functions: ungetc
+EXP12-C	/common.c	599	Do not ignore values returned by functions: ungetc
+FIO13-C	/common.c	599	Never push back anything other than one read character
+EXP12-C	/common.c	600	Do not ignore values returned by functions: ungetc
+FIO13-C	/common.c	600	Never push back anything other than one read character
+EXP12-C	/common.c	601	Do not ignore values returned by functions: ungetc
+FIO30-C	/common.c	622	Exclude user input from format strings
+FIO30-C	/common.c	629	Exclude user input from format strings
+FIO30-C	/common.c	636	Exclude user input from format strings
+FIO30-C	/common.c	643	Exclude user input from format strings
+FIO30-C	/common.c	655	Exclude user input from format strings
+FIO30-C	/common.c	662	Exclude user input from format strings
+FIO30-C	/common.c	674	Exclude user input from format strings
+FIO30-C	/common.c	678	Exclude user input from format strings
+FIO30-C	/common.c	682	Exclude user input from format strings
+FIO30-C	/common.c	686	Exclude user input from format strings
+FIO30-C	/common.c	724	Exclude user input from format strings
+FIO30-C	/common.c	728	Exclude user input from format strings
+INT01-C	/common.c	743	Use rsize_t or size_t for all integer values representing the size of an object
+FIO30-C	/common.c	764	Exclude user input from format strings
+FIO30-C	/common.c	768	Exclude user input from format strings
+INT01-C	/common.c	784	Use rsize_t or size_t for all integer values representing the size of an object
+EXP12-C	/common.c	800	Do not ignore values returned by functions: write_bom
+DCL05-C	/common.c	809	Use typedefs to improve code readability
+EXP12-C	/common.c	844	Do not ignore values returned by functions: regfile
+EXP12-C	/common.c	866	Do not ignore values returned by functions: stat
+FIO30-C	/common.c	884	Exclude user input from format strings
+EXP12-C	/common.c	922	Do not ignore values returned by functions: check_unicode
+FIO30-C	/common.c	954	Exclude user input from format strings
+EXP12-C	/common.c	975	Do not ignore values returned by functions: umask
+INT13-C	/common.c	976	Use bitwise operators only on unsigned operands
+INT13-C	/common.c	976	Use bitwise operators only on unsigned operands
+FIO30-C	/common.c	984	Exclude user input from format strings
+EXP12-C	/common.c	995	Do not ignore values returned by functions: chown
+FIO30-C	/common.c	1000	Exclude user input from format strings
+FIO30-C	/common.c	1044	Exclude user input from format strings
+FIO30-C	/common.c	1045	Exclude user input from format strings
+FIO30-C	/common.c	1069	Exclude user input from format strings
+FIO30-C	/common.c	1072	Exclude user input from format strings
+FIO30-C	/common.c	1074	Exclude user input from format strings
+MEM01-C	/common.c	1080	Store a new value in pointers immediately after free()
+MEM34-C	/common.c	1080	Only free memory allocated dynamically
+MEM34-C	/common.c	1082	Only free memory allocated dynamically
+DCL05-C	/common.c	1090	Use typedefs to improve code readability
+EXP12-C	/common.c	1117	Do not ignore values returned by functions: check_unicode
+FIO30-C	/common.c	1135	Exclude user input from format strings
+FIO30-C	/common.c	1138	Exclude user input from format strings
+FIO30-C	/common.c	1141	Exclude user input from format strings
+FIO30-C	/common.c	1144	Exclude user input from format strings
+INT07-C	/common.c	1150	Use only explicitly signed or unsigned char type for numeric values
+INT07-C	/common.c	1151	Use only explicitly signed or unsigned char type for numeric values
+INT07-C	/common.c	1157	Use only explicitly signed or unsigned char type for numeric values
+INT01-C	/common.c	1157	Use rsize_t or size_t for all integer values representing the size of an object
+INT07-C	/common.c	1179	Use only explicitly signed or unsigned char type for numeric values
+INT01-C	/common.c	1179	Use rsize_t or size_t for all integer values representing the size of an object
+FIO30-C	/common.c	1193	Exclude user input from format strings
+FIO30-C	/common.c	1196	Exclude user input from format strings
+FIO30-C	/common.c	1199	Exclude user input from format strings
+FIO30-C	/common.c	1202	Exclude user input from format strings
+FIO30-C	/common.c	1205	Exclude user input from format strings
+FIO30-C	/common.c	1208	Exclude user input from format strings
+FIO30-C	/common.c	1211	Exclude user input from format strings
+FIO30-C	/common.c	1214	Exclude user input from format strings
+EXP12-C	/common.c	1218	Do not ignore values returned by functions: is_dos2unix
+FIO30-C	/common.c	1219	Exclude user input from format strings
+FIO30-C	/common.c	1222	Exclude user input from format strings
+FIO30-C	/common.c	1224	Exclude user input from format strings
+EXP12-C	/common.c	1227	Do not ignore values returned by functions: is_dos2unix
+FIO30-C	/common.c	1234	Exclude user input from format strings
+FIO30-C	/common.c	1237	Exclude user input from format strings
+FIO30-C	/common.c	1239	Exclude user input from format strings
+FIO30-C	/common.c	1244	Exclude user input from format strings
+FIO30-C	/common.c	1258	Exclude user input from format strings
+FIO30-C	/common.c	1261	Exclude user input from format strings
+FIO30-C	/common.c	1264	Exclude user input from format strings
+FIO30-C	/common.c	1267	Exclude user input from format strings
+FIO30-C	/common.c	1270	Exclude user input from format strings
+FIO30-C	/common.c	1273	Exclude user input from format strings
+FIO30-C	/common.c	1276	Exclude user input from format strings
+EXP12-C	/common.c	1280	Do not ignore values returned by functions: is_dos2unix
+FIO30-C	/common.c	1281	Exclude user input from format strings
+FIO30-C	/common.c	1284	Exclude user input from format strings
+FIO30-C	/common.c	1286	Exclude user input from format strings
+EXP12-C	/common.c	1289	Do not ignore values returned by functions: is_dos2unix
+FIO30-C	/common.c	1295	Exclude user input from format strings
+FIO30-C	/common.c	1298	Exclude user input from format strings
+FIO30-C	/common.c	1300	Exclude user input from format strings
+FIO30-C	/common.c	1305	Exclude user input from format strings
+FIO30-C	/common.c	1315	Exclude user input from format strings
+FIO30-C	/common.c	1320	Exclude user input from format strings
+FIO30-C	/common.c	1325	Exclude user input from format strings
+EXP12-C	/common.c	1470	Do not ignore values returned by functions: regfile
+EXP12-C	/common.c	1495	Do not ignore values returned by functions: check_unicode_info
+EXP12-C	/common.c	1542	Do not ignore values returned by functions: check_unicode_info
+FIO30-C	/common.c	1598	Exclude user input from format strings
+DCL05-C	/common.c	1606	Use typedefs to improve code readability
+FIO30-C	/common.c	1707	Exclude user input from format strings
+FIO30-C	/common.c	1744	Exclude user input from format strings
+EXP12-C	/common.c	1750	Do not ignore values returned by functions: is_dos2unix
+FIO30-C	/common.c	1756	Exclude user input from format strings
+FIO30-C	/common.c	1764	Exclude user input from format strings
+FIO30-C	/common.c	1775	Exclude user input from format strings
+FIO30-C	/common.c	1788	Exclude user input from format strings
+EXP12-C	/common.c	1842	Do not ignore values returned by functions: ConvertStdio
+FIO30-C	/common.c	1854	Exclude user input from format strings
+FIO13-C	/common.c	1894	Never push back anything other than one read character
+FIO30-C	/common.c	1933	Exclude user input from format strings
+FIO30-C	/common.c	1948	Exclude user input from format strings
+INT14-C	/common.c	1985	Avoid performing bitwise and arithmetic operations on the same data
+INT14-C	/common.c	1986	Avoid performing bitwise and arithmetic operations on the same data
+EXP12-C	/unix2dos.c	79	Do not ignore values returned by functions: d2u_putwc
+EXP12-C	/unix2dos.c	80	Do not ignore values returned by functions: d2u_putwc
+EXP12-C	/unix2dos.c	91	Do not ignore values returned by functions: fputc
+EXP12-C	/unix2dos.c	92	Do not ignore values returned by functions: fputc
+FIO30-C	/unix2dos.c	133	Exclude user input from format strings
+EXP12-C	/unix2dos.c	138	Do not ignore values returned by functions: d2u_putwc
+EXP12-C	/unix2dos.c	145	Do not ignore values returned by functions: d2u_putwc
+FIO30-C	/unix2dos.c	160	Exclude user input from format strings
+FIO30-C	/unix2dos.c	183	Exclude user input from format strings
+FIO30-C	/unix2dos.c	195	Exclude user input from format strings
+FIO30-C	/unix2dos.c	216	Exclude user input from format strings
+FIO30-C	/unix2dos.c	232	Exclude user input from format strings
+EXP12-C	/unix2dos.c	239	Do not ignore values returned by functions: d2u_putwc
+FIO30-C	/unix2dos.c	256	Exclude user input from format strings
+FIO30-C	/unix2dos.c	315	Exclude user input from format strings
+FIO30-C	/unix2dos.c	337	Exclude user input from format strings
+EXP12-C	/unix2dos.c	343	Do not ignore values returned by functions: fputc
+EXP12-C	/unix2dos.c	350	Do not ignore values returned by functions: fputc
+ARR30-C	/unix2dos.c	357	Guarantee that array indices are within the valid range
+FIO30-C	/unix2dos.c	363	Exclude user input from format strings
+FIO30-C	/unix2dos.c	385	Exclude user input from format strings
+ARR30-C	/unix2dos.c	390	Guarantee that array indices are within the valid range
+FIO30-C	/unix2dos.c	396	Exclude user input from format strings
+FIO30-C	/unix2dos.c	415	Exclude user input from format strings
+FIO30-C	/unix2dos.c	429	Exclude user input from format strings
+EXP12-C	/unix2dos.c	435	Do not ignore values returned by functions: fputc
+FIO30-C	/unix2dos.c	450	Exclude user input from format strings
+INT07-C	/unix2dos.c	467	Use only explicitly signed or unsigned char type for numeric values
+STR31-C	/unix2dos.c	468	String copy destination must contain sufficient storage
+ENV30-C	/unix2dos.c	471	Do not modify the string returned by getenv()
+STR31-C	/unix2dos.c	473	String copy destination must contain sufficient storage
+STR31-C	/unix2dos.c	476	String copy destination must contain sufficient storage
+STR31-C	/unix2dos.c	480	String copy destination must contain sufficient storage
+EXP12-C	/unix2dos.c	487	Do not ignore values returned by functions: setlocale
+EXP12-C	/unix2dos.c	491	Do not ignore values returned by functions: bindtextdomain
+EXP12-C	/unix2dos.c	492	Do not ignore values returned by functions: textdomain
+EXP34-C	/unix2dos.c	497	Ensure pointer is valid before dereferencing it
+EXP30-C	/unix2dos.c	501	Do not depend on order of evaluation between sequence points
+STR31-C	/unix2dos.c	508	String copy destination must contain sufficient storage

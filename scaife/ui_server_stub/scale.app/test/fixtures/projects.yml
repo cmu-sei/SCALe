@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+project_1:
+  name: MyString
+  description: MyText
+
+project_2:
+  name: MyString
+  description: MyText
+
+<% 2.times do |n| %>
+project_<%= n + 3 %>:
+  name: <%= "project#{n}" %>
+  description: <%= "description"  %>
+  last_used_confidence_scheme: 1
+<% end %>
+
+project_5:
+  name: "project5"
+  description: "text"
+  last_used_confidence_scheme: 2
+
+<% 3.times do |n| %>
+project_<%= n + 6 %>:
+  id: <%= n %>
+  name: <%= "project#{n}" %>
+  description: <%= "description"  %>
+  last_used_confidence_scheme: 3
+<% end %>
+
+project_9:
+  id: 9
+  name: "project_9"
+  description: "runpriority"
+  last_used_confidence_scheme: 4
+  last_used_priority_scheme: nil
+
+massupdate_1:
+  id: 10
+  name: "massUpdate1"
+  description: "for massUpdate tests"

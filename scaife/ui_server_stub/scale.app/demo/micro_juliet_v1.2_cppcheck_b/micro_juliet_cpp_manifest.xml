@@ -1,0 +1,1432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92147" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fputs<br/> GoodSink: Check if fputs() fails<br/> BadSink : Do not check if fputs() fails<br/> Flow Variant: 06 Control flow: if(STATIC_CONST_FIVE==5) and if(STATIC_CONST_FIVE!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/147/CWE252_Unchecked_Return_Value__char_fputs_06.c" checksum="12b426e6f06f7315e17f97ac4213b39e6dfbbcd3" size="2619" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92169" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fread<br/> GoodSink: Check if fread() fails<br/> BadSink : Do not check if fread() fails<br/> Flow Variant: 10 Control flow: if(globalTrue) and if(globalFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/169/CWE252_Unchecked_Return_Value__char_fread_10.c" checksum="9f9374da2ecf7763b3d4523fa473e8d7be94647b" size="3352" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92171" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fread<br/> GoodSink: Check if fread() fails<br/> BadSink : Do not check if fread() fails<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/171/CWE252_Unchecked_Return_Value__char_fread_12.c" checksum="30b58d591b0cf7fb785cdd61009fffee29c3319b" size="3645" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92206" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fwrite<br/> GoodSink: Check if fwrite() fails<br/> BadSink : Do not check if fwrite() fails<br/> Flow Variant: 11 Control flow: if(globalReturnsTrue()) and if(globalReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/206/CWE252_Unchecked_Return_Value__char_fwrite_11.c" checksum="0e0168905a7cf03e239f933ecd537d0bb55d6977" size="2580" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92248" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: putchar<br/> GoodSink: Check if putchar() fails<br/> BadSink : Do not check if putchar() fails<br/> Flow Variant: 17 Control flow: for loops]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/248/CWE252_Unchecked_Return_Value__char_putchar_17.c" checksum="a638dd43baa477240a55b04cb57be7ba564beac7" size="1948" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92282" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: remove<br/> GoodSink: Check if remove() fails<br/> BadSink : Do not check if remove() fails<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/282/CWE252_Unchecked_Return_Value__char_remove_15.c" checksum="0906c6a5a6bc1a1d04740217c138b357bb394238" size="2781" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="36"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92311" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: scanf<br/> GoodSink: Check if scanf() fails<br/> BadSink : Do not check if scanf() fails<br/> Flow Variant: 08 Control flow: if(staticReturnsTrue()) and if(staticReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/311/CWE252_Unchecked_Return_Value__char_scanf_08.c" checksum="8333551e78531fb9b737f6f2d0d359ea8f44b484" size="3581" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="47"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92313" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: scanf<br/> GoodSink: Check if scanf() fails<br/> BadSink : Do not check if scanf() fails<br/> Flow Variant: 10 Control flow: if(globalTrue) and if(globalFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/313/CWE252_Unchecked_Return_Value__char_scanf_10.c" checksum="53d1412086ba0103e77ca8e5432d34ca6974e32c" size="3240" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92366" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: w32CreateMutex<br/> GoodSink: Check the return value of CreateMutexA() and handle it properly<br/> BadSink : Do not check if CreateMutexA() fails<br/> Flow Variant: 09 Control flow: if(GLOBAL_CONST_TRUE) and if(GLOBAL_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/366/CWE252_Unchecked_Return_Value__char_w32CreateMutex_09.c" checksum="4d26323e87669d58a9b00472564367e7028d7f3f" size="3546" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="33"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92381" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: w32CreateNamedPipe<br/> GoodSink: Check the return value of CreateNamedPipeA() and handle it properly<br/> BadSink : Do not check if CreateNamedPipeA() fails<br/> Flow Variant: 06 Control flow: if(STATIC_CONST_FIVE==5) and if(STATIC_CONST_FIVE!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/381/CWE252_Unchecked_Return_Value__char_w32CreateNamedPipe_06.c" checksum="c45af7c831a203212d990f6bb89c99934b603c7d" size="5894" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="52"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92405" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks:<br/> GoodSink: Check the return value of ImpersonateSelf() and handle it properly<br/> BadSink : Do not check if ImpersonateSelf() fails<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/405/CWE252_Unchecked_Return_Value__w32ImpersonateSelf_12.c" checksum="5810fc90a1ed22d6d6e7c7256be781f2dd9a5b95" size="2481" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="28"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92411" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks:<br/> GoodSink: Check the return value of ImpersonateSelf() and handle it properly<br/> BadSink : Do not check if ImpersonateSelf() fails<br/> Flow Variant: 18 Control flow: goto statements]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/411/CWE252_Unchecked_Return_Value__w32ImpersonateSelf_18.c" checksum="44278d5f4da742b56254d2d54793de203686e435" size="2008" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="28"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92438" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fprintf<br/> GoodSink: Check if fwprintf() fails<br/> BadSink : Do not check if fwprintf() fails<br/> Flow Variant: 09 Control flow: if(GLOBAL_CONST_TRUE) and if(GLOBAL_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/438/CWE252_Unchecked_Return_Value__wchar_t_fprintf_09.c" checksum="63fd96bb63ca29d696fce5ea16e1e3682fe7aa5a" size="2479" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92466" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fputs<br/> GoodSink: Check if fputws() fails<br/> BadSink : Do not check if fputws() fails<br/> Flow Variant: 01 Baseline]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/466/CWE252_Unchecked_Return_Value__wchar_t_fputs_01.c" checksum="e1620687246fd3699132ad02acd3ee259ace9cb7" size="1755" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92489" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fread<br/> GoodSink: Check if fread() fails<br/> BadSink : Do not check if fread() fails<br/> Flow Variant: 06 Control flow: if(STATIC_CONST_FIVE==5) and if(STATIC_CONST_FIVE!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/489/CWE252_Unchecked_Return_Value__wchar_t_fread_06.c" checksum="a245215697d056fd458bb55bd309523c5a06fa71" size="3670" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="39"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92498" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: fread<br/> GoodSink: Check if fread() fails<br/> BadSink : Do not check if fread() fails<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/498/CWE252_Unchecked_Return_Value__wchar_t_fread_15.c" checksum="853f1b1b395a1be8bc1fadc2fa0345e80005976c" size="3608" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92575" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: puts<br/> GoodSink: Check if puts() fails<br/> BadSink : Do not check if puts() fails<br/> Flow Variant: 02 Control flow: if(1) and if(0)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/575/CWE252_Unchecked_Return_Value__wchar_t_puts_02.c" checksum="91ea2743cb4cd2ec9ee36996623ff6582205a93b" size="2347" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92588" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: puts<br/> GoodSink: Check if puts() fails<br/> BadSink : Do not check if puts() fails<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/588/CWE252_Unchecked_Return_Value__wchar_t_puts_15.c" checksum="b60b6349a953b9bca2de142a2b091db1c8ba58f8" size="2744" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="36"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92609" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: remove<br/> GoodSink: Check if remove() fails<br/> BadSink : Do not check if remove() fails<br/> Flow Variant: 18 Control flow: goto statements]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/609/CWE252_Unchecked_Return_Value__wchar_t_remove_18.c" checksum="7c2314a51f46759ba67704b69ab21365df4e4be4" size="1965" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92614" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: rename<br/> GoodSink: Check if rename() fails<br/> BadSink : Do not check if rename() fails<br/> Flow Variant: 05 Control flow: if(staticTrue) and if(staticFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/614/CWE252_Unchecked_Return_Value__wchar_t_rename_05.c" checksum="82a8c83bd0657681478bc7eb1041e18b928bca24" size="2931" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="44"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92641" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: scanf<br/> GoodSink: Check if wscanf() fails<br/> BadSink : Do not check if wscanf() fails<br/> Flow Variant: 14 Control flow: if(globalFive==5) and if(globalFive!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/641/CWE252_Unchecked_Return_Value__wchar_t_scanf_14.c" checksum="2e003086eca02f15ab4d9c61c7cb9a046c117af4" size="3307" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92660" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: snprintf<br/> GoodSink: Check if snwprintf() fails<br/> BadSink : Do not check if snwprintf() fails<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/660/CWE252_Unchecked_Return_Value__wchar_t_snprintf_15.c" checksum="88c6bb9363fbb01a7cfa744ffbd273fe482e9fe2" size="3694" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="43"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="92692" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 252 Unchecked Return Value<br/> Sinks: w32CreateMutex<br/> GoodSink: Check the return value of CreateMutexW() and handle it properly<br/> BadSink : Do not check if CreateMutexW() fails<br/> Flow Variant: 11 Control flow: if(globalReturnsTrue()) and if(globalReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/092/692/CWE252_Unchecked_Return_Value__wchar_t_w32CreateMutex_11.c" checksum="7614178ee137b8ba65489a6f512710cbd6ee4f3d" size="3575" language="C">
+      <mixed name="CWE-252: Unchecked Return Value" line="33"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98328" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: empty_block<br/> GoodSink: Code block contains code<br/> BadSink : An empty code block has no effect<br/> Flow Variant: 11 Control flow: if(globalReturnsTrue()) and if(globalReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/328/CWE398_Poor_Code_Quality__empty_block_11.c" checksum="47e69389bcad5702db955ed2f564076aeb9ce521" size="2396" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="25"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98334" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: empty_block<br/> GoodSink: Code block contains code<br/> BadSink : An empty code block has no effect<br/> Flow Variant: 17 Control flow: for loops]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/334/CWE398_Poor_Code_Quality__empty_block_17.c" checksum="4761dfeadbc6d6a2033a66408da8e29a57a82d7b" size="1911" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98336" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: empty_case<br/> GoodSink: Case statement contains code<br/> BadSink : An empty case statement has no effect<br/> Flow Variant: 01 Baseline]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/336/CWE398_Poor_Code_Quality__empty_case_01.c" checksum="16af263a3d64e080b19b6bed5c7fa2371a661997" size="1946" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98340" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: empty_case<br/> GoodSink: Case statement contains code<br/> BadSink : An empty case statement has no effect<br/> Flow Variant: 05 Control flow: if(staticTrue) and if(staticFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/340/CWE398_Poor_Code_Quality__empty_case_05.c" checksum="22f8de52780ba018e84d2a83ea5dd299f1ca35e8" size="3081" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98352" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: empty_case<br/> GoodSink: Case statement contains code<br/> BadSink : An empty case statement has no effect<br/> Flow Variant: 17 Control flow: for loops]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/352/CWE398_Poor_Code_Quality__empty_case_17.c" checksum="c653c933cf3e96896f2a1264c8b6f49094959ec3" size="2212" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98365" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: empty_else<br/> GoodSink: Else statement contains code<br/> BadSink : An empty else statement has no effect<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/365/CWE398_Poor_Code_Quality__empty_else_12.c" checksum="7e38613030774a37cf29a0340f8b96e5a79dea8e" size="3211" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98381" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: empty_for<br/> GoodSink: For statement contains code<br/> BadSink : An empty for statement has no effect<br/> Flow Variant: 10 Control flow: if(globalTrue) and if(globalFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/381/CWE398_Poor_Code_Quality__empty_for_10.c" checksum="fa0992d9ea9d5e3ca82ea4fdb8d74530e7b679b4" size="2639" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="98469" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 398 Poor Code Quality<br/> Sinks: semicolon<br/> GoodSink: Removed statement that has no effect<br/> BadSink : A statement that has no effect<br/> Flow Variant: 07 Control flow: if(staticFive==5) and if(staticFive!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/098/469/CWE398_Poor_Code_Quality__semicolon_07.c" checksum="3a7697a7e361686e1726e0b0b3d4903095ee58c7" size="2459" language="C">
+      <mixed name="CWE-398: Indicator of Poor Code Quality" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="100878" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource: fopen Open a file using fopen()<br/> Sinks: w32CloseHandle<br/> GoodSink: Close the file using fclose()<br/> BadSink : Close the file using CloseHandle<br/> Flow Variant: 22 Control flow: Flow controlled by value of a global variable. Sink functions are in a separate file from sources.]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/100/878/CWE404_Improper_Resource_Shutdown__fopen_w32CloseHandle_22a.c" checksum="6d6b5c983703ed60db53af571eb3354309f3bc95" size="3841" language="C"></file>
+    <file path="000/100/878/CWE404_Improper_Resource_Shutdown__fopen_w32CloseHandle_22b.c" checksum="5e53afb61992ee5bf2eeb8f44fc41ff753ac34fc" size="2549" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="33"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="100891" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource: fopen Open a file using fopen()<br/> Sinks: w32CloseHandle<br/> GoodSink: Close the file using fclose()<br/> BadSink : Close the file using CloseHandle<br/> Flow Variant: 54 Data flow: data passed as an argument from one function through three others to a fifth; all five functions are in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/100/891/CWE404_Improper_Resource_Shutdown__fopen_w32CloseHandle_54a.c" checksum="69e1be62704db6b29fca89678b1a55290b4a8ee7" size="2668" language="C"></file>
+    <file path="000/100/891/CWE404_Improper_Resource_Shutdown__fopen_w32CloseHandle_54b.c" checksum="3e6f8633f049fcc81e5c7303cc1c50eaf266d40c" size="1401" language="C"></file>
+    <file path="000/100/891/CWE404_Improper_Resource_Shutdown__fopen_w32CloseHandle_54c.c" checksum="0ea4e8f421459df431020df66b7856c11b02f5f5" size="1401" language="C"></file>
+    <file path="000/100/891/CWE404_Improper_Resource_Shutdown__fopen_w32CloseHandle_54d.c" checksum="d334957dd04842dde223669e4a6be6044c6c8ba5" size="1401" language="C"></file>
+    <file path="000/100/891/CWE404_Improper_Resource_Shutdown__fopen_w32CloseHandle_54e.c" checksum="afd6096edb60633bacc1af545fc570f0e9d00258" size="1239" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="28"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="100939" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource: fopen Open a file using fopen()<br/> Sinks: w32_close<br/> GoodSink: Close the file using fclose()<br/> BadSink : Close the file using close()<br/> Flow Variant: 54 Data flow: data passed as an argument from one function through three others to a fifth; all five functions are in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/100/939/CWE404_Improper_Resource_Shutdown__fopen_w32_close_54a.c" checksum="78f913b6b2cd5578c83affe3c1daeac00fe1c6bf" size="2590" language="C"></file>
+    <file path="000/100/939/CWE404_Improper_Resource_Shutdown__fopen_w32_close_54b.c" checksum="f3cfb30b0ca5a36893bd972b2b7b32480eeac3a9" size="1333" language="C"></file>
+    <file path="000/100/939/CWE404_Improper_Resource_Shutdown__fopen_w32_close_54c.c" checksum="92a0d217698770d3c4aff46c666f3c6f4b2b43a5" size="1333" language="C"></file>
+    <file path="000/100/939/CWE404_Improper_Resource_Shutdown__fopen_w32_close_54d.c" checksum="0c0f2b2aa5ef7ba22e0ac28fe67d8c36f831c41d" size="1333" language="C"></file>
+    <file path="000/100/939/CWE404_Improper_Resource_Shutdown__fopen_w32_close_54e.c" checksum="4b86cd4698baedeb19991c1ac213ea6df19aac8e" size="1177" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="100970" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource: freopen Open a file using freopen()<br/> Sinks: w32CloseHandle<br/> GoodSink: Close the file using fclose()<br/> BadSink : Close the file using CloseHandle<br/> Flow Variant: 16 Control flow: while(1)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/100/970/CWE404_Improper_Resource_Shutdown__freopen_w32CloseHandle_16.c" checksum="726b0890085af54df65171c316a391e99cd0079e" size="2612" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101014" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource: freopen Open a file using freopen()<br/> Sinks: w32_close<br/> GoodSink: Close the file using fclose()<br/> BadSink : Close the file using close()<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/014/CWE404_Improper_Resource_Shutdown__freopen_w32_close_12.c" checksum="f021ffcf35c54e422dafb057840d08dad357d2cd" size="2895" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="33"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101048" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource: freopen Open a file using freopen()<br/> Sinks: w32_close<br/> GoodSink: Close the file using fclose()<br/> BadSink : Close the file using close()<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/048/CWE404_Improper_Resource_Shutdown__freopen_w32_close_82.h" checksum="9f9d562023e92cbbcf2cf5e60b12d479dd0fb5d2" size="1298" language="C"></file>
+    <file path="000/101/048/CWE404_Improper_Resource_Shutdown__freopen_w32_close_82_bad.cpp" checksum="4d88c5114c27b52ff4eb9fcdf37cc2e38a0c0f68" size="1034" language="C++">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="29"></mixed>
+    </file>
+    <file path="000/101/048/CWE404_Improper_Resource_Shutdown__freopen_w32_close_82_goodB2G.cpp" checksum="213e0676eb581529f0e93687e368e33f0717feab" size="1012" language="C++"></file>
+    <file path="000/101/048/CWE404_Improper_Resource_Shutdown__freopen_w32_close_82a.cpp" checksum="67c48c73a28c8b2cc2765414fadf320f0db78056" size="2644" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101076" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using open()<br/> Sinks: fclose<br/> GoodSink: Close the file using close()<br/> BadSink : Close the file using fclose()<br/> Flow Variant: 42 Data flow: data returned from one function to another in the same source file]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/076/CWE404_Improper_Resource_Shutdown__open_fclose_42.c" checksum="28cddb712f524e752767bc8db802567802cb5267" size="2723" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="46"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101097" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using open()<br/> Sinks: fclose<br/> GoodSink: Close the file using close()<br/> BadSink : Close the file using fclose()<br/> Flow Variant: 83 Data flow: data passed to class constructor and destructor by declaring the class object on the stack]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/097/CWE404_Improper_Resource_Shutdown__open_fclose_83.h" checksum="8ded64aa1ed7e4f930e67b2f955e8df6e967a81c" size="1396" language="C"></file>
+    <file path="000/101/097/CWE404_Improper_Resource_Shutdown__open_fclose_83_bad.cpp" checksum="307eaabc4d1582a6b8f7634aaecd57eccdb22856" size="1375" language="C++">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="35"></mixed>
+    </file>
+    <file path="000/101/097/CWE404_Improper_Resource_Shutdown__open_fclose_83_goodB2G.cpp" checksum="f9e94c044cc6218120805b1f055cb5e5b2110dce" size="1360" language="C++"></file>
+    <file path="000/101/097/CWE404_Improper_Resource_Shutdown__open_fclose_83a.cpp" checksum="149db72e2f2f14db4f779b344e7d7e20214d4b21" size="2081" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101126" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using open()<br/> Sinks: w32CloseHandle<br/> GoodSink: Close the file using close()<br/> BadSink : Close the file using CloseHandle<br/> Flow Variant: 44 Data/control flow: data passed as an argument from one function to a function in the same source file called via a function pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/126/CWE404_Improper_Resource_Shutdown__open_w32CloseHandle_44.c" checksum="7f0b68c2ca13b0d7e8f0799fa4fea14fa901c6a0" size="2955" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="37"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101141" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using open()<br/> Sinks: w32CloseHandle<br/> GoodSink: Close the file using close()<br/> BadSink : Close the file using CloseHandle<br/> Flow Variant: 73 Data flow: data passed in a list from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/141/CWE404_Improper_Resource_Shutdown__open_w32CloseHandle_73a.cpp" checksum="f1db94560f0f7c137f3d1a5bdc6a61f66c7af2d2" size="2816" language="C++"></file>
+    <file path="000/101/141/CWE404_Improper_Resource_Shutdown__open_w32CloseHandle_73b.cpp" checksum="8ec79fe09b431884dcb09f3b4aa1e2d90a3ee1ef" size="1510" language="C++">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="45"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101144" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using open()<br/> Sinks: w32CloseHandle<br/> GoodSink: Close the file using close()<br/> BadSink : Close the file using CloseHandle<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/144/CWE404_Improper_Resource_Shutdown__open_w32CloseHandle_82.h" checksum="193abb883c7fc2e0fac8a74289a47753b7b12f68" size="1442" language="C"></file>
+    <file path="000/101/144/CWE404_Improper_Resource_Shutdown__open_w32CloseHandle_82_bad.cpp" checksum="b8f4ea6c8f5eff7a4d2eb9a89c730ab294a6557c" size="1078" language="C++">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="31"></mixed>
+    </file>
+    <file path="000/101/144/CWE404_Improper_Resource_Shutdown__open_w32CloseHandle_82_goodB2G.cpp" checksum="a5999f933da1db9f4393de4868a13362b1869222" size="1041" language="C++"></file>
+    <file path="000/101/144/CWE404_Improper_Resource_Shutdown__open_w32CloseHandle_82a.cpp" checksum="1071f35d3643e2c9b19c2071d859b7c1a06912d1" size="2712" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101182" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using CreateFile()<br/> Sinks: close<br/> GoodSink: Close the file using CloseHandle()<br/> BadSink : Close the file using close()<br/> Flow Variant: 63 Data flow: pointer to data passed from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/182/CWE404_Improper_Resource_Shutdown__w32CreateFile_close_63a.c" checksum="dfb028e52497f7518b7045208214d3469ae0bfa7" size="3076" language="C"></file>
+    <file path="000/101/182/CWE404_Improper_Resource_Shutdown__w32CreateFile_close_63b.c" checksum="9c076b17923ee27058cd5c7759003fa719c306fb" size="1347" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101194" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using CreateFile()<br/> Sinks: close<br/> GoodSink: Close the file using CloseHandle()<br/> BadSink : Close the file using close()<br/> Flow Variant: 84 Data flow: data passed to class constructor and destructor by declaring the class object on the heap and deleting it after use]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/194/CWE404_Improper_Resource_Shutdown__w32CreateFile_close_84.h" checksum="5a73d19b5b6021c41f37d054489541e8b943d641" size="1405" language="C"></file>
+    <file path="000/101/194/CWE404_Improper_Resource_Shutdown__w32CreateFile_close_84_bad.cpp" checksum="ede15c6919d6b37db9e63e32415183551b92e0ab" size="1698" language="C++">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="41"></mixed>
+    </file>
+    <file path="000/101/194/CWE404_Improper_Resource_Shutdown__w32CreateFile_close_84_goodB2G.cpp" checksum="3008d249d5d80a3f2b5152535eeb12eea5f9edf8" size="1693" language="C++"></file>
+    <file path="000/101/194/CWE404_Improper_Resource_Shutdown__w32CreateFile_close_84a.cpp" checksum="01b2a4ae02567f66ff7aeb02355659e5fa572d91" size="2409" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="101215" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 404 Improper Resource Shutdown or Release<br/> BadSource:  Open a file using CreateFile()<br/> Sinks: fclose<br/> GoodSink: Close the file using CloseHandle()<br/> BadSink : Close the file using fclose()<br/> Flow Variant: 31 Data flow using a copy of data within the same function]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/101/215/CWE404_Improper_Resource_Shutdown__w32CreateFile_fclose_31.c" checksum="7678d9aeb43ccd54ed1a81a7dd6683f8d594698b" size="3170" language="C">
+      <mixed name="CWE-404: Improper Resource Shutdown or Release" line="42"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102296" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using malloc(), initialize memory block, and Deallocate data using free()<br/> GoodSource: Allocate data using malloc() and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data<br/> Flow Variant: 04 Control flow: if(STATIC_CONST_TRUE) and if(STATIC_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/296/CWE416_Use_After_Free__malloc_free_struct_04.c" checksum="3e1a62ad2e877a05c82aa5c5c6dcbb68f4686f89" size="6339" language="C">
+      <mixed name="CWE-416: Use After Free" line="52"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102315" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using malloc(), initialize memory block, and Deallocate data using free()<br/> GoodSource: Allocate data using malloc() and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data<br/> Flow Variant: 01 Baseline]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/315/CWE416_Use_After_Free__malloc_free_wchar_t_01.c" checksum="9efbf466b9470930e5d5ce659cd4c4c765765936" size="3149" language="C">
+      <mixed name="CWE-416: Use After Free" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102321" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using malloc(), initialize memory block, and Deallocate data using free()<br/> GoodSource: Allocate data using malloc() and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data<br/> Flow Variant: 07 Control flow: if(staticFive==5) and if(staticFive!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/321/CWE416_Use_After_Free__malloc_free_wchar_t_07.c" checksum="7d32bbd89f0b8f26f2738d8fbc1b09c410588adb" size="5510" language="C">
+      <mixed name="CWE-416: Use After Free" line="45"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102357" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using new, initialize memory block, and Deallocate data using delete<br/> GoodSource: Allocate data using new and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data after delete[]<br/> Flow Variant: 63 Data flow: pointer to data passed from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/357/CWE416_Use_After_Free__new_delete_array_char_63a.cpp" checksum="35d502a5c785c2d19dfc66ae2e29569adabc9741" size="2833" language="C++"></file>
+    <file path="000/102/357/CWE416_Use_After_Free__new_delete_array_char_63b.cpp" checksum="9f2414cdf3f982d57b7905159629ca1b414bd08c" size="1763" language="C++">
+      <mixed name="CWE-416: Use After Free" line="31"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102405" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using new, initialize memory block, and Deallocate data using delete<br/> GoodSource: Allocate data using new and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data after delete[]<br/> Flow Variant: 03 Control flow: if(5==5) and if(5!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/405/CWE416_Use_After_Free__new_delete_array_int_03.cpp" checksum="1559cacc90367a2eae9ed98564cee32a421f5724" size="5463" language="C++">
+      <mixed name="CWE-416: Use After Free" line="48"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102407" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using new, initialize memory block, and Deallocate data using delete<br/> GoodSource: Allocate data using new and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data after delete[]<br/> Flow Variant: 05 Control flow: if(staticTrue) and if(staticFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/407/CWE416_Use_After_Free__new_delete_array_int_05.cpp" checksum="2122e5748fbcd795334d88773cf5b51f59528d67" size="5855" language="C++">
+      <mixed name="CWE-416: Use After Free" line="54"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102482" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using new, initialize memory block, and Deallocate data using delete<br/> GoodSource: Allocate data using new and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data after delete[]<br/> Flow Variant: 14 Control flow: if(globalFive==5) and if(globalFive!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/482/CWE416_Use_After_Free__new_delete_array_wchar_t_14.cpp" checksum="778a378f922524b31445617e3c7effd0daffc7ef" size="5260" language="C++">
+      <mixed name="CWE-416: Use After Free" line="42"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102600" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using new, initialize memory block, and Deallocate data using delete<br/> GoodSource: Allocate data using new and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data after delete<br/> Flow Variant: 64 Data flow: void pointer to data passed from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/600/CWE416_Use_After_Free__new_delete_long_64a.cpp" checksum="856d63d2db470919cdc0c4ec3459183fc77b917f" size="2686" language="C++"></file>
+    <file path="000/102/600/CWE416_Use_After_Free__new_delete_long_64b.cpp" checksum="27b8d06c2d922d79f63b29b6bfbc707625e51680" size="2232" language="C++">
+      <mixed name="CWE-416: Use After Free" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102621" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using new, initialize memory block, and Deallocate data using delete<br/> GoodSource: Allocate data using new and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data after delete<br/> Flow Variant: 63 Data flow: pointer to data passed from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/621/CWE416_Use_After_Free__new_delete_struct_63a.cpp" checksum="62d4ed21eea2b4af53edf91c6d9605f1e3fcde93" size="2843" language="C++"></file>
+    <file path="000/102/621/CWE416_Use_After_Free__new_delete_struct_63b.cpp" checksum="48a05c0a9aac17970b83b94e8757a0e9ff41b005" size="1813" language="C++">
+      <mixed name="CWE-416: Use After Free" line="31"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102631" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> BadSource:  Allocate data using new, initialize memory block, and Deallocate data using delete<br/> GoodSource: Allocate data using new and initialize memory block<br/> Sinks:<br/> GoodSink: Do nothing<br/> BadSink : Use data after delete<br/> Flow Variant: 09 Control flow: if(GLOBAL_CONST_TRUE) and if(GLOBAL_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/631/CWE416_Use_After_Free__new_delete_wchar_t_09.cpp" checksum="c7c1b3f48c32761a2ffc45a3a7c946cb219eb94f" size="5068" language="C++">
+      <mixed name="CWE-416: Use After Free" line="42"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="102657" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 416 Use After Free<br/> Sinks:<br/> GoodSink: Use a block of memory returned from a function<br/> BadSink : Use a block of memory returned from a function after it has been freed<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/102/657/CWE416_Use_After_Free__return_freed_ptr_12.c" checksum="abce2415bd4e462508f5687c088a8c90fb6fc834" size="4610" language="C">
+      <mixed name="CWE-416: Use After Free" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104371" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 467 Use of sizeof() on a Pointer Type<br/> Sinks: char<br/> GoodSink: Use sizeof() the data type<br/> BadSink : Use sizeof() the pointer and not the data type<br/> Flow Variant: 03 Control flow: if(5==5) and if(5!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/371/CWE467_Use_of_sizeof_on_Pointer_Type__char_03.c" checksum="ec407833166233d11d3619733ce2d4953490b47e" size="2783" language="C">
+      <mixed name="CWE-467: Use of sizeof() on a Pointer Type" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104405" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 467 Use of sizeof() on a Pointer Type<br/> Sinks: short<br/> GoodSink: Use sizeof() the data type<br/> BadSink : Use sizeof() the pointer and not the data type<br/> Flow Variant: 01 Baseline]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/405/CWE467_Use_of_sizeof_on_Pointer_Type__short_01.c" checksum="e7e9135151699b745758cb4d7376769a3cc05380" size="2049" language="C">
+      <mixed name="CWE-467: Use of sizeof() on a Pointer Type" line="25"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104417" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 467 Use of sizeof() on a Pointer Type<br/> Sinks: short<br/> GoodSink: Use sizeof() the data type<br/> BadSink : Use sizeof() the pointer and not the data type<br/> Flow Variant: 13 Control flow: if(GLOBAL_CONST_FIVE==5) and if(GLOBAL_CONST_FIVE!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/417/CWE467_Use_of_sizeof_on_Pointer_Type__short_13.c" checksum="5e727151f8b30a6f203c22a687f406ff3d36894f" size="2913" language="C">
+      <mixed name="CWE-467: Use of sizeof() on a Pointer Type" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104583" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 65 Data/control flow: data passed as an argument from one function to a function in a different source file called via a function pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/583/CWE476_NULL_Pointer_Dereference__char_65a.c" checksum="722071304a7fbb671c4f4e6424e397d3a1a82eb2" size="2710" language="C"></file>
+    <file path="000/104/583/CWE476_NULL_Pointer_Dereference__char_65b.c" checksum="ca9442faf6f2ad36be8170fe4aa00bb2e593b2a2" size="1670" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="28"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104589" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 74 Data flow: data passed in a map from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/589/CWE476_NULL_Pointer_Dereference__char_74a.cpp" checksum="03b1e8de143a3b7e67469162ed26002f988a13d5" size="2699" language="C++"></file>
+    <file path="000/104/589/CWE476_NULL_Pointer_Dereference__char_74b.cpp" checksum="4bf9e1e02661f0e1a157691ebebb259998b3fbae" size="1792" language="C++">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="36"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104594" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check data for NULL before attempting to print data->a<br/> BadSink : Print data->a<br/> Flow Variant: 03 Control flow: if(5==5) and if(5!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/594/CWE476_NULL_Pointer_Dereference__class_03.cpp" checksum="5d95d1ca503ffdbf8d313a3fca46bafa3a76286e" size="4661" language="C++">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="36"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104603" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check data for NULL before attempting to print data->a<br/> BadSink : Print data->a<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/603/CWE476_NULL_Pointer_Dereference__class_12.cpp" checksum="fa5afef0c8a2d89b9713536b87ff1c2f9e2a660d" size="4882" language="C++">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="45"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104673" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 32 Data flow using two pointers to the same value within the same function]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/673/CWE476_NULL_Pointer_Dereference__int64_t_32.c" checksum="4717a0450d802362ed5057a2bc94e6cb4d45cfa4" size="3145" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="38"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104682" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 54 Data flow: data passed as an argument from one function through three others to a fifth; all five functions are in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/682/CWE476_NULL_Pointer_Dereference__int64_t_54a.c" checksum="94e48cf763c0fe240fba36e0035eae45c88d2638" size="2620" language="C"></file>
+    <file path="000/104/682/CWE476_NULL_Pointer_Dereference__int64_t_54b.c" checksum="f452f9d8ef6bcc7eca724ae0b539d0fbd1ef4892" size="1580" language="C"></file>
+    <file path="000/104/682/CWE476_NULL_Pointer_Dereference__int64_t_54c.c" checksum="347cbb3ea4b5d095e1e220e86535020aa5b6c507" size="1580" language="C"></file>
+    <file path="000/104/682/CWE476_NULL_Pointer_Dereference__int64_t_54d.c" checksum="c4a3d09e196775215d6249e130da0e2515efef22" size="1580" language="C"></file>
+    <file path="000/104/682/CWE476_NULL_Pointer_Dereference__int64_t_54e.c" checksum="a3c5d2f274a981e18a560e413278aa43f1706036" size="1492" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104686" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 66 Data flow: data passed in an array from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/686/CWE476_NULL_Pointer_Dereference__int64_t_66a.c" checksum="5116a44df73c96274cc2fcb3079afebaa2790d21" size="2802" language="C"></file>
+    <file path="000/104/686/CWE476_NULL_Pointer_Dereference__int64_t_66b.c" checksum="23c721a35944bf6ec32d499c636e6a3d3e85ae63" size="1611" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104696" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 03 Control flow: if(5==5) and if(5!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/696/CWE476_NULL_Pointer_Dereference__int_03.c" checksum="aeaac0e9381ca51846beb776bf7d5439c7226173" size="3917" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104726" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 64 Data flow: void pointer to data passed from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/726/CWE476_NULL_Pointer_Dereference__int_64a.c" checksum="17e2be87fe381a498b5c6951a9cb67cb506df7e2" size="2529" language="C"></file>
+    <file path="000/104/726/CWE476_NULL_Pointer_Dereference__int_64b.c" checksum="261d2dd1d5b90d2703eca6edc6a3cf96ca2e3370" size="1975" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="31"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104735" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/735/CWE476_NULL_Pointer_Dereference__int_82.h" checksum="ca6bf897803c0225ec551301b1365006eee9e043" size="1351" language="C"></file>
+    <file path="000/104/735/CWE476_NULL_Pointer_Dereference__int_82_bad.cpp" checksum="083f37e5214c88ca48496c89f87a1a32b335f27f" size="904" language="C++">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="28"></mixed>
+    </file>
+    <file path="000/104/735/CWE476_NULL_Pointer_Dereference__int_82_goodB2G.cpp" checksum="1e416f835bfafeccc832199f1df07621ccefa13d" size="1016" language="C++"></file>
+    <file path="000/104/735/CWE476_NULL_Pointer_Dereference__int_82_goodG2B.cpp" checksum="84f2cb434322e71e41945df0338af5111aec13e2" size="918" language="C++"></file>
+    <file path="000/104/735/CWE476_NULL_Pointer_Dereference__int_82a.cpp" checksum="b198614ad05773ed2fc82fc1a438f90c1ffb9672" size="2623" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104737" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 02 Control flow: if(1) and if(0)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/737/CWE476_NULL_Pointer_Dereference__long_02.c" checksum="34d836a3ec60c61681787af631d49b65e6d87fa8" size="3888" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104764" numberOfFiles="6" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 52 Data flow: data passed as an argument from one function to another to another in three different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/764/CWE476_NULL_Pointer_Dereference__long_52a.c" checksum="d529a32abc843504f610d386933ab22ed36fa806" size="2537" language="C"></file>
+    <file path="000/104/764/CWE476_NULL_Pointer_Dereference__long_52b.c" checksum="ba508e89cd8a6114b9e479a833c5454a2110f552" size="1504" language="C"></file>
+    <file path="000/104/764/CWE476_NULL_Pointer_Dereference__long_52c.c" checksum="d9375f251ab1ef0759431349d2b89ca0be165a7a" size="1431" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104776" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 81 Data flow: data passed in a parameter to an virtual method called via a reference]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/776/CWE476_NULL_Pointer_Dereference__long_81.h" checksum="c6c8360ae5817f35ea072be0bb1d5dc44017dc56" size="1390" language="C"></file>
+    <file path="000/104/776/CWE476_NULL_Pointer_Dereference__long_81_bad.cpp" checksum="44a42b72cd6586cb35cdd4d38d379bdfca09af3c" size="918" language="C++">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="28"></mixed>
+    </file>
+    <file path="000/104/776/CWE476_NULL_Pointer_Dereference__long_81_goodB2G.cpp" checksum="5ac5e87d88d83c33da38551dceed550efe104e90" size="1030" language="C++"></file>
+    <file path="000/104/776/CWE476_NULL_Pointer_Dereference__long_81_goodG2B.cpp" checksum="fa53823faffa9f31bcfd36d240fabb008351c9c8" size="932" language="C++"></file>
+    <file path="000/104/776/CWE476_NULL_Pointer_Dereference__long_81a.cpp" checksum="8563b313880da6cdb6200dcefb236934497ecef2" size="2577" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104801" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 06 Control flow: if(STATIC_CONST_FIVE==5) and if(STATIC_CONST_FIVE!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/801/CWE476_NULL_Pointer_Dereference__struct_06.c" checksum="7edcfc4d19a57c19b4435bf5f2e5bb838eee8674" size="4611" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="40"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104818" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 33 Data flow: use of a C++ reference to data within the same function]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/818/CWE476_NULL_Pointer_Dereference__struct_33.cpp" checksum="232cf8132c73c08c38fa8139c0b9a936ba26b14a" size="2895" language="C++">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="36"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104837" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/837/CWE476_NULL_Pointer_Dereference__struct_82.h" checksum="1079b407f5db3fcf4615e3429be906a0239dc98a" size="1418" language="C"></file>
+    <file path="000/104/837/CWE476_NULL_Pointer_Dereference__struct_82_bad.cpp" checksum="4376d213ef121a58d44177488c5f323a51412767" size="933" language="C++">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="28"></mixed>
+    </file>
+    <file path="000/104/837/CWE476_NULL_Pointer_Dereference__struct_82_goodB2G.cpp" checksum="e31d2613ed22b0c47f28a4146ecae3a34838cc52" size="1045" language="C++"></file>
+    <file path="000/104/837/CWE476_NULL_Pointer_Dereference__struct_82_goodG2B.cpp" checksum="40c3c385672e98648e49922577674feb3dddb6eb" size="947" language="C++"></file>
+    <file path="000/104/837/CWE476_NULL_Pointer_Dereference__struct_82a.cpp" checksum="10d10261b8577b5c42e996ccd94095bb340918c9" size="2747" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104852" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 476 NULL Pointer Dereference<br/> BadSource:  Set data to NULL<br/> GoodSource: Initialize data<br/> Sinks:<br/> GoodSink: Check for NULL before attempting to print data<br/> BadSink : Print data<br/> Flow Variant: 15 Control flow: switch(6) and switch(7)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/852/CWE476_NULL_Pointer_Dereference__wchar_t_15.c" checksum="512d352823783c6ed0c895551f8b6cf28f7cd067" size="5757" language="C">
+      <mixed name="CWE-476: NULL Pointer Dereference" line="43"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="104963" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 482 Comparing Instead of Assigning<br/> Sinks:<br/> GoodSink: Assigning<br/> BadSink : Comparing instead of assigning<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/104/963/CWE482_Comparing_Instead_of_Assigning__basic_12.c" checksum="2dbbd6c130729cb5df7aa51bb1dc5c4c5b7e7998" size="2998" language="C">
+      <mixed name="CWE-482: Comparing instead of Assigning" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105495" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[Unused class member variable]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/495/CWE563_Unused_Variable__unused_class_member_variable_01_bad.cpp" checksum="1711da197f2b8614e08ce9ec1f7e93000112c3d3" size="1325" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="27"></mixed>
+    </file>
+    <file path="000/105/495/CWE563_Unused_Variable__unused_class_member_variable_01_good1.cpp" checksum="44e12be11508d952f2c698b90ce3c07bde825cf2" size="1355" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105508" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 11 Control flow: if(globalReturnsTrue()) and if(globalReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/508/CWE563_Unused_Variable__unused_init_variable_char_11.c" checksum="d3b7c39455607139a326e62c3a9de4e45e26dffb" size="2645" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="31"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105523" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/523/CWE563_Unused_Variable__unused_init_variable_char_82.h" checksum="9212b4fffc1b5aba7c59f0bb0225da3fbfd86bdf" size="1214" language="C"></file>
+    <file path="000/105/523/CWE563_Unused_Variable__unused_init_variable_char_82_bad.cpp" checksum="a58747395fea32abe0b9d5142126c4a353cde36d" size="917" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="27"></mixed>
+    </file>
+    <file path="000/105/523/CWE563_Unused_Variable__unused_init_variable_char_82_goodB2G.cpp" checksum="5b7d79002358cb4dc531bd2db18d4944e91228d6" size="863" language="C++"></file>
+    <file path="000/105/523/CWE563_Unused_Variable__unused_init_variable_char_82a.cpp" checksum="bf6cf58c2d546b0e61dd4095a58b1bb94a86f65a" size="2299" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105539" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/539/CWE563_Unused_Variable__unused_init_variable_int64_t_15.c" checksum="cec7ffd1e228031e91b239c62bbe653c37c5f95e" size="2965" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105549" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 74 Data flow: data passed in a map from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/549/CWE563_Unused_Variable__unused_init_variable_int64_t_74a.cpp" checksum="cbc8580de6feaf284066038d7d8372ce138e9a31" size="2335" language="C++"></file>
+    <file path="000/105/549/CWE563_Unused_Variable__unused_init_variable_int64_t_74b.cpp" checksum="3f2fdcae8172b750b0d9fae792896e1c8cf84c80" size="1209" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105561" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 08 Control flow: if(staticReturnsTrue()) and if(staticReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/561/CWE563_Unused_Variable__unused_init_variable_int_08.c" checksum="254c3005b11c6fce64a3c511c8a8f62a0568fecd" size="2901" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="44"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105590" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 09 Control flow: if(GLOBAL_CONST_TRUE) and if(GLOBAL_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/590/CWE563_Unused_Variable__unused_init_variable_long_09.c" checksum="ab77d2e4d80d2ea7da3ba1abf696780ed76f1e9e" size="2622" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="31"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105595" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/595/CWE563_Unused_Variable__unused_init_variable_long_15.c" checksum="a54c74e8ccee32fb7f45d507f9efb7a52d1c8f25" size="2930" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105605" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 74 Data flow: data passed in a map from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/605/CWE563_Unused_Variable__unused_init_variable_long_74a.cpp" checksum="c7b47da4313abee6f1f7a464e62c379f2388a0d3" size="2306" language="C++"></file>
+    <file path="000/105/605/CWE563_Unused_Variable__unused_init_variable_long_74b.cpp" checksum="d4e7f74e9b3efdcca6a4e64b9e0e7d0231431a52" size="1187" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105659" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 72 Data flow: data passed in a vector from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/659/CWE563_Unused_Variable__unused_init_variable_wchar_t_72a.cpp" checksum="bbdd95af3fcbbfd93f8c09ff425042c7a764d185" size="2518" language="C++"></file>
+    <file path="000/105/659/CWE563_Unused_Variable__unused_init_variable_wchar_t_72b.cpp" checksum="bb7bae6abafab8f400713eca44d62f40e1c704bc" size="1223" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105663" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : do nothing<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/663/CWE563_Unused_Variable__unused_init_variable_wchar_t_82.h" checksum="7bd816d47f33f7b8c12a4f29027e812fcc8ecdfc" size="1244" language="C"></file>
+    <file path="000/105/663/CWE563_Unused_Variable__unused_init_variable_wchar_t_82_bad.cpp" checksum="300f6c19fce17d323adb154740873628487f3187" size="932" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="27"></mixed>
+    </file>
+    <file path="000/105/663/CWE563_Unused_Variable__unused_init_variable_wchar_t_82_goodB2G.cpp" checksum="8d7d6ebe09ffedb715427adc40340dded7965527" size="876" language="C++"></file>
+    <file path="000/105/663/CWE563_Unused_Variable__unused_init_variable_wchar_t_82a.cpp" checksum="2e35cd602a5d8cb5f9e72382a09f9cfddf144155" size="2331" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105744" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Initialize, then use data<br/> BadSink : Do nothing<br/> Flow Variant: 22 Control flow: Flow controlled by value of a global variable. Sink functions are in a separate file from sources.]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/744/CWE563_Unused_Variable__unused_uninit_variable_int_22a.c" checksum="8ec9bb48fc979ba53117ec8c70f66cd53b10946c" size="3485" language="C"></file>
+    <file path="000/105/744/CWE563_Unused_Variable__unused_uninit_variable_int_22b.c" checksum="564ce18ca181fd7fa092218d7832ffc24b688578" size="2303" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="31"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105749" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Initialize, then use data<br/> BadSink : Do nothing<br/> Flow Variant: 74 Data flow: data passed in a map from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/749/CWE563_Unused_Variable__unused_uninit_variable_int_74a.cpp" checksum="7f52484262e6ab041b6bcb34e1c8012e83323646" size="2404" language="C++"></file>
+    <file path="000/105/749/CWE563_Unused_Variable__unused_uninit_variable_int_74b.cpp" checksum="31d85c309731f35b13938ca1d33a36105e0092bd" size="1234" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105801" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Initialize, then use data<br/> BadSink : Do nothing<br/> Flow Variant: 33 Data flow: use of a C++ reference to data within the same function]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/801/CWE563_Unused_Variable__unused_uninit_variable_struct_33.cpp" checksum="9ab3d80fdaf5c0d670bcd63b51a33e896057dc9f" size="2418" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105807" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Initialize, then use data<br/> BadSink : Do nothing<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/807/CWE563_Unused_Variable__unused_uninit_variable_struct_82.h" checksum="37e6389db8202a08c84878d87f4814227100387e" size="1288" language="C"></file>
+    <file path="000/105/807/CWE563_Unused_Variable__unused_uninit_variable_struct_82_bad.cpp" checksum="1b10670bc631283e4674ef0c854872dbdf872fb7" size="961" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="27"></mixed>
+    </file>
+    <file path="000/105/807/CWE563_Unused_Variable__unused_uninit_variable_struct_82_goodB2G.cpp" checksum="7602fe0fbc76daff84bdbfa3983453e90ef02df6" size="967" language="C++"></file>
+    <file path="000/105/807/CWE563_Unused_Variable__unused_uninit_variable_struct_82a.cpp" checksum="0771dc6978765fdc1332865511b4d2c9bae8b2dc" size="2448" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105832" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> Sinks:<br/> GoodSink: Initialize, then use data<br/> BadSink : Do nothing<br/> Flow Variant: 73 Data flow: data passed in a list from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/832/CWE563_Unused_Variable__unused_uninit_variable_wchar_t_73a.cpp" checksum="bc938e35ba15d28776edfbaa92a5831bae71ecae" size="2475" language="C++"></file>
+    <file path="000/105/832/CWE563_Unused_Variable__unused_uninit_variable_wchar_t_73b.cpp" checksum="021e4248cdbc568db4dadc0acae0fb94ea5832c7" size="1270" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105863" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/863/CWE563_Unused_Variable__unused_value_char_82.h" checksum="fb88995c3a885bc250b6fc422ef6fb4cd7cbac36" size="1370" language="C"></file>
+    <file path="000/105/863/CWE563_Unused_Variable__unused_value_char_82_bad.cpp" checksum="11ce070245bb02b6c198e16b745111028db70003" size="944" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="28"></mixed>
+    </file>
+    <file path="000/105/863/CWE563_Unused_Variable__unused_value_char_82_goodB2G.cpp" checksum="acd40a4682b7d88308022a242193a361362185d8" size="908" language="C++"></file>
+    <file path="000/105/863/CWE563_Unused_Variable__unused_value_char_82_goodG2B.cpp" checksum="a91108f3b9651d81a9b95b8c630d27fccf6f48b0" size="958" language="C++"></file>
+    <file path="000/105/863/CWE563_Unused_Variable__unused_value_char_82a.cpp" checksum="bc4de3d1a69638dcf4a99c8af4b74274b0b9898b" size="2689" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105865" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 84 Data flow: data passed to class constructor and destructor by declaring the class object on the heap and deleting it after use]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/865/CWE563_Unused_Variable__unused_value_char_84.h" checksum="33afd8ce41a89f2b1a25fc3ff92fae6e1a7fd91b" size="1488" language="C"></file>
+    <file path="000/105/865/CWE563_Unused_Variable__unused_value_char_84_bad.cpp" checksum="d4275396009cadf93f6ff5211ffd6f6e179ed584" size="1237" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="34"></mixed>
+    </file>
+    <file path="000/105/865/CWE563_Unused_Variable__unused_value_char_84_goodB2G.cpp" checksum="9d7ee1dfa133ae192e3efa2a1a13d9acf9faf1c4" size="1213" language="C++"></file>
+    <file path="000/105/865/CWE563_Unused_Variable__unused_value_char_84_goodG2B.cpp" checksum="79a39df0f636adc13eb357a45f4a862360c273c7" size="1298" language="C++"></file>
+    <file path="000/105/865/CWE563_Unused_Variable__unused_value_char_84a.cpp" checksum="a236d2966f5abdeefe4653181a5609bfb64fad90" size="2416" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105891" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/891/CWE563_Unused_Variable__unused_value_int64_t_82.h" checksum="fb889025adcc17cd5ff47431cf2fd145ad198088" size="1409" language="C"></file>
+    <file path="000/105/891/CWE563_Unused_Variable__unused_value_int64_t_82_bad.cpp" checksum="0bb5e9288c8f17bc961e8af39b29c931069033b0" size="961" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="28"></mixed>
+    </file>
+    <file path="000/105/891/CWE563_Unused_Variable__unused_value_int64_t_82_goodB2G.cpp" checksum="51e9e1d49fe2b77db9bf51bce4146a564e2fff2a" size="924" language="C++"></file>
+    <file path="000/105/891/CWE563_Unused_Variable__unused_value_int64_t_82_goodG2B.cpp" checksum="fb10bff049330104777f3add3b160dbadef9895a" size="975" language="C++"></file>
+    <file path="000/105/891/CWE563_Unused_Variable__unused_value_int64_t_82a.cpp" checksum="ad59d2adb08f8151c49d915aeb9d2aa41d6b7f4e" size="2729" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105893" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 84 Data flow: data passed to class constructor and destructor by declaring the class object on the heap and deleting it after use]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/893/CWE563_Unused_Variable__unused_value_int64_t_84.h" checksum="9cdb48d9bb84814fae4641fe5293a97c746d396a" size="1539" language="C"></file>
+    <file path="000/105/893/CWE563_Unused_Variable__unused_value_int64_t_84_bad.cpp" checksum="d1e4d519b89beef78cb97ba4fb3d4382045999a3" size="1263" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="34"></mixed>
+    </file>
+    <file path="000/105/893/CWE563_Unused_Variable__unused_value_int64_t_84_goodB2G.cpp" checksum="4317f20073c211aa3f6e60a5d8cb13e85641b0e5" size="1238" language="C++"></file>
+    <file path="000/105/893/CWE563_Unused_Variable__unused_value_int64_t_84_goodG2B.cpp" checksum="845a21a6cd106398224fe3df40df28f144381722" size="1325" language="C++"></file>
+    <file path="000/105/893/CWE563_Unused_Variable__unused_value_int64_t_84a.cpp" checksum="fdbf178e2f32c299f57d23a93a2a06fefd143c0d" size="2455" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105912" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 22 Control flow: Flow controlled by value of a global variable. Sink functions are in a separate file from sources.]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/912/CWE563_Unused_Variable__unused_value_int_22a.c" checksum="96ca3ffa02b7d045c975058eb900414f74d6f2bb" size="3719" language="C"></file>
+    <file path="000/105/912/CWE563_Unused_Variable__unused_value_int_22b.c" checksum="3580f3017c74143914b127901445bb71ac96773c" size="2650" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105914" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 43 Data flow: data flows using a C++ reference from one function to another in the same source file]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/914/CWE563_Unused_Variable__unused_value_int_43.cpp" checksum="f255964a76a4cd5fc63e8bafa4dc0d0a246c2e19" size="2662" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="38"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105929" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 08 Control flow: if(staticReturnsTrue()) and if(staticReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/929/CWE563_Unused_Variable__unused_value_long_08.c" checksum="7d6d1b823366615d15e79c0bc53f993946a931e0" size="4339" language="C">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="48"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105975" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 82 Data flow: data passed in a parameter to an virtual method called via a pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/975/CWE563_Unused_Variable__unused_value_struct_82.h" checksum="90b2230a040704655169d0eb7d2c53794d1175e7" size="1424" language="C"></file>
+    <file path="000/105/975/CWE563_Unused_Variable__unused_value_struct_82_bad.cpp" checksum="c5003cc3659277c9b731f3820274ae92cb060d31" size="988" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="28"></mixed>
+    </file>
+    <file path="000/105/975/CWE563_Unused_Variable__unused_value_struct_82_goodB2G.cpp" checksum="7092bca71a838f9e60fab914b75c27fc9bd569cf" size="925" language="C++"></file>
+    <file path="000/105/975/CWE563_Unused_Variable__unused_value_struct_82_goodG2B.cpp" checksum="21418a3140f4442028bc4438d431fedca96f0d5a" size="1002" language="C++"></file>
+    <file path="000/105/975/CWE563_Unused_Variable__unused_value_struct_82a.cpp" checksum="7aefe14ed566a4f5b5a254b06d2f7976b70cde7a" size="2817" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105976" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 83 Data flow: data passed to class constructor and destructor by declaring the class object on the stack]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/976/CWE563_Unused_Variable__unused_value_struct_83.h" checksum="195c5e650b2d17f948973206ceb43c646f12a6f1" size="1539" language="C"></file>
+    <file path="000/105/976/CWE563_Unused_Variable__unused_value_struct_83_bad.cpp" checksum="9e776b976c09e694c49442d31613baa6043e365d" size="1289" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="35"></mixed>
+    </file>
+    <file path="000/105/976/CWE563_Unused_Variable__unused_value_struct_83_goodB2G.cpp" checksum="d3ad9a01059f50ff47d7a4a59b8d13f6d9018e0f" size="1238" language="C++"></file>
+    <file path="000/105/976/CWE563_Unused_Variable__unused_value_struct_83_goodG2B.cpp" checksum="baae0a737557a433d958c1448d820de74ca6d480" size="1350" language="C++"></file>
+    <file path="000/105/976/CWE563_Unused_Variable__unused_value_struct_83a.cpp" checksum="137053111c5e30472c43143f170ea4bc7301d9d2" size="2176" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="105977" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 84 Data flow: data passed to class constructor and destructor by declaring the class object on the heap and deleting it after use]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/105/977/CWE563_Unused_Variable__unused_value_struct_84.h" checksum="01bd9aae36f9a3804aa097798a89c2487d7c7cd3" size="1564" language="C"></file>
+    <file path="000/105/977/CWE563_Unused_Variable__unused_value_struct_84_bad.cpp" checksum="69e8b34791db65ee9161ac363bbe28af46bed5df" size="1314" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="35"></mixed>
+    </file>
+    <file path="000/105/977/CWE563_Unused_Variable__unused_value_struct_84_goodB2G.cpp" checksum="8cf32d06ccb3ddfc0438dd4717757360bb00547c" size="1263" language="C++"></file>
+    <file path="000/105/977/CWE563_Unused_Variable__unused_value_struct_84_goodG2B.cpp" checksum="c9b457ffb900a71c099c1fe7352a73a0c5ce8ea6" size="1375" language="C++"></file>
+    <file path="000/105/977/CWE563_Unused_Variable__unused_value_struct_84a.cpp" checksum="3d3110691e971d910b1b17de7865c830178172a6" size="2463" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="106002" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 563 Unused Variable<br/> BadSource:  Initialize data<br/> GoodSource: Initialize and use data<br/> Sinks:<br/> GoodSink: Use data<br/> BadSink : Initialize and use data<br/> Flow Variant: 81 Data flow: data passed in a parameter to an virtual method called via a reference]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/106/002/CWE563_Unused_Variable__unused_value_wchar_t_81.h" checksum="270e4d3298da66715ee413d93b7b9a7cf444035a" size="1435" language="C"></file>
+    <file path="000/106/002/CWE563_Unused_Variable__unused_value_wchar_t_81_bad.cpp" checksum="49b0251d29f7b522112b7204b08f0cab4d1a4d7f" size="969" language="C++">
+      <mixed name="CWE-563: Assignment to Variable without Use ('Unused Variable')" line="28"></mixed>
+    </file>
+    <file path="000/106/002/CWE563_Unused_Variable__unused_value_wchar_t_81_goodB2G.cpp" checksum="a68ccd4e97588808036353f0874ac15abe885c0a" size="932" language="C++"></file>
+    <file path="000/106/002/CWE563_Unused_Variable__unused_value_wchar_t_81_goodG2B.cpp" checksum="1f1de9984a03c48aa5fcc48202ffe06af774e737" size="983" language="C++"></file>
+    <file path="000/106/002/CWE563_Unused_Variable__unused_value_wchar_t_81a.cpp" checksum="2331d37db8ed4e0ee2eff19cc79131ead787c2c3" size="2671" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="106020" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[Expression is always false via if (unsigned int < 0)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/106/020/CWE570_Expression_Always_False__unsigned_int_01.c" checksum="f17cc1934a066395f51d3d2b1ca948d51e175577" size="1613" language="C">
+      <mixed name="CWE-570: Expression is Always False" line="16"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109786" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sinks: cat<br/> BadSink : Copy string to data using strcat<br/> Flow Variant: 62 Data flow: data flows using a C++ reference from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/786/CWE665_Improper_Initialization__char_cat_62a.cpp" checksum="cc44d8b315f1ecd272f4ec1bd47674e3cfece345" size="2626" language="C++"></file>
+    <file path="000/109/786/CWE665_Improper_Initialization__char_cat_62b.cpp" checksum="6e74420fa4b85ed86eda18f966d732381fcb9ee7" size="1084" language="C++">
+      <mixed name="CWE-665: Improper Initialization" line="28"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109815" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sink: ncat<br/> BadSink : Copy string to data using strncat<br/> Flow Variant: 16 Control flow: while(1)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/815/CWE665_Improper_Initialization__char_ncat_16.c" checksum="78e60ffdb6a857eb9edc6e94cddd86921270a4dd" size="2865" language="C">
+      <mixed name="CWE-665: Improper Initialization" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109828" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sinks: ncat<br/> BadSink : Copy string to data using strncat<br/> Flow Variant: 45 Data flow: data passed as a static global variable from one function to another in the same source file]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/828/CWE665_Improper_Initialization__char_ncat_45.c" checksum="52e01889d814bcf386fe2f26a41f6d4b927ce39f" size="3330" language="C">
+      <mixed name="CWE-665: Improper Initialization" line="46"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109829" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sink: ncat<br/> BadSink : Copy string to data using strncat<br/> Flow Variant: 51 Data flow: data passed as an argument from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/829/CWE665_Improper_Initialization__char_ncat_51a.c" checksum="b90a44afee2e0c47ebe03a5e274e3ef6c12fa9fe" size="2368" language="C">
+      <mixed name="CWE-665: Improper Initialization" line="31"></mixed>
+    </file>
+    <file path="000/109/829/CWE665_Improper_Initialization__char_ncat_51b.c" checksum="0077f09be74404b762f65881ef513de171622405" size="1772" language="C"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109853" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sink: cat<br/> BadSink : Copy string to data using wcscat<br/> Flow Variant: 05 Control flow: if(staticTrue) and if(staticFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/853/CWE665_Improper_Initialization__wchar_t_cat_05.c" checksum="dafccd9aac083623197d8b61a2d4d3bceefa52e1" size="3847" language="C">
+      <mixed name="CWE-665: Improper Initialization" line="37"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109912" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sink: ncat<br/> BadSink : Copy string to data using wcsncat<br/> Flow Variant: 16 Control flow: while(1)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/912/CWE665_Improper_Initialization__wchar_t_ncat_16.c" checksum="813bef0e409a073b56dc025f4cc1e733ed864318" size="2909" language="C">
+      <mixed name="CWE-665: Improper Initialization" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109934" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sinks: ncat<br/> BadSink : Copy string to data using wcsncat<br/> Flow Variant: 65 Data/control flow: data passed as an argument from one function to a function in a different source file called via a function pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/934/CWE665_Improper_Initialization__wchar_t_ncat_65a.c" checksum="74aede6ce9bdfbd906ecb08d5345892d434b3899" size="2584" language="C">
+      <mixed name="CWE-665: Improper Initialization" line="33"></mixed>
+    </file>
+    <file path="000/109/934/CWE665_Improper_Initialization__wchar_t_ncat_65b.c" checksum="be4682d264396536ce047879c59e63e717654ed3" size="1743" language="C"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="109944" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 665 Improper Initialization<br/> BadSource:  Do not initialize data properly<br/> GoodSource: Initialize data<br/> Sinks: ncat<br/> BadSink : Copy string to data using wcsncat<br/> Flow Variant: 84 Data flow: data passed to class constructor and destructor by declaring the class object on the heap and deleting it after use]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/109/944/CWE665_Improper_Initialization__wchar_t_ncat_84.h" checksum="32f38c52358dc281b4e10a16864d2f2f6894cc1b" size="1288" language="C"></file>
+    <file path="000/109/944/CWE665_Improper_Initialization__wchar_t_ncat_84_bad.cpp" checksum="e61bdcd8c884f038e6979338b16435f2c14e4e43" size="1546" language="C++">
+      <mixed name="CWE-665: Improper Initialization" line="26"></mixed>
+    </file>
+    <file path="000/109/944/CWE665_Improper_Initialization__wchar_t_ncat_84_goodG2B.cpp" checksum="90d70452079bc50a955ae6861a2fde0121d4fe85" size="1557" language="C++"></file>
+    <file path="000/109/944/CWE665_Improper_Initialization__wchar_t_ncat_84a.cpp" checksum="3955ed08bdaf7641a2a6bb9091458e1ace9deaf0" size="2275" language="C++"></file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="110090" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 672 Operation on Resource After Expiration or Release<br/> BadSource:  Add values to the list, including the number zero<br/> GoodSource: Add value to the list that are not zero<br/> Sinks:<br/> GoodSink: Iterate through the list without attempting to clear its contents<br/> BadSink : Iterate through the list, but clear the list if it contains a zero<br/> Flow Variant: 66 Data flow: data passed in an array from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/110/090/CWE672_Operation_on_Resource_After_Expiration_or_Release__list_int_66a.cpp" checksum="81e54c113c48f37ddc4ca4b8c2e56a6884ed8284" size="2984" language="C++"></file>
+    <file path="000/110/090/CWE672_Operation_on_Resource_After_Expiration_or_Release__list_int_66b.cpp" checksum="d3fee76d0aee23c7178210295252b9a04cadb468" size="2578" language="C++">
+      <mixed name="CWE-672: Operation on a Resource after Expiration or Release" line="45"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="110945" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 685 Function Call With Incorrect Number of Arguments<br/> Sinks:<br/> GoodSink: Use the correct number of arguments<br/> BadSink : Incorrect number of arguments<br/> Flow Variant: 04 Control flow: if(STATIC_CONST_TRUE) and if(STATIC_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/110/945/CWE685_Function_Call_With_Incorrect_Number_of_Arguments__basic_04.c" checksum="a348158b645d64fd8a7005748a18f8562f61c62d" size="3181" language="C">
+      <mixed name="CWE-685: Function Call With Incorrect Number of Arguments" line="36"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="110957" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 685 Function Call With Incorrect Number of Arguments<br/> Sinks:<br/> GoodSink: Use the correct number of arguments<br/> BadSink : Incorrect number of arguments<br/> Flow Variant: 16 Control flow: while(1)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/110/957/CWE685_Function_Call_With_Incorrect_Number_of_Arguments__basic_16.c" checksum="fba872a8c5c35aeacf6084e0a8910878d802ccf0" size="2357" language="C">
+      <mixed name="CWE-685: Function Call With Incorrect Number of Arguments" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="110971" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 688 Function Call With Incorrect Variable or Reference as Argument<br/> Sinks:<br/> GoodSink: Use the correct format to print a string<br/> BadSink : Use a string format to print an int<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/110/971/CWE688_Function_Call_With_Incorrect_Variable_or_Reference_as_Argument__basic_12.c" checksum="781c3ef73b276e990daef9f08e0f7915c5bfbdb0" size="2910" language="C">
+      <mixed name="CWE-688: Function Call With Incorrect Variable or Reference as Argument" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="111987" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: new_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data<br/> Flow Variant: 14 Control flow: if(globalFive==5) and if(globalFive!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/111/987/CWE758_Undefined_Behavior__char_new_use_14.cpp" checksum="9216d9b7b806968f644176fed419408fc8ed1a68" size="2836" language="C++">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112026" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 17 Control flow: for loops]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/026/CWE758_Undefined_Behavior__char_pointer_malloc_use_17.c" checksum="839830d7e10a11ddb351913555c95c6c48802e90" size="2332" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112072" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: new_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data<br/> Flow Variant: 09 Control flow: if(GLOBAL_CONST_TRUE) and if(GLOBAL_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/072/CWE758_Undefined_Behavior__class_pointer_new_use_09.cpp" checksum="82ab062c1c23e77f6d44c46a707b1a4f90382b43" size="3443" language="C++">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112147" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: alloca_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from alloca without initialization<br/> Flow Variant: 12 Control flow: if(globalReturnsTrueOrFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/147/CWE758_Undefined_Behavior__int64_t_alloca_use_12.c" checksum="56de79eff9c1c7f5cab142d56174c7ae802f9d58" size="3038" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112171" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 18 Control flow: goto statements]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/171/CWE758_Undefined_Behavior__int64_t_malloc_use_18.c" checksum="47c6e00113b88c644a200ff5860bf9dc0c0b227f" size="2201" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112187" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: new_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data<br/> Flow Variant: 16 Control flow: while(1)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/187/CWE758_Undefined_Behavior__int64_t_new_use_16.cpp" checksum="8dc6ad82746cba1c77667176d69e0106b242e407" size="2230" language="C++">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112222" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/222/CWE758_Undefined_Behavior__int_malloc_use_15.c" checksum="8af36526bd0bf18220a968817626792783afe77a" size="3080" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112224" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 17 Control flow: for loops]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/224/CWE758_Undefined_Behavior__int_malloc_use_17.c" checksum="134eb9886054e4e1654c2579da46eb74e232e3b1" size="2259" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112245" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: alloca_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from alloca without initialization<br/> Flow Variant: 02 Control flow: if(1) and if(0)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/245/CWE758_Undefined_Behavior__int_pointer_alloca_use_02.c" checksum="d962c9ef04d12cc2f4e39e3bac680a2096de8436" size="3034" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112278" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 17 Control flow: for loops]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/278/CWE758_Undefined_Behavior__int_pointer_malloc_use_17.c" checksum="3b54e9953538cd838792db6f6ab3ea2271ec661e" size="2439" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112279" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 18 Control flow: goto statements]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/279/CWE758_Undefined_Behavior__int_pointer_malloc_use_18.c" checksum="cbdc3239c9d54b48d45f672c3abc56f77afc2439" size="2305" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112286" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: new_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data<br/> Flow Variant: 07 Control flow: if(staticFive==5) and if(staticFive!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/286/CWE758_Undefined_Behavior__int_pointer_new_use_07.cpp" checksum="88b73612e67c052d9b7464dde70d2486fc529d58" size="3284" language="C++">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="34"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112301" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: alloca_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from alloca without initialization<br/> Flow Variant: 04 Control flow: if(STATIC_CONST_TRUE) and if(STATIC_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/301/CWE758_Undefined_Behavior__long_alloca_use_04.c" checksum="ef250631522a6f31c15b5b5961e3f8549366d927" size="3133" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112316" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 01 Baseline]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/316/CWE758_Undefined_Behavior__long_malloc_use_01.c" checksum="a499f2209c328408807a02bc97edc97e4b84b084" size="2026" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="24"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112326" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 11 Control flow: if(globalReturnsTrue()) and if(globalReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/326/CWE758_Undefined_Behavior__long_malloc_use_11.c" checksum="2901379693ee952610165a92f34f08d36c4a41ce" size="2960" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112332" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 17 Control flow: for loops]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/332/CWE758_Undefined_Behavior__long_malloc_use_17.c" checksum="fce3a05718a183bb3940b55c8be1f3a532d517ba" size="2276" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="27"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112346" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: new_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data<br/> Flow Variant: 13 Control flow: if(GLOBAL_CONST_FIVE==5) and if(GLOBAL_CONST_FIVE!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/346/CWE758_Undefined_Behavior__long_new_use_13.cpp" checksum="5a19c2a8e6b50b33321fbc33f90369dedc817ba9" size="2878" language="C++">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112356" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: alloca_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from alloca without initialization<br/> Flow Variant: 04 Control flow: if(STATIC_CONST_TRUE) and if(STATIC_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/356/CWE758_Undefined_Behavior__struct_alloca_use_04.c" checksum="ba10cca59da8eba559f11551c9d7af8e6e44966f" size="3487" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112381" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 11 Control flow: if(globalReturnsTrue()) and if(globalReturnsFalse())]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/381/CWE758_Undefined_Behavior__struct_malloc_use_11.c" checksum="c8bd9a489c441e640b54869e5fbea6600e0ba8ad" size="3314" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112411" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: alloca_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from alloca without initialization<br/> Flow Variant: 05 Control flow: if(staticTrue) and if(staticFalse)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/411/CWE758_Undefined_Behavior__struct_pointer_alloca_use_05.c" checksum="ba6c14326ac333aacbe51209b7d66684eb92b9be" size="3814" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112446" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: new_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data<br/> Flow Variant: 04 Control flow: if(STATIC_CONST_TRUE) and if(STATIC_CONST_FALSE)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/446/CWE758_Undefined_Behavior__struct_pointer_new_use_04.cpp" checksum="d229ddb038b9cba0ba05cf652d048466f493753f" size="3730" language="C++">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="35"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="112495" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 758 Undefined Behavior<br/> Sinks: malloc_use<br/> GoodSink: Initialize then use data<br/> BadSink : Use data from malloc without initialization<br/> Flow Variant: 13 Control flow: if(GLOBAL_CONST_FIVE==5) and if(GLOBAL_CONST_FIVE!=5)]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/112/495/CWE758_Undefined_Behavior__wchar_t_pointer_malloc_use_13.c" checksum="7db5b32722260e971666286302dc6b1be0d3e94b" size="3094" language="C">
+      <mixed name="CWE-758: Reliance on Undefined, Unspecified, or Implementation-Defined Behavior" line="26"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="116820" numberOfFiles="4" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 775 Missing Release of File Descriptor or Handle After Effective Lifetime<br/> BadSource:  Open a file using fopen()<br/> Sinks:<br/> GoodSink: Close the file using fclose()<br/> BadSink : Do not close file<br/> Flow Variant: 18 Control flow: goto statements]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/116/820/CWE775_Missing_Release_of_File_Descriptor_or_Handle__fopen_no_close_18.c" checksum="046850af07152c774a6c86acce217bed047bb488" size="2392" language="C">
+      <mixed name="CWE-775: Missing Release of File Descriptor or Handle after Effective Lifetime" line="29"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="116840" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 775 Missing Release of File Descriptor or Handle After Effective Lifetime<br/> BadSource:  Open a file using fopen()<br/> Sinks:<br/> GoodSink: Close the file using fclose()<br/> BadSink : Do not close file<br/> Flow Variant: 65 Data/control flow: data passed as an argument from one function to a function in a different source file called via a function pointer]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/116/840/CWE775_Missing_Release_of_File_Descriptor_or_Handle__fopen_no_close_65a.c" checksum="5f3707579afa059d94b1606cc4ed0a8f8dcbafbd" size="2777" language="C"></file>
+    <file path="000/116/840/CWE775_Missing_Release_of_File_Descriptor_or_Handle__fopen_no_close_65b.c" checksum="dd2b64871622c1c152f41b9a75581c1c19f79c6f" size="1280" language="C">
+      <mixed name="CWE-775: Missing Release of File Descriptor or Handle after Effective Lifetime" line="23"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="116845" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 775 Missing Release of File Descriptor or Handle After Effective Lifetime<br/> BadSource:  Open a file using fopen()<br/> Sinks:<br/> GoodSink: Close the file using fclose()<br/> BadSink : Do not close file<br/> Flow Variant: 73 Data flow: data passed in a list from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/116/845/CWE775_Missing_Release_of_File_Descriptor_or_Handle__fopen_no_close_73a.cpp" checksum="38b4a4691fe2c8393bcd22a134a16003e73b4158" size="2598" language="C++"></file>
+    <file path="000/116/845/CWE775_Missing_Release_of_File_Descriptor_or_Handle__fopen_no_close_73b.cpp" checksum="753c1eda871b4ad4e6eae90671dc1950feb651d1" size="1377" language="C++">
+      <mixed name="CWE-775: Missing Release of File Descriptor or Handle after Effective Lifetime" line="31"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="116882" numberOfFiles="7" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 775 Missing Release of File Descriptor or Handle After Effective Lifetime<br/> BadSource:  Open a file using open()<br/> Sinks:<br/> GoodSink: Close the file using close()<br/> BadSink : Do not close file<br/> Flow Variant: 53 Data flow: data passed as an argument from one function through two others to a fourth; all four functions are in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/116/882/CWE775_Missing_Release_of_File_Descriptor_or_Handle__open_no_close_53a.c" checksum="b92bec482075edfef13ecd89c36e0e0045ab1691" size="2871" language="C"></file>
+    <file path="000/116/882/CWE775_Missing_Release_of_File_Descriptor_or_Handle__open_no_close_53b.c" checksum="847d7c961a795b4394a399403ae50a2694c8483d" size="1604" language="C"></file>
+    <file path="000/116/882/CWE775_Missing_Release_of_File_Descriptor_or_Handle__open_no_close_53c.c" checksum="3dbc18bcc4b5dad7bc4e8f13df5c7850c837beb3" size="1604" language="C"></file>
+    <file path="000/116/882/CWE775_Missing_Release_of_File_Descriptor_or_Handle__open_no_close_53d.c" checksum="bce6878018804c19da91872bf63f35a07a24f211" size="1350" language="C">
+      <mixed name="CWE-775: Missing Release of File Descriptor or Handle after Effective Lifetime" line="32"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="116918" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 775 Missing Release of File Descriptor or Handle After Effective Lifetime<br/> BadSource:  Open a file using CreateFile()<br/> Sinks:<br/> GoodSink: Close the file using CloseHandle()<br/> BadSink : Do not close file<br/> Flow Variant: 22 Control flow: Flow controlled by value of a global variable. Sink functions are in a separate file from sources.]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/116/918/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_22a.c" checksum="be82cf52494d8db2abc11cf0eff6483513b2e01e" size="4875" language="C"></file>
+    <file path="000/116/918/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_22b.c" checksum="45e4e47618972ddb87b97c1540ec3adda11ba930" size="2781" language="C">
+      <mixed name="CWE-775: Missing Release of File Descriptor or Handle after Effective Lifetime" line="30"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="116931" numberOfFiles="8" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 775 Missing Release of File Descriptor or Handle After Effective Lifetime<br/> BadSource:  Open a file using CreateFile()<br/> Sinks:<br/> GoodSink: Close the file using CloseHandle()<br/> BadSink : Do not close file<br/> Flow Variant: 54 Data flow: data passed as an argument from one function through three others to a fifth; all five functions are in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/116/931/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_54a.c" checksum="35f225f6d8239b63b46056d714a21bde80444ddd" size="3311" language="C"></file>
+    <file path="000/116/931/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_54b.c" checksum="341c7d9167c7d5df743d461ada54fd6bf810f576" size="1590" language="C"></file>
+    <file path="000/116/931/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_54c.c" checksum="fe1bebb54590228d1b60be6afdc0fc2d6d9728b1" size="1590" language="C"></file>
+    <file path="000/116/931/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_54d.c" checksum="008532c2b5f123eae93f2f7332095fa714752f43" size="1590" language="C"></file>
+    <file path="000/116/931/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_54e.c" checksum="3e6d823d5094b5b20fccc5e95546a4e0718cbda3" size="1318" language="C">
+      <mixed name="CWE-775: Missing Release of File Descriptor or Handle after Effective Lifetime" line="25"></mixed>
+    </file>
+  </testcase>
+  <testcase status="Candidate" testsuiteid="86" type="Source Code" id="116940" numberOfFiles="5" submissionDate="2013-05-21">
+    <description><![CDATA[CWE: 775 Missing Release of File Descriptor or Handle After Effective Lifetime<br/> BadSource:  Open a file using CreateFile()<br/> Sinks:<br/> GoodSink: Close the file using CloseHandle()<br/> BadSink : Do not close file<br/> Flow Variant: 72 Data flow: data passed in a vector from one function to another in different source files]]></description>
+    <file path="shared/86/io.c" checksum="c023d71b402e6b5374e34ad32de08731021fd031" size="5385" language="C"></file>
+    <file path="shared/86/std_testcase.h" checksum="1b30a41112852608a74e96d6df081d8502f978f8" size="3516" language="C"></file>
+    <file path="shared/86/std_testcase_io.h" checksum="56de16829d5ac9d8086670ee5098217aa6694d26" size="1457" language="C"></file>
+    <file path="000/116/940/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_72a.cpp" checksum="44bb121c09a0cc20127814d448addd0607827703" size="3348" language="C++"></file>
+    <file path="000/116/940/CWE775_Missing_Release_of_File_Descriptor_or_Handle__w32CreateFile_no_close_72b.cpp" checksum="d8362a5c22c26824a325c60ebe8b0aa19d818f06" size="1466" language="C++">
+      <mixed name="CWE-775: Missing Release of File Descriptor or Handle after Effective Lifetime" line="33"></mixed>
+    </file>
+  </testcase>
+</container>

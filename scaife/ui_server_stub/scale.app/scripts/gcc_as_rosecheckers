@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# <legal></legal>
+
+ARGS=$*
+echo "In directory: " `pwd`
+echo "Compiler args are: " $ARGS
+ROSEARGS=`echo $ARGS | perl -p -i -e 's/-MT .*?.lo//g;'`
+
+# This works for C++
+#ROSEARGS=`echo $ARGS | perl -p -i -e 's/-MT .*?.lo//g; s/ -MM / /g; s/-std=gnu\+\+0x/-std=gnu++11/g;'`
+
+echo "Rosechecker args are: " $ROSEARGS
+/home/rose/src/rosecheckers/rosecheckers $ROSEARGS
+/usr/bin/gcc $ARGS

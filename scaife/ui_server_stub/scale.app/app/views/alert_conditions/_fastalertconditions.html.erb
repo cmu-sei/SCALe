@@ -1,0 +1,62 @@
+<!-- This file outputs all the alertConditions as table rows -->
+<!-- This file is rendered within the _alertsConditionsTable partial -->
+
+<%  $alertConditionHash.keys.each do |id| %>
+<tr id="<%= $alertConditionHash[id][:id] %>" class="<%= $alertConditionHash[id][:meta_alert_id] %>">
+<td class="selectAlertCondition"><input type="checkbox" class="selectAlertCondition checkbox_lg" name="selectedAlertConditions[]" value="<%= $alertConditionHash[id][:id] %>"></td>
+
+<!--display id-->
+<%     [:id].each do |col| %>
+<%=       content_tag(:td, content_tag(:div, class: col) do %>
+<span>
+<%=         getContentFast(col, $alertConditionHash[id]) %>
+</span>
+<%        end, class: col) %>
+<%      end %>
+
+<!--flag-->
+<%     [:flag].each do |col| %>
+<%=       content_tag(:td, content_tag(:div, class: col) do %>
+<%= best_in_place $alertConditionHash[id], :flag, as: :checkbox, collection:  ["[ ]", "[x]"]  %>
+<%        end, class: col) %>
+<%      end %>
+
+<!--verdict-->
+<%     [:verdict].each do |col| %>
+<%=       content_tag(:td, content_tag(:div, class: col) do %>
+<%=         getContentFast(col, $alertConditionHash[id]) %>
+<%        end, class: col) %>
+<%      end %>
+
+<!--supplemental-->
+<%     [:supplemental].each do |col| %>
+<%=       content_tag(:td, content_tag(:div, class: col) do %>
+<span>
+<%=         getContentFast(col, $alertConditionHash[id]) %>
+</span>
+<%        end, class: col) %>
+<%      end %>
+
+<!--notes-->
+<%     [:notes].each do |col| %>
+<td>
+<div class="<%= col %>">
+<%= best_in_place $alertConditionHash[id], :notes, as: :textarea %>
+</div>
+</td>
+<%      end %>  <!--end do-->
+
+
+<%     [:previous, :path,
+        :line, :message, :checker, :tool, :condition, :title, :confidence,
+        :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
+        :level, :cwe_likelihood].each do |col| %>
+<%=       content_tag(:td, content_tag(:div, class: col) do %>
+<%=         getContentFast(col, $alertConditionHash[id]) %>
+<%        end, class: col) %>
+<%      end %>
+
+
+
+</tr>
+<%  end %>

@@ -1,0 +1,32 @@
+{
+  "C": {
+    "platform": "c",
+    "versions": ["89", "90", "95", "99", "11"],
+    "file_extensions": ["c", "h"]
+  },
+  "C++": {
+    "platform": "cpp",
+    "versions": ["98", "11", "14"],
+    "file_extensions": ["cpp", "cc", "cxx", "c++", "h", "hh", "hxx", "hpp", "h++"]
+  },
+  "Java": {
+    "platform": "java",
+    "versions": ["5.0", "6", "7", "8", "9", "10", "11", "12"],
+    "file_extensions": ["java", "class", "jar"]
+  },
+  "JavaScript": {
+    "platform": "js",
+    "versions": ["5", "5.1", "6", "7", "8", "9"],
+    "file_extensions": ["js", "mjs"]
+  },
+  "Perl": {
+    "platform": "perl",
+    "versions": ["5.10", "5.14", "5.16", "5.18", "5.20",
+                 "5.22", "5.24", "5.26", "5.28", "5.30"],
+    "file_extensions": ["pl", "pm", "xs", "t", "pod"]
+  }
+}
+
+
+
+

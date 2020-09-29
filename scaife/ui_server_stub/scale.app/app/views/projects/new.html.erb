@@ -1,0 +1,41 @@
+<!-- New projects are uploaded here. It is a simple form that
+just includes a name and description field.  -->
+<%= form_for @project, :html => {:multipart => true} do |f| %>
+  <h1>New project</h1>
+
+  <div class="page_content">
+    <% if @project.errors.any? %>
+    <div id="errorExplanation"  class="alert-danger">
+      <h4><%= pluralize(@project.errors.count, "error") %> prohibited
+          this project from being saved:</h4>
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="form-group">
+      <label>Data Type:</label><br/>
+      <span data-toggle="tooltip" data-placement="top" title="SCALe-type projects are created using locally-hosted files">
+        <label for="scale">SCALe</label>
+        <input type="radio" name="project_type" id="scale_project" class="project_type_selection" value="scale" checked>
+      </span>
+      <span data-toggle="tooltip" data-placement="top" title="SCAIFE-type projects are created using data from SCAIFE's DataHub">
+        <label for="scaife">SCAIFE</label>
+        <input type="radio" name="project_type" id="scaife_project" class="project_type_selection" value="scaife">
+      <input type="hidden" class="project_type_selection" value=""></input>
+    </div>
+    <div class="form-group">
+      <%= f.label :name, "Name: " %>
+      <%= f.text_field :name, class: "createProject form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description, "Description: " %>
+      <%= f.text_area :description, class: "createProject form-control", rows: 5 %>
+    </div>
+</div>
+      <%= f.submit nil, class: "submitButton btn btn-primary", role: "button" %>
+
+<% end %>

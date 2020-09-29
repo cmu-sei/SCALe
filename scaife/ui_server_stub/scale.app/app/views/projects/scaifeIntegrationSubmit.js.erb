@@ -1,0 +1,71 @@
+$(document).ready(function() {
+
+  <% if @modal %>
+    var modal_element = $("#scaife-integration-modal");
+    var load_element = modal_element.find(".modal-content");
+  <% else %>
+    var load_element = $("#scaife-integration");
+  <% end %>
+
+  <% if @errors.present? %>
+    <% # NOTE: use single quotes for escaping purposes %>
+    <% # NOTE: otherwise newlines will break javascript %>
+    var msg_element = load_element.find("#scaife-integration-error-msg");
+    <% msg = @errors.map { |e| e.strip.to_s }.join('<br/>\n') %>
+    var decoded = "<%= msg %>";
+    decoded = decode_html_entities(decoded);
+    msg_element.html(decoded);
+    msg_element.show();
+  <% else %>
+    load_element.html("<%= j (render partial: @render_skin_path) %>");
+    var content_element = load_element.find("#scaife-integration-content");
+    // invoke form-specific actions here
+    var tab_link = null;
+    <% case @current_action %>
+    <% when "langSelect" %>
+      //console.log("run lang_select_setup");
+      lang_select_setup(content_element);
+      tab_link = $("#lang-tab-link");
+    <% when "langUpload" %>
+      //console.log("run lang_upload_setup");
+      lang_upload_setup(content_element);
+      tab_link = $("#lang-tab-link");
+    <% when "langMap" %>
+      //console.log("run lang_map_setup");
+      taxo_map_setup(content_element);
+      tab_link = $("#lang-tab-link");
+    <% when "taxoUpload" %>
+      //console.log("submit: run taxo_upload_setup");
+      taxo_upload_setup(content_element);
+      tab_link = $("#taxo-tab-link");
+    <% when "taxoMap" %>
+      //console.log("submit: run taxo_map_setup");
+      taxo_map_setup(content_element);
+      tab_link = $("#taxo-tab-link");
+    <% when "toolUpload" %>
+      //console.log("submit: run tool_upload_setup");
+      tool_upload_setup(content_element);
+      tab_link = $("#tool-tab-link");
+    <% when "toolMap" %>
+      //console.log("submit: run tool_map_setup");
+      tool_map_setup(content_element);
+      tab_link = $("#tool-tab-link");
+    <% when "scaifeIntegration" %>
+      //console.log("submit: run scaife_integration_setup");
+      scaife_integration_setup(content_element);
+      tab_link = $("#scaife-integration-tab-link");
+    <% end %>
+    if (tab_link && tab_link.length > 0) {
+      tab_link.tab('show');
+    }
+
+    <% if @success.present? %>
+      var msg_element = load_element.find("#scaife-integration-success-msg");
+      var decoded = "<%= @success %>";
+      decoded = decode_html_entities(decoded);
+      msg_element.html(decoded);
+      msg_element.show();
+    <% end %>
+  <% end %>
+
+});

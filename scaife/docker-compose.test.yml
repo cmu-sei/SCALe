@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  datahub:
+    command: python3 -m swagger_server --mode test
+
+  priority:
+    command: python3 -m swagger_server --mode test
+
+  stats:
+    command: python3 -m swagger_server --mode test
+
+  registration:
+    command: python3 -m swagger_server --mode test

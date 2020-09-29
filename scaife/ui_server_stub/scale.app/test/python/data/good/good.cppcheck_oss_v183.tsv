@@ -1,0 +1,24 @@
+toomanyconfigs	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	0	Too many #ifdef configurations - cppcheck only checks 12 of 47 configurations. Use --force to check all configurations.
+uselessAssignmentPtrArg	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	732	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	772	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+knownConditionTrueFalse	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	799	Condition '!RetVal' is always true
+knownConditionTrueFalse	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	758	Condition '!RetVal' is always true
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	141	The scope of the variable 'errstr' can be reduced.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	199	The scope of the variable 'errstr' can be reduced.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	544	The scope of the variable 'bom' can be reduced.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	1464	The scope of the variable 'errstr' can be reduced.
+unreadVariable	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	1838	Variable 'RetVal' is assigned a value that is never used.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	1903	The scope of the variable 'trail' can be reduced.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	1905	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	1906	The scope of the variable 'c_trail' can be reduced.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	1906	The scope of the variable 'c_lead' can be reduced.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	1910	The scope of the variable 'errstr' can be reduced.
+ConfigurationNotChecked	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	157	Skipping configuration 'DEBUG;S_ISBLK' since the value of 'S_ISBLK' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	120	Skipping configuration 'DEBUG;S_ISLNK' since the value of 'S_ISLNK' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	151	Skipping configuration 'DEBUG;S_ISLNK' since the value of 'S_ISLNK' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	170	Skipping configuration 'DEBUG;S_ISLNK' since the value of 'S_ISLNK' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	487	Skipping configuration 'DEBUG;S_ISLNK' since the value of 'S_ISLNK' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/common.c	147	Skipping configuration 'DEBUG;S_ISSOCK' since the value of 'S_ISSOCK' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+toomanyconfigs	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/dos2unix.c	0	Too many #ifdef configurations - cppcheck only checks 12 of 24 configurations. Use --force to check all configurations.
+variableScope	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/test/wcstombs_test.c	12	The scope of the variable 'errstr' can be reduced.
+toomanyconfigs	/home/svoboda/Desktop/src/scale/scale.app/demo/dos2unix/src/unix2dos.c	0	Too many #ifdef configurations - cppcheck only checks 12 of 24 configurations. Use --force to check all configurations.

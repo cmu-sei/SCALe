@@ -1,0 +1,576 @@
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/imgcmp.c	162	The scope of the variable 'origdata' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/imgcmp.c	163	The scope of the variable 'recondata' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/imgcmp.c	166	The scope of the variable 'width' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/imgcmp.c	167	The scope of the variable 'height' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/imgcmp.c	168	The scope of the variable 'depth' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jasper.c	157	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jasper.c	499	The scope of the variable 'fmtinfo' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	539	The scope of the variable 'w' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	540	The scope of the variable 'h' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	541	The scope of the variable 'cx' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	542	The scope of the variable 'cy' can be reduced.
+unusedVariable	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	336	Unused variable: regtoprightwidth
+unusedVariable	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	337	Unused variable: regtoprightheight
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	958	Variable 'vtlx' is assigned a value that is never used.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	959	Variable 'vtly' is assigned a value that is never used.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	647	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	791	The scope of the variable 'b0' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	792	The scope of the variable 'b1' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	793	The scope of the variable 'b2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	942	The scope of the variable 'sx' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	943	The scope of the variable 'sy' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	1230	The scope of the variable 'm' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_cm.c	1247	The scope of the variable 'm' can be reduced.
+invalidPrintfArgType_int	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_debug.c	128	%x in format string (no. 1) requires 'unsigned int' but the argument type is 'size_t {aka unsigned long}'.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_getopt.c	110	The scope of the variable 's' can be reduced.
+ConfigurationNotChecked	/usr/include/wchar.h	88	Skipping configuration '_GLIBCPP_USE_NAMESPACES;__WINT_TYPE__;_WINT_T;__WINT_TYPE__' since the value of '__WINT_TYPE__' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/wchar.h	88	Skipping configuration '_WINT_T;__WINT_TYPE__' since the value of '__WINT_TYPE__' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	443	Skipping configuration '__REDIRECT' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	446	Skipping configuration '__REDIRECT' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	494	Skipping configuration '__REDIRECT' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	499	Skipping configuration '__REDIRECT' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	443	Skipping configuration '__REDIRECT;__need_getopt' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	446	Skipping configuration '__REDIRECT;__need_getopt' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	494	Skipping configuration '__REDIRECT;__need_getopt' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	499	Skipping configuration '__REDIRECT;__need_getopt' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/string.h	423	Skipping configuration '__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/wchar.h	88	Skipping configuration '__WINT_TYPE__' since the value of '__WINT_TYPE__' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	957	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	983	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	984	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1075	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1076	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1261	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1262	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1430	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1431	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1044	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1170	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1170	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1172	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1403	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1403	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1567	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1567	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+redundantAssignment	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1077	Variable 'txtdesc' is reassigned a value before the old one has been used.
+redundantAssignment	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1263	Variable 'lut8' is reassigned a value before the old one has been used.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	720	The scope of the variable 'attrval' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	721	The scope of the variable 'info' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	833	The scope of the variable 'attr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1042	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1578	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1639	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1662	The scope of the variable 'c' can be reduced.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1077	Variable 'txtdesc' is assigned a value that is never used.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	1263	Variable 'lut8' is assigned a value that is never used.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	284	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	415	The scope of the variable 'd' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	464	The scope of the variable 'd' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	517	The scope of the variable 'fmtinfo' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	631	The scope of the variable 'cmpt' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	735	The scope of the variable 'cmptno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	736	The scope of the variable 'x' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	737	The scope of the variable 'y' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	817	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	819	The scope of the variable 'width' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	820	The scope of the variable 'height' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	821	The scope of the variable 'cmpt' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	893	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	917	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	1168	The scope of the variable 't' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	1169	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	1207	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	1228	The scope of the variable 'c' can be reduced.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_init.c	146	Variable 'fmtid' is modified but its new value is never used.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_seq.c	282	The scope of the variable 'data' can be reduced.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	302	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	510	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	575	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	799	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	874	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	910	The scope of the variable 'm' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	1008	The scope of the variable 'newbufsize' can be reduced.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	330	Variable 'openflags' is assigned a value that is never used.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/bmp/bmp_dec.c	248	The scope of the variable 'palent' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/bmp/bmp_dec.c	438	The scope of the variable 'c' can be reduced.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	787	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	788	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	860	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	861	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	323	%d in format string (no. 5) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	435	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	435	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	435	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	874	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+unreachableCode	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	304	Statements following return, break, continue, goto or throw will never be executed.
+unreachableCode	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	514	Statements following return, break, continue, goto or throw will never be executed.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	598	The scope of the variable 'ent' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	679	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	797	The scope of the variable 'ent' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	881	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	913	The scope of the variable 'cdefent' can be reduced.
+unreachableCode	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_enc.c	354	Statements following return, break, continue, goto or throw will never be executed.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_bs.c	194	The scope of the variable 'u' can be reduced.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	429	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	448	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	726	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1036	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1049	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1115	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1184	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1394	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1418	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1467	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1488	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1489	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1490	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	409	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	462	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	462	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	563	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	563	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	563	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	563	%d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	565	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	565	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	565	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	565	%d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	569	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	569	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	569	%d in format string (no. 5) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	569	%d in format string (no. 7) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	634	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	712	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	843	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	936	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1060	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1126	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1198	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1304	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1304	%d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1308	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1371	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1371	%d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	1434	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	236	The scope of the variable 'tmpstream' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	322	The scope of the variable 'tmpstream' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	323	The scope of the variable 'len' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	630	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	733	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	770	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_cs.c	963	The scope of the variable 'i' can be reduced.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	433	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1457	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1458	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1466	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+knownConditionTrueFalse	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1764	Condition 'n>=0' is always true
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2005	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2005	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2005	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2005	%d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2005	%d in format string (no. 5) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2005	%d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2019	%d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2019	%d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2019	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2019	%d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2019	%d in format string (no. 5) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2019	%d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	356	The scope of the variable 'ms' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	446	The scope of the variable 'compinfo' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	448	The scope of the variable 'cmptno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	542	The scope of the variable 'pos' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	599	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	659	The scope of the variable 'brcbgyend' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	678	The scope of the variable 'pchg' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	912	The scope of the variable 'compno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	913	The scope of the variable 'bandno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	914	The scope of the variable 'rlvlno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	917	The scope of the variable 'prcno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	919	The scope of the variable 'seg' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	921	The scope of the variable 'cblkno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1026	The scope of the variable 'adjust' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1027	The scope of the variable 'v' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1167	The scope of the variable 'htileno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1168	The scope of the variable 'vtileno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1651	The scope of the variable 'rlvlno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1696	The scope of the variable 'bandno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	1724	The scope of the variable 'pchg' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2066	The scope of the variable 'newmaxstreams' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2067	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2107	The scope of the variable 'streamno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2277	The scope of the variable 'ent' can be reduced.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	416	Variable 'crg' is assigned a value that is never used.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	757	Variable 'brcbgyend' is assigned a value that is never used.
+knownConditionTrueFalse	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1809	Condition 'pos<=cumlen' is always true
+redundantAssignment	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	415	Variable 'ccp->sampgrdsubstepx' is reassigned a value before the old one has been used.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	785	The scope of the variable 'f' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	897	The scope of the variable 'qcc' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	901	The scope of the variable 'mctsynweight' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	903	The scope of the variable 'tsfb' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	905	The scope of the variable 'numbands' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1100	The scope of the variable 'tilex' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1101	The scope of the variable 'tiley' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1105	The scope of the variable 'endcomps' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1516	The scope of the variable 'pass0' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1631	The scope of the variable 'lo' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1632	The scope of the variable 'hi' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1637	The scope of the variable 'goodthresh' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1638	The scope of the variable 'success' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1641	The scope of the variable 'numiters' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2022	The scope of the variable 'tcmpt' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2023	The scope of the variable 'cmptno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2139	The scope of the variable 'rlvl' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2140	The scope of the variable 'rlvlno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2241	The scope of the variable 'band' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2242	The scope of the variable 'bandno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2322	The scope of the variable 'prc' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2323	The scope of the variable 'rlvl' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2324	The scope of the variable 'prcno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2466	The scope of the variable 'cblk' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2467	The scope of the variable 'cblkno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2550	The scope of the variable 'passno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2551	The scope of the variable 'pass' can be reduced.
+sizeofCalculation	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	2105	Found calculation inside sizeof().
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	874	Variable 'e' is assigned a value that is never used.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	996	Variable 'mctsynweight' is assigned a value that is never used.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	93	The scope of the variable 'c0p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	94	The scope of the variable 'c1p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	95	The scope of the variable 'c2p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	136	The scope of the variable 'c0p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	137	The scope of the variable 'c1p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	138	The scope of the variable 'c2p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	183	The scope of the variable 'c0p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	184	The scope of the variable 'c1p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	185	The scope of the variable 'c2p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	224	The scope of the variable 'c0p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	225	The scope of the variable 'c1p' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mct.c	226	The scope of the variable 'c2p' can be reduced.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqdec.c	303	%d in format string (no. 1) requires 'int' but the argument type is 'ptrdiff_t {aka signed int}'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqdec.c	304	%d in format string (no. 1) requires 'int' but the argument type is 'ptrdiff_t {aka signed int}'.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqdec.c	264	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqdec.c	265	The scope of the variable 'prevbuf' can be reduced.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqenc.c	386	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqenc.c	388	%d in format string (no. 1) requires 'int' but the argument type is 'ptrdiff_t {aka signed int}'.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	315	The scope of the variable 'srcptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	316	The scope of the variable 'dstptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	317	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	318	The scope of the variable 'm' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	319	The scope of the variable 'hstartcol' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	383	The scope of the variable 'srcptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	384	The scope of the variable 'dstptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	385	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	386	The scope of the variable 'm' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	387	The scope of the variable 'hstartcol' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	453	The scope of the variable 'srcptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	454	The scope of the variable 'dstptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	455	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	456	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	457	The scope of the variable 'm' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	458	The scope of the variable 'hstartcol' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	542	The scope of the variable 'srcptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	543	The scope of the variable 'dstptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	544	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	545	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	546	The scope of the variable 'm' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	547	The scope of the variable 'hstartcol' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	927	The scope of the variable 'hptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	928	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	984	The scope of the variable 'hptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	990	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1048	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1049	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1148	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1149	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1245	The scope of the variable 'hptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1246	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1302	The scope of the variable 'hptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1308	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1366	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1367	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1466	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1467	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1646	The scope of the variable 'lptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1647	The scope of the variable 'hptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1648	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1770	The scope of the variable 'lptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1771	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1772	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1773	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1978	The scope of the variable 'lptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1979	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1980	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1981	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2186	The scope of the variable 'lptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2187	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2188	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2360	The scope of the variable 'lptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2361	The scope of the variable 'hptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2362	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2484	The scope of the variable 'lptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2485	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2486	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2487	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2692	The scope of the variable 'lptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2693	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2694	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2695	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2900	The scope of the variable 'lptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2901	The scope of the variable 'hptr2' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2902	The scope of the variable 'n' can be reduced.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	3052	Variable 'lptr2' is modified but its new value is never used.
+unreadVariable	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	3053	Variable 'hptr2' is modified but its new value is never used.
+uselessAssignmentArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1cod.c	139	Assignment of function parameter has no effect outside the function.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1cod.c	168	The scope of the variable 'passtype' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1cod.c	219	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1cod.c	239	The scope of the variable 'u' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1cod.c	240	The scope of the variable 'v' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1cod.c	241	The scope of the variable 't' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1dec.c	369	The scope of the variable 'vscanlen' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1dec.c	476	The scope of the variable 'vscanlen' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1dec.c	574	The scope of the variable 'vscanlen' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1dec.c	673	The scope of the variable 'vscanlen' can be reduced.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1dec.c	242	Checking if unsigned variable 'ccp->roishift' is less than zero.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	113	The scope of the variable 'endlvls' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	200	The scope of the variable 'ret' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	201	The scope of the variable 'passtype' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	206	The scope of the variable 'vcausal' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	207	The scope of the variable 'segsym' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	435	The scope of the variable 'vscanlen' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	535	The scope of the variable 'vscanlen' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	636	The scope of the variable 'vscanlen' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1enc.c	730	The scope of the variable 'vscanlen' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	86	The scope of the variable 'pchg' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	506	The scope of the variable 'rlvlno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	507	The scope of the variable 'pirlvl' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	519	The scope of the variable 'picomp' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	520	The scope of the variable 'compno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	569	The scope of the variable 'newmaxpchgs' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	616	The scope of the variable 'newpchg' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2cod.c	633	The scope of the variable 'pchgno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	110	The scope of the variable 'v' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	164	The scope of the variable 'n' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	165	The scope of the variable 'm' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	166	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	167	The scope of the variable 'leaf' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	168	The scope of the variable 'included' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	169	The scope of the variable 'ret' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	170	The scope of the variable 'numnewpasses' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	172	The scope of the variable 'len' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	174	The scope of the variable 'savenumnewpasses' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	175	The scope of the variable 'mycounter' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	182	The scope of the variable 'usedcblkcnt' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	186	The scope of the variable 'passno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	187	The scope of the variable 'maxpasses' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2dec.c	421	The scope of the variable 'ret' can be reduced.
+redundantAssignment	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2enc.c	540	Variable 'pass->lyrno' is reassigned a value before the old one has been used.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2enc.c	395	The scope of the variable 'endlvls' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2enc.c	443	The scope of the variable 'endlvls' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t2enc.c	491	The scope of the variable 'endlvls' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_util.c	173	The scope of the variable 's' can be reduced.
+charLiteralWithCharPtrCompare	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_util.c	105	Char literal compared with pointer 'cp'. Did you intend to dereference it?
+charLiteralWithCharPtrCompare	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_util.c	123	Char literal compared with pointer 'cp'. Did you intend to dereference it?
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpg/jpg_dec.c	339	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpg/jpg_dec.c	309	The scope of the variable 'bufptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpg/jpg_dec.c	312	The scope of the variable 'width' can be reduced.
+ConfigurationNotChecked	/usr/include/stdio.h	443	Skipping configuration 'F_LOCK;__USE_MISC;__USE_POSIX;__USE_XOPEN_EXTENDED;__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	446	Skipping configuration 'F_LOCK;__USE_MISC;__USE_POSIX;__USE_XOPEN_EXTENDED;__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	494	Skipping configuration 'F_LOCK;__USE_MISC;__USE_POSIX;__USE_XOPEN_EXTENDED;__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	499	Skipping configuration 'F_LOCK;__USE_MISC;__USE_POSIX;__USE_XOPEN_EXTENDED;__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+unsignedPositive	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpg/jpg_dec.c	283	Unsigned variable '.' can't be negative so it is unnecessary to test it.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpg/jpg_dec.c	283	Checking if unsigned variable '((c=((!(in->flags_&(2|1|4)))?((in->rwlimit_>=0&&(in)->rwcnt_>=(in)->rwlimit_)?(in->flags_|=4,-1):((--(in)->cnt_<0)?jas_stream_fillbuf(in,1):(++(in)->rwcnt_,(int)(*(in)->ptr_++)))):-1))' is less than zero.
+ConfigurationNotChecked	/usr/include/stdio.h	443	Skipping configuration '__REDIRECT;__USE_ATFILE;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	446	Skipping configuration '__REDIRECT;__USE_ATFILE;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	494	Skipping configuration '__REDIRECT;__USE_ATFILE;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	499	Skipping configuration '__REDIRECT;__USE_ATFILE;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	443	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	446	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	494	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	499	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	443	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_GNU' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	446	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_GNU' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	494	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_GNU' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	499	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_GNU' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	443	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_XOPEN2K' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	446	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_XOPEN2K' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	494	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_XOPEN2K' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/stdio.h	499	Skipping configuration '__REDIRECT;__USE_FILE_OFFSET64;__USE_XOPEN2K' since the value of '__REDIRECT' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/string.h	423	Skipping configuration '__REDIRECT_NTH;__USE_FILE_OFFSET64;__USE_XOPEN2K' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	src/libjasper/include/jasper/jas_image.h	213	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpg/jpg_enc.c	188	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpg/jpg_enc.c	157	The scope of the variable 'bufptr' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/mif/mif_cod.c	426	The scope of the variable 'cmptno' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/mif/mif_cod.c	595	The scope of the variable 'cmpt' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/mif/mif_cod.c	663	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/mif/mif_cod.c	730	The scope of the variable 'cmpt' can be reduced.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_cod.c	74	%d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_cod.c	74	%d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'.
+invalidPrintfArgType_sint	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_cod.c	74	%d in format string (no. 5) requires 'int' but the argument type is 'unsigned int'.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	301	The scope of the variable 'c' can be reduced.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	160	Checking if unsigned variable 'n=jas_stream_read(in,buf,2)' is less than zero.
+unsignedPositive	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	166	Unsigned variable 'i' can't be negative so it is unnecessary to test it.
+unsignedPositive	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	197	Unsigned variable '.' can't be negative so it is unnecessary to test it.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	197	Checking if unsigned variable '((c=((!(in->flags_&(2|1|4)))?((in->rwlimit_>=0&&(in)->rwcnt_>=(in)->rwlimit_)?(in->flags_|=4,-1):((--(in)->cnt_<0)?jas_stream_fillbuf(in,1):(++(in)->rwcnt_,(int)(*(in)->ptr_++)))):-1))' is less than zero.
+unsignedPositive	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	201	Unsigned variable '.' can't be negative so it is unnecessary to test it.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	201	Checking if unsigned variable '((c=((!(in->flags_&(2|1|4)))?((in->rwlimit_>=0&&(in)->rwcnt_>=(in)->rwlimit_)?(in->flags_|=4,-1):((--(in)->cnt_<0)?jas_stream_fillbuf(in,1):(++(in)->rwcnt_,(int)(*(in)->ptr_++)))):-1))' is less than zero.
+unsignedPositive	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	286	Unsigned variable '.' can't be negative so it is unnecessary to test it.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	286	Checking if unsigned variable '((c=((!(in->flags_&(2|1|4)))?((in->rwlimit_>=0&&(in)->rwcnt_>=(in)->rwlimit_)?(in->flags_|=4,-1):((--(in)->cnt_<0)?jas_stream_fillbuf(in,1):(++(in)->rwcnt_,(int)(*(in)->ptr_++)))):-1))' is less than zero.
+unsignedPositive	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	303	Unsigned variable '.' can't be negative so it is unnecessary to test it.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	303	Checking if unsigned variable '((c=((!(in->flags_&(2|1|4)))?((in->rwlimit_>=0&&(in)->rwcnt_>=(in)->rwlimit_)?(in->flags_|=4,-1):((--(in)->cnt_<0)?jas_stream_fillbuf(in,1):(++(in)->rwcnt_,(int)(*(in)->ptr_++)))):-1))' is less than zero.
+unsignedPositive	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	310	Unsigned variable '.' can't be negative so it is unnecessary to test it.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	310	Checking if unsigned variable '((c=((!(in->flags_&(2|1|4)))?((in->rwlimit_>=0&&(in)->rwcnt_>=(in)->rwlimit_)?(in->flags_|=4,-1):((--(in)->cnt_<0)?jas_stream_fillbuf(in,1):(++(in)->rwcnt_,(int)(*(in)->ptr_++)))):-1))' is less than zero.
+unsignedLessThanZero	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	396	Checking if unsigned variable 'c=pgx_getc(in)' is less than zero.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_cod.h	95	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_cod.h	98	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	82	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	83	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	84	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	87	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	270	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	317	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	353	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_dec.c	408	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+uselessAssignmentPtrArg	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_enc.c	104	Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pgx/pgx_enc.c	211	The scope of the variable 'j' can be reduced.
+ConfigurationNotChecked	/usr/include/math.h	103	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/math.h	106	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/math.h	108	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	54	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	56	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	58	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	60	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	63	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	65	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	67	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	72	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	74	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	76	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	88	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	90	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	92	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	100	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	103	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	106	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	109	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	112	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	115	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	129	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	132	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	135	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	142	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	145	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	154	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	157	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	163	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	170	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	179	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	182	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	185	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	188	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	193	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	196	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	202	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	205	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	208	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	212	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	218	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	225	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	231	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	235	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	238	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	239	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	240	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	241	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	242	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	243	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	250	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	251	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	252	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	259	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	265	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	272	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	280	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	283	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	289	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	293	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	297	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	302	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	306	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	310	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	314	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	319	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	326	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	327	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	331	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	332	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	336	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	339	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	342	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	346	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	350	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	355	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/bits/mathcalls.h	364	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/usr/include/string.h	423	Skipping configuration '__LDBL_COMPAT;__REDIRECT_NTH' since the value of '__REDIRECT_NTH' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pnm/pnm_cod.h	136	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pnm/pnm_dec.c	406	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pnm/pnm_dec.c	427	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pnm/pnm_dec.c	532	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pnm/pnm_enc.c	428	The scope of the variable 'c' can be reduced.
+ConfigurationNotChecked	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/pnm/pnm_enc.c	93	Skipping configuration 'bool' since the value of 'bool' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	247	The scope of the variable 'nz' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	248	The scope of the variable 'z' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	313	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	314	The scope of the variable 'j' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	315	The scope of the variable 'x' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	316	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	317	The scope of the variable 'numcolors' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	318	The scope of the variable 'actualnumcolors' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_dec.c	385	The scope of the variable 'c' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_enc.c	107	The scope of the variable 'i' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_enc.c	224	The scope of the variable 'z' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_enc.c	225	The scope of the variable 'nz' can be reduced.
+variableScope	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_enc.c	306	The scope of the variable 'c' can be reduced.
+shiftNegative	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_enc.c	271	Shifting by a negative value is undefined behaviour
+shiftTooManyBits	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_enc.c	267	Shifting 32-bit value by 32 bits is undefined behaviour. See condition at line 267.
+signConversion	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/ras/ras_enc.c	271	Suspicious code: sign conversion of - in calculation, even though - can have a negative value
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	1465	The function 'dump_passes' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_malloc.c	119	The function 'jas_calloc' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	893	The function 'jas_iccattrval_allowmodify' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	253	The function 'jas_iccprof_dump' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_icc.c	589	The function 'jas_iccprof_sethdr' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	790	The function 'jas_image_copycmpt' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_image.c	813	The function 'jas_image_dump' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_seq.c	301	The function 'jas_matrix_asr' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_seq.c	178	The function 'jas_matrix_copy' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_seq.c	362	The function 'jas_matrix_setall' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_seq.c	162	The function 'jas_seq2d_copy' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_seq.c	416	The function 'jas_seq2d_output' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	905	The function 'jas_stream_display' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	296	The function 'jas_stream_freopen' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	573	The function 'jas_stream_gets' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	621	The function 'jas_stream_isseekable' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/base/jas_stream.c	956	The function 'jas_stream_length' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jp2/jp2_cod.c	910	The function 'jp2_cdef_lookup' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_bs.c	171	The function 'jpc_bitstream_getbit_func' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_bs.c	273	The function 'jpc_bitstream_needalign' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_bs.c	181	The function 'jpc_bitstream_putbit_func' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	883	The function 'jpc_calcssexp' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_enc.c	867	The function 'jpc_calcssmant' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	980	The function 'jpc_ft_fwdlift_col' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	1298	The function 'jpc_ft_invlift_col' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_t1cod.c	285	The function 'jpc_getsignmsedec_func' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqdec.c	298	The function 'jpc_mqdec_dump' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqdec.c	223	The function 'jpc_mqdec_getbit_func' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqdec.c	210	The function 'jpc_mqdec_setctx' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqenc.c	384	The function 'jpc_mqenc_dump' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_mqenc.c	285	The function 'jpc_mqenc_putbit_func' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2180	The function 'jpc_ns_fwdlift_col' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	2894	The function 'jpc_ns_invlift_col' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	682	The function 'jpc_qmfb_join_col' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_qmfb.c	372	The function 'jpc_qmfb_split_col' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_util.c	167	The function 'jpc_seq_conv' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_util.c	154	The function 'jpc_seq_norm' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_util.c	139	The function 'jpc_seq_upsample' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_dec.c	2118	The function 'jpc_streamlist_get' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/libjasper/jpc/jpc_tagtree.c	380	The function 'jpc_tagtree_dump' is never used.
+unusedFunction	/home/svoboda_mgr/Desktop/jasper/src/src/appl/jiv.c	825	The function 'pixmap_clear' is never used.

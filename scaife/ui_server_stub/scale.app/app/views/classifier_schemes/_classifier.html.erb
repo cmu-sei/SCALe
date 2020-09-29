@@ -1,0 +1,112 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <div id="classifier_id" style="display:none"><%= @classifier_id %></div>
+    <h2 id="label-modal" data-toggle="tooltip" data-placement="right"><%= @classifier_type %></h2>
+  </div>
+</div>
+
+<div id="classifier-contents" >
+    <% if @className.include? "existing" %>
+		<button type="button" id="delete-modal" class="btn-md">Delete Classification Scheme</button>
+	<% end %>
+	<span id="classifier-errors" class="mErrors"></span><br/>
+      <label>Classifier Name: <input id="classifier_name" type="text" value="<%= @classifier_instance_name %>"/></label><br/>
+      <h4>Training Data</h4>
+      <% if "Connected" == @scaife_mode %>
+          <p class="text-danger">Only projects that have been previously uploaded to SCAIFE will appear in the list of available projects.</p>
+      <% end %>
+      <div class="row">
+        <div class="col-sm-4">
+            <div id = "currentProjects">
+                <div id="all_projects" class="vertical-menu">
+                    <ul id="all_proj" class ="list-unstyled">
+                    	<li class="header_items"><em>Projects Available</em></li>
+                    	<% unless @projects.nil? or @projects.empty?%>
+      <!--TODO: Remove "if "Connected" != @scaife_mode" statement when locally-hosted SCALe packages are automatically uploaded to SCAIFE when selected to train a classifier (RC-1090) -->
+                              <% if "Connected" != @scaife_mode %>
+                        	      <% @projects.each do |proj| %>
+                        		      <li class="list_item"><%= proj %></li>
+                        	      <% end %>
+                              <% end %>
+                              <% if @scaife_projects.any? %>
+                        	    <% @scaife_projects.each do |scaife_proj_name, scaife_project_id| %>
+                        		  <li class="list_item"><%= scaife_proj_name %></li>
+                        	    <% end %>
+                              <% end %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+    	    <div id="move_buttons">
+    	    	<button class="btn-md btn-default" id="add_button" type="button">Add &gt;&gt;</button><br/><br/>
+    	    	<button class="btn-md btn-default" id="remove_button" type="button">&lt;&lt; Remove</button>
+    	    </div>
+        </div>
+
+        <div class="col-sm-4">
+    	    <div id="selected_projects" class="vertical-menu">
+        	    <ul id="select_proj" class ="list-unstyled">
+        	    	<li class="header_items"><em>Projects Selected</em>
+        	    		<% unless @selectedProjects.nil? or @selectedProjects.empty? %>
+        	    			<% @selectedProjects.each do |proj| %>
+        	    		        <li class="list_item"><%= proj %></li>
+        	    	        <% end %>
+        	    		<% end %>
+        	    	</li>
+        	    </ul>
+    	    </div>
+	    </div>
+
+      </div><!-- end row-->
+
+     </div>
+     <br/>
+     <hr/>
+
+    <div id="ah">
+	  <% unless @adaptiveHeuristics.empty? %>
+		  <h4>Adaptive Heuristics</h4>
+		  <ul class="nav nav-pills">
+		    <li class="ah-tabs <%= @selectedAH == 'None' || @selectedAH.nil? ? 'active' : '' %>"><a data-toggle="pill" href="#None">None</a></li>
+		  	<% @adaptiveHeuristics.each do |ah, parameters| %>
+		  		<li class="ah-tabs <%= @selectedAH == ah ? ' active' : '' %>"><a data-toggle="pill" href="#<%= ah.delete(' ') %>" ><%= ah %></a></li>
+		  	<% end %>
+		  </ul>
+
+		  <div class="tab-content">
+		  	<div id="None" class="tab-pane<%= @selectedAH.nil? ? ' active' : ''%>"></div>
+	  		<% @adaptiveHeuristics.each do |ah, parameters| %>
+	  			<div id="<%= ah.delete(' ') %>" class="tab-pane<%= @selectedAH == ah ? ' active' : '' %>">
+	  			    <ul class="ahList">
+	  			       <% unless parameters.nil? or parameters.empty? or parameters == '' %>
+		  				  <% parameters.each do |parameter, value| %>
+			  				<% if value.kind_of?(Array) %>
+			  				    <li><label><%= parameter %></label>
+			  				    <% value.each do |val| %>
+			  				        <input type="text" value="<%= val %>"/>
+			  				    <% end %>
+			  				    </li>
+			  				<% else %>
+			  				    <li><label><%= parameter %></label><input type="text" value="<%= value %>"/></li>
+			  				<% end %>
+		  				  <% end %>
+		  				<% end %>
+		  			</ul>
+	  			</div>
+	  		<% end %>
+		  </div>
+      </div>
+      <hr/>
+	<% end %>
+
+
+	<% unless @ahpoList.nil? %>
+	  <h4>Automated Hyper-Parameter Optimization (AHPO)</h4>
+	  <%= select_tag( "ahpoSelects", options_for_select(@ahpoList, @selectedAHPO), include_blank: "None") %>
+	<% end %>
+    </div>
+	<%= hidden_field_tag 'class-name', @className %>
+</div>

@@ -1,0 +1,17 @@
+// note: if any @import statements happen before the require statements
+// it causes the require statements to have no effect
+// however, we're not using require statements anymore
+
+// this breaks things -- it wasn't even getting applied in minnow
+// @import "reset";
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+// both bootstrap-sprockets and bootstrap should be loaded
+// see https://github.com/twbs/bootstrap-sass#a-ruby-on-rails
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap/theme";
+@import "jquery.splitter.css";
+
+// main application css
+@import "main";

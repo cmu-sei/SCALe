@@ -1,0 +1,51 @@
+<%
+  # locals via render override class variable
+  if local_assigns[:modal].nil?
+    modal = @modal.present?
+  end
+  if local_assigns[:disable_lang_select].nil?
+    disable_lang_select = @disable_lang_select.present?
+  end
+  path_params = {
+    project_id: @project.present? ? @project.id : nil,
+    disable_lang_select: disable_lang_select || nil,
+    modal: modal || nil,
+  }
+%>
+<ul class="nav nav-tabs">
+  <% if @debug.present? %>
+    <li id="home-tab"><%= link_to "Home", "/scaife_integration", remote: true, id: "scaife-integration-tab-link", "data-target" => "#scaife-integration-content" %></li>
+  <% end %>
+  <% if @project.blank? or @project.languages.present? %>
+    <li id="lang-tab" class="dropdown">
+      <a id="lang-tab-link" class="dropdown-toggle" data-toggle="dropdown" href="#">Languages
+      <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <% if @project.present? and not disable_lang_select %>
+          <li><%= link_to "Select", language_select_path(path_params), remote: true, id: "lang-select-link", "data-target" => "#scaife-integration" %></li>
+        <% end %>
+        <li><%= link_to "Upload", language_upload_path(path_params), remote: true, id: "lang-upload-link", "data-target" => "#scaife-integration" %></li>
+        <li><%= link_to "Map", language_map_path(path_params), remote: true, id: "lang-map-link", "data-target" => "#scaife-integration" %></li>
+      </ul>
+    </li>
+  <% end %>
+  <li id="taxo-tab" class="dropdown">
+    <a id="taxo-tab-link" class="dropdown-toggle" data-toggle="dropdown" href="#">Taxonomies
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <% if @project.present? %>
+        <li><%= link_to "Select", taxonomy_select_path(path_params), remote: true, id: "taxo-select-link", "data-target" => "#scaife-integration" %></li>
+      <% end %>
+      <li><%= link_to "Upload", taxonomy_upload_path(path_params), remote: true, id: "taxo-upload-link", "data-target" => "#scaife-integration" %></li>
+      <li><%= link_to "Map", taxonomy_map_path(path_params), remote: true, id: "taxo-map-link", "data-target" => "#scaife-integration" %></li>
+    </ul>
+  </li>
+  <li id="tool-tab" class="dropdown">
+    <a id="tool-tab-link" class="dropdown-toggle" data-toggle="dropdown" href="#">Tools
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Upload", tool_upload_path(path_params), remote: true, id: "tool-upload-link", "data-target" => "#scaife-integration" %></li>
+      <li><%= link_to "Map", tool_map_path(path_params), remote: true, id: "tool-map-link", "data-target" => "#scaife-integration" %></li>
+    </ul>
+  </li>
+</ul>

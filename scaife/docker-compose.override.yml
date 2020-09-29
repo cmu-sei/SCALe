@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  scale:
+    volumes:
+      - ${HOME}/.m2:/home/scale/.m2
+      - ./ui_server_stub/scale.app:/scale.app
+
+  datahub:
+    volumes:
+      - ./datahub_server_stub:/usr/src/app
+
+  priority:
+    volumes:
+      - ./priority_server_stub:/usr/src/app
+
+  stats:
+    volumes:
+      - ./stats_server_stub:/usr/src/app
+
+  registration:
+    volumes:
+      - ./registration_server_stub:/usr/src/app

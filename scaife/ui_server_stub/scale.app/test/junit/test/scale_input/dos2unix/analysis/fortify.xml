@@ -1,0 +1,1585 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ReportDefinition type="standard">
+    <TemplateName>Fortify Developer Workbook</TemplateName>
+    <TemplatePath></TemplatePath>
+    <LogoPath>/fortify.jpg</LogoPath>
+    <Footnote>Copyright 2014 Fortify Software Inc.</Footnote>
+    <UserName></UserName>
+    <ReportSection optionalSubsections="false" enabled="true">
+        <Title>Report Overview</Title>
+        <SubSection enabled="true">
+            <Title>Report Summary</Title>
+            <Description>This provides a high level summary of the findings that the analysis produced.  Also includes basic information on the scope of the scan.</Description>
+            <Text>On Jul 6, 2015, a source code review was performed over the d2u code base. 66 files, 1,197 LOC (Executable) were scanned. A total of 191 issues were uncovered during the analysis.  This report provides a comprehensive description of all the types of issues found in this project.  Specific examples and source code are provided for each issue type.</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Issue Summary by Fortify Priority Order</Title>
+            <Description>A table summarizing the number of issues found and the breakdown of issues in each Fortify Priority Level</Description>
+            <IssueListing limit="-1" listing="false">
+                <Refinement></Refinement>
+                <Chart chartType="table">
+                    <Axis>Fortify Priority Order</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="136">
+                        <groupTitle>High</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="49">
+                        <groupTitle>Low</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="6">
+                        <groupTitle>Critical</groupTitle>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="false" enabled="true">
+        <Title>Issue Summary</Title>
+        <SubSection enabled="true">
+            <Title>Overall number of results</Title>
+            <Description>Results count</Description>
+            <Text>The scan found 191 issues.</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Issues By Category</Title>
+            <IssueListing limit="-1" listing="false">
+                <Refinement></Refinement>
+                <Chart chartType="table">
+                    <Axis>Category</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="131">
+                        <groupTitle>Format String</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="32">
+                        <groupTitle>System Information Leak: Internal</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="10">
+                        <groupTitle>Dangerous Function: strcpy()</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="6">
+                        <groupTitle>Path Manipulation</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="3">
+                        <groupTitle>Memory Leak</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Integer Overflow</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Missing Check against Null</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Poor Style: Value Never Read</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Race Condition: File System Access</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="1">
+                        <groupTitle>Insecure Temporary File</groupTitle>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="true" enabled="true">
+        <Title>Results Outline</Title>
+        <SubSection enabled="true">
+            <Title>Vulnerability Examples by Category</Title>
+            <Description>Results summary of all issue categories.  Vulnerability examples are provided by category.</Description>
+            <IssueListing limit="5" listing="true">
+                <Refinement></Refinement>
+                <Chart chartType="list">
+                    <Axis>Category</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="131">
+                        <groupTitle>Format String</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Allowing an attacker to control a function's format string can result in a buffer overflow.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Format string vulnerabilities occur when:
+
+1. Data enters the application from an untrusted source.
+
+
+
+2. The data is passed as the format string argument to a function like sprintf(), FormatMessageW(), or syslog().
+
+
+Example 1: The following code copies a command line argument into a buffer using snprintf(). 
+
+
+int main(int argc, char **argv){
+	char buf[128];
+	...
+	snprintf(buf,128,argv[1]);
+}
+ 
+
+This code allows an attacker to view the contents of the stack and write to the stack using a command line argument containing a sequence of formatting directives. The attacker can read from the stack by providing more formatting directives, such as %x, than the function takes as arguments to be formatted. (In this example, the function takes no arguments to be formatted.) By using the %n formatting directive, the attacker can write to the stack, causing snprintf() to write the number of bytes output thus far to the specified argument (rather than reading a value from the argument, which is the intended behavior). A sophisticated version of this attack will use four staggered writes to completely control the value of a pointer on the stack.
+
+Example 2: Certain implementations make more advanced attacks even easier by providing format directives that control the location in memory to read from or write to. An example of these directives is shown in the following code, written for glibc:
+
+
+	printf(&quot;%d %d %1$d %1$d\n&quot;, 5, 9);
+
+
+This code produces the following output:
+
+
+5 9 5 5
+
+
+It is also possible to use half-writes (%hn) to accurately control arbitrary DWORDS in memory, which greatly reduces the complexity needed to execute an attack that would otherwise require four staggered writes, such as the one mentioned in Example 1.  
+
+Example 3: Simple format string vulnerabilities often result from seemingly innocuous shortcuts. The use of some such shortcuts is so ingrained that programmers might not even realize that the function they are using expects a format string argument. 
+
+For example, the syslog() function is sometimes used as follows:
+
+
+	...
+syslog(LOG_ERR, cmdBuf);
+	...
+
+
+Because the second parameter to syslog() is a format string, any formatting directives included in cmdBuf are interpreted as described in Example 1. 
+
+The following code shows a correct usage of syslog():
+
+
+	...
+ 	syslog(LOG_ERR, &quot;%s&quot;, cmdBuf);
+...
+</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>Whenever possible, pass static format strings to functions that accept a format string argument. If format strings must be constructed dynamically, define a set of valid format strings and make selections from this safe set. Finally, always verify that the number of formatting directives in the selected format string corresponds to the number of arguments to be formatted.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>131</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="B5084B1B-0E81-4C22-8B55-3CD558799A08" iid="E2A1D2A4ECB78532B61A26E4163DD638">
+                            <Category>Format String</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>An attacker can control the format string argument to printf() at common.c line 257, allowing an attack much like a buffer overflow.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>257</LineStart>
+<Snippet>  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));
+  printf(_(&quot;   -437                use DOS code page 437 (US) (default)\n&quot;));
+  printf(_(&quot;   -850                use DOS code page 850 (Western European)\n&quot;));</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>257</LineStart>
+<Snippet>  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));
+  printf(_(&quot;   -437                use DOS code page 437 (US) (default)\n&quot;));
+  printf(_(&quot;   -850                use DOS code page 850 (Western European)\n&quot;));</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="B5084B1B-0E81-4C22-8B55-3CD558799A08" iid="069E137ED0ED45BB44F903A39824EA25">
+                            <Category>Format String</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>An attacker can control the format string argument to printf() at common.c line 256, allowing an attack much like a buffer overflow.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>256</LineStart>
+<Snippet>  printf(_(&quot;Usage: %s [options] [file ...] [-n infile outfile ...]\n&quot;), progname);
+  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));
+  printf(_(&quot;   -437                use DOS code page 437 (US) (default)\n&quot;));</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>256</LineStart>
+<Snippet>  printf(_(&quot;Usage: %s [options] [file ...] [-n infile outfile ...]\n&quot;), progname);
+  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));
+  printf(_(&quot;   -437                use DOS code page 437 (US) (default)\n&quot;));</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="B5084B1B-0E81-4C22-8B55-3CD558799A08" iid="F6A96C26D67946A9D01FB39A42996BF4">
+                            <Category>Format String</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>An attacker can control the format string argument to printf() at common.c line 255, allowing an attack much like a buffer overflow.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>255</LineStart>
+<Snippet>{
+  printf(_(&quot;Usage: %s [options] [file ...] [-n infile outfile ...]\n&quot;), progname);
+  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>255</LineStart>
+<Snippet>{
+  printf(_(&quot;Usage: %s [options] [file ...] [-n infile outfile ...]\n&quot;), progname);
+  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="B5084B1B-0E81-4C22-8B55-3CD558799A08" iid="194ECE8F0AC35CC3E6EE54F314974342">
+                            <Category>Format String</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>An attacker can control the format string argument to printf() at common.c line 254, allowing an attack much like a buffer overflow.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>254</LineStart>
+<Snippet>void PrintUsage(const char *progname)
+{
+  printf(_(&quot;Usage: %s [options] [file ...] [-n infile outfile ...]\n&quot;), progname);
+  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>254</LineStart>
+<Snippet>void PrintUsage(const char *progname)
+{
+  printf(_(&quot;Usage: %s [options] [file ...] [-n infile outfile ...]\n&quot;), progname);
+  printf(_(&quot; -ascii                convert only line breaks (default)\n&quot;));
+  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="B5084B1B-0E81-4C22-8B55-3CD558799A08" iid="B3619E8A98208838DA12F69F2E9E5316">
+                            <Category>Format String</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>An attacker can control the format string argument to printf() at common.c line 258, allowing an attack much like a buffer overflow.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>258</LineStart>
+<Snippet>  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));
+  printf(_(&quot;   -437                use DOS code page 437 (US) (default)\n&quot;));
+  printf(_(&quot;   -850                use DOS code page 850 (Western European)\n&quot;));
+  printf(_(&quot;   -860                use DOS code page 860 (Portuguese)\n&quot;));</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>258</LineStart>
+<Snippet>  printf(_(&quot; -iso                  conversion between DOS and ISO-8859-1 character set\n&quot;));
+  printf(_(&quot;   -1252               use Windows code page 1252 (Western European)\n&quot;));
+  printf(_(&quot;   -437                use DOS code page 437 (US) (default)\n&quot;));
+  printf(_(&quot;   -850                use DOS code page 850 (Western European)\n&quot;));
+  printf(_(&quot;   -860                use DOS code page 860 (Portuguese)\n&quot;));</Snippet>
+                            </Source>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="32">
+                        <groupTitle>System Information Leak: Internal</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Revealing system data or debugging information helps an adversary learn about the system and form a plan of attack.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>An internal information leak occurs when system data or debugging information is sent via logging or printing to a local file, console, or screen.
+
+Example: The following code prints the path environment variable to the standard error stream:
+
+
+  char* path = getenv(&quot;PATH&quot;);
+  ... 
+  fprintf(stderr, &quot;cannot find exe on path %s\n&quot;, path);
+
+
+Depending upon the system configuration, this information can be dumped to a console, written to a log file, or exposed to a user. In some cases the error message tells the attacker precisely what sort of an attack the system will be vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the search path could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>Write error messages with security in mind. In production environments, turn off detailed error information in favor of brief messages. Restrict the generation and storage of detailed output that can help administrators and programmers diagnose problems. Be careful, debugging traces can sometimes appear in non-obvious places (embedded in comments in the HTML for an error page, for example).
+
+Even brief error messages that do not reveal stack traces or database dumps can potentially aid an attacker. For example, an &quot;Access Denied&quot; message can reveal that a file or user exists on the system.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. Do not rely on wrapper scripts, corporate IT policy, or quick-thinking system administrators to prevent system information leaks. Write software that is secure on its own.
+
+2. This category of vulnerability does not apply to all types of programs. For example, if your application executes on a client machine where system information is already available to an attacker, or if you print system information only to a trusted log file, you can use AuditGuide to filter out this category.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>32</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="7C1C0F31-DD65-4D46-8A8D-A4D4EE2F1C5C" iid="AB484E20CC176B6ADA54ECF75F25238A">
+                            <Category>System Information Leak: Internal</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Encapsulation</Kingdom>
+                            <Abstract>The function PrintVersion() in common.c reveals system data or debugging information by calling printf() on line 364.  The information revealed by printf() could help an adversary form a plan of attack.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>364</LineStart>
+<Snippet>#endif
+#ifdef ENABLE_NLS
+  printf(&quot;LOCALEDIR: %s\n&quot;, localedir);
+#endif
+  printf(&quot;http://waterlan.home.xs4all.nl/dos2unix.html\n&quot;);</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>463</LineStart>
+<Snippet>
+#ifdef ENABLE_NLS
+   ptr = getenv(&quot;DOS2UNIX_LOCALEDIR&quot;);
+   if (ptr == NULL)
+      strcpy(localedir,LOCALEDIR);</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="7C1C0F31-DD65-4D46-8A8D-A4D4EE2F1C5C" iid="AB484E20CC176B6ADA54ECF75F25238B">
+                            <Category>System Information Leak: Internal</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Encapsulation</Kingdom>
+                            <Abstract>The function PrintVersion() in common.c reveals system data or debugging information by calling printf() on line 364.  The information revealed by printf() could help an adversary form a plan of attack.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>364</LineStart>
+<Snippet>#endif
+#ifdef ENABLE_NLS
+  printf(&quot;LOCALEDIR: %s\n&quot;, localedir);
+#endif
+  printf(&quot;http://waterlan.home.xs4all.nl/dos2unix.html\n&quot;);</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>unix2dos.c</FileName>
+<FilePath>unix2dos.c</FilePath>
+<LineStart>471</LineStart>
+<Snippet>
+#ifdef ENABLE_NLS
+   ptr = getenv(&quot;DOS2UNIX_LOCALEDIR&quot;);
+   if (ptr == NULL)
+      strcpy(localedir,LOCALEDIR);</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="98E689A0-F013-45A6-A7A6-F07E97179460" iid="D103F94DA73D6C4A5E252032721A3BC2">
+                            <Category>System Information Leak: Internal</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Encapsulation</Kingdom>
+                            <Abstract>The function regfile_target() in common.c reveals system data or debugging information by calling fprintf() on line 211.  The information revealed by fprintf() could help an adversary form a plan of attack.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>211</LineStart>
+<Snippet>       ipFlag-&gt;error = errno;
+       errstr = strerror(errno);
+       fprintf(stderr, &quot;%s: %s: %s\n&quot;, progname, path, errstr);
+     }
+     return(-1);</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>210</LineStart>
+<Snippet>     if (ipFlag-&gt;verbose) {
+       ipFlag-&gt;error = errno;
+       errstr = strerror(errno);
+       fprintf(stderr, &quot;%s: %s: %s\n&quot;, progname, path, errstr);
+     }</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="98E689A0-F013-45A6-A7A6-F07E97179460" iid="A22488CD4BFB0ECA7503DE85500A5D5B">
+                            <Category>System Information Leak: Internal</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Encapsulation</Kingdom>
+                            <Abstract>The function regfile() in common.c reveals system data or debugging information by calling fprintf() on line 181.  The information revealed by fprintf() could help an adversary form a plan of attack.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>181</LineStart>
+<Snippet>       ipFlag-&gt;error = errno;
+       errstr = strerror(errno);
+       fprintf(stderr, &quot;%s: %s: %s\n&quot;, progname, path, errstr);
+     }
+     return(-1);</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>180</LineStart>
+<Snippet>     if (ipFlag-&gt;verbose) {
+       ipFlag-&gt;error = errno;
+       errstr = strerror(errno);
+       fprintf(stderr, &quot;%s: %s: %s\n&quot;, progname, path, errstr);
+     }</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="98E689A0-F013-45A6-A7A6-F07E97179460" iid="3EA24A68136FFBE8A6EBDF8843C697FC">
+                            <Category>System Information Leak: Internal</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Encapsulation</Kingdom>
+                            <Abstract>The function ResolveSymbolicLink() in common.c reveals system data or debugging information by calling fprintf() on line 483.  The information revealed by fprintf() could help an adversary form a plan of attack.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>483</LineStart>
+<Snippet>      ipFlag-&gt;error = errno;
+      errstr = strerror(errno);
+      fprintf(stderr, &quot;%s: %s: %s\n&quot;, progname, lFN, errstr);
+    }
+    RetVal = -1;</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>482</LineStart>
+<Snippet>    if (ipFlag-&gt;verbose) {
+      ipFlag-&gt;error = errno;
+      errstr = strerror(errno);
+      fprintf(stderr, &quot;%s: %s: %s\n&quot;, progname, lFN, errstr);
+    }</Snippet>
+                            </Source>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="10">
+                        <groupTitle>Dangerous Function: strcpy()</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Functions that cannot be used safely should never be used.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Certain functions behave in dangerous ways regardless of how they are used. Functions in this category were often implemented without taking security concerns into account.
+
+
+
+The strcpy() function is unsafe because it assumes that its input is null terminated and that there is sufficient memory allocated to accommodate the contents of the source buffer in the destination buffer. In practice, the conditions that must be met to use strcpy() are often too difficult to meet, primarily because they are inherently distinct from the invocation of strcpy.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>Functions that cannot be used safely should never be used. If any of these functions occur in new or legacy code, they must be removed and replaced with safe counterparts.
+
+Replace all calls to strcpy() and similar functions with their bounded counterparts, such as strncpy(). On Windows(R) platforms, consider using functions defined in strsafe.h, such as StringCbCopy(), which takes a buffer size in bytes, or StringCchCopy(), which takes a buffer size in characters. On BSD Unix systems strlcpy() can be used safely because it behaves the same as strncpy() except that it always null terminates its destination buffer. On other systems, always replace instances of strcpy(d, s) with strncpy(d, s, SIZE_D) to check bounds properly and prevent strncpy() from overflowing the destination buffer. For example, if d is a stack-allocated buffer, then SIZE_D can be calculated using sizeof(d).</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. On Windows, less secure functions like strcpy() can be replaced with their more secure versions, such as strcpy_s(). However, this still needs to be done with caution. Because parameter validation provided by the _s family of functions varies, relying on it can lead to unexpected behavior. Furthermore, incorrectly specifying the size of the destination buffer can still result in buffer overflows and null termination errors.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>10</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="BA40B07C-72BC-4732-B24C-9E9C7CFF1089" iid="F9F62FF4F92D95D58A14BC0388EB79D3">
+                            <Category>Dangerous Function: strcpy()</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>API Abuse</Kingdom>
+                            <Abstract>The function strcpy() cannot be used safely.  It should not be used.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>460</LineStart>
+<Snippet>
+  progname[8] = '\0';
+  strcpy(progname,&quot;dos2unix&quot;);
+
+#ifdef ENABLE_NLS</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="BA40B07C-72BC-4732-B24C-9E9C7CFF1089" iid="473F6846A2E9420E6FE33D05279E1083">
+                            <Category>Dangerous Function: strcpy()</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>API Abuse</Kingdom>
+                            <Abstract>The function strcpy() cannot be used safely.  It should not be used.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>472</LineStart>
+<Snippet>         fprintf(stderr,&quot;%s: &quot;,progname);
+         fprintf(stderr, &quot;%s&quot;, _(&quot;error: Value of environment variable DOS2UNIX_LOCALEDIR is too long.\n&quot;));
+         strcpy(localedir,LOCALEDIR);
+      }
+   }</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="BA40B07C-72BC-4732-B24C-9E9C7CFF1089" iid="473F6846A2E9420E6FE33D05279E1084">
+                            <Category>Dangerous Function: strcpy()</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>API Abuse</Kingdom>
+                            <Abstract>The function strcpy() cannot be used safely.  It should not be used.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>465</LineStart>
+<Snippet>   ptr = getenv(&quot;DOS2UNIX_LOCALEDIR&quot;);
+   if (ptr == NULL)
+      strcpy(localedir,LOCALEDIR);
+   else {
+      if (strlen(ptr) &lt; sizeof(localedir))</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="BA40B07C-72BC-4732-B24C-9E9C7CFF1089" iid="4E6F3E3FF78E817ACC05F08D6B89CB68">
+                            <Category>Dangerous Function: strcpy()</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>API Abuse</Kingdom>
+                            <Abstract>The function strcpy() cannot be used safely.  It should not be used.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>468</LineStart>
+<Snippet>   else {
+      if (strlen(ptr) &lt; sizeof(localedir))
+         strcpy(localedir,ptr);
+      else {
+         fprintf(stderr,&quot;%s: &quot;,progname);</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="BA40B07C-72BC-4732-B24C-9E9C7CFF1089" iid="48170295E1CE6440C39CBFD6D19935B2">
+                            <Category>Dangerous Function: strcpy()</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>API Abuse</Kingdom>
+                            <Abstract>The function strcpy() cannot be used safely.  It should not be used.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>500</LineStart>
+<Snippet>  if ((strcmpi(&quot;mac2unix&quot;, ptr) == 0) || (strcmpi(&quot;mac2unix.exe&quot;, ptr) == 0)) {
+    pFlag-&gt;FromToMode = FROMTO_MAC2UNIX;
+    strcpy(progname,&quot;mac2unix&quot;);
+  }
+</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="6">
+                        <groupTitle>Path Manipulation</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Allowing user input to control paths used in filesystem operations could enable an attacker to access or modify otherwise protected system resources.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Path manipulation errors occur when the following two conditions are met:
+
+1. An attacker can specify a path used in an operation on the filesystem. 
+
+2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.
+
+For example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker. 
+
+
+Example 1: The following code uses input from a CGI request to create a file name. The programmer has not considered the possibility that an attacker could provide a file name such as &quot;../../apache/conf/httpd.conf&quot;, which will cause the application to delete the specified configuration file. 
+
+
+char* rName = getenv(&quot;reportName&quot;); 
+...
+unlink(rName);
+
+
+Example 2: The following code uses input from the command line to determine which file to open and echo back to the user. If the program runs with privileges and malicious users can create soft links to the file, they can use the program to read the first part of any file on the system. 
+
+
+ifstream ifs(argv[0]);
+string s;
+ifs &gt;&gt; s;
+cout &lt;&lt; s;
+</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>The best way to prevent path manipulation is with a level of indirection: create a list of legitimate resource names that a user is allowed to specify, and only allow the user to select from the list. With this approach the input provided by the user is never used directly to specify the resource name. 
+
+In some situations this approach is impractical because the set of legitimate resource names is too large or too hard to keep track of. Programmers often resort to blacklisting in these situations. Blacklisting selectively rejects or escapes potentially dangerous characters before using the input. However, any such list of unsafe characters is likely to be incomplete and will almost certainly become out of date. A better approach is to create a white list of characters that are allowed to appear in the resource name and accept input composed exclusively of characters in the approved set.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. If the program is performing input validation, satisfy yourself that the validation is correct, and use the Custom Rules Editor to create a cleanse rule for the validation routine.
+
+2. It is notoriously difficult to correctly implement a blacklist. If the validation logic relies on blacklisting, be skeptical. Consider different types of input encoding and different sets of meta-characters that might have special meaning when interpreted by different operating systems, databases, or other resources. Determine whether or not the blacklist can be updated easily, correctly, and completely if these requirements ever change.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>6</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="2213BC0A-B324-4C8A-BFAD-0AD7FE480A6A" iid="49D1555CD7B8CB82B84979144F22232D">
+                            <Category>Path Manipulation</Category>
+                            <Folder>Critical</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>Attackers can control the filesystem path argument to fopen() at common.c line 376, which allows them to access or modify otherwise protected files.</Abstract>
+                            <Friority>Critical</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>376</LineStart>
+<Snippet>FILE* OpenInFile(char *ipFN)
+{
+  return (fopen(ipFN, R_CNTRL));
+}
+</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>unix2dos.c</FileName>
+<FilePath>unix2dos.c</FilePath>
+<LineStart>456</LineStart>
+<Snippet>
+
+int main (int argc, char *argv[])
+{
+  /* variable declarations */</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="2213BC0A-B324-4C8A-BFAD-0AD7FE480A6A" iid="49D1555CD7B8CB82B84979144F22232C">
+                            <Category>Path Manipulation</Category>
+                            <Folder>Critical</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>Attackers can control the filesystem path argument to fopen() at common.c line 376, which allows them to access or modify otherwise protected files.</Abstract>
+                            <Friority>Critical</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>376</LineStart>
+<Snippet>FILE* OpenInFile(char *ipFN)
+{
+  return (fopen(ipFN, R_CNTRL));
+}
+</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>448</LineStart>
+<Snippet>
+
+int main (int argc, char *argv[])
+{
+  /* variable declarations */</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="2213BC0A-B324-4C8A-BFAD-0AD7FE480A6A" iid="1187540110874D88DBB0CE4F945BFEF3">
+                            <Category>Path Manipulation</Category>
+                            <Folder>Critical</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>Attackers can control the filesystem path argument to unlink() at common.c line 1024, which allows them to access or modify otherwise protected files.</Abstract>
+                            <Friority>Critical</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>1024</LineStart>
+<Snippet>  /* any error? cleanup the temp file */
+  if (RetVal &amp;&amp; (TempPath != NULL)) {
+    if (unlink(TempPath) &amp;&amp; (errno != ENOENT)) {
+      if (ipFlag-&gt;verbose) {
+        ipFlag-&gt;error = errno;</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>unix2dos.c</FileName>
+<FilePath>unix2dos.c</FilePath>
+<LineStart>456</LineStart>
+<Snippet>
+
+int main (int argc, char *argv[])
+{
+  /* variable declarations */</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="2213BC0A-B324-4C8A-BFAD-0AD7FE480A6A" iid="1187540110874D88DBB0CE4F945BFEF2">
+                            <Category>Path Manipulation</Category>
+                            <Folder>Critical</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>Attackers can control the filesystem path argument to unlink() at common.c line 1024, which allows them to access or modify otherwise protected files.</Abstract>
+                            <Friority>Critical</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>1024</LineStart>
+<Snippet>  /* any error? cleanup the temp file */
+  if (RetVal &amp;&amp; (TempPath != NULL)) {
+    if (unlink(TempPath) &amp;&amp; (errno != ENOENT)) {
+      if (ipFlag-&gt;verbose) {
+        ipFlag-&gt;error = errno;</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>448</LineStart>
+<Snippet>
+
+int main (int argc, char *argv[])
+{
+  /* variable declarations */</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="E26FD6ED-4782-41CC-84C9-DFD0FBE17728" iid="5344F1E4F98C729CF720B120D88BDFE5">
+                            <Category>Path Manipulation</Category>
+                            <Folder>Critical</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>Attackers can control the filesystem path argument to rename() at common.c line 1064, which allows them to access or modify otherwise protected files.</Abstract>
+                            <Friority>Critical</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>1064</LineStart>
+<Snippet>    }
+#endif
+    if (rename(TempPath, TargetFN) == -1) {
+      if (ipFlag-&gt;verbose) {
+        ipFlag-&gt;error = errno;</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>unix2dos.c</FileName>
+<FilePath>unix2dos.c</FilePath>
+<LineStart>456</LineStart>
+<Snippet>
+
+int main (int argc, char *argv[])
+{
+  /* variable declarations */</Snippet>
+                            </Source>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="3">
+                        <groupTitle>Memory Leak</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Memory is allocated but never freed.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Memory leaks have two common and sometimes overlapping causes:
+
+- Error conditions and other exceptional circumstances.
+
+- Confusion over which part of the program is responsible for freeing the memory.
+
+Most memory leaks result in general software reliability problems, but if an attacker can intentionally trigger a memory leak, the attacker might be able to launch a denial of service attack (by crashing the program) or take advantage of other unexpected program behavior resulting from a low memory condition [1].
+
+Example 1: The following C function leaks a block of allocated memory if the call to read() fails to return the expected number of bytes:
+
+
+  char* getBlock(int fd) {
+  char* buf = (char*) malloc(BLOCK_SIZE);
+  if (!buf) {
+    return NULL;
+  }
+  if (read(fd, buf, BLOCK_SIZE) != BLOCK_SIZE) {
+    return NULL;
+  }
+  return buf;
+}
+</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>Because memory leaks can be difficult to track down, you should establish a set of memory management patterns and idioms for your software. Do not tolerate deviations from your conventions.
+
+One good pattern for addressing the error handling mistake in the example is to use forward-reaching goto statements so that the function has a single well-defined region for handling errors, as follows:
+
+
+  char* getBlock(int fd) {
+  char* buf = (char*) malloc(BLOCK_SIZE);
+  if (!buf) {
+    goto ERR;
+  }
+  if (read(fd, buf, BLOCK_SIZE) != BLOCK_SIZE) {
+    goto ERR;
+  }
+  return buf;
+
+  ERR:
+  if (buf) {
+    free(buf);
+  }
+  return NULL;
+}
+</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. Managed pointer objects, such as C++ auto_ptr and Boost smart pointers, are used to ensure that referenced memory allocations are freed. However, memory leaks can still occur when auto_ptrs or certain types of Boost smart pointers are used to reference arrays, Boost array pointers reference individual objects, and the auto_ptr release method is used.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>3</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="B530C5D6-3C71-48C5-9512-72A7F4911822" iid="D431E5B84EC006FA710D0AA4962E3462">
+                            <Category>Memory Leak</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Code Quality</Kingdom>
+                            <Abstract>The function MakeTempFileFrom() in common.c allocates memory on line 409 and fails to free it.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>409</LineStart>
+<Snippet>#endif
+{
+  char *cpy = strdup(OutFN);
+  char *dir = NULL;
+  size_t fname_len = 0;</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="B530C5D6-3C71-48C5-9512-72A7F4911822" iid="522767C47E2A340B6686CA5F303E7FA7">
+                            <Category>Memory Leak</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Code Quality</Kingdom>
+                            <Abstract>The function main() in unix2dos.c allocates memory on line 497 and fails to free it.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>unix2dos.c</FileName>
+<FilePath>unix2dos.c</FilePath>
+<LineStart>497</LineStart>
+<Snippet>
+  /* variable initialisations */
+  pFlag = (CFlag*)malloc(sizeof(CFlag));
+  pFlag-&gt;FromToMode = FROMTO_UNIX2DOS;  /* default unix2dos */
+  pFlag-&gt;keep_bom = 1;</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="B530C5D6-3C71-48C5-9512-72A7F4911822" iid="522767C47E2A340B6686CA5F303E7FA6">
+                            <Category>Memory Leak</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Code Quality</Kingdom>
+                            <Abstract>The function main() in dos2unix.c allocates memory on line 489 and fails to free it.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>489</LineStart>
+<Snippet>
+  /* variable initialisations */
+  pFlag = (CFlag*)malloc(sizeof(CFlag));
+  pFlag-&gt;FromToMode = FROMTO_DOS2UNIX;  /* default dos2unix */
+  pFlag-&gt;keep_bom = 0;</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Integer Overflow</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Not accounting for integer overflow can result in logic errors or buffer overflow.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Integer overflow errors occur when a program fails to account for the fact that an arithmetic operation can result in a quantity either greater than a data type's maximum value or less than its minimum value. These errors often cause problems in memory allocation functions, where user input intersects with an implicit conversion between signed and unsigned values. If an attacker can cause the program to under-allocate memory or interpret a signed value as an unsigned value in a memory operation, the program may be vulnerable to a buffer overflow.
+
+Example 1: The following code excerpt from OpenSSH 3.3 demonstrates a classic case of integer overflow:
+
+
+nresp = packet_get_int();
+if (nresp &gt; 0) {
+ response = xmalloc(nresp*sizeof(char*));
+ for (i = 0; i &lt; nresp; i++)
+  response[i] = packet_get_string(NULL);
+}
+
+
+If nresp has the value 1073741824 and sizeof(char*) has its typical value of 4, then the result of the operation nresp*sizeof(char*) overflows, and the argument to xmalloc() will be 0. Most malloc() implementations will happily allocate a 0-byte buffer, causing the subsequent loop iterations to overflow the heap buffer response.
+
+Example 2: This example processes user input comprised of a series of variable-length structures. The first 2 bytes of input dictate the size of the structure to be processed.
+
+
+ char* processNext(char* strm) {
+ char buf[512];
+ short len = *(short*) strm;
+ strm += sizeof(len);
+ if (len &lt;= 512) {
+  memcpy(buf, strm, len);
+  process(buf);
+  return strm + len;
+ } else {
+  return -1;
+ }
+}
+
+
+The programmer has set an upper bound on the structure size: if it is larger than 512, the input will not be processed. The problem is that len is a signed integer, so the check against the maximum structure length is done with signed integers, but len is converted to an unsigned integer for the call to memcpy(). If len is negative, then it will appear that the structure has an appropriate size (the if branch will be taken), but the amount of memory copied by memcpy() will be quite large, and the attacker will be able to overflow the stack with data in strm.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>There are no simple guidelines that allow you to avoid every integer overflow problem, but these recommendations will help prevent the most egregious cases:
+
+- Pay attention to compiler warnings related to signed/unsigned conversions. Some programmers may believe that these warnings are innocuous, but they sometimes point out potential integer overflow problems.
+
+- Be vigilant about checking reasonable upper and lower bounds for all program input. Even if the program should only be dealing with positive integers, check to be sure that the values you are processing are not less than zero. (You can eliminate the need for a lower bounds check by using unsigned data types.)
+
+- Be conservative about the range of values you allow.
+
+- Be cognizant of the implicit typecasting that takes place when you call functions, 
+perform arithmetic operations or compare values of different types. 
+
+Example 3:  The code below implements a wrapper function designed to allocate memory for an array safely by performing an appropriate check on its arguments prior to making a call to malloc().
+
+
+void* arrmalloc(uint sz, uint nelem) {
+	void *p;
+	if(sz &gt; 0 &amp;&amp; nelem &gt;= UINT_MAX / sz)
+		return 0;
+	return malloc(sz * nelem);
+}
+</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. Consider whether or not the integer that might overflow has been derived from the length of a string. If it has, it is safe to assume that the string fits inside the process's address space, which puts an upper bound on the string's length. This fact alone does not make integer overflow impossible, but it does put additional constraints on the arithmetic that must be performed in order to cause an overflow.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>2</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="7EF7E5CD-5511-49A5-B57E-87F33F2C6C82" iid="0DEEDB6C6C540BE5E6897675CA2D4D79">
+                            <Category>Integer Overflow</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>The function MakeTempFileFrom() in common.c does not account for integer overflow, which can result in a logic error or a buffer overflow.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>428</LineStart>
+<Snippet>
+  fname_len = strlen(dir) + strlen(&quot;/d2utmpXXXXXX&quot;) + sizeof (char);
+  if (!(fname_str = malloc(fname_len)))
+    goto make_failed;
+  sprintf(fname_str, &quot;%s%s&quot;, dir, &quot;/d2utmpXXXXXX&quot;);</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>448</LineStart>
+<Snippet>
+
+int main (int argc, char *argv[])
+{
+  /* variable declarations */</Snippet>
+                            </Source>
+                        </Issue>
+                        <Issue ruleID="7EF7E5CD-5511-49A5-B57E-87F33F2C6C82" iid="0DEEDB6C6C540BE5E6897675CA2D4D7A">
+                            <Category>Integer Overflow</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Input Validation and Representation</Kingdom>
+                            <Abstract>The function MakeTempFileFrom() in common.c does not account for integer overflow, which can result in a logic error or a buffer overflow.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>428</LineStart>
+<Snippet>
+  fname_len = strlen(dir) + strlen(&quot;/d2utmpXXXXXX&quot;) + sizeof (char);
+  if (!(fname_str = malloc(fname_len)))
+    goto make_failed;
+  sprintf(fname_str, &quot;%s%s&quot;, dir, &quot;/d2utmpXXXXXX&quot;);</Snippet>
+                            </Primary>
+                            <Source>
+<FileName>unix2dos.c</FileName>
+<FilePath>unix2dos.c</FilePath>
+<LineStart>456</LineStart>
+<Snippet>
+
+int main (int argc, char *argv[])
+{
+  /* variable declarations */</Snippet>
+                            </Source>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Missing Check against Null</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>The program can dereference a null pointer because it does not check the return value of a function that might return null.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Just about every serious attack on a software system begins with the violation of a programmer's assumptions. After the attack, the programmer's assumptions seem flimsy and poorly founded, but before an attack many programmers would defend their assumptions well past the end of their lunch break.
+
+Two dubious assumptions that are easy to spot in code are &quot;this function call can never fail&quot; and &quot;it doesn't matter if this function call fails&quot;. When a programmer ignores the return value from a function, they implicitly state that they are operating under one of these assumptions.
+
+Example 1:  The following code does not check to see if memory allocation succeeded before attempting to use the pointer returned by malloc().
+
+
+    buf = (char*) malloc(req_size);
+    strncpy(buf, xfer, req_size);
+
+
+The traditional defense of this coding error is: 
+
+&quot;If my program runs out of memory, it will fail. It doesn't matter whether I handle the error or simply allow the program to die with a segmentation fault when it tries to dereference the null pointer.&quot;
+
+This argument ignores three important considerations:
+
+- Depending upon the type and size of the application, it may be possible to free memory that is being used elsewhere so that execution can continue. 
+
+- It is impossible for the program to perform a graceful exit if required. If the program is performing an atomic operation, it can leave the system in an inconsistent state.
+
+- The programmer has lost the opportunity to record diagnostic information. Did the call to malloc() fail because req_size was too large or because there were too many requests being handled at the same time? Or was it caused by a memory leak that has built up over time? Without handling the error, there is no way to know.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>If a function can return an error code or any other evidence of its success or failure, always check for the error condition, even if there is no obvious way for it to occur. In addition to preventing security errors, many initially mysterious bugs have eventually led back to a failed system call with an ignored return value.
+
+Create an easy to use and standard way for dealing with failure in your application. If error handling is straightforward, programmers will be less inclined to omit it. One approach to standardized error handling is to write wrappers around commonly-used functions that check and handle error conditions without additional programmer intervention. When wrappers are implemented and adopted, the use of non-wrapped equivalents can be prohibited and enforced by using custom rules. 
+
+Example 2: The following code implements a wrapper around malloc() that checks the return value of malloc() against NULL and exits if the memory allocation failed. 
+
+
+void *checked_malloc (size_t size) {
+void *ptr;
+ptr= malloc(size);
+if (ptr == NULL) {
+fprintf (stderr, &quot;Out of memory: %s:%d&quot;,  
+         __FILE__,__LINE__);
+exit(-1);
+}
+return ptr;
+}
+
+
+The example above uses the simplest error handling mechanism available in low memory conditions: it kills the application. Based on the context in which the failure occurs, other behavior may be appropriate. For example, consider whether the application is using memory elsewhere for less important operations that could be freed to make the current allocation succeed. Depending on the application and the system it runs on, waiting for more memory to become available might also be a practical option. Regardless, in most cases the most important piece of error handling to execute in low memory situations are log entries so that the problem can be accurately diagnosed and possibly prevented in the future.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. Watch out for programmers who want to explain away this type of issue by saying &quot;that can never happen because ...&quot;.  Chances are good that they have developed their intuition about the way the system works by using their development workstation. If your software will eventually run under different operating systems, operating system versions, hardware configurations, or runtime environments, their intuition may not apply.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>2</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="EE043B1A-2DF1-4991-86A0-EC2EC5D3B5DF" iid="48235A3B73B268840C57D9E00557F45E">
+                            <Category>Missing Check against Null</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>API Abuse</Kingdom>
+                            <Abstract>The function main() in unix2dos.c can dereference a null pointer on line 498 because it does not check the return value of malloc(), which might return null.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>unix2dos.c</FileName>
+<FilePath>unix2dos.c</FilePath>
+<LineStart>497</LineStart>
+<Snippet>
+  /* variable initialisations */
+  pFlag = (CFlag*)malloc(sizeof(CFlag));
+  pFlag-&gt;FromToMode = FROMTO_UNIX2DOS;  /* default unix2dos */
+  pFlag-&gt;keep_bom = 1;</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="EE043B1A-2DF1-4991-86A0-EC2EC5D3B5DF" iid="48235A3B73B268840C57D9E00557F45D">
+                            <Category>Missing Check against Null</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>API Abuse</Kingdom>
+                            <Abstract>The function main() in dos2unix.c can dereference a null pointer on line 490 because it does not check the return value of malloc(), which might return null.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>dos2unix.c</FileName>
+<FilePath>dos2unix.c</FilePath>
+<LineStart>489</LineStart>
+<Snippet>
+  /* variable initialisations */
+  pFlag = (CFlag*)malloc(sizeof(CFlag));
+  pFlag-&gt;FromToMode = FROMTO_DOS2UNIX;  /* default dos2unix */
+  pFlag-&gt;keep_bom = 0;</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Poor Style: Value Never Read</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>The variable's value is assigned but never used, making it a dead store.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>This variable's value is not used. After the assignment, the variable is either assigned another value or goes out of scope.
+
+Example: The following code excerpt assigns to the variable r and then overwrites the value without using it.
+
+
+  r = getName();
+  r = getNewBuffer(buf);
+</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>Remove unnecessary assignments in order to make the code easier to understand and maintain.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>2</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="58382A15-6BC6-4125-A1D7-E8D60A7398FD" iid="1397CC50F02B0F2D5C3DE60194206A44">
+                            <Category>Poor Style: Value Never Read</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Code Quality</Kingdom>
+                            <Abstract>The function parse_options() in common.c never uses the value it assigns to the variable RetVal on line 1838.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>1838</LineStart>
+<Snippet>  if (pFlag-&gt;stdio_mode) {
+    if (pFlag-&gt;file_info) {
+      RetVal = GetFileInfoStdio(pFlag, progname);
+      print_messages_info(pFlag, &quot;stdin&quot;, progname);
+    } else {</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="58382A15-6BC6-4125-A1D7-E8D60A7398FD" iid="1397CC50F02B0F2D5C3DE60194206A43">
+                            <Category>Poor Style: Value Never Read</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Code Quality</Kingdom>
+                            <Abstract>The function parse_options() in common.c never uses the value it assigns to the variable RetVal on line 1820.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>1820</LineStart>
+<Snippet>      } else {
+        if (pFlag-&gt;file_info) {
+          RetVal = GetFileInfo(argv[ArgIdx], pFlag, progname);
+          print_messages_info(pFlag, argv[ArgIdx], progname);
+        } else {</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>Race Condition: File System Access</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>The window of time between when a file property is checked and when the file is used can be exploited to launch a privilege escalation attack.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>File access race conditions, known as time-of-check, time-of-use (TOCTOU) race conditions, occur when:
+
+1. The program checks a property of a file, referencing the file by name. 
+
+2. The program later performs a filesystem operation using the same filename and assumes that the previously-checked property still holds.
+
+
+Example 1: The following code is from a program installed setuid root. The program performs certain file operations on behalf of non-privileged users, and uses access checks to ensure that it does not use its root privileges to perform operations that should otherwise be unavailable the current user. The program uses the access() system call to check if the person running the program has permission to access the specified file before it opens the file and performs the necessary operations. 
+
+
+  if (!access(file,W_OK)) {
+    f = fopen(file,&quot;w+&quot;);
+    operate(f);
+    ...
+  }
+  else {
+    fprintf(stderr,&quot;Unable to open file %s.\n&quot;,file);
+  }
+
+
+The call to access() behaves as expected, and returns 0 if the user running the program has the necessary permissions to write to the file, and -1 otherwise. However, because both access() and fopen() operate on filenames rather than on file handles, there is no guarantee that the file variable still refers to the same file on disk when it is passed to fopen() that it did when it was passed to access(). If an attacker replaces file after the call to access() with a symbolic link to a different file, the program will use its root privileges to operate on the file even if it is a file that the attacker would otherwise be unable to modify. By tricking the program into performing an operation that would otherwise be impermissible, the attacker has gained elevated privileges. 
+
+This type of vulnerability is not limited to programs with root privileges. If the application is capable of performing any operation that the attacker would not otherwise be allowed perform, then it is a possible target.
+
+The window of vulnerability for such an attack is the period of time between when the property is tested and when the file is used. Even if the use immediately follows the check, modern operating systems offer no guarantee about the amount of code that will be executed before the process yields the CPU. Attackers have a variety of techniques for expanding the length of the window of opportunity in order to make exploits easier, but even with a small window, an exploit attempt can simply be repeated over and over until it is successful.
+
+Example 2: The following code creates a file and then changes the owner of the file.
+
+
+    fd = creat(FILE, 0644);  /* Create file */
+    if (fd == -1)
+        return;
+    if (chown(FILE, UID, -1) &lt; 0) {  /* Change file owner */
+      ...
+    }
+
+
+The code assumes that the file operated upon by the call to chown() is the same as the file created by the call to creat(), but that is not necessarily the case.  Because chown() operates on a file name and not on a file handle, an attacker might be able to replace the file with a link to file the attacker does not own.  The call to chown() would then give the attacker ownership of the linked file.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>To prevent file access race conditions, you must ensure that a file cannot be replaced or modified once the program has begun a series of operations on it. Avoid functions that operate on filenames, since they are not guaranteed to refer to the same file on disk outside of the scope of a single function call. Open the file first and then use functions that operate on file handles rather than filenames. 
+
+The most effective way to check file access permissions is to drop to the privilege of the current user and attempt to open the file with those reduced privileges. If the file open succeeds, additional access checks can be performed atomically using the resulting file handle. If the file open fails, then the user does not have access to the file and the operation should be aborted. By dropping to the user's privilege before attempting a series of file operations, the program cannot be easily tricked by changes to the underlying filesystem.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. Be careful, a race condition can still exist after the file is opened if later operations depend on a property that was checked before the file was opened. For example, if a stat structure is populated before a file is opened, and then a later decision about whether to operate on the file is based on a value read from the stat structure, the file could be modified prior to being opened, rendering the stat information stale. Always verify that file operations are performed on open file handles rather than filenames.
+
+2. Some file system APIs do not have alternatives that operate on file handles. For example, there is no way to delete a file via a file handle using standard C functions. Thus, some race conditions can only be avoided by placing the file in a directory path that is completely under the control of the program. If this mitigation is taken, then otherwise unsafe system calls can be used safely.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>2</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="57B0CA93-7DF5-4452-9A00-08AC165BA412" iid="12F2C5984A55D9ADFBE297E5A877CAA2">
+                            <Category>Race Condition: File System Access</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Time and State</Kingdom>
+                            <Abstract>The window of time between the call to &lt;a href=&quot;location://common.c###114###0###0&quot;&gt;symbolic_link()&lt;/a&gt; and &lt;a href=&quot;location://common.c###374###0###0&quot;&gt;OpenInFile()&lt;/a&gt; can be exploited to launch a privilege escalation attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>1485</LineStart>
+<Snippet>
+  /* can open in file? */
+  InF=OpenInFile(ipInFN);
+  if (InF == NULL) {
+    ipFlag-&gt;error = errno;</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="57B0CA93-7DF5-4452-9A00-08AC165BA412" iid="D772E8CEE896400690EAE40C5BB87FAB">
+                            <Category>Race Condition: File System Access</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Time and State</Kingdom>
+                            <Abstract>The window of time between the call to &lt;a href=&quot;location:///usr/include/sys/stat.h###218###0###0&quot;&gt;stat()&lt;/a&gt; and &lt;a href=&quot;location://common.c###374###0###0&quot;&gt;OpenInFile()&lt;/a&gt; can be exploited to launch a privilege escalation attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>896</LineStart>
+<Snippet>  /* can open in file? */
+  if (!RetVal) {
+    InF=OpenInFile(ipInFN);
+    if (InF == NULL) {
+      ipFlag-&gt;error = errno;</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="1">
+                        <groupTitle>Insecure Temporary File</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Creating and using insecure temporary files can leave application and system data vulnerable to attacks.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Applications require temporary files so frequently that many different mechanisms exist for creating them in the C Library and Windows(R) API. Most of these functions are vulnerable to various forms of attacks.
+
+Example: The following code uses a temporary file for storing intermediate data gathered from the network before it is processed. 
+
+
+...
+if (tmpnam_r(filename)){
+	FILE* tmp = fopen(filename,&quot;wb+&quot;);
+	while((recv(sock,recvbuf,DATA_SIZE, 0) &gt; 0)&amp;&amp;(amt!=0))
+		amt = fwrite(recvbuf,1,DATA_SIZE,tmp);
+}
+...
+
+
+This otherwise unremarkable code is vulnerable to a number of different attacks because it relies on an insecure method for creating temporary files. The vulnerabilities introduced by this function and others are described in the following sections. The most egregious security problems related to temporary file creation have occurred on Unix-based operating systems, but Windows applications have parallel risks. This section includes a discussion of temporary file creation on both Unix and Windows systems. 
+
+Methods and behaviors can vary between systems, but the fundamental risks introduced by each are reasonably constant. See the Recommendations section for information about safe core language functions and advice regarding a secure approach to creating temporary files. 
+
+The functions designed to aid in the creation of temporary files can be broken into two groups based on whether they simply provide a filename or actually open a new file. 
+
+Group 1 - &quot;Unique&quot; Filenames:
+
+The first group of C Library and WinAPI functions designed to help with the process of creating temporary files do so by generating a unique file name for a new temporary file, which the program is then supposed to open. This group includes C Library functions like tmpnam(), tempnam(), mktemp() and their C++ equivalents prefaced with an _ (underscore) as well as the GetTempFileName() function from the Windows API. This group of functions suffers from an underlying race condition on the filename chosen. Although the functions guarantee that the filename is unique at the time it is selected, there is no mechanism to prevent another process or an attacker from creating a file with the same name after it is selected but before the application attempts to open the file. Beyond the risk of a legitimate collision caused by another call to the same function, there is a high probability that an attacker will be able to create a malicious collision because the filenames generated by these functions are not sufficiently randomized to make them difficult to guess. 
+
+If a file with the selected name is created, then depending on how the file is opened the existing contents or access permissions of the file may remain intact. If the existing contents of the file are malicious in nature, an attacker may be able to inject dangerous data into the application when it reads data back from the temporary file. If an attacker pre-creates the file with relaxed access permissions, then data stored in the temporary file by the application may be accessed, modified or corrupted by an attacker. On Unix based systems an even more insidious attack is possible if the attacker pre-creates the file as a link to another important file. Then, if the application truncates or writes data to the file, it may unwittingly perform damaging operations for the attacker. This is an especially serious threat if the program operates with elevated permissions.
+
+Finally, in the best case the file will be opened with a call to open() using the O_CREAT and O_EXCL flags or to CreateFile() using the CREATE_NEW attribute, which will fail if the file already exists and therefore prevent the types of attacks described above. However, if an attacker is able to accurately predict a sequence of temporary file names, then the application may be prevented from opening necessary temporary storage causing a denial of service (DoS) attack. This type of attack would not be difficult to mount given the small amount of randomness used in the selection of the filenames generated by these functions. 
+
+Group 2 - &quot;Unique&quot; Files:
+
+The second group of C Library functions attempts to resolve some of the security problems related to temporary files by not only generating a unique file name, but also opening the file. This group includes C Library functions like tmpfile() and its C++ equivalents prefaced with an _ (underscore), as well as the slightly better-behaved C Library function mkstemp().
+ 
+The tmpfile() style functions construct a unique filename and open it in the same way that fopen() would if passed the flags &quot;wb+&quot;, that is, as a binary file in read/write mode. If the file already exists, tmpfile() will truncate it to size zero, possibly in an attempt to assuage the security concerns mentioned earlier regarding the race condition that exists between the selection of a supposedly unique filename and the subsequent opening of the selected file. However, this behavior clearly does not solve the function's security problems. First, an attacker can pre-create the file with relaxed access-permissions that will likely be retained by the file opened by tmpfile(). Furthermore, on Unix based systems if the attacker pre-creates the file as a link to another important file, the application may use its possibly elevated permissions to truncate that file, thereby doing damage on behalf of the attacker. Finally, if tmpfile() does create a new file, the access permissions applied to that file will vary from one operating system to another, which can leave application data vulnerable even if an attacker is unable to predict the filename to be used in advance. 
+
+Finally, mkstemp() is a reasonably safe way to create temporary files. It will attempt to create and open a unique file based on a filename template provided by the user combined with a series of randomly generated characters. If it is unable to create such a file, it will fail and return -1. On modern systems the file is opened using mode 0600, which means the file will be secure from tampering unless the user explicitly changes its access permissions. However, mkstemp() still suffers from the use of predictable file names and can leave an application vulnerable to denial of service attacks if an attacker causes mkstemp() to fail by predicting and pre-creating the filenames to be used.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>On Unix based systems where it is available, mkstemp() is the best choice for temporary file creation among the functions offered out-of-the-box. On legacy systems the mkstemp() function creates files using mode 0666, making them accessible to all users and leaving application data vulnerable to attack. Because of this legacy concern you should require that all newly created files only be accessible to the current user by calling umask(077) prior to creating any temporary files. 
+
+On Windows based systems the only acceptable out-of-the-box solution is to use GetTempFileName() and CreateFile() with the CREATE_NEW attribute and a sufficiently restrictive security descriptor that only permits access by the current user. 
+
+Neither of these solutions addresses the concern of a denial of service attack mounted by an attacker who is able to predict the filename values that will be generated. If this type of attack is a concern in your environment, you have little choice but to build a proprietary temporary file creation framework as none of the out-of-the-box solutions sufficiently address this problem. 
+
+If you are writing your own code for creating temporary files, consider housing the temporary files under a directory that is not publicly readable or writable, thereby eliminating all contention with attackers. With some care, you can safely create such a directory under /tmp, if so desired.
+
+If you are interested in generating temporary file names that will be difficult to guess, you should use a cryptographically secure pseudo-random number generator (PRNG) to create a random element in every temporary filename used. 
+
+There are various cross-platform solutions for C and C++ programs that offer cryptographically secure PRNGs, such as Yarrow [1], CryptLib [2], Crypt++ [3], BeeCrypt [4] and OpenSSL [5] among others. 
+
+On Windows(r) systems, C and C++ programs can make use of the CryptGenRandom() function in the CryptoAPI [6]. If you want to avoid the overhead of pulling in the rest of CryptoAPI, you can access the underlying RtlGenRandom() function directly [7]. 
+
+Finally, on the Windows .NET framework, you can make use of the GetBytes() function in any class that implements System.Security.Cryptography.RandomNumberGenerator such as System.Security.Cryptography.RNGCryptoServiceProvider [8].</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Tips</Name>
+<Value>1. On Windows systems the risk of truncating an important file through a link placed by an attacker is mitigated by the filesystem.  (There is no way to create a symbolic link.) For this reason, it may be tempting to use CreateFile() with the CREATE_ALWAYS attribute rather than the CREATE_NEW attribute. However, if the file already exists, this will cause CreateFile() to fail to apply the security descriptor specified and may allow an attacker to retain unauthorized access to the temporary file used by the application.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>1</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="9746B11F-F471-46D6-9917-D49773BE708F" iid="0346EA2177EEF75591669259025B7AE8">
+                            <Category>Insecure Temporary File</Category>
+                            <Folder>Low</Folder>
+                            <Kingdom>Time and State</Kingdom>
+                            <Abstract>Calling mkstemp() leads to insecure temporary files, leaving application or system data vulnerable.</Abstract>
+                            <Friority>Low</Friority>
+                            <Primary>
+<FileName>common.c</FileName>
+<FilePath>common.c</FilePath>
+<LineStart>441</LineStart>
+<Snippet>    goto make_failed;
+#else
+  if ((fd = mkstemp(fname_str)) == -1)
+    goto make_failed;
+#endif</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+    </ReportSection>
+</ReportDefinition>

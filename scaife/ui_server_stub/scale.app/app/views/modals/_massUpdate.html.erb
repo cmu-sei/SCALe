@@ -1,0 +1,37 @@
+<div class="modal-header">
+<div class="panel panel-info">
+<div class="panel-heading">
+  <button type="button" class="close" data-dismiss="modal">x</button>
+  <h4 class="modal-title" id="mass-update-modal">Set determinations of selected Meta-alerts/alertConditions</h4>
+</div>
+</div>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<%= label_tag 'Verdict: ', nil, class: "col-md-6" %>
+	  <%= select_tag(:mass_update_verdict, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3],['True',4]]), :class => "col-md-6") %>
+	</div>
+	<div class="row">
+	  <%= label_tag 'Flag: ', nil, class: "col-md-6" %>
+	  <%= select_tag(:flag, options_for_select([['--',-1],['Not flagged',false],['Flagged',true]]), :class => "col-md-6") %>
+	</div>
+	 <div class="row">
+    	<%= label_tag 'Ignored: ', nil, class: "col-md-6" %>
+      <%= select_tag(:ignored, options_for_select([['--',-1],['Not ignored',false],['Ignored',true]]), :class => "col-md-6") %>
+  </div>
+  <div class="row">
+  	<%= label_tag 'Dead: ', nil, class: "col-md-6" %>
+    <%= select_tag(:dead, options_for_select([['--',-1],['Not dead',false],['Dead',true]]), :class => "col-md-6") %>
+  </div>
+  <div class="row">
+  	<%= label_tag 'Inapplicable Environment: ', nil, class: "col-md-6" %>
+    <%= select_tag(:inapplicable_environment, options_for_select([['--',-1],['No',false],['Yes',true]]), :class => "col-md-6") %>
+  </div>
+  <div class="row">
+  	<%= label_tag 'Dangerous Construct: ', nil, class: "col-md-6" %>
+    <%= select_tag(:mass_update_dc, options_for_select([['--', -1], ['No', 0], ['Low Risk', 1], ['Medium Risk', 2], ['High Risk', 3]]), :class => "col-md-6") %>
+  </div>
+</div>
+<div class="modal-footer">
+  <%= submit_tag("Update", :class => "btn btn-primary") %>
+</div>

@@ -1,0 +1,147 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <button type="button" id="prior-class-modal" class="close close-button" data-dismiss="modal">&times;</button>
+    <h2 id="priority-label-modal" data-toggle="tooltip" data-placement="right"><%= @scheme_name %></h2>
+  </div>
+</div>
+<div id="priority-contents">
+    <div id="priority-fields">
+    	<% if @scheme_name == "Create New Scheme" %>
+    		<label>Name: <input id="priority_name" type="text"/></label><br/>
+    	<% else %>
+    		<button type="button" id="delete-priority-modal" class="btn-md" <% if @edit_scheme and @is_global %>style="display:none;"<% end %>>Delete Prioritization Scheme</button>
+    		<label>Name: <input id="priority_name" type="text"/ value="<%= @scheme_name %>" readonly></label><br/>
+    	<% end %>
+
+    	<span id="priority-errors" class="mErrors"><%= @get_priority_error %></span><br/>
+
+    		<ul class="nav nav-tabs">
+    			<% @taxonomies.each do |taxnm, eq| %>
+    				<li id="<%= taxnm %>" class="tab_list" <% if taxnm == 'VIEW_ALL' %>class="active" <% end %>><a data-toggle="tab" href="<%= '#e_'+taxnm %>"><%= taxnm == 'VIEW_ALL'? 'Instructions' :taxnm %></a></li>
+    			<% end %>
+    		</ul>
+
+    		<div class="tab-content" style="overflow:auto">
+    		  <% @taxonomies.each do |taxnm, equation| %>
+
+    		  	<div id="<%= 'e_'+taxnm %>" class="tab-pane fade <%= taxnm == 'VIEW_ALL'? 'in active' : '' %>" >
+    		  		<% if taxnm != 'VIEW_ALL' %>
+    		  			<table class="priority-table" style="display:inline-block;float:left">
+    				  		<% @priorityColumns.each do |col, col_val| %>
+    				  			<% if taxnm[0..2].downcase.in? col %>
+    				  				 <tr><td class="labels"><%= col %></td><td><input id="<%= taxnm.downcase + '_' + col %>" class="<%= taxnm %>" min="0" max="10" type="number" value="<%= col_val > 0 ? col_val : 0 %>" /></td></tr>
+    							<% end %>
+    				  		<% end %>
+    				  		<tr><td class="labels">confidence</td><td><input id="<%= taxnm.downcase + '_confidence' %>" class="<%= taxnm %>" min="0" max="10" type="number" value="0" /></td></tr>
+
+    			  		</table>
+
+    			  		<div class="tax_formula">
+    			  			<h4 style="width:50%;margin: 5px auto">Formula for <%= taxnm %></h4>
+    			  			<div id="operator_buttons" class="panel panel-info" style="width:90%;margin: 0 auto">
+    					  		<div id="<%= 'btns_' + taxnm.downcase %>" class="panel-heading">
+    			    				<button type="button" id="lpar" class="formulaBtn">&lpar;</button><button type="button" id ="rpar" class="formulaBtn">&rpar;</button>
+    								<button type="button" id="times" class="formulaBtn">&#42;</button><button type="button" id="plus" class="formulaBtn">&plus;</button>
+    								<button type="button" id="sol" class="formulaBtn">&sol;</button><button type="button" id="ndash" class="formulaBtn">&minus;</button>
+    								<select id="<%= taxnm.downcase + '_fields' %>" "class="drop-cols" style="margin:auto 10px">
+    								<% @priorityColumns.each do |col, col_val| %>
+    				  					<% if taxnm[0..2].downcase.in? col %>
+    				  				 		<option class="colmn <%= taxnm.downcase + '_' %>"><%= col %></option>
+    									<% end %>
+    				  				<% end %>
+    				  					<option class="colmn <%= taxnm.downcase + '_' %>" selected="selected">confidence</option>
+    				  				<% unless @userColumns.nil? or @userColumns.empty? %>
+    					  				<% @userColumns.each do |k, v| %>
+    					  					<option id="<%= k %>" class="colmn <%= taxnm.downcase + '_' %>"><%= k %></option>
+    				  					<% end %>
+    				  				<% end %>
+    			  					</select>
+    			  					<button type="button" id="add-field-<%= taxnm.downcase %>" class="add-field-button" >Add Field</button>
+    			  				</div>
+    		  				</div>
+    						<br/>
+    						<div id="<%=taxnm.downcase %>_modal_errors" class="mErrors"></div>
+    		  			    <textarea id="<%= taxnm.downcase + '_txt' %>" class="formula_text"><%= equation %></textarea>
+    		  			</div>
+
+    		  		<% else %>
+    		  			<p>Prioritization schemes allow users to prioritize alertConditions using factors they care about.
+    		  			<p>To create a new scheme:
+    		  			    <ul>
+                              <li>Select each taxonomy tab above, and enter a formula to calculate priority for meta-alerts mapped to that taxonomy. Classifier-derived confidence and user-uploaded fields can be used in formulas for all taxonomies.</li>
+                              <li>Weights (1 or higher) must be selected on the left, for each field used in the formula. Numbers and math operators can also be entered via keyboard.</li>
+    		  			      <li>Name the prioritization scheme in the box at the top left.</li>
+                              <li>To save the scheme, select the checkbox 'Save Priority'.</li>
+                              <li>After each taxonomy has a formula, generate a prioritization formula by selecting the button 'Generate the Formula'.</li>
+                              <li>If you are connected to SCAIFE additional options for saving the priority scheme will be present</li>
+                                <ul>
+                                    <li>Global&#58; All projects can access global prioritization schemes</li>
+                                    <li>Remote&#58; Only SCAIFE users in the same organization can access the prioritization scheme</li>
+                                    <li>Project-Only Checkbox&#58; Access is limited to only the project currently in the GUI</li>
+                                </ul>
+                            </ul>
+                          <p>Note&#58; You must click on the 'Generate the Formula' button prior to running or saving a prioritization scheme</p>
+                          <p>To select an existing scheme, select it from the drop-down menu.</p>
+                          <p>Currently, SCAIFE Global Prioritization Schemes cannot be updated or deleted in the SCAIFE DB</p>
+    		  			  <p>To run a scheme, select the button 'Run Priority'. Also, set filter sorting on the main page to 'AlertCondition Priority'.</p>
+    		  			  <p class="mErrors">Warning: SCALe access control is not enforced beyond limiting what is shown in the GUI.</p>
+    		  		<% end %>
+
+    		  	</div>
+    		 <% end %>
+    		</div> <!-- end div tab-content -->
+
+    	</div>
+
+            <div id="user_data">
+            <% unless @userColumns.nil? or @userColumns.empty? %>
+              <h3>Additional Fields</h3>
+              <table class="priority-table">
+                 <% @userColumns.each do |k, v|%>
+                   <tr><td class="labels" id="<%= 'user_' + k.downcase %>"><%= k %></td><td><input id="<%= 'upload_' + k.downcase %>" class="user_columns" min="0" max="10" type="number" value="<%= v %>" /></td></tr>
+                 <% end %>
+              </table>
+            <% end %>
+            </div>
+    	<hr/>
+
+    	<div id="formula-errors" class="mErrors"></div>
+    	<div style="width:30%;margin:auto;align:center">
+    	   <button id="genFormula" type="button" style="display:inline-block">Generate The Formula </button>
+    	</div>
+    	<hr/>
+
+    	<h4>Prioritization Formula:</h4>
+    	<textarea id="formula" disabled></textarea>
+    </div> <!-- end div priority-fields -->
+
+    <hr/>
+    <div id="save-priority">
+    <h4>Save the Prioritization Scheme</h4>
+    <p></p>
+    <span><input type="radio" name="save-type" value="local" <% if @edit_scheme %>disabled<% end %> <% if @is_local %>checked="checked"<% end %>/>
+    <label>Local-</label><em>Save to SCALe Local DB only</em></span><br/>
+
+    <% if @scaife_mode == "Connected" %>
+    <span><input type="radio" name="save-type" value="global" <% if @edit_scheme %>disabled<% end %> <% if @is_global and not @is_local %>checked="checked"<% end %>/>
+    <label>Global-</label><em>Save to SCAIFE, accessible for all users</em></span></br>
+
+    <span><input type="radio" name="save-type" value="remote" <% if @edit_scheme %>disabled<% end %> <% if not @is_global and not @is_local %>checked="checked"<% end %>/>
+    <label>Remote-</label><em>Save to SCAIFE, accesible for projects in your organization</em></span><br/>
+
+    <span id="project-only" <% unless (not @is_global and not @is_local) %>style="display: none;"<% end %>>
+    <input type="checkbox" id="remote-project-checkbox" <% if @edit_scheme %>disabled<% end %> <% if @is_project_only %>checked <% end %>/>Limit access to this Project ONLY</span><br/>
+    <% end %>
+
+    <button type="button" id="saveScheme" class="btn btn-info" <% if @edit_scheme and @is_global %>disabled<% end %>>Save Priority</button>
+    <%= hidden_field_tag 'scheme_id', @scheme_id %>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.reload();" >Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submit-priority-modal" >Run Priority</button>
+    </div>
+
+    <div id="save-priority-success" class="mSuccess priority-message"></div>
+    <div id="save-priority-error" class="mErrors priority-message"></div>
+</div> <!-- end div priority-contents -->

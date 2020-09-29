@@ -1,0 +1,116 @@
+	/jas_getopt.c	129	warning: implicit declaration of function 'jas_eprintf'
+	/bmp_dec.c	110	warning: implicit declaration of function 'jas_eprintf'
+	/jp2_cod.c	493	warning: comparison is always false due to limited range of data type
+	/jpc_enc.c	1729	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	1962	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2026	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2094	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2116	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2121	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2143	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2204	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2204	warning: signed and unsigned type in conditional expression
+	/jpc_enc.c	2205	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2205	warning: signed and unsigned type in conditional expression
+	/jpc_enc.c	2219	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2225	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2245	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2296	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2305	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2328	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2388	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2388	warning: signed and unsigned type in conditional expression
+	/jpc_enc.c	2389	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2389	warning: signed and unsigned type in conditional expression
+	/jpc_enc.c	2390	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2390	warning: signed and unsigned type in conditional expression
+	/jpc_enc.c	2392	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2392	warning: signed and unsigned type in conditional expression
+	/jpc_enc.c	2428	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2437	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2470	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2490	warning: unused parameter 'cp'
+	/jpc_enc.c	2553	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2573	warning: unused parameter 'pass'
+	/jpc_enc.c	2594	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2597	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2600	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2606	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	2612	warning: comparison between signed and unsigned integer expressions
+	/jpc_enc.c	883	warning: 'jpc_calcssexp' defined but not used
+	/jpc_enc.c	867	warning: 'jpc_calcssmant' defined but not used
+	/jpc_t1dec.c	243	warning: implicit declaration of function 'jas_eprintf'
+	/jpc_t1enc.c	141	warning: comparison between signed and unsigned integer expressions
+	/jpc_t1enc.c	193	warning: unused parameter 'enc'
+	/jpc_t1enc.c	193	warning: unused parameter 'out'
+	/jpc_t1enc.c	472	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	472	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	472	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	472	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	479	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	479	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	479	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	479	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	486	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	486	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	486	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	486	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	493	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	493	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	493	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	493	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	674	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	674	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	681	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	681	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	688	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	688	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	695	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	695	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	630	warning: unused parameter 'vcausalflag'
+	/jpc_t1enc.c	723	warning: unused parameter 'vcausalflag'
+	/jpc_t1enc.c	888	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	888	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	892	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	892	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	894	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	894	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	895	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	895	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	920	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	920	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	920	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	920	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	927	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	927	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	927	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	927	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	934	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	934	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	934	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	934	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	941	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	941	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	941	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	941	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	948	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	948	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	949	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	949	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	950	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	950	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	951	warning: signed and unsigned type in conditional expression
+	/jpc_t1enc.c	951	warning: signed and unsigned type in conditional expression
+	/jpc_tsfb.c	124	warning: implicit declaration of function 'jpc_tsfb_analyze2'
+	/jpc_tsfb.c	151	warning: implicit declaration of function 'jpc_tsfb_synthesize2'
+	/jpg_dummy.c	91	warning: implicit declaration of function 'jas_eprintf'
+	/jpg_dummy.c	89	warning: unused parameter 'in'
+	/jpg_dummy.c	89	warning: unused parameter 'optstr'
+	/jpg_dummy.c	103	warning: unused parameter 'image'
+	/jpg_dummy.c	103	warning: unused parameter 'out'
+	/jpg_dummy.c	103	warning: unused parameter 'optstr'
+	/mif_cod.c	282	warning: implicit declaration of function 'jas_eprintf'
+	/pnm_dec.c	121	warning: implicit declaration of function 'jas_eprintf'
+	/home/rose/projects/rose/scale/archive/public/jasper/jasper-1.900.1/src/libjasper/base/jas_stream.c	368	warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+	/home/rose/projects/rose/scale/archive/public/jasper/jasper-1.900.1/src/libjasper/base/jas_stream.c	368	warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+	/home/rose/projects/rose/scale/archive/public/jasper/jasper-1.900.1/src/libjasper/base/jas_stream.c	368	warning: the use of `tmpnam' is dangerous, better use `mkstemp'

@@ -1,0 +1,1 @@
+../dist/jquery.splitter/js/jquery.splitter.js

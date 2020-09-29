@@ -1,0 +1,31 @@
+{
+  "name": "systems/SCALe_1804_VM",
+  "description": "Xubuntu 18.04 for use with SCALe testing",
+  "short_description": "Xubuntu 18.04",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "status": "active",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://vagrant.cc.cert.org/vagrant/boxes/scale_1804/0.1.0/SCALe_18_04.box",
+          "checksum_type": "sha1",
+          "checksum": "9c8dfd0276dabb6d75311ee35ae779765aae142a"
+        }
+      ]
+    },
+    {
+      "version": "0.1.1",
+      "status": "active",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://vagrant.cc.cert.org/vagrant/boxes/scale_1804/0.1.1/SCALe_18_04.box",
+          "checksum_type": "sha1",
+          "checksum": "977de85db583deaa558603ecf06a77008b55436e"
+        }
+      ]
+    }
+  ]
+}

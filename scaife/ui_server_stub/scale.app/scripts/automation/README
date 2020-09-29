@@ -1,0 +1,82 @@
+<legal>
+SCALe version r.6.2.2.2.A
+
+Copyright 2020 Carnegie Mellon University.
+
+NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
+UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
+IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
+FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
+OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
+TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+Released under a MIT (SEI)-style license, please see COPYRIGHT file or
+contact permission@sei.cmu.edu for full terms.
+
+[DISTRIBUTION STATEMENT A] This material has been approved for public
+release and unlimited distribution.  Please see Copyright notice for
+non-US Government use and distribution.
+
+DM19-1274
+</legal>
+
+Notes on developing automation scripts:
+
+The procedure looks roughly like this:
+
+1) In config/application.rb set config.x.session_capture_enabled = true
+
+2) Then use the SCALe rails app through a browser, step by step
+   examining the query parameters that get passed -- these will be in
+   the file scale.app/tmp/session_capture.json by default. Note that the
+   contents of the session cookie are also logged -- whether using curl
+   or any other method, maintaining a session cookie is required in
+   order to automate tasks on rails.
+
+3) Note the mode/command -- PUT, POST, etc -- a rails route will come up
+   as undefined if this isn't the right mode. The automate module has
+   corresponding wrappers around the curl command -- post(), get(), etc.
+
+4) Note that parameters can be passed both as POST data as well as
+   query-string (GET-style) data.
+
+5) The main block to look for in the session log is the 'params_raw'
+   section. This is what is passed over the wire. The
+   'params_cooked_by_rails' block is what it looks like by the time it
+   reaches a controller action in the rails app. (note that query-string
+   parameters and information encoded in the URL path (such as
+   project_id) will have been folded into this block by now).
+
+6) Figure out which ones are essential to pass vs superflous. Decide
+   on whether or not you want 100% fidelity or "good enough to get
+   it to work".
+
+   "Good enough to get it to work" essentially means that the
+   application state is identical if you perform the set of operations
+   via the browser manually vs in an automated fashion through this
+   framework.
+
+   As for surperflous parameters: The rails app HTML form fields when
+   using a browser can end up submitting a lot of parameters with values
+   such as a blank string. These ultimately get discarded by the
+   controllers, etc, or have no impact on the execution path of the app
+   (in the javascript or ruby). So, for automation, you can either
+   choose to submit these parameters just for completeness, since the
+   browser does so currently, or you can ignore them since they have no
+   effect anyway. If you're actually concerned that the absence of these
+   empty parameters will break the app, then they should be included. It
+   really depends on what the back-end logic is reasonably expecting.
+   Fuzz-testing to see if you can break the app is an entirely different
+   endeavor than mere automation.
+
+7) The automate module has very convenient tools for converting query
+   parameter data structures into the right format for curl -- either by
+   posting JSON directly or by converting them into form field
+   parameters (for curl, this means using the '-F' option as opposed to
+   '-d' with a JSON string). In particular, if a file upload is
+   happening, multipart form fields are the only way to make it happen.
+
+7) Repeat the above steps for each HTTP interaction in the task sequence
+   you're trying to automate.

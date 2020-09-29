@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+
+  datahub:
+    image: ${TAG_NAME}
+
+  priority:
+    image: ${TAG_NAME}
+
+  stats:
+    image: ${TAG_NAME}
+
+  registration:
+    image: ${TAG_NAME}

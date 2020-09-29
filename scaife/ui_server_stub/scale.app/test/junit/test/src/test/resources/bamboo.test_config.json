@@ -1,0 +1,51 @@
+{
+  "inputDirectory": "/scale/test/junit/test/scale_input",
+  "browser": "Firefox",
+  "headless": true,
+  "trace_log": false,
+  "implicitTimeout": 20,
+  "geckoDriver": "/usr/local/bin/geckodriver",
+  "servers": {
+    "remote": {
+      "protocol": "http",
+      "host": "localhost",
+      "port": 8083,
+      "user": "scale",
+      "password": "Change_me!",
+      "scaife_user": "test_user",
+      "scaife_password": "test_passwd",
+      "root": "",
+        "proxy": {
+          "type": "DIRECT"
+          }
+      },
+
+    "local": {
+      "protocol": "http",
+      "host": "localhost",
+      "port": 8081,
+      "user": "scale",
+      "password": "Change_me!",
+      "scaife_user": "test_user",
+      "scaife_password": "test_passwd",
+      "root": "/scale",
+        "proxy": {
+          "type": "DIRECT"
+          }
+      },
+
+    "local_ssl": {
+      "protocol": "https",
+      "host": "localhost",
+      "port": 8082,
+      "user": "scale",
+      "password": "Change_me!",
+      "scaife_user": "test_user",
+      "scaife_password": "test_passwd",
+      "root": "/scale",
+        "proxy": {
+          "type": "DIRECT"
+          }
+        }
+      }
+}

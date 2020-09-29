@@ -1,0 +1,115 @@
+version: '3.5'
+
+services:
+  scale:
+    image: scaife_research_lsi/scaife.scale:scaife
+    container_name: scale
+    build: ./ui_server_stub/scale.app
+    # user: scale
+    ports:
+      - "8083:8083"
+    environment:
+      - MODE
+
+
+  datahub:
+    image: scaife_research_lsi/scaife.datahub:scaife
+    container_name: datahub
+    build: ./datahub_server_stub
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mongodb_datahub
+      - redis_datahub
+      - pulsar
+    environment:
+      - MODE
+
+  mongodb_datahub:
+    image: mongo
+    container_name: mongodb_datahub
+    command: --port 28084
+    restart: always
+    ports:
+      - "28084:28084"
+
+  redis_datahub:
+    image: redis
+    container_name: redis_datahub
+    command: --port 28184
+    restart: always
+    ports:
+      - "28184:28184"
+
+
+  priority:
+    image: scaife_research_lsi/scaife.priority:scaife
+    container_name: priority
+    build: ./priority_server_stub
+    ports:
+      - "8085:8085"
+    depends_on:
+      - mongodb_priority
+    environment:
+      - MODE
+
+  mongodb_priority:
+    image: mongo
+    container_name: mongodb_priority
+    command: --port 28085
+    restart: always
+    ports:
+      - "28085:28085"
+
+
+  stats:
+    image: scaife_research_lsi/scaife.stats:scaife
+    container_name: stats
+    build: ./stats_server_stub
+    ports:
+      - "8086:8086"
+    depends_on:
+      - mongodb_stats
+      - pulsar
+    environment:
+      - MODE
+
+  mongodb_stats:
+    image: mongo
+    container_name: mongodb_stats
+    command: --port 28086
+    restart: always
+    ports:
+      - "28086:28086"
+
+
+  registration:
+    image: scaife_research_lsi/scaife.registration:scaife
+    container_name: registration
+    build: ./registration_server_stub
+    ports:
+      - "8087:8087"
+    depends_on:
+      - mongodb_registration
+    environment:
+      - MODE
+
+  mongodb_registration:
+    image: mongo
+    container_name: mongodb_registration
+    command: --port 28087
+    restart: always
+    ports:
+      - "28087:28087"
+
+
+  pulsar:
+    image: apachepulsar/pulsar:2.5.0
+    container_name: pulsar
+    command:  bin/pulsar standalone
+    restart: always
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    logging:
+      driver: "none"

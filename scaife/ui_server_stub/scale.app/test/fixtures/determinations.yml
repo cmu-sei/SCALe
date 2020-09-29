@@ -1,0 +1,63 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  project_id: 1
+  meta_alert_id: 1
+  time: 2018-02-20 15:57:54
+  verdict: 1
+  notes: MyString
+  ignored: false
+  dead: false
+  inapplicable_environment: false
+  dangerous_construct: MyString
+
+two:
+  project_id: 1
+  meta_alert_id: 1
+  time: 2018-02-20 15:57:54
+  verdict: 1
+  notes: MyString
+  ignored: false
+  dead: false
+  inapplicable_environment: false
+  dangerous_construct: MyString
+
+<% 8.times do |n| %>
+det_<%= n %>:
+  project_id: 10
+  meta_alert_id: <%= n %>
+  time: 2018-02-21 15:57:54
+  verdict: 0
+  flag: false
+  notes: MyString
+  ignored: false
+  dead: false
+  inapplicable_environment: false
+  dangerous_construct: 1
+<% end %>
+
+det_8:
+  project_id: 10
+  meta_alert_id: 7
+  time: 2018-02-22 15:57:54
+  verdict: 1
+  flag: true
+  notes: MyString
+  ignored: false
+  dead: false
+  inapplicable_environment: false
+  dangerous_construct: MyString
+
+<% 8.times do |n| %>
+det_<%= n + 9 %>:
+  project_id: 10
+  meta_alert_id: <%= n %>
+  time: 2018-02-21 15:57:53
+  verdict: 0
+  flag: true
+  notes: old
+  ignored: true
+  dead: true
+  inapplicable_environment: true
+  dangerous_construct: 2
+<% end %>

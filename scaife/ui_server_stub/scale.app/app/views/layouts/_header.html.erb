@@ -1,0 +1,126 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img alt="Brand" src="/doc/lightbulb_on.png">
+      </a>
+      <a id="logo" class="navbar-brand" href="/">SCALe Analysis Tool</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="http://www.cert.org/secure-coding/scale/">SCALe at CERT</a></li>
+      <% unless @scaife_mode == "SCALe-only" %>
+        <% unless @inAlertConditions.nil? %>
+          <li id="classifier-dropdown" class="dropdown">
+            <%= link_to 'Classifiers <b class="caret"></b>'.html_safe, "#", class: "dropdown-toggle", 'data-toggle'=>"dropdown" %>
+            <ul class="dropdown-menu">
+              <% if @existingClassifiers.present? %>
+                <% @existingClassifiers.each do |cl, ec| %>
+                  <li><%= link_to cl, "#", id: ec, class: "classifiers existing-classifier", 'remote'=> true, 'data-toggle'=>"modal", 'data-target'=>'#modal-placement' %></li>
+                <% end %>
+              <% end %>
+              <% if @classifierScaifeError.present? %>
+                <li style="min-width:325px;color:red;text-align:center;"><%= @classifierScaifeError %></li>
+              <% elsif @classifierList.nil? or @classifierList.empty? %>
+                <li style="min-width:325px;color:red;text-align:center;">Failed to Access Classifier Schemes in SCAIFE</li>
+              <% else %>
+                <li id="new-classifier-link" class="dropdown-submenu"><a class="menu-link" href="#">Create New Classifier <b class="caret caret-right"></b></a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                    <% @classifierList.each do |c| %>
+                      <li><%= link_to c, "#", class: "classifiers", 'data-toggle'=>"modal", 'data-target'=>'#modal-placement'  %></li>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+
+
+            <li id="priorityscheme-dropdown" class="dropdown">
+              <%= link_to 'Prioritization Schemes <b class="caret"></b>'.html_safe, "#", class: "dropdown-toggle", 'data-toggle'=>"dropdown" %>
+              <ul class="dropdown-menu">
+              <% unless @priorityList.nil? or @priorityList.empty? %>
+                <% @priorityList.each do |id, p| %>
+                  <li><%= link_to p, "/priorities/" + id.to_s + "/projects/#{@project_id}/show/", class: "priorities", 'data-toggle'=>"modal", 'remote'=> true, 'data-target'=>'#priority-scheme-modal' %></li>
+                <% end %>
+              <% end %>
+              </ul>
+            </li>
+
+            <li>
+              <%= link_to 'Upload New Fields', "#", 'data-toggle'=>"modal", 'data-target'=>'#user-uploads' %>
+            </li>
+
+        <% end %>
+      <% end %>
+
+      <li><%= link_to "Definitions", "/doc/scale2/Terms-and-Definitions.html" %></li>
+      <li><%= link_to "Help", "/doc/scale2/index.html" %></li>
+      <li><%= link_to "Copyright", "/doc/scale2/SCALe-copyright.html" %></li>
+
+      <% if session[:scaife_mode] == "Connected" %>
+        <li><%= button_to "Disconnect from SCAIFE", "/scaife-registration/logout", {id: "disconnect_from_scaife", :scaife_mode => "Demo", method: :post, :remote => true, class: 'btn btn-primary nav-button'} %></li>
+      <% else %>
+        <li>
+          <%= button_to 'Connect to SCAIFE', '/scaife-registration/login',  {id: "connect_to_scaife", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#scaife-login-modal', method: :get, class: 'btn btn-primary nav-button'}  %>
+          <div id="scaife-login-modal" class="modal fade" role="dialog" aria-labelledby="scaifeLoginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content"></div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<!-- Modal for classifier  -->
+<div class="modal" id="modal-placement" role="dialog" aria-labelledby="classifierSchemesLabel" aria-hidden="true">
+   <div class="modal-content modal-lg">
+	  <form id="modalForm" method="post" enctype="multipart/form-data">
+          <button type="button" id="classifier-class-modal" class="close close-button" data-dismiss="modal">&times;</button>
+
+          <div id="modal-body">
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
+              <button type="submit" class="btn btn-primary" id="submit-modal" ></button>
+          </div>
+      </form>
+   </div>
+</div>
+
+<!-- Modal for prioritization -->
+<div class="modal" id="priority-scheme-modal" role="dialog" aria-labelledby="prioritySchemesLabel" aria-hidden="true">
+   <div class="modal-content modal-lg" >
+   	  <div class="modal-dialog" role="document">
+  		<div class="modal-content"></div>
+      </div>
+   </div>
+</div>
+
+
+<!-- User Field Uploads Modal -->
+<div class="modal" id="user-uploads">
+   <div class="modal-content modal-lg">
+      <form id="user-upload-form" method="post" enctype="multipart/form-data" >
+         <button type="button" id="prior-class-modal" class="close close-button" data-dismiss="modal">&times;</button>
+         <div class="panel panel-info">
+         <div class="panel-heading">
+             <h2 id="upload-header">Upload Additional Fields</h2>
+         </div>
+         </div>
+
+      <div id="modal-body">
+        <p>Upload a CSV file to input new columns:</p>
+        <%= file_field_tag 'column_upload', accept: 'text/csv' %>
+        <span id="upload-error" class="mErrors"></span>
+      </div>
+
+       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </div>
+      </form>
+   </div>
+</div>

@@ -1,0 +1,577 @@
+// This file contains the javascript that is run upon loading a project's alerts.
+
+// It sets on click events and inserts content into the two splitted areas
+// This file is organized very poorly; the comments
+// serve to describe what each snippet does, which occurs on alertConditions/page load.
+
+// When the page is loaded, we hide the loader gif
+$("#loader").hide();
+
+var view = '<%= session[:view] %>';
+
+function formatFusedAlertConditions(){
+   $(".meta_alert").each(function(){
+      $meta_alert = $(this);
+      $new_row = $meta_alert.clone();
+
+      //display display_id id rather than meta_alert_id on this row
+      var display_id = $meta_alert.attr('id');
+      //var meta_alert_id = getMetaAlertID($(this))
+      $new_row.find('div.meta_alert_id').find("p").text(display_id + " (d)");
+
+      //update class attribute
+      $new_row.addClass('sub_alert');
+      $new_row.addClass('alert-success') //add new color
+      $new_row.removeClass('meta_alert');
+      $new_row.removeClass('alert-warning') //remove old color
+      $new_row.insertAfter($(this));
+
+      $meta_alert.find("td").each(function(){
+         //hide message, checker, and tool
+         if($(this).hasClass("message_cell") || $(this).hasClass("checker_cell") || $(this).hasClass("tool_cell")){
+            $(this).children().children().hide();
+         }
+     });
+   });
+
+   $(".sub_alert").each(function(){
+      $sub_alert = $(this);
+      $sub_alert.find("td").each(function(){
+         //only show message, checker, and tool
+         if(!$(this).hasClass("id_cell") && !$(this).hasClass("message_cell") && !$(this).hasClass("checker_cell") && !$(this).hasClass("tool_cell")){
+            $(this).children().children().hide();
+         }
+      });
+      
+//      if (toggle_sub_alerts){
+          //initially hide all fused alertConditions
+          $(this).toggle();
+//      }
+   });
+} // end formatFusedAlertConditions
+
+
+function getMetaAlertID(element){
+     var meta_alert_id = "-1"
+     var classes = element.closest("tr").attr('class').split(/\s+/);
+     for (var i=0; i < classes.length; i++) {
+          var c = classes[i]
+          if(!isNaN(c)){
+               meta_alert_id = c
+          }
+     }
+     return meta_alert_id
+} // end getMetaAlertID
+
+
+function setEventListeners(){
+    /* Set the change event listener; in other words, when the selectAll box
+     * is checked, then set the checkbox status of all other checkboxes
+     * to the same checked status. 
+     */
+    $("#selectAllCheckboxes").change(function() {
+        $("input.selectAlertCondition").prop("checked", this.checked);
+    });
+
+    if (view === 'fused'){
+        /*Expand sub_alerts with the same meta_alert_id as the meta_alert that was clicked*/
+        $(".expandable_cell").click(function(){
+            var meta_alert_id = getMetaAlertID($(this))
+            //var meta_alert_id = $(this).closest("tr").attr('class');
+            $( ".sub_alert" ).each(function() {
+                //var sub_alert_id = $(this).find('div.meta_alert_id').find("p").text();
+                var shared_meta_alert = $(this).hasClass(meta_alert_id);
+                if(shared_meta_alert) {
+                    $(this).toggle(); //display row
+                }
+           });
+        }); 
+    }
+
+    /*Retrieves all table rows with the same meta_alert_id*/
+    function getMatchingRows(meta_alert_id, table_row){
+        var matching_rows = [];
+        
+        table_row.each(function() {
+            $this = $(this);
+            $current_id = getMetaAlertID($(this));
+    
+            if($current_id === meta_alert_id){
+                matching_rows.push($this);
+            }
+    
+        });
+        return matching_rows;
+    }
+
+    /*Hides all table rows that don't share the same meta_alert_id*/
+    function showDifference(table_rows, meta_alert_id){
+         table_rows.each(function() {
+              $this = $(this);
+              //$current_id = $this.find('div.meta_alert_id').find("p").text();
+              $current_id = $this.attr('class');
+              if($current_id !== meta_alert_id){
+                   $this.hide();
+              }
+         });
+    }
+
+    
+    /*Verifies that the change doesn't cause a conflict (e.g. rows with the same meta_alert_id, but different verdicts)*/
+    function validateChange(table_rows, meta_alert_id, $current_row){
+    
+         var new_verdict = $current_row.find('div.verdict').find("span").text();
+         var new_flag = $current_row.find('div.flag').find("span").text();
+         var new_supplemental = $current_row.find('div.supplemental').find("span").text();
+         var new_note = $current_row.find('div.notes').find("span").text();
+         var matching_rows = getMatchingRows(meta_alert_id, table_rows);
+    
+         for (var i=0; i < matching_rows.length; i++) {
+              var this_verdict = matching_rows[i].find('div.verdict').find("span").text();
+              var this_flag = matching_rows[i].find('div.flag').find("span").text();
+              var this_supplemental = matching_rows[i].find('div.supplemental').find("span").text();
+              var this_note = matching_rows[i].find('div.notes').find("span").text();
+    
+          if(new_verdict !== this_verdict){
+                   return [matching_rows.length, "verdict"];
+              }
+             else if(new_flag !== this_flag){
+                   return [matching_rows.length, "flag"];
+              }
+             else if(new_supplemental !== this_supplemental){
+                   return [matching_rows.length, "supplemental"];
+              }
+    
+             else if(new_note !== this_note){
+                   return [matching_rows.length, "notes"];
+              }
+         }
+         return [matching_rows.length, "none"];
+    }
+
+    /*Ensures changes to table rows that will be fused don't conflict*/
+    function handleUpdate(target){
+        $current_row = null;
+        var new_input = null; 
+        var fast_rows = $('#alertConditionsTableBody > tr');
+    
+        $('#fused_conflict_error').hide();
+        fast_rows.show();
+    
+        var row_id = $("#editing_id_container").data("editing-id");
+        $current_row = $("#" + row_id);
+        //meta_alert_id = $current_row.find('div.meta_alert_id').find("p").text();
+        var meta_alert_id = $current_row.attr('class');
+        
+        var result = validateChange(fast_rows, meta_alert_id, $current_row);
+        if(result[1] !== "none"){
+            var column_name = result[1];
+            if(column_name === "supplemental"){
+                 column_name += " tag";
+            }
+            $('#fused_conflict_error').text("Alerts that share an ID (same line number, same condition) must have the same " + column_name + ".");
+            $('#fused_conflict_error').show();
+            showDifference(fast_rows, meta_alert_id);
+        }
+    }
+    
+
+    /*Set up event listeners for detecting changes made to editable fields*/
+    function updateDeterminations(changedElement){
+      var row = changedElement.closest("tr");
+      var row_id = row.attr('id');
+      var field = changedElement.attr('id').split('_').pop();
+      var meta_alert_id = getMetaAlertID(changedElement);
+      var previous_cell = row.find('td.previous').find('div');
+
+      var field_value = -1;
+         
+      switch(field){
+        case 'flag': 
+          //var orig_field_value = changedElement[0].getAttribute("data-bip-value");
+          //var field_value = orig_field_value === 'false' ? true : false; // bip-value returning previous value
+          field_value = changedElement.data("bipValue");
+          break; 
+        case 'verdict' :
+          var orig_field_value = changedElement.text().replace(/\[|\]/g, '');
+          switch(orig_field_value){
+            case 'Unknown':
+              field_value = 0;
+              break;
+            case 'Complex':
+              field_value = 1;
+              break;
+            case 'False':
+              field_value = 2;
+              break;
+            case 'Dependent':
+              field_value = 3;
+              break;
+            case 'True': 
+              field_value = 4;
+              break;
+            default:
+              field_value = -1;
+          } 
+          break;
+        case 'notes':
+          field_value = changedElement.data("bipValue").length > 0 ? changedElement.data("bipValue") : "0";
+          break;
+      }
+
+      if (field_value != -1){
+          $.ajax({
+            type: 'POST',
+            url: '/alertConditions/update-alerts', 
+            data: { row_id: row_id, meta_alert_id: meta_alert_id, elem: field, value: field_value },
+            success: function(data){
+                location.reload();
+                handleUpdate($(this));
+            }
+        });
+      }
+    }
+
+    /*
+      Just some documentation on best-in-place events for the
+      future. Different widgets respond differently when updated
+      (or not updated):
+
+      checkbox:
+        * when activated:
+          * triggers "click" (twice for some reason)
+          * triggers "ajax:success"
+        * there is no no-op, it always toggles when activated
+        * best trigger to use: "ajax:success"
+
+      select:
+        * when activated (the select dropdown appears)
+          * triggers "click" (twice)
+        * when a different selection is made in the dropdown:
+          * triggers "ajax:success"
+          * triggers "change"
+        * when the same selection is made in the dropdown (the dialog
+          drops, but the same value is clicked)
+          * triggers "click" (once)
+        * when deactivated (the select dropdown disappears but no change
+          has been made)
+          * triggers "ajax:success"
+        * best trigger to use: "change"
+
+      textarea (notes):
+        * when activated (the [notes] text is clicked and textarea appears)
+          * triggers "click" (once)
+        * when deactivated with no change (textarea disappears)
+          * triggers nothing
+        * when updated (deactivated with change)
+          * triggers "change"
+          * triggers "ajax:success"
+        * selenium existing_note.click()
+          * triggers "click" (once)
+        * selenium notes_field.sendKeys("test note")
+          * triggers nothing
+        * selenium existing_note.submit()
+          * triggers "ajax:success"
+        * best trigger to use: "ajax:success"
+
+      supplemental (modal):
+        * note that the modal doesn't trigger the index.js.erb event handlers
+        * uses its own best-in-place handlers, only needs "ajax:success"
+        * only triggers updates when dismissed with changes having been made
+    */
+
+    $(".best_in_place").on("ajax:success", function(e) {
+      var attr = e.target.dataset.bipAttribute;
+      var typ = $(this).data("bip-type");
+      //console.log("bip success: (" + typ + ") " + attr);
+      if (typ == "checkbox" || typ == "textarea") {
+        updateDeterminations($(this));
+      }
+    });
+
+    $(".best_in_place").on("change", function(e) {
+      var attr = e.target.dataset.bipAttribute;
+      var typ = $(this).data("bip-type");
+      //console.log("bip change: (" + typ + ") " + attr);
+      if (typ == "select") {
+        updateDeterminations($(this));
+      }
+    });
+
+    /* not currently needed (of the three bip event update types)
+    $(".best_in_place").on("click", function(e) {
+      var attr = e.target.dataset.bipAttribute;
+      var typ = $(this).data("bip-type");
+      //console.log("bip click: (" + typ + ") " + attr);
+      if ($(this).data("bip-type") === "checkbox"){
+        //updateDeterminations($(this));
+      }
+    });
+    */
+
+} // end setEventListeners        
+
+
+function renderAlertConditionsTable(table){
+     // Insert the HTML for the table of alertConditions 
+     $("#tableContainer").html("<%= escape_javascript(render(:partial => 'alert_conditions/alertConditionsTable')) %>");
+
+     if(table === "fast"){
+           // Insert the HTML for the pagination links
+          $(".pageContainer").html("<%= escape_javascript(render('alert_conditions/alertConditionsPerPage', view: 'unfused')) %>");
+          $("#alertConditionsTableBody").html("<%= escape_javascript(render(:partial => 'alert_conditions/fastalertconditions')) %>");
+          setEventListeners();
+     }
+     else{
+          // Insert the HTML for the pagination links
+          $(".pageContainer").html("<%= escape_javascript(render('alert_conditions/alertConditionsPerPage', view: 'fused')) %>");
+          $("#alertConditionsTableBody").html("<%= escape_javascript(render(:partial => 'alert_conditions/fusedalertconditions')) %>");
+          formatFusedAlertConditions();
+          setEventListeners();
+     }
+}
+
+// Render the alert conditions table and set fused button colors
+if(view == "unfused"){
+    renderAlertConditionsTable("fast");
+    $("#fused_off_button").css("background-color", "#DDDDDD"); //#337ab7 color of btn-primary active
+    $("#fused_off_button").css("border", "2px solid #112e51");
+    $("#fused_on_button").css("border", "2px solid #578CB8"); //
+    $("#fused_on_button").css("background-color", "#578CB8"); //color of btn-primary (#286090 is the original color)
+}
+else{
+    renderAlertConditionsTable("fused");
+    $("#fused_on_button").css("background-color", "#DDDDDD"); //#337ab7 color of btn-primary active
+    $("#fused_on_button").css("border", "2px solid #112e51");
+    $("#fused_off_button").css("border", "2px solid #578CB8");
+    $("#fused_off_button").css("background-color", "#578CB8"); //color of btn-primary
+}
+
+
+// Set the click event listener for the Go button and the pagination links
+// to show the loading gif, since these actions usually take some time.
+$("input[value='Go'], div.pagination a").click(function() {
+  $("#loader").show();
+});
+
+// Set the click event listener for the filter button to
+// show the loading gif. Also do some HTML5 client-side validation
+// of the form inputs, and hide the loader if it fails.
+$("input[value='Filter']").click(function(){
+  $("#loader").show();
+
+  if(!$("form[action='/alert_conditions']")[0].checkValidity()){
+    $("#loader").hide();
+  }
+});
+
+// If the Filter button or the Go button to set pagination are clicked,
+// then we should start at page 1 and so set the hidden input to page 1.
+// NOTE: verdict changes from the modal will submit the form element
+// directly rather than responding to a click event, thereby not
+// resetting the current page selection. See massUpdate.js.erb
+$("input[value='Filter'], input[value='Go']").click(function(){
+  $("#page").val(1);
+});
+
+
+// Set the click event listener on the table cells to expand the box
+// to show all the text upon click. We do this by toggling a
+// the status of the show class. If cell is not clicked, it is limited
+// to a specific height specified in the CSS.
+$(function() {
+  $('.alert_conditions_tables td').click(function() {
+    if ($(this).attr("class") !== "flag" && $(this).attr("class") !== "verdict" && $(this).attr("class") !== "selectAlertCondition") {
+      return $(this).parent().find("div").toggleClass("show");
+    }
+  });
+});
+
+// This sets the click event listener for clicking on a pagination link.
+// Instead of actually sending the user to a page, we suppress the
+// default link action and instead perform an AJAX request to load
+// the new pagination asynchronously. Note that we specify the response
+// type as script, so this exact file will be rerun on response.
+$("div.pagination a").bind('click', function(e){
+  e.preventDefault();
+  $.ajax({
+    type: 'GET',
+    url: this.href,
+    dataType: 'script'
+  });
+});
+
+// Set the value of the hidden page input to the current page.
+$("#page").val(<%= @temp.current_page %>);
+
+$('#massUpdateForm').submit(function() {
+  $("#modal-window").modal('hide');
+  $('body').removeClass('modal-open');
+  $('.modal-backdrop').remove();
+
+  if(validateMassUpdate()) {
+    return true;
+  }
+
+  return false;
+});
+
+// This function will validate the checkboxes for mass-updating
+// alertConditions.
+validateMassUpdate = function(e) {
+  var flag = $("#flag").val();
+  var verdict = $("#mass_update_verdict").val();
+  var ignored = $("#ignored").val();
+  var dead = $("#dead").val();
+  var ienv = $("#inapplicable_environment").val();
+  var dc = $("#mass_update_dc").val();
+
+  if(flag == -1 && verdict == -1 && ignored == -1 && dead == -1
+    && ienv == -1 && dc == -1) {
+    alert("Select a verdict and/or flag setting for the update operation.")
+    return false;
+  } else if ($("input.selectAlertCondition:checkbox:checked").length == 0 &&
+    !$("#select_all_checkbox").is(":checked")
+  ) {
+   alert("No alertConditions on this page are selected.")
+   return false;
+  }
+  return true;
+}
+
+// This function will wait until the page is completely loaded to eventually
+// scroll the bottom window down so that the highlighted line isn't stuck
+// to the top of the bottom half.
+// For some browser timing issue on the load events of an iframe, we need
+// to keep querying until the contents of the iframe finally exist before
+// scrolling the iframe to the desired location.
+// This is just a function definition; it is called after inserting
+// the highlighter into the page.
+eventuallyScroll = function f() {
+  if($("#src_frame").contents().scrollTop() === 0) {
+    setTimeout(f,10);
+  }
+  else {
+    $("#src_frame").contents().scrollTop($("#src_frame").contents().scrollTop()-60)
+  }
+}
+
+// This function will find the location of the line correpsonding to the
+// number clicked, and highlight the line with a yellow line. This
+// function is set to run on load of the source frame.
+// This funciton is called when a GNU global link is clicked.
+targetFrame = function(e){
+  // First, prevent default load events
+  e.preventDefault();
+  var link = this.href;
+  // Also remove any previous load events set (i.e. previous
+  // calls to this function)
+  $("#src_frame").unbind("load");
+
+  // Finally, set the load function as follows:
+  $("#src_frame").load(function() {
+    // Remove any previous highlighters
+    $("#src_frame").contents().find(".yellow-highlighter").remove();
+
+    // Search for the desired line within the iframe and get its position
+    var line = $("#src_frame").contents().find("#"+link.split("#")[1]);
+    var position = line.position();
+
+    // Also get the font size and height
+    var fontSize = $(line).css('font-size');
+    var lineHeight = Math.floor(parseInt(fontSize.replace('px','')) * 1.5);
+    if (lineHeight === undefined || lineHeight === 0) {
+      lineHeight = ($(line).css('line-height'));
+    }
+
+    // Add the highlighter and put it at the right position
+    line.append($("<div />").addClass('yellow-highlighter').css({
+      'left': position.left,
+      'right': position.right,
+      'top': position.top-line.css('line-height'),
+      'bottom': position.bottom,
+      'height': lineHeight,
+      'background-color': 'yellow',
+      'position': 'absolute',
+      'z-index': -1,
+      'width': '99%'
+    }));
+
+    // Finally, call the scroll function to eventually scroll to the
+    // proper location
+    eventuallyScroll();
+  });
+
+  // Finally, set the iframe source to be the desired URL. This will
+  // trigger the load event defined above.
+  $("#src_frame").attr("src", link);
+
+  // Actually, if the page is the same GNU global page, the load event
+  // will not fire. In this case manually trigger the load event.
+  if($("#src_frame").attr("src").split("#")[0] === link.split("#")[0]) {
+    $("#src_frame").trigger("load");
+  }
+}
+
+// Set the event listener for clicking a GNU global link to be the
+// targetFrame function defined above.
+$("div.line a").click(targetFrame);
+
+// This defines a click event listener for clicking on a condition link
+// to open the link in a new window.
+$("div.condition a").click(function(e){
+  e.preventDefault();
+  window.open(this.href);
+})
+
+//add tooltips to Display (d) ID and Meta-Alert (m) ID options
+$('#id_type option[value="Display (d) ID"').attr('data-toggle', 'tooltip')
+  .attr('title', 'ID of Displays, which represent AlertConditions');
+$('#sort_column option[value="id"').attr('data-toggle', 'tooltip')
+  .attr('title', 'ID of Displays, which represent AlertConditions');
+$('#sort_column option[value="meta_alert_id"').attr('data-toggle', 'tooltip')
+  .attr('title', 'ID of Meta-Alerts, which may contain fused alertConditions');
+$('#id_type option[value="Meta-Alert (m) ID"').attr('data-toggle', 'tooltip')
+  .attr('title', 'ID of Meta-Alerts, which may contain fused alertConditions');
+
+//onchange event listener for changing dropdown selection for SCAIFE-mode
+$("#scaife_mode_select").change(function() {
+  var selected = $(this).val();
+
+  if(selected === "Connected") {
+    $("#connect_to_scaife").click()
+    $('#scaife-login-modal').on('hidden.bs.modal', function () {
+      if(!$('#scaife-register-modal').is(':visible')) {
+        window.location.reload();
+      } else {
+        $('#scaife-register-modal').on('hidden.bs.modal', function () {
+          window.location.reload();
+        });
+      }
+    });
+  } else {
+    $.ajax({
+      type: "POST",
+      url: "/change-scaife-mode",
+      data: JSON.stringify({
+        scaife_mode: selected
+      }),
+      datatype: "json",
+      contentType: 'application/json'
+    })
+      .done(function(data, status) {
+
+        console.log(status);
+      })
+      .fail(function(data, status) {
+        console.log(status);
+        console.log("failed to connect to SCAIFE")
+      })
+      .always(function(data, status) {
+        window.location.reload();
+      });
+    $(".scaife-visible").each(function() {
+      $(this).hide();
+    });
+  }
+});

@@ -1,0 +1,43 @@
+{
+  "name": "systems/SCALe_VM",
+  "description": "Xubuntu 16.04 for use with SCALe testing",
+  "short_description": "Xubuntu 16.04",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "status": "active",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://vagrant.cc.cert.org/vagrant/boxes/scale/0.1.0/SCALe.box",
+          "checksum_type": "sha1",
+          "checksum": "21d06ca4edbe36f37117171a5bbd5b241ab7dce9"
+        }
+      ]
+    },
+    {
+      "version": "0.1.1",
+      "status": "active",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://vagrant.cc.cert.org/vagrant/boxes/scale/0.1.1/SCALe.box",
+          "checksum_type": "sha1",
+          "checksum": "4C327D629DED10ABD1D7D11330A16360A6E57B03"
+        }
+      ]
+    },
+    {
+      "version": "0.1.2",
+      "status": "active",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://vagrant.cc.cert.org/vagrant/boxes/scale/0.1.2/SCALe.box",
+          "checksum_type": "sha1",
+          "checksum": "c12cd9e4dba100a0634ed13f1d4f37a4e91215d4"
+        }
+      ]
+    }
+  ]
+}

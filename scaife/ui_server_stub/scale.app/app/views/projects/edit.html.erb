@@ -1,0 +1,326 @@
+<!-- This page is the main view for editing a project's name and description, and also for adding GNU Global pages -->
+<% if flash[:scaife_enable_data_forwarding_message] %>
+    <%= javascript_tag "alert('" + flash[:scaife_enable_data_forwarding_message] + "')" %>
+<% end %>
+
+<h1>Edit project</h1>
+<br />
+
+  <!-- The top part of this form simply lets you change the name and description of the project -->
+ <div class="row">
+  <div class="col-sm-5">
+    <div class="container-plain-vertical" style="align-items: stretch">
+      <%= form_for @project, :html => { :multipart => true } do |f| %>
+        <% if @project.errors.any? %>
+          <div id="errorExplanation">
+            <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+            <ul>
+              <% @project.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= hidden_field(:project, :is_test_suite, checked: @project.is_test_suite) %>
+        <%= hidden_field(:project, :source_file) %>    
+        <div class="container-plain-horizontal form-group">
+          <%= f.label :name, "Name: ", :class=>"control-label" %>&nbsp;
+          <%= f.text_field(:name, :class => "form-control") %>
+        </div>
+        <div class="form-group">
+          <%= f.label :description, "Description: " %>
+          <%= f.text_area :description, class: "createProject form-control", rows: 5 %>
+        </div>  
+        <div class="form-group">
+          <% if !@project.source_file.blank? %>
+            <%= f.label :source_file, "Source archive: " + @project.source_file %>
+          <% end %>
+        </div>
+        <% if @project.is_test_suite %>
+          <div class="form-group">
+            <%= f.label :test_suite_name, "Test suite name: " %>
+            <%= f.text_field :test_suite_name  %>
+          </div>
+          <div class="form-group">
+            <%= f.label :test_suite_version, "Test suite version: " %>
+            <%= f.text_field :test_suite_version  %>
+          </div>
+          <div class="form-group">
+            <%= f.label :test_suite_type, "Test suite type: " %>
+            <%= f.text_field :test_suite_type  %>
+          </div>
+          <div class="form-group">
+            <%= f.label :author_source, "Author source: " %>
+            <%= f.text_field :author_source  %>
+          </div>
+          <div class="form-group">
+            <%= f.label :test_suite_sard_id, "Test suite SARD ID: " %>
+            <%= f.text_field :test_suite_sard_id  %>
+          </div>
+          <div class="form-group">
+            <%= hidden_field(:project, :manifest_file) %>
+            <%= f.label :manifest_file, "Manifest file: " %>
+            <% if @project.manifest_file %>
+              <%= f.label :manifest_file, "(would replace: #{@project.manifest_file})", :class => "text-danger" %>
+            <% end %>
+            <div><%= file_field(:file, :manifest_file, :class=>"file") %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :manifest_url, "...or URL to manifest file: " %>
+            <%= f.text_field :manifest_url, class: "form-control", type: "url"  %>
+          </div>
+          <div class="form-group">
+            <%= f.label :function_info_file, "Function info file: " %>
+            <% if @project.function_info_file %>
+              <%= f.label :function_info_file, "(would replace: #{@project.function_info_file})", :class => "text-danger" %>
+            <% end %>
+            <div><%= file_field(:file, :function_info_file, :class=>"file") %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :file_info_file, "File info file: " %>
+            <% if @project.file_info_file %>
+              <%= f.label :file_info_file, "(would replace: #{@project.file_info_file})", :class => "text-danger" %>
+            <% end %>
+            <div><%= file_field(:file, :file_info_file, :class=>"file") %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :license_file, "License string: " %>
+            <%= f.text_field :license_file  %>
+          </div>
+          <br/>
+        <% end %>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+          SCAIFE Data Forwarding
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <%= label_tag(:publish_data_updates, "Publish Data Updates to SCAIFE") %>
+          <%= check_box(:project, "publish_data_updates", {}) %>        
+        </div>   
+        <div class="form-group">
+          <%= label_tag(:subscribe_to_data_updates, "Subscribe to data updates from SCAIFE") %>
+          <%= check_box(:project, "subscribe_to_data_updates", {}) %>        
+        </div> 
+      </div>
+    </div>
+
+    <div><%= f.submit nil, class: "btn btn-primary", role: "button", id: "edit_project_button" %></div>
+    <% end %>
+    </div>
+          
+    <br />
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <% if @scaife_active %>
+          SCAIFE Select/Upload/Map
+        <% else %>
+          Project Selections
+        <% end %>
+      </div>
+      <div class="panel-body">
+        <%= render partial: "projects/scaife/pills", locals: { modal: true }   %>
+      </div>
+    </div>
+
+  <br />
+
+  <div class="panel panel-info">
+    <div class="panel-heading">Upload SCALe Database</div>
+      <%= form_tag("/projects/#{@project.id}/upload/scale", {:multipart => true}) do %>
+        <div class="panel-body">
+          <div class="create-display-form form-group">
+            <div class="row">
+              <div><%= file_field_tag('database', :class=>"col-sm-8") %></div>
+              <%= hidden_field_tag :project_id, @project.id %>
+              <div class="col-sm-2">
+                <%= submit_tag("Upload SCALe database", class: "btn btn-default", role: "button") %>
+              </div>
+            </div>
+          </div>
+        </div><!-- end panel-body-->
+      <% end %>
+    </div>
+
+    <!-- This part of the page is for manual uploading of the scale database or gnu global pages if done off the server independently. -->
+    <div class="panel panel-info">
+      <div class="panel-heading">Upload GNU Global Pages Archive (.zip or .tgz)</div>
+        <%= form_tag("/projects/#{@project.id}/upload/gnu", {:multipart => true}) do %>
+          <div class="panel-body">
+              <div class="create-display-form form-group">
+
+                <div class="row">
+                  <div><%= file_field_tag('gnu_global', :class=>"col-sm-9") %></div>
+                  <%= hidden_field_tag :project_id, @project.id %>
+                  <div class="col-sm-2">
+                    <%= submit_tag("Upload pages", class: "btn btn-default", role: "button") %>
+                  </div>
+                </div>
+              </div>
+          </div><!-- end panel-body-->
+        <% end %>
+
+    </div><!-- end panel-->
+
+    <% if Project.where.not(id: @project).present? %>
+      <!-- This part of the page is for cascading determinations from a previous project. -->
+      <div class="panel panel-info">
+        <div class="panel-heading">Upload Determinations from Project</div>
+          <%= form_tag("/projects/#{@project.id}/upload/determinations", {:multipart => true}) do %>
+            <div class="panel-body">
+              <div class="create-display-form form-group">
+
+                <div class="row">
+                  <div>
+                    <%= select_tag(:old_project_id, options_for_select( Project.where.not(id: @project).map {|p| [p.name, p.id] }),
+                        :id=>'old_projects_selection', :class=>"col-sm-9") %>
+                  </div>
+                  <%= hidden_field_tag :new_project_id, @project.id %>
+                  <div class="col-sm-2">
+                    <%= submit_tag("Upload determinations", id: 'cascade_determinations_button', class: "btn btn-default", role: "button") %>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end panel-body-->
+          <% end %>
+      </div><!-- end panel-->
+    <% end %>
+
+  </div><!-- end col-->
+  <div class="col-sm-7">
+
+
+<!-- This part of the page is for uploading/replacing static analysis tool output -->
+    <div class="panel panel-info">
+      <div class="panel-heading">Upload new Alerts/Metric Tool Outputs</div>
+        <br />
+<table class="table-bordered table-striped table-condensed" style="width:100%">
+      <tr>
+        <th>Tool & Platform</th>
+        <th>Version</th>
+        <th>Tool output</th>
+        <th>Script Output</th>
+      </tr>
+    <%= form_tag("/projects/#{@project.id}/update_project", { :multipart => true}) do %>
+    <% @tool_groups.each do |tool_group| %>
+      <tr>
+        <!-- Checkbox input for analysis file. Files will be ignored
+        unless checked off.  -->
+        <td class="tdToolName" width="200px">
+          <input type="checkbox" class="selectTool" name="selectedTools[]" value="<%= tool_group.key %>" <%= @uploaded[tool_group.key] ? "checked" : "" %> > <%= tool_group.name %> - <%= tool_group.platform_str %>
+        </td>
+        <td>
+          <% if tool_group.name == "swamp_oss" %>
+              <select class="swamp_tool_select" name="swampSelectedTools[<%= tool_group.key %>]">
+                <option selected disabled>Choose Tool Information</option>
+                <% @tool_groups.each do |tool_group2| %>
+                    <% unless tool_group2.name == "swamp_oss" or tool_group2.platform != tool_group.platform %>
+                        <% versions = tool_group2.versions.reverse %>
+                            <% if versions.present? %>
+                                <% versions.each do |version2| %>
+                                    <option value="<%=tool_group2.key %>" class="swamp_tools" <% if params[:swampSelectedTools[tool_group.key]] && params[:swampSelectedTools[tool_group.key]].include?(tool_group2.key) %> selected <% end %> >
+                                        <%= tool_group2.name %> - <%= tool_group2.platform_str %>/<%= version2 %>
+                                    </option>
+                                <% end %>
+                            <% else %>
+                                <option value="<%=tool_group2.key %>" class="swamp_tools" <% if params[:swampSelectedTools[tool_group.key]] && params[:swampSelectedTools[tool_group.key]].include?(tool_group2.key) %> selected <% end %> >
+                                    <%= tool_group2.name %> - <%= tool_group2.platform_str %>/
+                                </option>
+                            <% end %>
+                    <% end %>
+                <% end %><!-- end tool group.each-->
+              </select>
+              <%= hidden_field(:tool_versions, tool_group.key, :value => "") %>
+          <% else %>
+              <% versions = tool_group.versions().reverse %>
+              <% if versions.present? %>
+                <% if versions.length > 1 %>
+                  <%= select(:tool_versions, tool_group.key, versions) %>
+                <% else %>
+                  <%= hidden_field(:tool_versions, tool_group.key, :value => versions[0]) %>
+                  <%= versions[0] %>
+                <% end %>
+              <% else %>
+                <%= hidden_field(:tool_versions, tool_group.key, :value => "") %>
+              <% end %>
+          <% end %>
+        </td>
+        <!-- file field for uploading analysis files. If the file is
+        already uploaded, then we display a warning. -->
+        <td>
+          <% if @uploaded[tool_group.key] == true %>
+              <b><p class="text-danger">Tool output already uploaded, but will be backed up if replaced.</p></b> <br>
+          <% end %>
+          <%= file_field(:file, tool_group.key, class: 'file') %>
+        </td>
+        <td>
+          <!-- If an analysis file has been run through digest,
+           alerts, then the link to warnings for a tool with id i is
+           passed in @out[i]. If no warnings, then @out[i] is empty. -->
+          <div>
+            <% unless @out_multiple && @out_multiple[tool_group.key]  %>
+                <%= @out && @out[tool_group.key] ?
+                    @out[tool_group.key].length() > 0 ?
+                      link_to( "Warnings", request.protocol + request.host_with_port + "/" +
+                        @out[tool_group.key], target: "_blank")
+                    : "Success!"
+                  : "" %>
+            <% else %>
+                <% @out_multiple[tool_group.key].each do |tool_key_actual, file_output| %>
+                    <% if file_output.length() > 0 %>
+                        link_to( "Warnings <%= tool_key_actual %>", request.protocol + request.host_with_port + "/" +
+                           <%= file_output %>, target: "_blank")
+                        <br/>
+                     <% end %>
+                <% end %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    <!-- Finally, a button to trigger the action to run the scripts -->
+    <!-- Finally, a button to trigger the action to run the scripts -->
+    <tr>
+      <td colspan=3 align="center">
+        <%= submit_tag("Update project database", {id: 'update_project_button', class: "btn btn-primary", role: "button"}) %>
+      </td>
+    </tr>
+
+<% end %>
+</table>
+</div><!-- end panel-->
+</div><!-- end col-->
+
+</div>
+
+<!-- Allow user to choose the tool used to export the SWAMP results -->
+<div id="swampModal2" class="modal">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="panel panel-info">
+       <div class="panel-heading">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title">SWAMP Tool Information</h4>
+       </div>
+      </div>
+
+      <div class="modal-body">
+        <p>Choose from the available tools below: </p>
+        <div class="dropdown">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Tools and Platforms</button>
+          <div class="dropdown-menu">
+          <% @tool_groups.each do |tool_group| %>
+              <% unless tool_group.name == "swamp_oss" %>
+                  <li><a id="swamp_<%=tool_group.key %>" class="swamp_tools" href="#"><%= tool_group.name %> - <%= tool_group.platform %></a></li>
+              <% end %>
+          <% end %>
+          </div>
+        </div>
+      </div><!-- end modal body -->
+    </div>
+  </div>
+</div><!-- end swampModal -->

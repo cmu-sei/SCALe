@@ -1,0 +1,164 @@
+[
+  {
+    "name": "gcc_oss",
+    "label": "GNU Compiler Collection",
+    "languages": ["C"],
+    "type": "FFSA",
+    "versions": ["4.8.3.20140911"],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "rosecheckers_oss",
+    "label": "CERT RoseCheckers",
+    "languages": [["C", "C++"]],
+    "type": "FFSA",
+    "versions": [],
+    "license": "CMU",
+    "oses": ["Linux"]
+  },
+  {
+    "name": "msvc",
+    "label": "MS Code Analysis for C/C++ Warnings",
+    "languages": [["C", "C++"]],
+    "type": "FFSA",
+    "versions": [],
+    "license": "proprietary",
+    "oses": ["Windows"]
+  },
+  {
+    "name": "pclint",
+    "label": "PC-lint",
+    "languages": [["C", "C++"]],
+    "type": "FFSA",
+    "versions": ["9.0"],
+    "license": "proprietary",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "fortify",
+    "label": "Fortify SCA",
+    "languages": [["C", "C++"], "Java", "JavaScript" ],
+    "type": "FFSA",
+    "versions": ["6.10.0120", "18.10.0187"],
+    "license": "proprietary",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "coverity",
+    "label": "Coverity",
+    "languages": [["C", "C++"], "Java" ],
+    "type": "FFSA",
+    "versions": ["7.6.1"],
+    "license": "proprietary",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "ldra",
+    "label": "LDRA",
+    "languages": [["C", "C++"]],
+    "type": "FFSA",
+    "versions": ["9.4.3"],
+    "license": "proprietary",
+    "oses": ["Windows"]
+  },
+  {
+    "name": "cppcheck_oss",
+    "label": "cppcheck",
+    "languages": [["C", "C++"]],
+    "type": "FFSA",
+    "versions": ["1.86", "1.83", "1.66", "1.00"],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "eclipse_oss",
+    "label": "Eclipse",
+    "languages": ["Java"],
+    "type": "FFSA",
+    "versions": ["Luna sr2 (4.4.2)"],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "findbugs_oss",
+    "label": "FindBugs",
+    "languages": ["Java"],
+    "type": "FFSA",
+    "versions": ["3.0.1"],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "findsecbugs_oss",
+    "label": "Find Security Bugs",
+    "languages": ["Java"],
+    "type": "FFSA",
+    "versions": [],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "javacheck_oss",
+    "label": "Java Check",
+    "languages": [ "Java" ],
+    "type": "FFSA",
+    "versions": [],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "perlcritic_oss",
+    "label": "Perl::Critic",
+    "languages": ["Perl"],
+    "type": "FFSA",
+    "versions": ["1.118"],
+    "license": "open source",
+    "oses": ["Linux"]
+  },
+  {
+    "name": "blint_oss",
+    "label": "B::Lint",
+    "languages": ["Perl"],
+    "type": "FFSA",
+    "versions": ["1.20"],
+    "license": "open source",
+    "oses": ["Linux"]
+  },
+  {
+    "name": "lizard_oss",
+    "label": "Lizard",
+    "languages": [["C", "C++"], "Java" ],
+    "type": "Metrics",
+    "versions": [],
+    "license": "open source",
+    "oses": ["Linux"]
+  },
+  {
+    "name": "ccsm_oss",
+    "label": "C Code Source Metrics",
+    "languages": [["C", "C++"]],
+    "type": "Metrics",
+    "versions": [],
+    "license": "open source",
+    "oses": ["Linux"]
+  },
+  {
+    "name": "understand",
+    "label": "Understand",
+    "languages": [["C", "C++"], "Java"],
+    "type": "Metrics",
+    "versions": [],
+    "license": "proprietary",
+    "oses": ["Windows"]
+  },
+  {
+    "name": "swamp_oss",
+    "label": "SWAMP",
+    "languages": [["C", "C++"], "Java" , "Perl"],
+    "type": "FFSA",
+    "versions": [],
+    "license": "open source",
+    "oses": ["Windows", "Linux", "Unix", "MacOS"]
+  }
+]

@@ -1,0 +1,348 @@
+<!--
+  Since generating databases and creating projects can take a
+  while, we also have a loading div on this page
+-->
+
+<div id="loader">
+  <img src="/ajax-loader.gif" alt="loading...">
+</div>
+<table class="table table-bordered table-striped">
+  <!--
+    The first part of this form is the database creation.
+    Of course, we only show this if the project hasn't yet been imported.
+    In other words, if there are no displays for this project, then
+    the project has not yet been imported and we show the database
+    creation form.
+  -->
+    <%= form_tag({:action => "database"}, { :multipart => true}) do %>
+      <!--
+        Top of the form is the source upload. This consists
+        of a header and a file field, unless source is already uploaded
+      -->
+      <% if @project.errors.any? %>
+        <div id="errorExplanation">
+          <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being updated:</h2>
+          <ul>
+            <% @project.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <h1>Source</h1>
+      <br />
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-2">
+              <%= label_tag(:is_test_suite, "Is src a test suite? ") %>
+            </div>
+            <div class="col-sm-3">
+              <!--<%=  check_box(:project, :is_test_suite, class: "checkbox_lg", checked_value: 'true', unchecked_value: 'false', checked: false) %>-->
+              <%= label(:project, :is_test_suite, "No", :value => "false") %>
+              <%= radio_button :project, :is_test_suite, false, :checked => !@project.is_test_suite %>
+              <%= label(:project, :is_test_suite, "Yes", :value => "true") %>
+              <%= radio_button :project, :is_test_suite, true, :checked => @project.is_test_suite %>
+            </div>
+          </div>
+
+
+          <div class="test-elements" style="<%= @project.is_test_suite ? 'display:block' : 'display:none' %>">
+            <div class="row">
+              <div class="col-sm-2">
+                <%= label_tag(:project, "Test suite name: ") %>
+              </div>
+              <div class="col-sm-3">
+                <% if @project.test_suite_name.blank? %>
+                  <%= text_field(:project, :test_suite_name, class: 'test-suite-field createDatabase form-control') %>
+                <% else %>
+                  <%= @project.test_suite_name %>
+                  <%= hidden_field(:project, :test_suite_name) %>
+                <% end %>
+              </div>
+              <div class="col-sm-2">
+                <%= label_tag(:project, "Test suite version: ") %>
+              </div>
+              <div class="col-sm-3">
+                <% if @project.test_suite_version.blank? %>
+                  <%= text_field(:project, :test_suite_version, class: 'test-suite-field createDatabase form-control') %>
+                <% else %>
+                  <%= @project.test_suite_version %>
+                  <%= hidden_field(:project, :test_suite_version) %>
+                <% end %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <%= label_tag(:project, "Test suite type: ") %>
+              </div>
+              <div class="col-sm-3">
+                <% if @project.test_suite_type.blank? %>
+                  <select name="project[test_suite_type]" class="test-suite-field project-test-suite-type createDatabase form-control">
+                  <option value="juliet">Juliet</option>
+                  <option value="stonesoup">StoneSoup</option>
+                  </select>
+                <% else %>
+                  <%= @project.test_suite_type %>
+                  <%= hidden_field(:project, :test_suite_type) %>
+                <% end %>
+              </div>
+              <div class="col-sm-2">
+                <%= label_tag(:project, "Test suite SARD ID: ") %>
+              </div>
+              <div class="col-sm-3">
+                <% if @project.test_suite_sard_id.blank? %>
+                  <%= text_field(:project, :test_suite_sard_id, class: 'test-suite-field createDatabase form-control') %>
+                <% else %>
+                  <%= @project.test_suite_sard_id %>
+                  <%= hidden_field(:project, :test_suite_sard_id) %>
+                <% end %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <%= label_tag(:project, "Manifest file: ") %>
+              </div>
+              <div class="col-sm-3">
+                <% if @project.manifest_file.blank? %>
+                  <%= file_field(:file, :manifest_file, class: 'test-suite-field file') %>
+                <% else %>
+                  <%= @project.manifest_file %>
+                <% end %>
+              </div>
+              <%= hidden_field(:project, :manifest_file) %>
+              <% if @project.manifest_file.blank? %>
+                <div class="col-sm-2">
+                  <%= label_tag(:project, "...or URL to manifest file: ") %>
+                </div>
+                <div class="col-sm-3">
+                  <%= text_field(:project, :manifest_url, class: 'test-suite-field createDatabase form-control', type: 'url') %>
+                </div>
+              <% end %>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <%= label_tag(:project, "Function info file: ") %>
+              </div>
+              <div class="col-sm-3">
+                <%= hidden_field(:project, :function_info_file) %>
+                <% if @project.function_info_file.blank? %>
+                  <%= file_field(:file, :function_info_file, class: 'test-suite-field file') %>
+                <% else %>
+                  <%= @project.function_info_file %>
+                <% end %>
+              </div>
+              <div class="col-sm-2">
+                <%= label_tag(:project, "File info file: ") %>
+              </div>
+              <div class="col-sm-3">
+                <%= hidden_field(:project, :file_info_file) %>
+                <% if @project.file_info_file.blank? %>
+                  <%= file_field(:file, :file_info_file, class: 'test-suite-field file') %>
+                <% else %>
+                  <%= @project.file_info_file %>
+                <% end %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <%= label_tag(:project, "Author source: ") %>
+              </div>
+              <div class="col-sm-3">
+                <% if @project.author_source.blank? %>
+                  <%= text_field(:project, :author_source, class: 'test-suite-field createDatabase form-control') %>
+                <% else %>
+                  <%= @project.author_source %>
+                  <%= hidden_field(:project, :author_source) %>
+                <% end %>
+              </div>
+              <div class="col-sm-2">
+                <%= label_tag(:project, "License string: ") %>
+              </div>
+              <div class="col-sm-3">
+                <% if @project.license_file.blank? %>
+                  <%= text_field(:project, :license_file, class: 'test-suite-field createDatabase form-control') %>
+                <% else %>
+                  <%= @project.license_file %>
+                  <%= hidden_field(:project, :license_file) %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="row vertical-align">
+            <div class="col-sm-2">
+              <% if @scaife_active %>
+                <%= label_tag(:lang_tools, "SCAIFE Upload/Map:") %>
+              <% else %>
+                <%= label_tag(:lang_tools, "Project Selections:") %>
+              <% end %>
+            </div>
+            <div class="col-sm-4">
+              <%= render partial: "projects/scaife/pills", locals: { modal: true, disable_lang_select: true }   %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-2">
+              <%= label_tag(:file, "Archive containing src: ") %>
+            </div>
+            <div class="col-sm-3">
+              <%= hidden_field(:project, :source_file) %>
+              <% if @project.source_file.present? %>
+                <%= @project.source_file %>
+              <% else %>
+                <%= file_field(:file, :source, class: 'file') %>
+              <% end %>
+            </div>
+            <div class="test-elements" style="<%= @project.is_test_suite ? 'display:block' : 'display:none' %>">
+              <% if @project.source_file.blank? %>
+                <div class="col-sm-2">
+                  <%= label_tag(:project, "...or URL to archive containing src: ") %>
+                </div>
+                <div class="col-sm-3">
+                  <%= text_field(:project, :source_url, class: 'test-suite-field createDatabase form-control', type: 'url') %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+</table>
+
+      <div id="lang-select-dialogs" class="container-horizontal">
+        <div style="flex: 1; width: 15%"><%= label_tag(:project, "Code Languages: ") %></div>
+        <%= render partial: "shared/lang_select" %>
+      </div>
+
+    <h2>Static Analysis Tool Output</h2>
+    <br>
+    <br>
+    <table class="table table-bordered table-striped">
+      <!--
+        Next is analysis upload. For each possible analysis file,
+        there is a checkbox, the name, and a file form. The last column
+        contains the digest_alerts script output.
+      -->
+      <tr>
+        <th>Tool & Platform</th>
+        <th>Version</th>
+        <th>Alerts & Metrics</th>
+        <th>Script Output</th>
+      </tr>
+      <% @tool_groups.each do |tool_group| %>
+        <tr>
+          <!--
+            Checkbox input for analysis file. Files will be ignored
+            unless checked off.
+          -->
+          <td class="tdToolName">
+            <input type="checkbox" class="selectTool checkbox_lg" name="selectedTools[]" value="<%= tool_group.key %>" <%= params[:selectedTools] && params[:selectedTools].include?(tool_group.key) ? "checked" : "" %> > <%= tool_group.name %> - <%= tool_group.platform_str %>
+            <% if tool_group.name == "swamp_oss" %>
+              &nbsp;<span id="<%= tool_group.key.tr('/', '-') %>" class="swamp_validity" style="color:red;display:none;">Please select Tool Information for this file.</span>
+            <% end %>
+          </td>
+          <td>
+            <% if tool_group.name == "swamp_oss" %>
+              <select class="swamp_tool_select" name="swampSelectedTools[<%= tool_group.key %>]">
+                <option selected disabled>Choose Tool Information</option>
+                <% @tool_groups.each do |tool_group2| %>
+                    <% unless tool_group2.name == "swamp_oss" or tool_group2.platform != tool_group.platform %>
+                        <% versions = tool_group2.versions.reverse %>
+                            <% if versions.present? %>
+                                <% versions.each do |version2| %>
+                                    <option value="<%=tool_group2.key %>" class="swamp_tools" <% if params[:swampSelectedTools[tool_group.key]] && params[:swampSelectedTools[tool_group.key]].include?(tool_group2.key) %> selected <% end %> >
+                                        <%= tool_group2.name %> - <%= tool_group2.platform_str %>/<%= version2 %>
+                                    </option>
+                                <% end %>
+                            <% else %>
+                                <option value="<%=tool_group2.key %>" class="swamp_tools" <% if params[:swampSelectedTools[tool_group.key]] && params[:swampSelectedTools[tool_group.key]].include?(tool_group2.key) %> selected <% end %> >
+                                    <%= tool_group2.name %> - <%= tool_group2.platform_str %>/
+                                </option>
+                            <% end %>
+                    <% end %>
+                <% end %><!-- end tool group.each-->
+              </select>
+              <%= hidden_field(:tool_versions, tool_group.key, :value => "") %>
+            <% else %>
+                <% versions = tool_group.versions.reverse %>
+                <% if versions.present? %>
+                  <% if versions.length > 1 %>
+                    <%= select(:tool_versions, tool_group.key, versions) %>
+                  <% else %>
+                    <%= hidden_field(:tool_versions, tool_group.key, :value => versions[0]) %>
+                    <%= versions[0] %>
+                  <% end %>
+                <% else %>
+                  <%= hidden_field(:tool_versions, tool_group.key, :value => "") %>
+                <% end %>
+            <% end %>
+          </td>
+          <!--
+            file field for uploading analysis files. If the file is
+            already uploaded, then we don't show a new field.
+          -->
+          <td>
+            <% if @uploaded[tool_group.key] == true && tool_group.name != "swamp_oss"%>
+              Tool output already uploaded.
+            <% else %>
+              <div class="row">
+                <div class="col-sm-3">
+                  <%= label_tag(tool_group.key,"Tool output: ") %>
+                </div>
+                <div class="col-sm-3">
+                  <%= file_field(:file, tool_group.key, class: 'file') %>
+                </div>
+              </div>
+            <% end %>
+          </td>
+          <td>
+            <!--
+              If an analysis file has been run through digest,
+              alerts, then the link to warnings for a tool with id i is
+              passed in @out[i]. If no warnings, then @out[i] is empty.
+            -->
+            <% unless @out_multiple && @out_multiple[tool_group.key]  %>
+                <%= @out && @out[tool_group.key] ?
+                    @out[tool_group.key].length() > 0 ?
+                      link_to( "Warnings", request.protocol + request.host_with_port + "/" + @out[tool_group.key], target: "_blank")
+                    : "Success!"
+                  : "" %>
+            <% else %>
+                <% @out_multiple[tool_group.key].each do |tool_key_actual, file_output| %>
+                    <% if file_output.length() > 0 %>
+                        link_to( "Warnings for <%= tool_key_actual %>", request.protocol + request.host_with_port + "/" + <%= file_output %>, target: "_blank")
+                        <br/>
+                     <% end %>
+                <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <!--
+        Finally, a button to trigger the action to run the scripts
+      -->
+      <button id="create_database_button" class="btn btn-default inline" data-toggle="tooltip" data-placement="top" title="Create Database" type="submit"><img alt="Create Database" border="0" height="28" width="28" class="dock-item" src="/assets/icons/create_db.png" /></button>
+    <% end %> <!-- end of first form -->
+        <!--
+          If a database has been generated by the scripts, allow the user
+          to press the Create project from database button
+        -->
+        <% if @digest_happened && @uploaded.any? && @project.source_file.present? %>
+          <%= form_tag({:action => "fromDatabase"}) do %>
+            <button id="create_project_button" class="btn btn-default inline" data-toggle="tooltip" data-placement="top" title="Create Project from Database" type="submit"><img alt="Create Project from Database" border="0" height="28" width="28" class="dock-item" src="/assets/icons/transform.png" /></button>
+          <% end %>
+          <!--
+            Here, if the database generated by the scripts exists then we
+            allow the user to download it directly
+          -->
+          <%= form_tag({:action => "downloadDatabase"}) do %>
+            <button id="download_database_button" class="btn btn-default inline" data-toggle="tooltip" data-placement="top" title="Download Database" type="submit"><img alt="Download Database" border="0" height="28" width="28" class="dock-item" src="/assets/icons/export_db.png" /></button>
+          <% end %>
+        <% end %>
+</table>

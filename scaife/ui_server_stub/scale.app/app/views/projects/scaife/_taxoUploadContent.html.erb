@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-md-offset-3 justify-content-center">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed scaife-taxos">
+          <thead>
+            <tr>
+              <th colspan="3">Taxonomies Present on SCAIFE</th>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+              <td>Author</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @scaife_active %>
+              <% if @scaife_taxonomies_by_id.present? %>
+                <% @scaife_taxonomies_by_id.each_value do |scaife_taxo| %>
+                  <tr>
+                    <td><%= "#{scaife_taxo['taxonomy_name']}" %></td>
+                    <td><%= "#{scaife_taxo['taxonomy_version']}" %></td>
+                    <td><%= "#{scaife_taxo['author_source']}" %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <td colspan="3" align="center"><em>No taxonomies uploaded yet</em></t  d>
+              <% end %>
+            <% else %>
+              <td colspan="3" align="center"><em>Not connected to SCAIFE</em></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row vertical-align top-buffer">
+    <div class="col-xs-5">
+      <% scope = @project.present? ? "Project" : "SCALe" %>
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <% if @scaife_active %>
+                <% if @taxonomies_not_in_scaife.present? %>
+                  <td colspan="3">Select <%= scope %> Taxonomies</td>
+                <% elsif @taxonomies_available.present? %>
+                  <td colspan="3">All <%= scope.downcase() %> taxonomies already uploaded/mapped</td>
+                <% end %>
+              <% else %>
+                <td colspan="3"><em>Must log in to SCAIFE first</em></td>
+              <% end %>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+              <td>Author</td>
+            </tr>
+          </thead>
+          <tbody class="add-taxo-list">
+            <% @taxonomies_not_in_scaife.each do |taxo| %>
+              <tr data-id="<%= taxo.id %>" class="list-item">
+                <td><%= "#{taxo.name}" %></td>
+                <td><%= "#{taxo.version_string}" %></td>
+                <td><%= "#{taxo.author_source}" %></td>
+              </tr>
+              <%= hidden_field(:upload_taxos, taxo.id) %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default add-taxo-button" type="button">Select &gt;&gt;</button>
+        </div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default remove-taxo-button" type="button">&lt;&lt; Deselect</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-5">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <td colspan="3">Taxonomies to Upload to SCAIFE</td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+              <td>Author</td>
+            </tr>
+          </thead>
+          <tbody class="remove-taxo-list">
+            <% @taxonomies_not_in_scaife.each do |taxo| %>
+              <tr data-id="<%= taxo.id %>" class="list-item" style="display:none">
+                <td><%= "#{taxo.name}" %></td>
+                <td><%= "#{taxo.version_string}" %></td>
+                <td><%= "#{taxo.author_source}" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

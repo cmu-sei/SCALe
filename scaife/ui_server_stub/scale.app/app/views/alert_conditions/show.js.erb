@@ -1,0 +1,16 @@
+// This is the javascript response that will be run when
+// an AlertConditions#Show query is invoked. The HTML comes from the alert partial.
+
+$( function() {
+  var view = '<%= session[:view] %>';
+
+  if(view === "unfused"){
+    $("#myModal").html("<%= escape_javascript(render(@supplemental_unfused)) %>"); //inserts content into your empty div.
+  } else {
+    $("#myModal").html("<%= escape_javascript(render(@supplemental)) %>"); //inserts content into your empty div.
+  }
+});
+
+// We also need to set the click event listener for GNU global links
+// within the modal popup.
+$('.message-link a').click(targetFrame);

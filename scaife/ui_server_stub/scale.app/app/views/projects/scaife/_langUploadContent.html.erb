@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-md-offset-3">
+      <table class="table table-scroll table-condensed scaife-langs">
+        <thead>
+          <tr>
+            <th colspan="2" class="header_items">Languages Present on SCAIFE</th>
+          </tr>
+          <tr>
+            <th class="header_items">Name</td>
+            <th class="header_items">Version</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @scaife_active %>
+            <% @scaife_languages_by_id.each_value do |scaife_lang| %>
+              <tr>
+                <td><%= "#{scaife_lang['language']}" %></td>
+                <td><%= "#{scaife_lang['version']}" %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <td colspan="2" class="header_items" align="center"><em>Not connected to SCAIFE</em></td>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row vertical-align top-buffer">
+    <div class="col-xs-5">
+      <% scope = @project.present? ? "Project" : "SCALe" %>
+      <% accordion_id = @modal ? "accordion-selected-upload-langs-modal" : "accordion-selected-upload-langs" %>
+      <div class="vertical-menu">
+        <div class="list-unstyled add-lang-list">
+          <div class="accordion" id="<%= accordion_id %>">
+            <div class="panel multi-select-list">
+              <% if @scaife_active %>
+                <% if @languages_available.present? %>
+                  <% if @languages_not_in_scaife.present? %>
+                    <div class="header_items"><%= scope %> Languages Available:</div>
+                    <div class="header_items"><em>(if unknown, select latest)</em></div>
+                    <% lgc = 0 %>
+                    <% LanguageGroup.all.each do |lg| %>
+                      <% if @project.present? %>
+                        <% langs = lg.languages & @project.languages %>
+                      <% else %>
+                        <% langs = lg.languages %>
+                      <% end %>
+                      <% langs -= @languages_in_scaife %>
+                      <% if langs.present? %>
+                        <% if @modal %>
+                          <% li_id = "collapse-sel-upload-modal-#{lgc}" %>
+                        <% else %>
+                          <% li_id = "collapse-sel-upload-#{lgc}" %>
+                        <% end %>
+                        <a class="list-item" data-toggle="collapse" href="#<%= li_id %>" role="button" aria-expanded="false" aria-controls="<%= li_id %>"><%= lg.name %></a>
+                        <div id="<%= li_id %>" class="collapse", data-parent="#<%= accordion_id %>">
+                          <div class="list-unstyled-sublist">
+                            <div class="header_items">Select Version:</div>
+                            <div class="sublist-item sublist-all">all</div>
+                            <% langs.each do |lang| %>
+                              <div data-id="<%= lang.id %>" class="sublist-item orig-item"><%= lang.version %></div>
+                              <%= hidden_field(:upload_langs, lang.id) %>
+                            <% end %>
+                          </div>
+                        </div>
+                      <% end %>
+                      <% lgc += 1 %>
+                    <% end %>
+                  <% else %>
+                    <div class="header_items"><em>All <%= scope.downcase() %> languages already uploaded/mapped</em></div>
+                  <% end %>
+                <% elsif @project.present? %>
+                  <div class="header_items"><em>Must select project languages first</em></div>
+                <% end %>
+              <% else %>
+                  <div class="header_items"><em>Must log in to SCAIFE first</em></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default add-lang-button" type="button">Select &gt;&gt;</button>
+        </div>
+        <div style="padding: 5px">
+          <button class="btn-md btn-default remove-lang-button" type="button">&lt;&lt; Deselect</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-5">
+      <div class="vertical-menu">
+        <div class="list-unstyled remove-lang-list">
+          <div class="panel multi-select-list">
+            <% langs_avail = @languages_available - @languages_in_scaife %>
+            <% if langs_avail.present? %>
+              <div class="header_items"><em>Languages to Upload to SCAIFE:</em></div>
+            <% else %>
+              <div class="header_items"><em>No Languages to Upload</em></div>
+            <% end %>
+            <% LanguageGroup.all.each do |lg| %>
+              <% if @project.present? %>
+                <% langs = lg.languages & @project.languages %>
+              <% else %>
+                <% langs = lg.languages %>
+              <% end %>
+              <% langs -= @languages_in_scaife %>
+              <% langs.each do |lang| %>
+                <div style="display:none" class="list-item" data-id="<%= lang.id %>"><%= "#{lang.name} #{lang.version}" %></div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

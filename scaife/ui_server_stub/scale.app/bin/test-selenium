@@ -1,0 +1,62 @@
+#!/bin/bash
+#
+# Launch SCALe and run selenium tests; this is the traditional method
+# that runs even if SCAIFE is not present.
+
+# <legal>
+# SCALe version r.6.2.2.2.A
+# 
+# Copyright 2020 Carnegie Mellon University.
+# 
+# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+# INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
+# UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
+# IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
+# FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
+# OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
+# TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+# 
+# Released under a MIT (SEI)-style license, please see COPYRIGHT file or
+# contact permission@sei.cmu.edu for full terms.
+# 
+# [DISTRIBUTION STATEMENT A] This material has been approved for public
+# release and unlimited distribution.  Please see Copyright notice for
+# non-US Government use and distribution.
+# 
+# DM19-1274
+# </legal>
+
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BIN_DIR=$(dirname "$BIN_LOC")
+SCRIPTS_DIR=$(readlink -f "$BIN_DIR/../scripts")
+
+mkdir -p test-output/selenium
+mkdir -p cert
+openssl req -newkey rsa:2048 -nodes -days 365 -subj '/CN=localhost' -keyout ./cert/server.key -x509 -out ./cert/server.crt
+
+# Rename the test_config.json for
+if [ -f ./test/junit/test/src/test/resources/test_config.json ]; then
+  mv "./test/junit/test/src/test/resources/test_config.json" "./test/junit/test/src/test/resources/test_config.json.$(date +%s)"
+fi
+mv ./test/junit/test/src/test/resources/{bamboo.test_config.json,test_config.json}
+
+# Run the "remote" server.
+bundle exec thin start --port 8083 --daemonize
+echo "waiting for SCALe to launch..."
+$SCRIPTS_DIR/wait_for_services.py -v -t 60 -i scale --localhost
+if [ $? -ne 0 ]; then
+  echo "scale does not appear to be running"
+  exit 1
+else
+  echo "scale is running"
+fi
+
+# Invoke selenium tests
+cd ./test/junit/test/
+mvn "$@" test
+cd ../../../
+
+mv ./test/junit/test/target/surefire-reports/*.xml ./test-output/selenium/
+
+exit 0

@@ -1,0 +1,23 @@
+<%
+  # locals via render override class variable
+  if local_assigns[:modal].nil?
+    modal = @modal.present?
+  end
+  if local_assigns[:disable_lang_select].nil?
+    disable_lang_select = @disable_lang_select.present?
+  end
+  if local_assigns[:lang_button_label].nil?
+    lang_button_label = \
+      @lang_button_label.present? ? @lang_button_label : "Language Upload"
+  end
+  path_params = {
+    project_id: @project.present? ? @project.id : nil,
+    disable_lang_select: disable_lang_select,
+    modal: modal ? true : nil,
+  }
+%>
+<% if modal %>
+  <%= link_to lang_button_label, language_upload_path(path_params), remote: true, class: "btn btn-info", role: "button", "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %>
+<% else %>
+  <%= link_to lang_button_label, language_upload_path(path_params), class: "btn btn-info", role: "button" %>
+<% end %>

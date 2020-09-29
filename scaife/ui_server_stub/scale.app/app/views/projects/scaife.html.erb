@@ -1,0 +1,76 @@
+<h2>SCAIFE Projects</h2>
+      <p>A <a href="https://github.com/cmu-sei/SCAIFE-API">SCAIFE</a> <i>project</i> includes everything in its associated SCAIFE package. A SCAIFE project may also include true and/or false determinations for meta-alerts made by the SCAIFE project's auditors. Download a SCAIFE project if you want to save time by using the SCAIFE project's auditors determinations along with your own.</p>
+
+<label>Project name: </label>
+<input type="text" value="selected_scaife_project_name" class="createProject form-control" readonly>
+<label>Project description: </label>
+<textarea rows="5" class="createProject form-control" readonly>selected_scaife_project_description</textarea>
+
+      <% if "Connected" == session[:scaife_mode] %>
+          <br>
+          <br>
+          <table id="scaife_project_list" class="table table-bordered" width=100% height=300px>
+            <thead>
+              <tr>
+                <th valign="top">Select Project</th>
+                <th valign="top">Name</th>
+                <th valign="top">Description</th>
+              </tr>
+             </thead>
+             <tbody>
+               <% @scaife_projects_descriptions.each do |scaife_project_name, scaife_project_descript| %>
+                 <tr>
+                   <td>
+                     <%=  radio_button_tag(:scaife_project_package, class: "scaife_project_package_selection scaife_project_radio_button", checked_value: 'true', unchecked_value: 'false', checked: false) %>
+                   </td>
+                   <td><%= scaife_project_name %></td>
+                   <td><%= scaife_project_descript %></td>
+                 </tr>
+	       <% end %>
+             </tbody>
+           </table>
+      <% else %>
+      <div class="alert-danger">
+        <h4>Connect to SCAIFE to view available Projects</h4>
+      </div>
+      <% end %>
+
+      <hr>
+      <h2>SCAIFE Packages</h2>
+      <p>A <a href="https://github.com/cmu-sei/SCAIFE-API">SCAIFE</a> <i>package</i> contains a codebase, static analysis alert data, and code metrics tool data, but <i>never</i> includes meta-alert determinations. Download a SCAIFE package if you want to use only your own meta-alert determinations.</p>
+
+<label>Project name: </label>
+<input type="text" value="<%= @project_name %>" class="createProject form-control" readonly>
+<label>Project description: </label>
+<textarea rows="5" class="createProject form-control" readonly><%= @project_description %></textarea>
+
+      <% if "Connected" == session[:scaife_mode] %>
+          <br>
+          <br>
+          <table id="scaife_package_list" class="table table-bordered" width=100% height=300px>
+            <thead>
+              <tr>
+                <th valign="top">Select Package</th>
+                <th valign="top">Name</th>
+                <th valign="top">Description</th>
+              </tr>
+             </thead>
+             <tbody>
+               <% @scaife_packages_descriptions.each do |scaife_package_name, scaife_package_descript| %>
+                 <tr>
+                   <td>
+                     <%=  radio_button_tag(:scaife_project_package, class: "scaife_project_package_selection scaife_package_radio_button", checked_value: 'true', unchecked_value: 'false', checked: false) %>
+                   </td>
+                   <td><%= scaife_package_name %></td>
+                   <td><%= scaife_package_descript %></td>
+                 </tr>
+	       <% end %>
+             </tbody>
+           </table>
+      <% else %>
+      <div class="alert-danger">
+        <h4>Connect to SCAIFE to view available Packages</h4>
+      </div>
+      <% end %>
+
+<%= link_to 'Download', "/", id: "import_scaife_project_package", class: "btn btn-primary",  role: "button" %>

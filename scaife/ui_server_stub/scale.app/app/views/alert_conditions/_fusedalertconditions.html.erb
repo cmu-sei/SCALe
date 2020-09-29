@@ -1,0 +1,320 @@
+<!-- This file outputs all the alertConditions as table rows -->
+<!-- This file is rendered within the _alertsConditionsTable partial -->
+
+<%  $fusedAlertConditionHash.keys.each do |id| %>
+	<% if $fusedAlertConditionHash[id].length > 1  %>
+		<tr id="<%= $fusedAlertConditionHash[id][0][:id] %>" class="<%= $fusedAlertConditionHash[id][0][:meta_alert_id] %> meta_alert alert-warning">
+			<td class="selectAlertCondition">
+				<span>
+					<input type="checkbox" class="selectAlertCondition" name="selectedAlertConditions[]" value="<%= $fusedAlertConditionHash[id][0][:meta_alert_id] %>">
+				</span>
+			</td>
+
+			<!--use meta_alert_id for meta alerts-->
+			<% [:meta_alert_id].each do |col| %>
+				<td class="id_cell">
+					<div class="<%= col %>">
+						<span>
+						<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--flag -->
+			<% [:flag].each do |col| %>
+				<td class="<%= col %>_cell expandable_cell">
+					<div class="best_in_place_flag">
+						<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--verdict-->
+			<% [:verdict].each do |col| %>
+				<td class="<%= col %>_cell expandable_cell">
+					<div>
+						<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--supplemental-->
+			<% [:supplemental].each do |col| %>
+				<td class="<%= col %>_cell expandable_cell">
+					<div>
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<% [:notes].each do |col| %>
+				<td class="<%= col %>_cell expandable_cell">
+					<div class="<%= col %>">
+						<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--previous and path-->
+			<% [:previous, :path].each do |col| %>
+				<td class="<%= col %>_cell">
+					<div class="<%= col %>_cell<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--line-->
+			<% [:line].each do |col| %>
+				<td class="<%= col %>_cell expandable_cell">
+					<div class="<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--message, checker, and tool-->
+			<% [:message, :checker, :tool].each do |col| %>
+				<td class="<%= col %>_cell">
+					<div class="<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--condition, title, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
+			<% [:condition, :title, :confidence,
+			    :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
+			    :level, :cwe_likelihood].each do |col| %>
+				<td class="<%= col %>_cell">
+					<div class="<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+		</tr>
+
+		<!-- subalert -->
+		<% $fusedAlertConditionHash[id].drop(1).each do |sub_alert| %>
+			<tr id="<%= sub_alert[:id] %>" class="<%= sub_alert[:meta_alert_id] %> sub_alert alert-success">
+				<td class="selectAlertCondition">
+					<span>
+						<input type="checkbox" class="selectAlertCondition" name="selectedAlertConditions[]" value="<%= sub_alert[:meta_alert_id] %>">
+					</span>
+				</td>
+
+				<!--otherwise use display id-->
+				<% [:id].each do |col| %>
+					<td class="<%= col %>_cell">
+						<div class="<%= col %>">
+							<span>
+								<%= getContentFast(col, sub_alert) %>
+							</span>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!--flag -->
+				<% [:flag].each do |col| %>
+					<td>
+						<div class="best_in_place_flag">
+							<%= getContentFast(col, sub_alert) %>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!--verdict-->
+				<% [:verdict].each do |col| %>
+					<td>
+						<div>
+							<%= getContentFast(col, sub_alert) %>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!--supplemental-->
+				<% [:supplemental].each do |col| %>
+					<td>
+						<div>
+							<span>
+								<%= getContentFast(col, sub_alert) %>
+							</span>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!-- notes -->
+				<% [:notes].each do |col| %>
+					<td>
+						<div class="<%= col %>">
+							<%= getContentFast(col, sub_alert) %>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!-- previous and path -->
+				<% [:previous, :path].each do |col| %>
+					<td class="<%= col %>_cell">
+						<div class="<%= col %>_cell<%= col %>">
+							<span>
+								<%= getContentFast(col, sub_alert) %>
+							</span>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!--line-->
+				<% [:line].each do |col| %>
+					<td>
+						<div class="<%= col %>">
+							<span>
+								<%= getContentFast(col, sub_alert) %>
+							</span>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!--message, checker, and tool-->
+				<% [:message, :checker, :tool].each do |col| %>
+					<td class="<%= col %>_cell">
+						<div class="<%= col %>">
+							<span>
+								<%= getContentFast(col, sub_alert) %>
+							</span>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+
+				<!--condition, title, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
+				<% [:condition, :title, :confidence,
+				    :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
+				    :level, :cwe_likelihood].each do |col| %>
+					<td class="<%= col %>_cell">
+						<div class="<%= col %>">
+							<span>
+								<%= getContentFast(col, sub_alert) %>
+							</span>
+						</div>
+					</td>
+				<% end %>  <!--end do-->
+			</tr>
+		<% end %>
+	<% else %>
+		<tr id="<%= $fusedAlertConditionHash[id][0][:id] %>" class="<%= $fusedAlertConditionHash[id][0][:meta_alert_id] %>">
+			<td class="selectAlertCondition">
+				<span>
+					<input type="checkbox" class="selectAlertCondition" name="selectedAlertConditions[]" value="<%= $fusedAlertConditionHash[id][0][:meta_alert_id] %>">
+				</span>
+			</td>
+
+			<!--otherwise use display id-->
+			<% [:id].each do |col| %>
+				<td class="<%= col %>_cell">
+					<div class="<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--flag -->
+			<% [:flag].each do |col| %>
+				<td>
+					<div class="best_in_place_flag">
+						<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--verdict-->
+			<% [:verdict].each do |col| %>
+				<td>
+					<div>
+						<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--supplemental-->
+			<% [:supplemental].each do |col| %>
+				<td>
+					<div>
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!-- notes -->
+			<% [:notes].each do |col| %>
+				<td>
+					<div class="<%= col %>">
+						<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!-- previous and path -->
+			<% [:previous, :path].each do |col| %>
+				<td class="<%= col %>_cell">
+					<div class="<%= col %>_cell<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--line-->
+			<% [:line].each do |col| %>
+				<td>
+					<div class="<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--message, checker, and tool-->
+			<% [:message, :checker, :tool].each do |col| %>
+				<td class="<%= col %>_cell">
+					<div class="<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+
+			<!--condition, title, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
+			<% [:condition, :title, :confidence,
+			    :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
+			    :level, :cwe_likelihood].each do |col| %>
+				<td class="<%= col %>_cell">
+					<div class="<%= col %>">
+						<span>
+							<%= getContentFast(col, $fusedAlertConditionHash[id][0]) %>
+						</span>
+					</div>
+				</td>
+			<% end %>  <!--end do-->
+		</tr>
+	<% end %>
+<% end %>
+
+<!-- For the fused alertCondition, show all parts EXCEPT message, tool name, checker id. -->
+<!-- On expanded alertConditions, show ONLY message, tool name, checker id (eg 170_S).-->

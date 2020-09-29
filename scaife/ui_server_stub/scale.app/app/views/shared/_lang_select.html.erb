@@ -1,0 +1,55 @@
+<div class="vertical-menu" style="flex: 2; width: 30%">
+  <div class="list-unstyled add-lang-list">
+    <div class="accordion" id="accordion-selected-langs">
+      <div class="panel multi-select-list">
+        <div class="header_items"><em>Project Languages Available:</em></div>
+        <div class="header_items"><em>(if unknown, select latest)</em></div>
+        <% lgc = 0 %>
+        <% LanguageGroup.all.each do |lg| %>
+          <a class="list-item" data-toggle="collapse" href="#collapse-sel-<%= lgc %>" role="button" aria-expanded="false" aria-controls="collapse-<%= lgc %>"><%= lg.name %></a>
+          <div id="collapse-sel-<%= lgc %>" class="collapse", data-parent="#accordion-selected-langs">
+            <div class="list-unstyled-sublist">
+              <div class="header_items"><em>Select Version:</em></div>
+              <div class="sublist-item sublist-all">all</div>
+              <% lg.languages.each do |lang| %>
+                <% if @project.languages.exists?(lang.id) %>
+                  <div data-id="<%= lang.id %>" class="sublist-item" style="display:none"><%= lang.version %></div>
+                <% else %>
+                  <div data-id="<%= lang.id %>" class="sublist-item orig-item" style="display:block"><%= lang.version %></div>
+                  <%= hidden_field(:select_langs, lang.id) %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <% lgc += 1 %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="flop-buttons" class="container-vertical" style="flex: 1; width: 15%">
+  <div style="padding: 5px">
+    <button class="btn-md btn-default add-lang-button" type="button">Add &gt;&gt;</button>
+  </div>
+  <div style="padding: 5px">
+    <button class="btn-md btn-default remove-lang-button" type="button">&lt;&lt; Remove</button>
+  </div>
+</div>
+<div class="vertical-menu" style="flex: 2; width: 30%">
+  <div class="list-unstyled remove-lang-list">
+    <div class="panel multi-select-list">
+      <div class="header_items"><em>Project Languages Selected:</em></div>
+      <% LanguageGroup.all.each do |lg| %>
+        <% lg.languages.each do |lang| %>
+          <% if @project.languages.exists?(lang.id) %>
+            <div data-id="<%= lang.id %>" class="list-item orig-item" style="display:block"><%= "#{lang.name} #{lang.version}" %></div>
+            <%= hidden_field(:deselect_langs, lang.id) %>
+          <% else %>
+            <div data-id="<%= lang.id %>" class="list-item" style="display:none"><%= "#{lang.name} #{lang.version}" %></div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= javascript_tag("lang_select_setup($('#langselect-dialogs'))") %>

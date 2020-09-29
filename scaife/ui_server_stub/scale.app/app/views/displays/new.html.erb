@@ -1,0 +1,291 @@
+<!-- This form allows for the creation of a new alert, referred to as a "display" of a scale alert -->
+
+<h1>New Alert + Condition</h1>
+<br/>
+
+<!-- Show any errors, if there are any -->
+<% if @display.errors.any? %>
+  <% @display.errors.each do |attr, msg| %>
+    <%= attr %> <%= msg %><br>
+  <% end %>
+<% end %>
+
+<!-- This is the form for creating a new alert -->
+
+<%= form_for(@display) do |f| %>
+<form>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:display_id, "display id: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.number_field(:display_id, value: "#{@display_id}", required: true,  readonly: true, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:meta_alert_id, "meta alert id: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.number_field(:meta_alert_id, value: "#{@meta_alert_id}", required: true, readonly: true, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:code_language, "code language: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.select(:code_language, @project_languages) %>
+    </div>
+    </div>
+
+  </div>
+
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:verdict, "verdict: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+<%= f.select(:verdict, options_for_select([['Unknown',0],['Complex',1],['False',2],['Dependent',3],['True',4]]), {}, {class: 'form-control'}) %>
+    </div>
+    </div>
+  </div>
+
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:dangerous_construct, "dangerous_construct: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+     <%= f.select(:dangerous_construct, options_for_select([['No',0],['Low Risk',1],['Medium Risk',2],['High Risk',3]]), {}, {class: 'form-control'}) %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+    <div class="row">
+    <%= f.label(:ignored, "ignored: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+     <%= f.select(:ignored, options_for_select([['No',0],['Yes',1]]), {}, {class: 'form-control'}) %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+    <div class="row">
+    <%= f.label(:dead, "dead: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+     <%= f.select(:dead, options_for_select([['No',0],['Yes',1]]), {}, {class: 'form-control'}) %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+
+
+    <div class="row">
+    <%= f.label(:inapplicable_environment, "inapplicable_environment: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.select(:inapplicable_environment, options_for_select([['No',0],['Yes',1]]), {}, {class: 'form-control'}) %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+    <div class="row">
+    <%= f.label(:notes, "notes: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-4">
+      <%= f.text_field(:notes, required: false, :class => "form-control") %>
+    </div>
+    </div>
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:previous, "previous: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+      <%= f.select(:previous, options_for_select([['Unknown',0],['Complex',1],['False',2],['Dependent',3],['True',4]]), {}, {class: 'form-control'}) %>
+    </div>
+    </div>
+  </div>
+
+
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:path, "path: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-3">
+      <%= f.text_field(:path, required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:line, "line: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+      <%= f.number_field(:line, required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:message, "message: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-4">
+      <%= f.text_field(:message, required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:checker, "checker: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+      <%= f.text_field(:checker, value: "manual", required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:tool, "tool: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+      <%= f.text_field(:tool, value: "manual", required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:condition, "condition: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+      <%= f.text_field(:condition, required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:title, "title: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-3">
+      <%= f.text_field(:title, required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:confidence, "confidence: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.text_field(:confidence, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:meta_alert_priority, "meta_alert_priority: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.text_field(:meta_alert_priority, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:severity, "severity: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.text_field(:severity, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:likelihood, "likelihood: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.text_field(:likelihood, required: true, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:remediation, "remediation: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.text_field(:remediation, :class => "form-control") %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:priority, "priority: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.text_field(:priority, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+  <div class="create-display-form form-group">
+
+
+    <div class="row">
+    <%= f.label(:level, "level: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.text_field(:level, :class => "form-control") %>
+    </div>
+    </div>
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
+    <%= f.label(:cwe_likelihood, "cwe_likelihood: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-2">
+      <%= f.text_field(:cwe_likelihood, :class => "form-control") %>
+    </div>
+    </div>
+
+  </div>
+
+  <div class="create-display-form">
+    <!--hide project_id and flag-->
+    <%= f.hidden_field(:project_id, value: @project_id.to_s) %>
+    <%= f.hidden_field(:flag, value: false) %>
+
+  </div>
+    <div class="col-sm-12">
+<div class="row">
+    <%= f.submit("create", :id => "create_new_alert", :class => "btn btn-primary") %>
+</div>
+
+    </div>
+</form>
+<br/>
+<br/>
+<% end %>

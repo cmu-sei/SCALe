@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<AnalyzerReport uuid="e3b16829-7551-40af-9dff-cd3bbd7aecd8" build_fw_version="1.1.20" package_version="1.0" tool_version="5.4.0" assess_fw="c-assess" build_fw="c-assess" platform_name="ubuntu-16.04-64" parser_fw_version="3.1.8" package_name="dos2unix" tool_name="gcc-warn" build_root_dir="/home/builder/build" package_root_dir="pkg1" parser_fw="resultparser" assess_fw_version="1.1.20" assessment_start_ts="1542061368.933296">
+  <BugInstance id="0">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/dos2unix.c</SourceFile>
+        <StartLine>74</StartLine>
+        <EndLine>74</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'PrintLicense' </BugMessage>
+    <BugTrace>
+      <BuildId>1</BuildId>
+      <AssessmentReportFile>assessment_report1.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>0</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="1">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/dos2unix.c</SourceFile>
+        <StartLine>86</StartLine>
+        <EndLine>86</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'StripDelimiterW' </BugMessage>
+    <BugTrace>
+      <BuildId>1</BuildId>
+      <AssessmentReportFile>assessment_report1.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>3</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="2">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/dos2unix.c</SourceFile>
+        <StartLine>109</StartLine>
+        <EndLine>109</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'StripDelimiter' </BugMessage>
+    <BugTrace>
+      <BuildId>1</BuildId>
+      <AssessmentReportFile>assessment_report1.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>4</Start>
+          <End>6</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="3">
+    <Methods>
+      <Method id="1" primary="true">ConvertDosToUnix</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/dos2unix.c</SourceFile>
+        <StartLine>351</StartLine>
+        <EndLine>351</EndLine>
+        <StartColumn>33</StartColumn>
+      </Location>
+      <Location id="2" primary="false">
+        <SourceFile>pkg1/src/dos2unix.c</SourceFile>
+        <StartLine>351</StartLine>
+        <EndLine>351</EndLine>
+        <StartColumn>31</StartColumn>
+        <Explanation>in expansion of macro '_'</Explanation>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wformat=</BugCode>
+    <BugMessage>format '%X' expects argument of type 'unsigned int', but argument 3 has type 'int' 
+
+Bug Path:
+
+*** pkg1/src/dos2unix.c:351 ****** Primary Bug Location
+  
+*** pkg1/src/dos2unix.c:351 ***
+  in expansion of macro '_'
+</BugMessage>
+    <BugTrace>
+      <BuildId>1</BuildId>
+      <AssessmentReportFile>assessment_report1.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>7</Start>
+          <End>12</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="4">
+    <Methods>
+      <Method id="1" primary="true">ConvertDosToUnix</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/dos2unix.c</SourceFile>
+        <StartLine>386</StartLine>
+        <EndLine>386</EndLine>
+        <StartColumn>33</StartColumn>
+      </Location>
+      <Location id="2" primary="false">
+        <SourceFile>pkg1/src/dos2unix.c</SourceFile>
+        <StartLine>386</StartLine>
+        <EndLine>386</EndLine>
+        <StartColumn>31</StartColumn>
+        <Explanation>in expansion of macro '_'</Explanation>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wformat=</BugCode>
+    <BugMessage>format '%X' expects argument of type 'unsigned int', but argument 3 has type 'int' 
+
+Bug Path:
+
+*** pkg1/src/dos2unix.c:386 ****** Primary Bug Location
+  
+*** pkg1/src/dos2unix.c:386 ***
+  in expansion of macro '_'
+</BugMessage>
+    <BugTrace>
+      <BuildId>1</BuildId>
+      <AssessmentReportFile>assessment_report1.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>13</Start>
+          <End>18</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="5">
+    <Methods>
+      <Method id="1" primary="true">ConvertDosToUnix</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/querycp.c</SourceFile>
+        <StartLine>185</StartLine>
+        <EndLine>185</EndLine>
+        <StartColumn>16</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'query_con_codepage' </BugMessage>
+    <BugTrace>
+      <BuildId>2</BuildId>
+      <AssessmentReportFile>assessment_report2.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>0</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="6">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/querycp.c</SourceFile>
+        <StartLine>185</StartLine>
+        <EndLine>185</EndLine>
+        <StartColumn>16</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wsuggest-attribute=const</BugCode>
+    <BugMessage>function might be candidate for attribute 'const' </BugMessage>
+    <BugTrace>
+      <BuildId>2</BuildId>
+      <AssessmentReportFile>assessment_report2.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>4</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="7">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>244</StartLine>
+        <EndLine>244</EndLine>
+        <StartColumn>5</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'is_dos2unix' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>0</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="8">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>693</StartLine>
+        <EndLine>693</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'print_bom_info' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>3</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="9">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>716</StartLine>
+        <EndLine>716</EndLine>
+        <StartColumn>5</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'check_unicode_info' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>4</Start>
+          <End>6</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="10">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1148</StartLine>
+        <EndLine>1148</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'print_format' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>7</Start>
+          <End>9</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="11">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1310</StartLine>
+        <EndLine>1310</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'print_messages_info' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>10</Start>
+          <End>12</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="12">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1331</StartLine>
+        <EndLine>1331</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'FileInfoW' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>13</Start>
+          <End>15</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="13">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1395</StartLine>
+        <EndLine>1395</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'FileInfo' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>16</Start>
+          <End>18</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="14">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1460</StartLine>
+        <EndLine>1460</EndLine>
+        <StartColumn>5</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'GetFileInfo' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>19</Start>
+          <End>21</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="15">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1520</StartLine>
+        <EndLine>1520</EndLine>
+        <StartColumn>5</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'GetFileInfoStdio' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>22</Start>
+          <End>24</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="16">
+    <Methods>
+      <Method id="1" primary="true">query_con_codepage</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1563</StartLine>
+        <EndLine>1563</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'get_info_options' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>25</Start>
+          <End>27</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="17">
+    <Methods>
+      <Method id="1" primary="true">is_dos2unix</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>244</StartLine>
+        <EndLine>244</EndLine>
+        <StartColumn>5</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wsuggest-attribute=pure</BugCode>
+    <BugMessage>function might be candidate for attribute 'pure' </BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>28</Start>
+          <End>31</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="18">
+    <Methods>
+      <Method id="1" primary="true">is_dos2unix</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/unix2dos.c</SourceFile>
+        <StartLine>64</StartLine>
+        <EndLine>64</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'PrintLicense' </BugMessage>
+    <BugTrace>
+      <BuildId>4</BuildId>
+      <AssessmentReportFile>assessment_report4.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>0</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="19">
+    <Methods>
+      <Method id="1" primary="true">is_dos2unix</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/unix2dos.c</SourceFile>
+        <StartLine>74</StartLine>
+        <EndLine>74</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'AddDOSNewLineW' </BugMessage>
+    <BugTrace>
+      <BuildId>4</BuildId>
+      <AssessmentReportFile>assessment_report4.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>1</Start>
+          <End>3</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="20">
+    <Methods>
+      <Method id="1" primary="true">is_dos2unix</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/unix2dos.c</SourceFile>
+        <StartLine>86</StartLine>
+        <EndLine>86</EndLine>
+        <StartColumn>6</StartColumn>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wmissing-prototypes</BugCode>
+    <BugMessage>no previous prototype for 'AddDOSNewLine' </BugMessage>
+    <BugTrace>
+      <BuildId>4</BuildId>
+      <AssessmentReportFile>assessment_report4.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>4</Start>
+          <End>6</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="21">
+    <Methods>
+      <Method id="1" primary="true">ConvertUnixToDos</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/unix2dos.c</SourceFile>
+        <StartLine>337</StartLine>
+        <EndLine>337</EndLine>
+        <StartColumn>33</StartColumn>
+      </Location>
+      <Location id="2" primary="false">
+        <SourceFile>pkg1/src/unix2dos.c</SourceFile>
+        <StartLine>337</StartLine>
+        <EndLine>337</EndLine>
+        <StartColumn>31</StartColumn>
+        <Explanation>in expansion of macro '_'</Explanation>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wformat=</BugCode>
+    <BugMessage>format '%X' expects argument of type 'unsigned int', but argument 3 has type 'int' 
+
+Bug Path:
+
+*** pkg1/src/unix2dos.c:337 ****** Primary Bug Location
+  
+*** pkg1/src/unix2dos.c:337 ***
+  in expansion of macro '_'
+</BugMessage>
+    <BugTrace>
+      <BuildId>4</BuildId>
+      <AssessmentReportFile>assessment_report4.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>7</Start>
+          <End>12</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="22">
+    <Methods>
+      <Method id="1" primary="true">ConvertUnixToDos</Method>
+    </Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/unix2dos.c</SourceFile>
+        <StartLine>385</StartLine>
+        <EndLine>385</EndLine>
+        <StartColumn>33</StartColumn>
+      </Location>
+      <Location id="2" primary="false">
+        <SourceFile>pkg1/src/unix2dos.c</SourceFile>
+        <StartLine>385</StartLine>
+        <EndLine>385</EndLine>
+        <StartColumn>31</StartColumn>
+        <Explanation>in expansion of macro '_'</Explanation>
+      </Location>
+    </BugLocations>
+    <BugGroup>warning</BugGroup>
+    <BugCode>-Wformat=</BugCode>
+    <BugMessage>format '%X' expects argument of type 'unsigned int', but argument 3 has type 'int' 
+
+Bug Path:
+
+*** pkg1/src/unix2dos.c:385 ****** Primary Bug Location
+  
+*** pkg1/src/unix2dos.c:385 ***
+  in expansion of macro '_'
+</BugMessage>
+    <BugTrace>
+      <BuildId>4</BuildId>
+      <AssessmentReportFile>assessment_report4.out</AssessmentReportFile>
+      <InstanceLocation>
+        <LineNum>
+          <Start>13</Start>
+          <End>18</End>
+        </LineNum>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugSummary>
+    <BugCategory group="warning" code="-Wformat=" count="4" bytes="5052" />
+    <BugCategory group="warning" code="-Wmissing-prototypes" count="17" bytes="13523" />
+    <BugCategory group="warning" code="-Wsuggest-attribute=const" count="1" bytes="821" />
+    <BugCategory group="warning" code="-Wsuggest-attribute=pure" count="1" bytes="813" />
+  </BugSummary>
+</AnalyzerReport>

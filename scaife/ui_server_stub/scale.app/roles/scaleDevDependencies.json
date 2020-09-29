@@ -1,0 +1,13 @@
+{
+  "name": "scaleDevDependencies",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "description": "SCALE_DEV_DEPENDENCIES",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[mvn::mvn]",
+    "recipe[gecko_driver::gecko_driver]",
+    "recipe[eclipse::eclipse]"
+  ]
+}

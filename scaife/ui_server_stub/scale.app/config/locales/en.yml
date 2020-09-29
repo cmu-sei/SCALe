@@ -1,0 +1,12 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  activerecord:
+    errors:
+      models:
+        display:
+          attributes:
+            meta_alert_id:
+              taken: "Error: ID number is not unique! There are multiple alerts with the same ID. Check if there multiple conditions for the same checker."
+              blank: "Error: ID number doesn't exist!"

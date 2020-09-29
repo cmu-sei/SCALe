@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<AnalyzerReport assessment_start_ts="1542061885.944357" assess_fw="c-assess" parser_fw="resultparser" build_fw_version="1.1.20" package_version="1.0" uuid="0f10361e-b6db-4f9e-a13f-3388209182a5" assess_fw_version="1.1.20" parser_fw_version="3.1.8" build_fw="c-assess" package_root_dir="pkg1" tool_version="1.75" platform_name="ubuntu-16.04-64" build_root_dir="/home/builder/build" package_name="dos2unix" tool_name="cppcheck">
+  <BugInstance id="0">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>732</StartLine>
+        <EndLine>732</EndLine>
+        <Explanation>Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>warning</BugGroup>
+    <BugCode>uselessAssignmentPtrArg</BugCode>
+    <BugMessage>Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[0]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="1">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>772</StartLine>
+        <EndLine>772</EndLine>
+        <Explanation>Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>warning</BugGroup>
+    <BugCode>uselessAssignmentPtrArg</BugCode>
+    <BugMessage>Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[1]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="2">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>141</StartLine>
+        <EndLine>141</EndLine>
+        <Explanation>The scope of the variable 'errstr' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'errstr' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:141 ****** Primary Bug Location
+  The scope of the variable 'errstr' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[2]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="3">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>199</StartLine>
+        <EndLine>199</EndLine>
+        <Explanation>The scope of the variable 'errstr' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'errstr' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:199 ****** Primary Bug Location
+  The scope of the variable 'errstr' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[3]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="4">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>544</StartLine>
+        <EndLine>544</EndLine>
+        <Explanation>The scope of the variable 'bom' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'bom' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:544 ****** Primary Bug Location
+  The scope of the variable 'bom' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[4]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="5">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>824</StartLine>
+        <EndLine>824</EndLine>
+        <Explanation>The scope of the variable 'mask' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'mask' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:824 ****** Primary Bug Location
+  The scope of the variable 'mask' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[5]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="6">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1464</StartLine>
+        <EndLine>1464</EndLine>
+        <Explanation>The scope of the variable 'errstr' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'errstr' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:1464 ****** Primary Bug Location
+  The scope of the variable 'errstr' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[6]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="7">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1903</StartLine>
+        <EndLine>1903</EndLine>
+        <Explanation>The scope of the variable 'trail' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'trail' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:1903 ****** Primary Bug Location
+  The scope of the variable 'trail' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[7]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="8">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1905</StartLine>
+        <EndLine>1905</EndLine>
+        <Explanation>The scope of the variable 'i' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'i' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:1905 ****** Primary Bug Location
+  The scope of the variable 'i' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[8]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="9">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1906</StartLine>
+        <EndLine>1906</EndLine>
+        <Explanation>The scope of the variable 'c_trail' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'c_trail' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:1906 ****** Primary Bug Location
+  The scope of the variable 'c_trail' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[9]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="10">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1906</StartLine>
+        <EndLine>1906</EndLine>
+        <Explanation>The scope of the variable 'c_lead' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'c_lead' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:1906 ****** Primary Bug Location
+  The scope of the variable 'c_lead' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[10]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="11">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1910</StartLine>
+        <EndLine>1910</EndLine>
+        <Explanation>The scope of the variable 'errstr' can be reduced.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>398</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>variableScope</BugCode>
+    <BugMessage>The scope of the variable 'errstr' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0;' here
+        for (int n = 0; n &lt; 10; ++n) {
+            // it is possible but not safe to move 'int i = 0;' here
+            do_something(&amp;i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+
+Bug Path:
+
+*** pkg1/src/common.c:1910 ****** Primary Bug Location
+  The scope of the variable 'errstr' can be reduced.
+</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[11]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="12">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1838</StartLine>
+        <EndLine>1838</EndLine>
+        <Explanation>Variable 'RetVal' is assigned a value that is never used.</Explanation>
+      </Location>
+    </BugLocations>
+    <BugGroup>style</BugGroup>
+    <BugCode>unreadVariable</BugCode>
+    <BugMessage>Variable 'RetVal' is assigned a value that is never used.</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[12]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugInstance id="13">
+    <Methods></Methods>
+    <BugLocations>
+      <Location id="1" primary="true">
+        <SourceFile>pkg1/src/common.c</SourceFile>
+        <StartLine>1012</StartLine>
+        <EndLine>1012</EndLine>
+        <Explanation>Obsolescent function 'utime' called. It is recommended to use 'utimensat' instead.</Explanation>
+      </Location>
+    </BugLocations>
+    <CweId>477</CweId>
+    <BugGroup>style</BugGroup>
+    <BugCode>utimeCalled</BugCode>
+    <BugMessage>Obsolescent function 'utime' called. It is recommended to use 'utimensat' instead.</BugMessage>
+    <BugTrace>
+      <BuildId>3</BuildId>
+      <AssessmentReportFile>assessment_report3.xml</AssessmentReportFile>
+      <InstanceLocation>
+        <Xpath>results/errors/error[13]</Xpath>
+      </InstanceLocation>
+    </BugTrace>
+  </BugInstance>
+  <BugSummary>
+    <BugCategory group="style" code="unreadVariable" count="1" bytes="760" />
+    <BugCategory group="style" code="utimeCalled" count="1" bytes="830" />
+    <BugCategory group="style" code="variableScope" count="10" bytes="13882" />
+    <BugCategory group="warning" code="uselessAssignmentPtrArg" count="2" bytes="1756" />
+  </BugSummary>
+</AnalyzerReport>

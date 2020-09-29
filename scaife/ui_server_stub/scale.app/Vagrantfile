@@ -1,0 +1,108 @@
+# <legal>
+# SCALe version r.6.2.2.2.A
+# 
+# Copyright 2020 Carnegie Mellon University.
+# 
+# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+# INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
+# UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
+# IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
+# FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
+# OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
+# TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+# 
+# Released under a MIT (SEI)-style license, please see COPYRIGHT file or
+# contact permission@sei.cmu.edu for full terms.
+# 
+# [DISTRIBUTION STATEMENT A] This material has been approved for public
+# release and unlimited distribution.  Please see Copyright notice for
+# non-US Government use and distribution.
+# 
+# DM19-1274
+# </legal>
+
+Vagrant.configure("2") do |config|
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http         = "http://proxy.sei.cmu.edu:8080"
+    config.proxy.https        = "http://proxy.sei.cmu.edu:8080"
+    config.proxy.ftp          = "http://proxy.sei.cmu.edu:8080"
+    config.proxy.no_proxy     = "localhost,127.0.0.1,sei.cmu.edu,cert.org,172.16.0.2,pulsar"
+    # Note the SCAIFE servers at the end
+  end
+
+  #config.vbguest.auto_update = false
+
+  #config.ssh.pty = true
+  config.ssh.insert_key = false
+
+  config.omnibus.chef_version = '14.12.9' # Newer Chef binaries aren't free anymore
+
+  config.vm.define 'SCALe_18_04' do |scale|
+    if ENV['HARBOR']
+      config.vm.box = 'systems/SCALe_1804_VM'
+    else
+      config.vm.box = 'kevinwortman/xubuntu-bionic'
+      config.vm.box_version = '0.0.1'
+    end
+    scale.disksize.size = '200GB'
+    scale.vm.network "private_network", ip: "10.1.1.2"
+    scale.vm.network :forwarded_port, guest:8083, host:8083
+
+    scale.vm.provider "virtualbox" do |v|
+      v.name = "SCALe_dev_18_04"
+      v.gui = true
+      v.customize ["modifyvm", :id, "--memory", 24576]
+      v.customize ["modifyvm", :id, "--cpus", 1]
+    end
+
+    scale.vm.provision "shell", :privileged => true, :inline => <<-SCRIPT
+      rm /var/lib/apt/lists/lock
+      rm /var/cache/apt/archives/lock
+      rm /var/lib/dpkg/lock
+      echo "autologin-user=vagrant" >> /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
+    SCRIPT
+
+    scale.vm.provision "shell", :privileged => false, :inline => <<-SCRIPT
+      echo "export SCALE_HOME=/home/vagrant" >> /home/vagrant/.bashrc
+    SCRIPT
+
+    if ENV['SCALE_DEV_VAGRANT'] then
+      scale.vm.provision "shell", :privileged => true, :inline => <<-SCRIPT
+          ln -s /vagrant /home/vagrant/scale.app
+        SCRIPT
+    else
+      scale.vm.provision "shell", :privileged => true, :inline => <<-SCRIPT
+        apt-get update
+        cd /home/vagrant
+        tar xzf /vagrant/packages/scale.*.tar.gz
+        cd scale.app
+        chown -R vagrant:vagrant /home/vagrant/scale.app
+
+        cp scripts/scale_app.service /lib/systemd/system
+        ln -s /lib/systemd/system/scale_app.service /etc/systemd/system/multi-user.target.wants/scale_app.service
+        chown root:root /lib/systemd/system/scale_app.service
+        chmod 644 /lib/systemd/system/scale_app.service
+
+      SCRIPT
+    end
+
+    scale.vm.provision :chef_zero do |chef|
+
+      chef.cookbooks_path = "cookbooks"
+      chef.nodes_path = "./nodes"
+      chef.roles_path = "./roles"
+
+      if ENV['SCALE_DEV_VAGRANT'] then
+        chef.add_role "scaleDevDependencies"
+      end
+      chef.add_role "scaleDependencies1804"
+    end
+
+    scale.vm.provision "shell", :privileged => true, :inline => <<-SCRIPT
+      echo 'APT::Periodic::Update-Package-Lists "1";' > /etc/apt/apt.conf.d/20auto-upgrades
+      echo 'APT::Periodic::Unattended-Upgrade "1";' >> /etc/apt/apt.conf.d/20auto-upgrades
+      apt-get remove -y unattended-upgrades
+    SCRIPT
+  end
+end

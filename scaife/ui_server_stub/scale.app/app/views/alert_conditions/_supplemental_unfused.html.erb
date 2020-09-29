@@ -1,0 +1,149 @@
+<!-- This file allows for displaying and editing all supplemental options-->
+<div class="modal-content">
+<button type="button" class="close close-button supplemental-close" data-dismiss="modal">&times;</button>
+<div class="panel panel-info">
+<div class="panel-heading">
+
+
+<h4>Edit Supplemental Tags for AlertCondition <%= @display.id %></h4>
+
+</div>
+</div>
+
+
+<div>
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-sm-12">
+      <%= best_in_place @display, :ignored, as: :checkbox, collection: {false: "[ ]", true: "[x]"}, :id => "ignored" %> Ignored
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-sm-12">
+      <%= best_in_place @display, :dead, as: :checkbox, collection: {false: "[ ]", true: "[x]"}, :id => "dead" %> Dead
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-sm-12">
+      <%= best_in_place @display, :inapplicable_environment, as: :checkbox, collection: {false: "[ ]", true: "[x]"}, :id => "ie" %> Inapplicable Environment
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-sm-12">
+      Dangerous Construct: <%= best_in_place @display, :dangerous_construct, :as => :select, :collection => [[0, 'No'], [1, 'Low Risk'], [2, 'Medium Risk'], [3, 'High Risk']], :id => "dc_select" %>
+    </div>
+  </div>
+</div>
+</div>
+
+<%= content_tag :div, nil, id: "editing_id_container", data: {editing_id: @display.id} %>
+</div>
+
+
+<script>
+
+  function _get_field_values() {
+    var modal_rows = $("#myModal").find(".best_in_place");
+    var field_values = [];
+
+    // Format the field_value
+    for (var i=0; i < modal_rows.length; i++) {
+      switch(i) {
+        case 0:
+        case 1:
+        case 2:
+          field_values[i] = modal_rows[i].getAttribute("data-bip-value")[0];
+          break;
+        case 3:
+          field_values[i] = modal_rows[i].getAttribute("data-bip-value");
+          break;
+      }
+    }
+    return field_values;
+  }
+
+  function _arr_match(a, b) {
+    if (a.length != b.length) { return false }
+    for (var i = 0, l = a.length; i < l; i++) {
+      if (a[i] !== b[i]) { return false }
+    }
+    return true;
+  }
+
+  var orig_field_values = _get_field_values();
+
+  $("#myModal").on("hidden.bs.modal", function(e) {
+
+    var target_id = $("#editing_id_container").data("editing-id");
+    var row = $("#" + target_id);
+    var meta_alert_id;
+
+    var classes = row.attr('class').split(/\s+/);
+    for (var i=0; i < classes.length; i++) {
+      var c = classes[i];
+      if (!isNaN(c)) {
+        meta_alert_id = c;
+      }
+    }
+
+    var field_values = _get_field_values();
+
+    if (! _arr_match(field_values, orig_field_values)) {
+      $.ajax({
+        type: 'POST',
+        url: '/alertConditions/update-alerts',
+        data: { row_id: target_id, meta_alert_id: meta_alert_id, elem: "supplemental", value: field_values },
+        success: function(data){
+          location.reload();
+        }
+      });
+    }
+
+  });
+
+$(".best_in_place").on("ajax:success",function(event, data, status, xhr){
+  var attr = event.target.dataset.bipAttribute;
+  if (!(attr === "ignored" || attr === "dead" || attr === "inapplicable_environment" || attr==="dangerous_construct")){
+    return;
+  }
+  var new_val = event.target.firstChild.data;
+
+  var target_id = $("#editing_id_container").data("editing-id");
+  var edit_button = $('a[href="/alert_conditions/'+String(target_id)+'"]');
+  var supp_cell = edit_button.parent();
+  old_content = supp_cell.html();
+
+
+  new_content = "<span>";
+  if ((attr === "ignored" && new_val === "[x]") || (old_content.indexOf("Ignored")>=0 && attr !== "ignored")){
+    new_content += "Ignored <br>";
+  }
+  if ((attr === "dead" && new_val === "[x]") || (old_content.indexOf("Dead")>=0 && attr !== "dead")){
+    new_content += "Dead <br>";
+  }
+  if ((attr === "inapplicable_environment" && new_val === "[x]") || (old_content.indexOf("Inapplicable")>=0 && attr !== "inapplicable_environment")){
+    new_content += "Inapplicable Env. <br>";
+  }
+
+  if ((attr === "dangerous_construct")){
+    var dc_map = {};
+    dc_map["No"]="";
+    dc_map["Low Risk"]="Dangerous Construct - Low <br>";
+    dc_map["Medium Risk"]="Dangerous Construct - Med <br>";
+    dc_map["High Risk"]="Dangerous Construct - High <br>";
+    new_content += (dc_map[new_val]);
+  }
+  else if(old_content.indexOf("Low")>=0){
+    new_content += "Dangerous Construct - Low <br>";
+  }
+  else if(old_content.indexOf("Med")>=0){
+    new_content += "Dangerous Construct - Med <br>";
+  }
+  else if(old_content.indexOf("High")>=0){
+    new_content += "Dangerous Construct - High <br>";
+  }
+
+  new_content += '</span><a href="/alert_conditions/'+String(target_id)+'" data-target="#myModal" data-toggle="modal">Edit</a>';
+  supp_cell.html(new_content);
+
+});
+</script>

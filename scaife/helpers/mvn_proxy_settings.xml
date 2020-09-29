@@ -1,0 +1,22 @@
+<settings>
+  .
+  .
+  <proxies>
+   <proxy>
+      <id>http-proxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>proxy.sei.cmu.edu</host>
+      <port>8080</port>
+      <nonProxyHosts>localhost,127.0.0.1,sei.cmu.edu,cert.org,172.16.0.2</nonProxyHosts>
+    </proxy>
+   <proxy>
+      <id>https-proxy</id>
+      <active>true</active>
+      <protocol>https</protocol>
+      <host>proxy.sei.cmu.edu</host>
+      <port>8080</port>
+      <nonProxyHosts>localhost,127.0.0.1,sei.cmu.edu,cert.org,172.16.0.2</nonProxyHosts>
+    </proxy>
+  </proxies>
+</settings>

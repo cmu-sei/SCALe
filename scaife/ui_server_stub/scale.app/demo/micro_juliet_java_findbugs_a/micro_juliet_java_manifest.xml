@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container>
+  <testcase id="123328" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 113 HTTP Response Splitting<br/> BadSource: Environment Read data from an environment variable<br/> GoodSource: A hardcoded string<br/> Sinks: addCookieServlet<br/> GoodSink: URLEncode input<br/> BadSink : querystring to addCookie()<br/> Flow Variant: 01 Baseline]]></description>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="000/123/328/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01.java" language="Java" size="3029" checksum="05d6b56e830b4875801b447f69f136b93d2bc54e">
+      <mixed line="39" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+      <mixed line="33" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+    </file>
+    <file path="shared/87/AbstractTestCaseServlet.java" language="Java" size="3473" checksum="55546106935c3e74aa3d8df75d4278f102c9ef2f"/>
+    <file path="shared/87/AbstractTestCaseServletBase.java" language="Java" size="3586" checksum="54ff17455abffc34931ee7a444931217aeab150e"/>
+    <file path="shared/87/servlet-api.jar" size="88224" checksum="55438a740b4a8209ca172cbf528e7283c809579a"/>
+  </testcase>
+  <testcase id="123329" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 113 HTTP Response Splitting<br/> BadSource: Environment Read data from an environment variable<br/> GoodSource: A hardcoded string<br/> Sinks: addCookieServlet<br/> GoodSink: URLEncode input<br/> BadSink : querystring to addCookie()<br/> Flow Variant: 02 Control flow: if(true) and if(false)]]></description>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCaseServlet.java" language="Java" size="3473" checksum="55546106935c3e74aa3d8df75d4278f102c9ef2f"/>
+    <file path="shared/87/AbstractTestCaseServletBase.java" language="Java" size="3586" checksum="54ff17455abffc34931ee7a444931217aeab150e"/>
+    <file path="shared/87/servlet-api.jar" size="88224" checksum="55438a740b4a8209ca172cbf528e7283c809579a"/>
+    <file path="000/123/329/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" language="Java" size="6284" checksum="54e023ffbb2436c809650a16d81dfded7bdc7ac2">
+      <mixed line="49" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+      <mixed line="34" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+    </file>
+  </testcase>
+  <testcase id="123330" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 113 HTTP Response Splitting<br/> BadSource: Environment Read data from an environment variable<br/> GoodSource: A hardcoded string<br/> Sinks: addCookieServlet<br/> GoodSink: URLEncode input<br/> BadSink : querystring to addCookie()<br/> Flow Variant: 03 Control flow: if(5==5) and if(5!=5)]]></description>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCaseServlet.java" language="Java" size="3473" checksum="55546106935c3e74aa3d8df75d4278f102c9ef2f"/>
+    <file path="shared/87/AbstractTestCaseServletBase.java" language="Java" size="3586" checksum="54ff17455abffc34931ee7a444931217aeab150e"/>
+    <file path="shared/87/servlet-api.jar" size="88224" checksum="55438a740b4a8209ca172cbf528e7283c809579a"/>
+    <file path="000/123/330/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" language="Java" size="6279" checksum="a526359b6148b57a48d6731b267edb0d187e1024">
+      <mixed line="34" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+      <mixed line="49" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+    </file>
+  </testcase>
+  <testcase id="123336" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 113 HTTP Response Splitting<br/> BadSource: Environment Read data from an environment variable<br/> GoodSource: A hardcoded string<br/> Sinks: addCookieServlet<br/> GoodSink: URLEncode input<br/> BadSink : querystring to addCookie()<br/> Flow Variant: 09 Control flow: if(IO.STATIC_FINAL_TRUE) and if(IO.STATIC_FINAL_FALSE)]]></description>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCaseServlet.java" language="Java" size="3473" checksum="55546106935c3e74aa3d8df75d4278f102c9ef2f"/>
+    <file path="shared/87/AbstractTestCaseServletBase.java" language="Java" size="3586" checksum="54ff17455abffc34931ee7a444931217aeab150e"/>
+    <file path="shared/87/servlet-api.jar" size="88224" checksum="55438a740b4a8209ca172cbf528e7283c809579a"/>
+    <file path="000/123/336/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" language="Java" size="6540" checksum="85cbb1424817f8ade7623e0ec8de49a32667aefa">
+      <mixed line="34" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+      <mixed line="49" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+    </file>
+  </testcase>
+  <testcase id="123346" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="6" testsuiteid="87 109">
+    <description><![CDATA[CWE: 113 HTTP Response Splitting<br/> BadSource: Environment Read data from an environment variable<br/> GoodSource: A hardcoded string<br/> Sinks: addCookieServlet<br/> GoodSink: URLEncode input<br/> BadSink : querystring to addCookie()<br/> Flow Variant: 22 Control flow: Flow controlled by value of a public static variable. Sink functions are in a separate file from sources.]]></description>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCaseServlet.java" language="Java" size="3473" checksum="55546106935c3e74aa3d8df75d4278f102c9ef2f"/>
+    <file path="shared/87/AbstractTestCaseServletBase.java" language="Java" size="3586" checksum="54ff17455abffc34931ee7a444931217aeab150e"/>
+    <file path="shared/87/servlet-api.jar" size="88224" checksum="55438a740b4a8209ca172cbf528e7283c809579a"/>
+    <file path="000/123/346/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" language="Java" size="4136" checksum="b9861966abffe0d1018bf5d2b1f72b6a655c4545">
+      <mixed line="35" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+    </file>
+    <file path="000/123/346/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" language="Java" size="4102" checksum="1937bdc1cd44b87361fa05555d0123ffa14d3c0e"/>
+  </testcase>
+  <testcase id="123347" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 113 HTTP Response Splitting<br/> BadSource: Environment Read data from an environment variable<br/> GoodSource: A hardcoded string<br/> Sinks: addCookieServlet<br/> GoodSink: URLEncode input<br/> BadSink : querystring to addCookie()<br/> Flow Variant: 31 Data flow: make a copy of data within the same method]]></description>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCaseServlet.java" language="Java" size="3473" checksum="55546106935c3e74aa3d8df75d4278f102c9ef2f"/>
+    <file path="shared/87/AbstractTestCaseServletBase.java" language="Java" size="3586" checksum="54ff17455abffc34931ee7a444931217aeab150e"/>
+    <file path="shared/87/servlet-api.jar" size="88224" checksum="55438a740b4a8209ca172cbf528e7283c809579a"/>
+    <file path="000/123/347/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31.java" language="Java" size="3615" checksum="8a30ec7a96a4d4ee6adface67b0c4a5e60782c25">
+      <mixed line="35" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+      <mixed line="46" name="CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')"/>
+    </file>
+  </testcase>
+    <testcase id="125016" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 129 Improper Validation of Array Index<br/> BadSource: console_readLine Read data from the console using readLine<br/> GoodSource: A hardcoded non-zero, non-min, non-max, even number<br/> Sinks: array_size<br/> GoodSink: data is used to set the size of the array and it must be greater than 0<br/> BadSink : data is used to set the size of the array, but it could be set to 0<br/> Flow Variant: 07 Control flow: if(privateFive==5) and if(privateFive!=5)]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/125/016/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" language="Java" size="14868" checksum="95aedb24c21c8772dadef9b7d9a5f010333821e1">
+      <mixed line="108" name="CWE-129: Improper Validation of Array Index"/>
+      <mixed line="51" name="CWE-129: Improper Validation of Array Index"/>
+    </file>
+  </testcase>
+    <testcase id="125018" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 129 Improper Validation of Array Index<br/> BadSource: console_readLine Read data from the console using readLine<br/> GoodSource: A hardcoded non-zero, non-min, non-max, even number<br/> Sinks: array_size<br/> GoodSink: data is used to set the size of the array and it must be greater than 0<br/> BadSink : data is used to set the size of the array, but it could be set to 0<br/> Flow Variant: 09 Control flow: if(IO.STATIC_FINAL_TRUE) and if(IO.STATIC_FINAL_FALSE)]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/125/018/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" language="Java" size="14728" checksum="5853e6b38eb2e22f357127a07729439f7639fdac">
+      <mixed line="46" name="CWE-129: Improper Validation of Array Index"/>
+      <mixed line="103" name="CWE-129: Improper Validation of Array Index"/>
+    </file>
+  </testcase>
+  <testcase id="125369" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="8" testsuiteid="87 109">
+    <description><![CDATA[CWE: 129 Improper Validation of Array Index<br/> BadSource: Environment Read data from an environment variable<br/> GoodSource: A hardcoded non-zero, non-min, non-max, even number<br/> Sinks: array_size<br/> GoodSink: data is used to set the size of the array and it must be greater than 0<br/> BadSink : data is used to set the size of the array, but it could be set to 0<br/> Flow Variant: 54 Data flow: data passed as an argument from one method through three others to a fifth; all five functions are in different classes in the same package]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/125/369/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54a.java" language="Java" size="3802" checksum="c730f45df2b91ab1666e93893a95d3a859134927">
+      <mixed line="35" name="CWE-129: Improper Validation of Array Index"/>
+    </file>
+    <file path="000/125/369/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54b.java" language="Java" size="1561" checksum="622015a5d6847a6da0157c5683240aa9b93014b3"/>
+    <file path="000/125/369/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54c.java" language="Java" size="1561" checksum="37a4c542d7f560e929d51cc98f01311aba246937"/>
+    <file path="000/125/369/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54d.java" language="Java" size="1561" checksum="e305f429684d7ee66bdbe781c2c22fea2c88724f"/>
+    <file path="000/125/369/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" language="Java" size="2543" checksum="9a5209d5bddd90816d1f8abe257b28d58626ead5"/>
+  </testcase>
+  <testcase id="130043" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 190 Integer Overflow<br/> BadSource: max Set data to the maximum value for int<br/> GoodSource: A hardcoded non-zero, non-min, non-max, even number<br/> Sinks: multiply<br/> GoodSink: Ensure there will not be an overflow before multiplying data by 2<br/> BadSink : If data is positive, multiply by 2, which can cause an overflow<br/> Flow Variant: 02 Control flow: if(true) and if(false)]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/130/043/CWE190_Integer_Overflow__int_max_multiply_02.java" language="Java" size="6378" checksum="55a54a7198ddada2d2f940da9363b4432cfd11dc">
+      <mixed line="31" name="CWE-190: Integer Overflow or Wraparound"/>
+      <mixed line="45" name="CWE-190: Integer Overflow or Wraparound"/>
+    </file>
+  </testcase>
+  <testcase id="132125" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 191 Integer Underflow<br/> BadSource: random Set data to a random value<br/> GoodSource: A hardcoded non-zero, non-min, non-max, even number<br/> Sinks: multiply<br/> GoodSink: Ensure there will not be an underflow before multiplying data by 2<br/> BadSink : If data is negative, multiply by 2, which can cause an underflow<br/> Flow Variant: 12 Control flow: if(IO.staticReturnsTrueOrFalse())]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/132/125/CWE191_Integer_Underflow__int_random_multiply_12.java" language="Java" size="5714" checksum="db377443797e4b284684697fdc1ce339731ea684">
+      <mixed line="48" name="CWE-191: Integer Underflow (Wrap or Wraparound)"/>
+      <mixed line="33" name="CWE-191: Integer Underflow (Wrap or Wraparound)"/>
+    </file>
+  </testcase>
+  <testcase id="133441" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 197 Numeric Truncation Error<br/> BadSource: URLConnection Read data from a web server with URLConnection<br/> GoodSource: A hardcoded non-zero, non-min, non-max, even number<br/> Sinks: to_byte<br/> BadSink : Convert data to a byte<br/> Flow Variant: 22 Control flow: Flow controlled by value of a public static variable. Sink functions are in a separate file from sources.]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/133/441/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" language="Java" size="3264" checksum="e139ab29addfeda59c8b19f9b28fef45a9d4563b">
+      <mixed line="35" name="CWE-197: Numeric Truncation Error"/>
+    </file>
+    <file path="000/133/441/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22b.java" language="Java" size="5443" checksum="b78724565b435cf11251ceb3775ab76f3f40f598"/>
+  </testcase>
+  <testcase id="134878" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 319 Cleartext Transmission of Sensitive Information<br/> BadSource: connect_tcp Read password using an outbound tcp connection<br/> GoodSource: Set password to a hardcoded value (one that was not sent over the network)<br/> Sinks: passwordAuth<br/> GoodSink: Decrypt password before using in PasswordAuthentication()<br/> BadSink : Use password directly in PasswordAuthentication()<br/> Flow Variant: 01 Baseline]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/134/878/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01.java" language="Java" size="8066" checksum="f98718a52e88a1743c9cf7c7e96b450063e16ec4">
+      <mixed line="109" name="CWE-319: Cleartext Transmission of Sensitive Information"/>
+      <mixed line="55" name="CWE-319: Cleartext Transmission of Sensitive Information"/>
+    </file>
+  </testcase>
+  <testcase id="134889" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 319 Cleartext Transmission of Sensitive Information<br/> BadSource: connect_tcp Read password using an outbound tcp connection<br/> GoodSource: Set password to a hardcoded value (one that was not sent over the network)<br/> Sinks: passwordAuth<br/> GoodSink: Decrypt password before using in PasswordAuthentication()<br/> BadSink : Use password directly in PasswordAuthentication()<br/> Flow Variant: 12 Control flow: if(IO.staticReturnsTrueOrFalse())]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/134/889/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" language="Java" size="14250" checksum="ff92c911a4dde5ff14e2a9adae31e364d5d4865a">
+      <mixed line="53" name="CWE-319: Cleartext Transmission of Sensitive Information"/>
+      <mixed line="117" name="CWE-319: Cleartext Transmission of Sensitive Information"/>
+      <mixed line="108" name="CWE-319: Cleartext Transmission of Sensitive Information"/>
+    </file>
+  </testcase>
+  <testcase id="137510" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 36 Absolute Path Traversal<br/> BadSource: getQueryString_Servlet Parse id param out of the URL query string (without using getParameter())<br/> GoodSource: A hardcoded string<br/> BadSink: readFile read line from file from disk<br/> Flow Variant: 04 Control flow: if(PRIVATE_STATIC_FINAL_TRUE) and if(PRIVATE_STATIC_FINAL_FALSE)]]></description>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCaseServlet.java" language="Java" size="3473" checksum="55546106935c3e74aa3d8df75d4278f102c9ef2f"/>
+    <file path="shared/87/AbstractTestCaseServletBase.java" language="Java" size="3586" checksum="54ff17455abffc34931ee7a444931217aeab150e"/>
+    <file path="shared/87/servlet-api.jar" size="88224" checksum="55438a740b4a8209ca172cbf528e7283c809579a"/>
+    <file path="000/137/510/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" language="Java" size="11437" checksum="04cc32f1c9868c1371058c1b46aa83340c1e0314">
+      <mixed line="65" name="CWE-036: Absolute Path Traversal"/>
+      <mixed line="44" name="CWE-036: Absolute Path Traversal"/>
+    </file>
+  </testcase>
+  <testcase id="141597" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 606 Unchecked Input for Loop Condition<br/> BadSource: connect_tcp Read data using an outbound tcp connection<br/> GoodSource: hardcoded int in string form<br/> Sinks:<br/> GoodSink: validate loop variable<br/> BadSink : loop variable not validated<br/> Flow Variant: 22 Control flow: Flow controlled by value of a public static variable. Sink functions are in a separate file from sources.]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/141/597/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" language="Java" size="10043" checksum="4f1f77b3204843495a1cf132dffe2f79bb5ca4d8">
+      <mixed line="60" name="CWE-606: Unchecked Input for Loop Condition"/>
+    </file>
+    <file path="000/141/597/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" language="Java" size="5058" checksum="870c28632a9d90f9df3ae0ba21a99df269a76aa0"/>
+  </testcase>
+  <testcase id="148575" type="Source Code" status="Candidate" submissionDate="2013-05-22" language="Java" numberOfFiles="5" testsuiteid="87 109">
+    <description><![CDATA[CWE: 90 LDAP Injection<br/> BadSource: connect_tcp Read data using an outbound tcp connection<br/> GoodSource: A hardcoded string<br/> BadSink:  data concatenated into LDAP search, which could result in LDAP Injection<br/> Flow Variant: 68 Data flow: data passed as a member variable in the a class, which is used by a method in another class in the same package]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/148/575/CWE90_LDAP_Injection__connect_tcp_68a.java" language="Java" size="4066" checksum="ddb2a8c0bb4e2ec20cbfb59a3e33d6aad80bab39">
+      <mixed line="55" name="CWE-090: Improper Neutralization of Special Elements used in an LDAP Query ('LDAP Injection')"/>
+    </file>
+    <file path="000/148/575/CWE90_LDAP_Injection__connect_tcp_68b.java" language="Java" size="5014" checksum="39ab19a9dffe82b5801b3d06dee1e752e042f80a"/>
+  </testcase>
+  <testcase id="142941" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 789 Uncontrolled Memory Allocation<br/> BadSource: File Read data from file (named c:\data.txt)<br/> GoodSource: A hardcoded non-zero, non-min, non-max, even number<br/> BadSink: HashMap Create a HashMap using data as the initial size<br/> Flow Variant: 15 Control flow: switch(6)]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/142/941/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" language="Java" size="6791" checksum="71ec0b55506de5b9f05e5f58d843f5d80e605b17">
+      <mixed line="56" name="CWE-789: Uncontrolled Memory Allocation"/>
+      <mixed line="122" name="CWE-789: Uncontrolled Memory Allocation"/>
+    </file>
+  </testcase>
+  <testcase id="147901" type="Source Code" status="Candidate" submissionDate="2013-05-22" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[CWE: 89 SQL Injection<br/> BadSource: listen_tcp Read data using a listening tcp connection<br/> GoodSource: A hardcoded string<br/> Sinks: prepareStatement<br/> GoodSink: Use prepared statement and execute (properly)<br/> BadSink : data concatenated into SQL statement used in prepareStatement() call, which could result in SQL Injection<br/> Flow Variant: 45 Data flow: data passed as a private class member variable from one function to another in the same class]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/147/901/CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java" language="Java" size="12779" checksum="fcd58049ae962d7b6d6a9040552e0d3eee757d53">
+      <mixed line="122" name="CWE-089: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"/>
+    </file>
+  </testcase>
+    <testcase id="140921" type="Source Code" status="Candidate" submissionDate="2013-05-21" language="Java" numberOfFiles="4" testsuiteid="87 109">
+    <description><![CDATA[statement always evaluates to false]]></description>
+    <file path="shared/87/AbstractTestCaseBase.java" language="Java" size="1041" checksum="a57da394833d42bcbcc2ed9f011c5558b8255d7e"/>
+    <file path="shared/87/IO.java" language="Java" size="3419" checksum="7ae738be3e76ffb6f68358293f4b46fbd875eb43"/>
+    <file path="shared/87/AbstractTestCase.java" language="Java" size="1912" checksum="fe06c33c9b1ceeb9326ae94ec3cdc1b0ba0d3cfa"/>
+    <file path="000/140/921/CWE570_Expression_Always_False__n_equal_n_minus_one_01.java" language="Java" size="1346" checksum="b6b0022d39be32449b7124ef596e3405ec4f6987">
+      <mixed line="16" name="CWE-570: Expression is Always False"/>
+    </file>
+  </testcase>
+  </container>

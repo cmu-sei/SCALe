@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.0.1" sequence="0" timestamp="1529009589000" analysisTimestamp="1529341078958" release="">
+  <Project projectName="juliet-java-findbugs">
+    <Jar>/home/ssadmin/Desktop/Juliet_Test_Suite_v1.3/Java/src/testcases</Jar>
+  </Project>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01" name="goodG2B" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01" start="56" end="65" startBytecode="0" endBytecode="139" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01" start="58" end="58" startBytecode="4" endBytecode="4" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_01.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" name="goodG2B1" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" start="68" end="81" startBytecode="0" endBytecode="139" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" start="74" end="74" startBytecode="4" endBytecode="4" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+    <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" name="goodG2B2" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" start="90" end="108" startBytecode="0" endBytecode="139" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02" start="101" end="101" startBytecode="4" endBytecode="4" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_02.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" name="goodG2B1" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" start="68" end="81" startBytecode="0" endBytecode="139" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" start="74" end="74" startBytecode="4" endBytecode="4" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" name="goodG2B2" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" start="90" end="108" startBytecode="0" endBytecode="139" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03" start="101" end="101" startBytecode="4" endBytecode="4" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_03.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" name="goodG2B1" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" start="68" end="81" startBytecode="0" endBytecode="139" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" start="74" end="74" startBytecode="4" endBytecode="4" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" name="goodG2B2" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" start="90" end="108" startBytecode="0" endBytecode="139" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09" start="101" end="101" startBytecode="4" endBytecode="4" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_09.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="badPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="27" end="27" startBytecode="1" endBytecode="1" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="goodB2G1PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="43" end="43" startBytecode="5" endBytecode="5" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="goodB2G2PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="44" end="44" startBytecode="9" endBytecode="9" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="goodG2BPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="45" end="45" startBytecode="13" endBytecode="13" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="2" rank="17" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="bad" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="31" end="39" startBytecode="0" endBytecode="113" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Method>
+    <Field classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="badPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="37" end="37" startBytecode="9" endBytecode="9" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="3" rank="20" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="goodG2B" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="83" end="90" startBytecode="0" endBytecode="110" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Method>
+    <Field classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" name="goodG2BPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a" start="88" end="88" startBytecode="6" endBytecode="6" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22a.java"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" name="badSink" signature="(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="29" end="44" startBytecode="0" endBytecode="16" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="35" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="42" end="42" startBytecode="34" endBytecode="34" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" name="goodB2G1Sink" signature="(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="49" end="66" startBytecode="0" endBytecode="18" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="8" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="53" end="53" startBytecode="7" endBytecode="7" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" name="goodB2G2Sink" signature="(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="71" end="86" startBytecode="0" endBytecode="18" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="40" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="84" end="84" startBytecode="39" endBytecode="39" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" name="goodG2BSink" signature="(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="91" end="106" startBytecode="0" endBytecode="16" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="35" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b" start="104" end="104" startBytecode="34" endBytecode="34" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31.java"/>
+    </Class>
+    <Method classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31" name="goodG2B" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31" start="66" end="81" startBytecode="0" endBytecode="176" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31.java"/>
+    </Method>
+    <LocalVariable name="dataCopy" register="3" pc="10" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE113_HTTP_Response_Splitting.s01.CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31" start="73" end="73" startBytecode="12" endBytecode="12" sourcefile="CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31.java" sourcepath="testcases/CWE113_HTTP_Response_Splitting/s01/CWE113_HTTP_Response_Splitting__Environment_addCookieServlet_31.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="1" rank="6" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" name="goodG2B1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="126" end="156" startBytecode="0" endBytecode="186" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="33" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="153" end="153" startBytecode="44" endBytecode="44" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="142" end="142" startBytecode="23" endBytecode="23" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="150" end="150" startBytecode="36" endBytecode="36" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="1" rank="6" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" name="goodG2B2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="162" end="190" startBytecode="0" endBytecode="186" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="33" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="187" end="187" startBytecode="44" endBytecode="44" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="176" end="176" startBytecode="23" endBytecode="23" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="184" end="184" startBytecode="36" endBytecode="36" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" rank="8" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" name="bad" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="39" end="120" startBytecode="0" endBytecode="907" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="280" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="117" end="117" startBytecode="291" endBytecode="291" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="106" end="106" startBytecode="270" endBytecode="270" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="114" end="114" startBytecode="283" endBytecode="283" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_ARE_CLONED" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" rank="8" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" name="goodB2G1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="196" end="287" startBytecode="0" endBytecode="920" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="288" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="283" end="283" startBytecode="299" endBytecode="299" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="270" end="270" startBytecode="278" endBytecode="278" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="279" end="279" startBytecode="291" endBytecode="291" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_ARE_CLONED" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" rank="8" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" name="goodB2G2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="293" end="375" startBytecode="0" endBytecode="907" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="280" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="372" end="372" startBytecode="291" endBytecode="291" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="361" end="361" startBytecode="270" endBytecode="270" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07" start="369" end="369" startBytecode="283" endBytecode="283" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_07.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_ARE_CLONED" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="1" rank="6" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" name="goodG2B1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="131" end="151" startBytecode="0" endBytecode="136" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="12" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="148" end="148" startBytecode="23" endBytecode="23" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="137" end="137" startBytecode="2" endBytecode="2" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="145" end="145" startBytecode="15" endBytecode="15" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="1" rank="6" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" name="goodG2B2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="160" end="185" startBytecode="0" endBytecode="136" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="12" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="182" end="182" startBytecode="23" endBytecode="23" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="171" end="171" startBytecode="2" endBytecode="2" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="179" end="179" startBytecode="15" endBytecode="15" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" rank="8" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" name="bad" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="36" end="115" startBytecode="0" endBytecode="850" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="259" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="112" end="112" startBytecode="270" endBytecode="270" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="101" end="101" startBytecode="249" endBytecode="249" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="109" end="109" startBytecode="262" endBytecode="262" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_ARE_CLONED" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" rank="8" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" name="goodB2G1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="193" end="282" startBytecode="0" endBytecode="850" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="259" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="278" end="278" startBytecode="270" endBytecode="270" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="265" end="265" startBytecode="249" endBytecode="249" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="274" end="274" startBytecode="262" endBytecode="262" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_ARE_CLONED" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" rank="8" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" name="goodB2G2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="290" end="370" startBytecode="0" endBytecode="850" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="259" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="367" end="367" startBytecode="270" endBytecode="270" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="356" end="356" startBytecode="249" endBytecode="249" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s01.CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09" start="364" end="364" startBytecode="262" endBytecode="262" sourcefile="CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s01/CWE129_Improper_Validation_of_Array_Index__console_readLine_array_size_09.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_ARE_CLONED" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="1" rank="6" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" name="badSink" signature="(I)V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="28" end="44" startBytecode="0" endBytecode="129" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="10" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="41" end="41" startBytecode="21" endBytecode="21" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="28" end="28" startBytecode="0" endBytecode="0" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="37" end="37" startBytecode="13" endBytecode="13" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="1" rank="6" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" name="goodB2GSink" signature="(I)V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="73" end="89" startBytecode="0" endBytecode="129" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="10" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="86" end="86" startBytecode="21" endBytecode="21" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="73" end="73" startBytecode="0" endBytecode="0" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="82" end="82" startBytecode="13" endBytecode="13" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="1" rank="6" abbrev="NP" category="CORRECTNESS">
+    <Class classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java"/>
+    </Class>
+    <Method classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" name="goodG2BSink" signature="(I)V" isStatic="false">
+      <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="50" end="66" startBytecode="0" endBytecode="129" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java"/>
+    </Method>
+    <LocalVariable name="array" register="2" pc="10" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="63" end="63" startBytecode="21" endBytecode="21" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="50" end="50" startBytecode="0" endBytecode="0" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_NULL_VALUE"/>
+    <SourceLine classname="testcases.CWE129_Improper_Validation_of_Array_Index.s02.CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e" start="59" end="59" startBytecode="13" endBytecode="13" sourcefile="CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" sourcepath="testcases/CWE129_Improper_Validation_of_Array_Index/s02/CWE129_Improper_Validation_of_Array_Index__Environment_array_size_54e.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+ <BugInstance type="INT_VACUOUS_COMPARISON" priority="2" rank="17" abbrev="INT" category="STYLE">
+    <Class classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" sourcefile="CWE190_Integer_Overflow__int_max_multiply_02.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_02.java"/>
+    </Class>
+    <Method classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" name="goodB2G1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" start="114" end="146" startBytecode="0" endBytecode="150" sourcefile="CWE190_Integer_Overflow__int_max_multiply_02.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_02.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" start="134" end="134" startBytecode="10" endBytecode="10" sourcefile="CWE190_Integer_Overflow__int_max_multiply_02.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_02.java"/>
+  </BugInstance>
+  <BugInstance type="INT_VACUOUS_COMPARISON" priority="2" rank="17" abbrev="INT" category="STYLE">
+    <Class classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" sourcefile="CWE190_Integer_Overflow__int_max_multiply_02.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_02.java"/>
+    </Class>
+    <Method classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" name="goodB2G2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" start="155" end="180" startBytecode="0" endBytecode="150" sourcefile="CWE190_Integer_Overflow__int_max_multiply_02.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_02.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_02" start="169" end="169" startBytecode="10" endBytecode="10" sourcefile="CWE190_Integer_Overflow__int_max_multiply_02.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_02.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" name="goodB2G" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="115" end="162" startBytecode="0" endBytecode="275" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="118" end="118" startBytecode="6" endBytecode="9" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="124" end="124" startBytecode="12" endBytecode="14" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" name="goodB2G" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="115" end="162" startBytecode="0" endBytecode="275" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="130" end="140" startBytecode="21" endBytecode="65" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="147" end="157" startBytecode="68" endBytecode="109" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="75" end="108" startBytecode="0" endBytecode="223" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="78" end="78" startBytecode="6" endBytecode="8" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="84" end="84" startBytecode="11" endBytecode="12" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="75" end="108" startBytecode="0" endBytecode="223" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="90" end="95" startBytecode="19" endBytecode="49" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="100" end="104" startBytecode="52" endBytecode="79" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="INT_VACUOUS_COMPARISON" priority="2" rank="17" abbrev="INT" category="STYLE">
+    <Class classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" name="goodB2G" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="115" end="162" startBytecode="0" endBytecode="275" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="133" end="133" startBytecode="28" endBytecode="28" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE190_Integer_Overflow.s03.CWE190_Integer_Overflow__int_max_multiply_12" start="150" end="150" startBytecode="75" endBytecode="75" sourcefile="CWE190_Integer_Overflow__int_max_multiply_12.java" sourcepath="testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_max_multiply_12.java" role="SOURCE_LINE_ANOTHER_INSTANCE"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" name="goodB2G" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="117" end="164" startBytecode="0" endBytecode="291" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="120" end="120" startBytecode="6" endBytecode="17" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="126" end="126" startBytecode="20" endBytecode="30" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" name="goodB2G" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="117" end="164" startBytecode="0" endBytecode="291" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="132" end="142" startBytecode="37" endBytecode="81" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="149" end="159" startBytecode="84" endBytecode="125" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="77" end="110" startBytecode="0" endBytecode="223" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="80" end="80" startBytecode="6" endBytecode="8" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="86" end="86" startBytecode="11" endBytecode="12" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="77" end="110" startBytecode="0" endBytecode="223" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="92" end="97" startBytecode="19" endBytecode="49" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+    <SourceLine classname="testcases.CWE191_Integer_Underflow.s02.CWE191_Integer_Underflow__int_random_multiply_12" start="102" end="106" startBytecode="52" endBytecode="79" sourcefile="CWE191_Integer_Underflow__int_random_multiply_12.java" sourcepath="testcases/CWE191_Integer_Underflow/s02/CWE191_Integer_Underflow__int_random_multiply_12.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="badPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="24" end="24" startBytecode="1" endBytecode="1" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="goodG2B1PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="42" end="42" startBytecode="5" endBytecode="5" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="goodG2B2PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="43" end="43" startBytecode="9" endBytecode="9" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="1" rank="15" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Class>
+    <Method classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="bad" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="30" end="38" startBytecode="0" endBytecode="84" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Method>
+    <Field classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="badPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="30" end="30" startBytecode="1" endBytecode="1" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="3" rank="20" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Class>
+    <Method classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="goodG2B1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="56" end="64" startBytecode="0" endBytecode="84" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Method>
+    <Field classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="goodG2B1PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="56" end="56" startBytecode="1" endBytecode="1" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="3" rank="20" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Class>
+    <Method classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="goodG2B2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="71" end="79" startBytecode="0" endBytecode="84" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Method>
+    <Field classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" name="goodG2B2PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE197_Numeric_Truncation_Error.s02.CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a" start="71" end="71" startBytecode="1" endBytecode="1" sourcefile="CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java" sourcepath="testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__int_URLConnection_to_byte_22a.java"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01.java"/>
+    </Class>
+    <Method classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01" start="128" end="137" startBytecode="0" endBytecode="120" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01.java"/>
+    </Method>
+    <LocalVariable name="password" register="1" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01" start="130" end="130" startBytecode="4" endBytecode="4" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_01.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" name="goodB2G" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="188" end="357" startBytecode="0" endBytecode="2174" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="325" end="337" startBytecode="651" endBytecode="725" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="342" end="353" startBytecode="728" endBytecode="799" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="146" end="181" startBytecode="0" endBytecode="217" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="150" end="150" startBytecode="6" endBytecode="9" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="157" end="157" startBytecode="12" endBytecode="14" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+  </BugInstance>
+  <BugInstance type="DB_DUPLICATE_BRANCHES" priority="2" rank="17" abbrev="DB" category="STYLE">
+    <Class classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="146" end="181" startBytecode="0" endBytecode="217" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="163" end="168" startBytecode="21" endBytecode="46" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="173" end="177" startBytecode="49" endBytecode="71" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Class>
+    <Method classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="146" end="181" startBytecode="0" endBytecode="217" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java"/>
+    </Method>
+    <LocalVariable name="password" register="1" pc="49" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="173" end="173" startBytecode="50" endBytecode="50" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+    <SourceLine classname="testcases.CWE319_Cleartext_Tx_Sensitive_Info.CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12" start="163" end="163" startBytecode="22" endBytecode="22" sourcefile="CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" sourcepath="testcases/CWE319_Cleartext_Tx_Sensitive_Info/CWE319_Cleartext_Tx_Sensitive_Info__connect_tcp_passwordAuth_12.java" role="SOURCE_LINE_ANOTHER_INSTANCE"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04">
+      <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java"/>
+    </Class>
+    <Method classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" name="bad" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" start="42" end="126" startBytecode="0" endBytecode="1166" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="58" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <Method classname="java.lang.String" name="substring" signature="(I)Ljava/lang/String;" isStatic="false" role="METHOD_RETURN_VALUE_OF">
+      <SourceLine classname="java.lang.String" start="1870" end="1877" startBytecode="0" endBytecode="155" sourcefile="String.java" sourcepath="java/lang/String.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" start="65" end="65" startBytecode="59" endBytecode="59" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04">
+      <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java"/>
+    </Class>
+    <Method classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" name="goodG2B1" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" start="142" end="208" startBytecode="0" endBytecode="1050" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" start="147" end="147" startBytecode="4" endBytecode="4" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="3" rank="20" abbrev="RCN" category="STYLE">
+    <Class classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04">
+      <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java"/>
+    </Class>
+    <Method classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" name="goodG2B2" signature="(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" start="217" end="288" startBytecode="0" endBytecode="1050" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java"/>
+    </Method>
+    <LocalVariable name="data" register="3" pc="3" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="testcases.CWE36_Absolute_Path_Traversal.CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04" start="227" end="227" startBytecode="4" endBytecode="4" sourcefile="CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" sourcepath="testcases/CWE36_Absolute_Path_Traversal/CWE36_Absolute_Path_Traversal__getQueryString_Servlet_04.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+ <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="badPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="35" end="35" startBytecode="1" endBytecode="1" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="goodB2G1PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="114" end="114" startBytecode="5" endBytecode="5" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="goodB2G2PublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="115" end="115" startBytecode="9" endBytecode="9" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Class>
+    <Field classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="goodG2BPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="116" end="116" startBytecode="13" endBytecode="13" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="2" rank="17" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Class>
+    <Method classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="bad" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="39" end="110" startBytecode="0" endBytecode="977" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Method>
+    <Field classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="badPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="108" end="108" startBytecode="321" endBytecode="321" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="3" rank="20" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Class>
+    <Method classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="280" end="287" startBytecode="0" endBytecode="88" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Method>
+    <Field classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" name="goodG2BPublicStatic" signature="Z" isStatic="true">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22a" start="285" end="285" startBytecode="6" endBytecode="6" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22a.java"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" name="badSink" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="28" end="52" startBytecode="0" endBytecode="23" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="45" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="50" end="50" startBytecode="44" endBytecode="44" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" name="goodB2G1Sink" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="57" end="87" startBytecode="0" endBytecode="28" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="8" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="61" end="61" startBytecode="7" endBytecode="7" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" name="goodB2G2Sink" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="92" end="119" startBytecode="0" endBytecode="28" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="54" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="117" end="117" startBytecode="53" endBytecode="53" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE_OF_NULL" priority="3" rank="20" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Class>
+    <Method classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" name="goodG2BSink" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="124" end="148" startBytecode="0" endBytecode="23" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    </Method>
+    <LocalVariable name="data" register="1" pc="45" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE606_Unchecked_Loop_Condition.CWE606_Unchecked_Loop_Condition__connect_tcp_22b" start="146" end="146" startBytecode="44" endBytecode="44" sourcefile="CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java" sourcepath="testcases/CWE606_Unchecked_Loop_Condition/CWE606_Unchecked_Loop_Condition__connect_tcp_22b.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEFENSIVE_CONSTANT_OPCODE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.IS_PARAMETER" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="data"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.STORE_OF_NULL" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" rank="18" abbrev="MS" category="MALICIOUS_CODE">
+    <Class classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Class>
+    <Field classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" name="data" signature="Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="1" rank="15" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Class>
+    <Method classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" name="bad" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" start="36" end="104" startBytecode="0" endBytecode="934" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Method>
+    <Field classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" name="data" signature="Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" start="36" end="36" startBytecode="2" endBytecode="2" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" start="55" end="55" startBytecode="50" endBytecode="50" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java" role="SOURCE_LINE_ANOTHER_INSTANCE"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="3" rank="20" abbrev="ST" category="STYLE">
+    <Class classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Class>
+    <Method classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" name="goodG2B" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" start="116" end="119" startBytecode="0" endBytecode="65" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Method>
+    <Field classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" name="data" signature="Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+    </Field>
+    <SourceLine classname="testcases.CWE90_LDAP_Injection.CWE90_LDAP_Injection__connect_tcp_68a" start="116" end="116" startBytecode="2" endBytecode="2" sourcefile="CWE90_LDAP_Injection__connect_tcp_68a.java" sourcepath="testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__connect_tcp_68a.java"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="1" rank="15" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Class>
+    <Method classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" name="goodG2B1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="129" end="147" startBytecode="0" endBytecode="14" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Method>
+    <LocalVariable name="intHashMap" register="2" pc="36" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="145" end="145" startBytecode="35" endBytecode="35" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEAD_OBJECT_STORE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="intHashMap"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.METHOD_RESULT" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="1" rank="15" abbrev="DLS" category="STYLE">
+    <Class classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Class>
+    <Method classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" name="goodG2B2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="152" end="170" startBytecode="0" endBytecode="14" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Method>
+    <LocalVariable name="intHashMap" register="2" pc="40" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="168" end="168" startBytecode="39" endBytecode="39" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEAD_OBJECT_STORE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="intHashMap"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.METHOD_RESULT" value="true"/>
+  </BugInstance>
+  <BugInstance type="DMI_HARDCODED_ABSOLUTE_FILENAME" priority="2" rank="17" abbrev="DMI" category="STYLE">
+    <Class classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Class>
+    <Method classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" name="bad" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="36" end="124" startBytecode="0" endBytecode="167" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Method>
+    <String value="C:\\data.txt" role="FILE_NAME"/>
+    <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="43" end="43" startBytecode="33" endBytecode="33" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+  </BugInstance>
+  <BugInstance type="UC_USELESS_VOID_METHOD" priority="1" rank="15" abbrev="UC" category="STYLE">
+    <Class classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Class>
+    <Method classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" name="goodG2B2" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="152" end="170" startBytecode="0" endBytecode="140" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="170" end="170" startBytecode="40" endBytecode="40" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+  </BugInstance>
+  <BugInstance type="UC_USELESS_VOID_METHOD" priority="2" rank="17" abbrev="UC" category="STYLE">
+    <Class classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Class>
+    <Method classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" name="goodG2B1" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="129" end="147" startBytecode="0" endBytecode="136" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE789_Uncontrolled_Mem_Alloc.s01.CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15" start="147" end="147" startBytecode="36" endBytecode="36" sourcefile="CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java" sourcepath="testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__File_HashMap_15.java"/>
+  </BugInstance>
+  <BugInstance type="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" priority="1" rank="10" abbrev="SQL" category="SECURITY">
+    <Class classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45">
+      <SourceLine classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" sourcefile="CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java" sourcepath="testcases/CWE89_SQL_Injection/s03/CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java"/>
+    </Class>
+    <Method classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" name="badSink" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" start="42" end="95" startBytecode="0" endBytecode="127" sourcefile="CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java" sourcepath="testcases/CWE89_SQL_Injection/s03/CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" start="51" end="51" startBytecode="38" endBytecode="38" sourcefile="CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java" sourcepath="testcases/CWE89_SQL_Injection/s03/CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java"/>
+  </BugInstance>
+  <BugInstance type="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" priority="1" rank="10" abbrev="SQL" category="SECURITY">
+    <Class classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45">
+      <SourceLine classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" sourcefile="CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java" sourcepath="testcases/CWE89_SQL_Injection/s03/CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java"/>
+    </Class>
+    <Method classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" name="goodG2BSink" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" start="194" end="247" startBytecode="0" endBytecode="127" sourcefile="CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java" sourcepath="testcases/CWE89_SQL_Injection/s03/CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE89_SQL_Injection.s03.CWE89_SQL_Injection__listen_tcp_prepareStatement_45" start="203" end="203" startBytecode="38" endBytecode="38" sourcefile="CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java" sourcepath="testcases/CWE89_SQL_Injection/s03/CWE89_SQL_Injection__listen_tcp_prepareStatement_45.java"/>
+  </BugInstance>
+  <BugInstance type="UC_USELESS_VOID_METHOD" priority="2" rank="17" abbrev="UC" category="STYLE">
+    <Class classname="testcases.CWE570_Expression_Always_False.CWE570_Expression_Always_False__n_equal_n_minus_one_01">
+      <SourceLine classname="testcases.CWE570_Expression_Always_False.CWE570_Expression_Always_False__n_equal_n_minus_one_01" sourcefile="CWE570_Expression_Always_False__n_equal_n_minus_one_01.java" sourcepath="testcases/CWE570_Expression_Always_False/CWE570_Expression_Always_False__n_equal_n_minus_one_01.java"/>
+    </Class>
+    <Method classname="testcases.CWE570_Expression_Always_False.CWE570_Expression_Always_False__n_equal_n_minus_one_01" name="bad" signature="()V" isStatic="false">
+      <SourceLine classname="testcases.CWE570_Expression_Always_False.CWE570_Expression_Always_False__n_equal_n_minus_one_01" start="16" end="22" startBytecode="0" endBytecode="91" sourcefile="CWE570_Expression_Always_False__n_equal_n_minus_one_01.java" sourcepath="testcases/CWE570_Expression_Always_False/CWE570_Expression_Always_False__n_equal_n_minus_one_01.java"/>
+    </Method>
+    <SourceLine classname="testcases.CWE570_Expression_Always_False.CWE570_Expression_Always_False__n_equal_n_minus_one_01" start="22" end="22" startBytecode="15" endBytecode="15" sourcefile="CWE570_Expression_Always_False__n_equal_n_minus_one_01.java" sourcepath="testcases/CWE570_Expression_Always_False/CWE570_Expression_Always_False__n_equal_n_minus_one_01.java"/>
+  </BugInstance>
+  </BugCollection>

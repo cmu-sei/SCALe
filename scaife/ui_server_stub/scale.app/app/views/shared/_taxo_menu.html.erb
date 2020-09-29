@@ -1,0 +1,26 @@
+<% taxo_upload_path = "/taxonomy_upload" %>
+<% taxo_map_path = "/taxonomy_map" %>
+<% if modal %>
+  <% taxo_upload_path += "_modal" %>
+  <% taxo_map_path += "_modal" %>
+<% end %>
+<% if @project.present? %>
+  <% taxo_upload_path = "/projects/#{@project.id}" + taxo_upload_path %>
+  <% taxo_map_path = "/projects/#{@project.id}" + taxo_map_path %>
+<% end %>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="taxonomyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Taxonomies Config
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="taxonomyMenuButton">
+    <% if @scaife_active %>
+      <% if modal %>
+        <li><%= link_to "Upload to SCAIFE", taxo_upload_path,  class: "dropdown-item", remote: true, id: "taxoupload-drop-select", "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+        <li><%= link_to "Map to SCAIFE", taxo_map_path,  class: "dropdown-item", remote: true, id: "taxomap-drop-select", "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <% else %>
+        <li><%= link_to "Upload to SCAIFE", taxo_upload_path,  class: "dropdown-item", id: "taxoupload-drop-select" %></li>
+        <li><%= link_to "Map to SCAIFE", taxo_map_path,  class: "dropdown-item", id: "taxomap-drop-select" %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

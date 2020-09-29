@@ -1,0 +1,187 @@
+# frozen_string_literal: true
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# <legal>
+# SCAIFE System version 1.2.2
+# 
+# Copyright 2020 Carnegie Mellon University.
+# 
+# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+# INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
+# UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
+# IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
+# FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
+# OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
+# TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+# 
+# Released under a MIT (SEI)-style license, please see COPYRIGHT file or
+# contact permission@sei.cmu.edu for full terms.
+# 
+# [DISTRIBUTION STATEMENT A] This material has been approved for public
+# release and unlimited distribution.  Please see Copyright notice for
+# non-US Government use and distribution.
+# 
+# DM19-1274
+# </legal>
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure('2') do |config|
+  if Vagrant.has_plugin?('vagrant-proxyconf')
+    config.proxy.http         = 'http://proxy.sei.cmu.edu:8080'
+    config.proxy.https        = 'http://proxy.sei.cmu.edu:8080'
+    config.proxy.ftp          = 'http://proxy.sei.cmu.edu:8080'
+    config.proxy.no_proxy     = 'localhost,127.0.0.1,sei.cmu.edu,cert.org,172.16.0.2,pulsar,redis_datahub,stats,datahub,priority,registration,scale,mongodb_stats,mongodb_datahub,mongodb_priority,mongodb_registration'
+    # Note the SCAIFE servers at the end
+  end
+
+  if ENV['HARBOR']
+    config.vm.box = 'systems/SCALe_1804_VM'
+  else
+    config.vm.box = 'kevinwortman/xubuntu-bionic'
+    config.vm.box_version = '0.0.1'
+  end
+  config.disksize.size = '200GB'
+  config.vm.network 'private_network', ip: '10.1.1.2'
+  config.vm.network :forwarded_port, guest: 8083, host: 8083
+
+  config.vm.provider 'virtualbox' do |v|
+    v.name = 'SCAIFE'
+    v.gui = true
+    v.customize ['modifyvm', :id, '--memory', 24576]
+    v.customize ['modifyvm', :id, '--cpus', 8]
+  end
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    rm /var/lib/apt/lists/lock
+    rm /var/cache/apt/archives/lock
+    rm /var/lib/dpkg/lock
+    echo 'autologin-user=vagrant' >> /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
+  SCRIPT
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    if docker -v COMMAND &> /dev/null; then
+      echo Skipping install of Docker
+    else
+      echo "Install Docker"
+      apt-get update
+      env DEBIAN_FRONTEND=noninteractive  apt-get install -y \
+         apt-transport-https ca-certificates curl \
+         software-properties-common gpg-agent \
+         open-vm-tools open-vm-tools-desktop
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg > key
+      apt-key add key
+      rm key
+
+      add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
+      apt-get update
+      env DEBIAN_FRONTEND=noninteractive  apt-get install -y \
+          docker-ce
+
+      # W/o this containers can't access network after reboot
+      # https://medium.com/@faithfulanere/solved-docker-build-could-not-resolve-archive-ubuntu-com-apt-get-fails-to-install-anything-9ea4dfdcdcf2
+      #  echo '{"dns": ["192.10.0.2", "8.8.8.8"]}' > /etc/docker/daemon.json
+      # Or this: https://odino.org/cannot-connect-to-the-internet-from-your-docker-containers/
+      echo "DOCKER_OPTS="--dns 208.67.222.222 --dns 208.67.220.220"" >> /etc/default/docker
+      echo
+      systemctl start docker
+      systemctl enable docker
+
+      usermod -aG docker vagrant
+    fi
+  SCRIPT
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    if docker-compose -v COMMAND &> /dev/null; then
+      echo Skipping install of docker-compose
+    else
+      echo "Install Docker-compose"
+      curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      chmod +x /usr/local/bin/docker-compose
+    fi
+  SCRIPT
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    if mvn -v COMMAND &> /dev/null; then
+      echo Skipping install of Maven
+    else
+      echo "Load Maven into VM"
+      apt-get update
+      env DEBIAN_FRONTEND=noninteractive  apt-get install -y \
+              openjdk-8-jdk maven python3-pip
+      apt-get --purge -y autoremove
+      apt-get clean
+    fi
+  SCRIPT
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    if sqlite3 -v COMMAND &> /dev/null; then
+      echo Skipping install of sqlite-browser
+    else
+      echo "Installing sqlite-browser"
+      add-apt-repository -y ppa:linuxgndu/sqlitebrowser-testing
+      apt-get update
+      env DEBIAN_FRONTEND=noninteractive apt-get install -y \
+                                         sqlite3 sqlitebrowser
+
+      apt-get --purge -y autoremove
+      apt-get clean
+    fi
+  SCRIPT
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    echo "Load project into VM"
+    cd /home/vagrant/Desktop
+    tar xzf /vagrant/packages/scaife.*.tar.gz
+    chown -R vagrant:vagrant /home/vagrant/Desktop/scaife
+  SCRIPT
+
+  if Vagrant.has_plugin?('vagrant-proxyconf')
+    config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+      mkdir /home/vagrant/.m2
+      cp /home/vagrant/Desktop/scaife/helpers/mvn_proxy_settings.xml /home/vagrant/.m2/settings.xml
+      chown -R vagrant:vagrant /home/vagrant/.m2
+    SCRIPT
+  end
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    echo "Load swagger-codegen into VM"
+    pip3 install -r /home/vagrant/Desktop/scaife/datahub_server_stub/requirements.txt
+    su vagrant -c 'git clone https://github.com/swagger-api/swagger-codegen.git'
+    cd swagger-codegen
+    env JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 su vagrant -c 'mvn clean package'
+    cd ..
+  SCRIPT
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    echo "Build HTML API files"
+    cd /home/vagrant/Desktop/scaife
+    for SERVER in registration priority datahub stats ui; do
+        cd ${SERVER}_server_stub
+        su vagrant -c 'python3 ../helpers/api_json_and_html_generator.py swagger_server/swagger ~/swagger-codegen -v 1.0.0 -li ../ABOUT'
+        su vagrant -c 'python3 ../helpers/api_html_formatter.py swagger_server/swagger/swagger.yaml swagger_server/templates/index.html'
+        cd ..
+    done
+  SCRIPT
+
+  # config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+  #   echo "Make sure containers run on startup"
+  #   cp /home/vagrant/Desktop/scaife/vdc.service /lib/systemd/system
+  #   ln -s /lib/systemd/system/vdc.service /etc/systemd/system/multi-user.target.wants/vdc.service
+  #   chown root:root /lib/systemd/system/vdc.service
+  #   chmod 644 /lib/systemd/system/vdc.service
+  # SCRIPT
+
+  config.vm.provision 'shell', :privileged => true, :inline => <<-SCRIPT
+    echo "Building the containers."
+    docker pull swaggerapi/swagger-editor
+    cd /home/vagrant/Desktop/scaife
+    su vagrant -c 'docker-compose build'
+    su vagrant -c 'docker-compose run scale ./init.sh'
+    su vagrant -c ./start.sh
+  SCRIPT
+end

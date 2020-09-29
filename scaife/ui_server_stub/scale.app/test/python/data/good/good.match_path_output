@@ -1,0 +1,4 @@
+Path ascii.t updated to /test/ascii.t
+Path fr/man1/dos2unix.txt updated to /man/fr/man1/dos2unix.txt
+[Warning] Path not found in the provided source: en/man1/dos2unix.txt
+[Warning] Path not found in the provided source: unmapped_file_path.txt

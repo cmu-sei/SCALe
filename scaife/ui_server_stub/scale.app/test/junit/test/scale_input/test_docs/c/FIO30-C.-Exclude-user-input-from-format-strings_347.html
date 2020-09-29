@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CERT C Coding Standard : FIO30-C. Exclude user input from format strings</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">CERT C Coding Standard</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SEI-CERT-C-Coding-Standard_285.html">SEI CERT C Coding Standard</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="2-Rules_158237133.html">2 Rules</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1040.html">Rule 09. Input Output (FIO)</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            CERT C Coding Standard : FIO30-C. Exclude user input from format strings
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+    
+            Created by <span class='author'> Hal Burch</span>, last modified by <span class='editor'> Liz Whiting</span> on Jul 31, 2015
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>Never call a formatted I/O function with a format string containing a <a href="BB.-Definitions_1054.html#BB.Definitions-taintedvalue">tainted value<span> </span></a>.  An attacker who can fully or partially control the contents of a format string can crash a vulnerable process, view the contents of the stack, view memory content, or write to an arbitrary memory location. Consequently, the attacker can execute arbitrary code with the permissions of the vulnerable process [<a href="AA.-Bibliography_414.html#AA.Bibliography-Seacord2013">Seacord 2013b</a>]. Formatted output functions are particularly dangerous because many programmers are unaware of their capabilities. For example, formatted output functions can be used write an integer value to a specified address using the <code style="font-size: 14.0px;line-height: 1.4285715;">%n</code> conversion specifier.</p><h2 id="FIO30-C.Excludeuserinputfromformatstrings-NoncompliantCodeExample">Noncompliant Code Example</h2><p>The <code>incorrect_password()</code> function in this noncompliant code example is called during identification and authentication to display an error message if the specified user is not found or the password is incorrect. The function accepts the name of the user as a string referenced by <code>user</code>. This is an exemplar of <a href="BB.-Definitions_1054.html#BB.Definitions-untrusteddata">untrusted data</a> that originates from an unauthenticated user. The function constructs an error message that is then output to <code>stderr</code> using the C Standard <code>fprintf()</code> function.</p><div class="code panel pdl" style="background-color: #FFCCCC;border-width: 1px;"><div class="codeContent panelContent pdl" style="background-color: #FFCCCC;">
+<pre class="theme: Confluence; brush: c; gutter: false" style="font-size:12px;">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+ 
+void incorrect_password(const char *user) {
+  int ret;
+  /* User names are restricted to 256 or fewer characters */
+  static const char msg_format[] = &quot;%s cannot be authenticated.\n&quot;;
+  size_t len = strlen(user) + sizeof(msg_format);
+  char *msg = (char *)malloc(len);
+  if (msg == NULL) {
+    /* Handle error */
+  }
+  ret = snprintf(msg, len, msg_format, user);
+  if (ret &lt; 0) { 
+    /* Handle error */ 
+  } else if (ret &gt;= len) { 
+    /* Handle truncated output */ 
+  }
+  fprintf(stderr, msg);
+  free(msg);
+}
+</pre>
+</div></div><p>The <code>incorrect_password()</code> function calculates the size of the message, allocates dynamic storage, and then constructs the message in the allocated memory using the <code>snprintf()</code> function. The addition operations are not checked for integer overflow because the string referenced by <code>user</code> is known to have a length of 256 or less. Because the <code>%s</code> characters are replaced by the string referenced by <code>user</code> in the call to <code>snprintf()</code>, the resulting string needs 1 byte less than is allocated. The <code>snprintf()</code> function is commonly used for messages that are displayed in multiple locations or messages that are difficult to build. However, the resulting code contains a format-string <a href="BB.-Definitions_1054.html#BB.Definitions-vulnerability">vulnerability</a> because the <code>msg</code> includes untrusted user input and is passed as the format-string argument in the call to <code>fprintf()</code>.</p><h2 id="FIO30-C.Excludeuserinputfromformatstrings-CompliantSolution(fputs())">Compliant Solution (<code>fputs()</code>)</h2><p>This compliant solution fixes the problem by replacing the <code>fprintf()</code> call with a call to <code>fputs()</code>, which outputs <code>msg</code> directly to <code>stderr</code> without evaluating its contents:</p><div class="code panel pdl" style="background-color: #ccccff;border-width: 1px;"><div class="codeContent panelContent pdl" style="background-color: #ccccff;">
+<pre class="theme: Confluence; brush: c; gutter: false" style="font-size:12px;">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+ 
+void incorrect_password(const char *user) {
+  int ret;
+  /* User names are restricted to 256 or fewer characters */
+  static const char msg_format[] = &quot;%s cannot be authenticated.\n&quot;;
+  size_t len = strlen(user) + sizeof(msg_format);
+  char *msg = (char *)malloc(len);
+  if (msg == NULL) {
+    /* Handle error */
+  }
+  ret = snprintf(msg, len, msg_format, user);
+  if (ret &lt; 0) { 
+    /* Handle error */ 
+  } else if (ret &gt;= len) { 
+    /* Handle truncated output */ 
+  }
+  fputs(msg, stderr);
+  free(msg);
+}
+</pre>
+</div></div><h2 id="FIO30-C.Excludeuserinputfromformatstrings-CompliantSolution(fprintf())">Compliant Solution (<code>fprintf()</code>)</h2><p>This compliant solution passes the untrusted user input as one of the variadic arguments to <code>fprintf()</code> and not as part of the format string, eliminating the possibility of a format-string vulnerability:</p><div class="code panel pdl" style="background-color: #ccccff;border-width: 1px;"><div class="codeContent panelContent pdl" style="background-color: #ccccff;">
+<pre class="theme: Confluence; brush: c; gutter: false" style="font-size:12px;">#include &lt;stdio.h&gt;
+ 
+void incorrect_password(const char *user) {
+  static const char msg_format[] = &quot;%s cannot be authenticated.\n&quot;;
+  fprintf(stderr, msg_format, user);
+}
+</pre>
+</div></div><h2 id="FIO30-C.Excludeuserinputfromformatstrings-NoncompliantCodeExample(POSIX)">Noncompliant Code Example (POSIX)</h2><p>This noncompliant code example is similar to the first noncompliant code example but uses the POSIX function <code>syslog()</code> [<a href="https://www.securecoding.cert.org/confluence/display/seccode/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013" rel="nofollow">IEEE Std 1003.1:2013</a>] instead of the <code>fprintf()</code> function. The <code>syslog()</code> function is also susceptible to format-string vulnerabilities.</p><div class="code panel pdl" style="background-color: #FFCCCC;border-width: 1px;"><div class="codeContent panelContent pdl" style="background-color: #FFCCCC;">
+<pre class="theme: Confluence; brush: c; gutter: false" style="font-size:12px;">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;syslog.h&gt;
+ 
+void incorrect_password(const char *user) {
+  int ret;
+  /* User names are restricted to 256 or fewer characters */
+  static const char msg_format[] = &quot;%s cannot be authenticated.\n&quot;;
+  size_t len = strlen(user) + sizeof(msg_format);
+  char *msg = (char *)malloc(len);
+  if (msg != NULL) {
+    /* Handle error */
+  }
+  ret = snprintf(msg, len, msg_format, user);
+  if (ret &lt; 0) { 
+    /* Handle error */ 
+  } else if (ret &gt;= len) { 
+    /* Handle truncated output */ 
+  }
+  syslog(LOG_INFO, msg);
+  free(msg);
+}
+</pre>
+</div></div><p>The <code>syslog()</code> function first appeared in BSD 4.2 and is supported by Linux and other modern UNIX implementations. It is not available on Windows systems.</p><h2 id="FIO30-C.Excludeuserinputfromformatstrings-CompliantSolution(POSIX)">Compliant Solution (POSIX)</h2><p>This compliant solution passes the untrusted user input as one of the variadic arguments to <code>syslog()</code> instead of including it in the format string:</p><div class="code panel pdl" style="background-color: #ccccff;border-width: 1px;"><div class="codeContent panelContent pdl" style="background-color: #ccccff;">
+<pre class="theme: Confluence; brush: c; gutter: false" style="font-size:12px;">#include &lt;syslog.h&gt;
+ 
+void incorrect_password(const char *user) {
+  static const char msg_format[] = &quot;%s cannot be authenticated.\n&quot;;
+  syslog(LOG_INFO, msg_format, user);
+}
+</pre>
+</div></div><h2 id="FIO30-C.Excludeuserinputfromformatstrings-RiskAssessment">Risk Assessment</h2><p>Failing to exclude user input from format specifiers may allow an attacker to crash a vulnerable process, view the contents of the stack, view memory content, or write to an arbitrary memory location and consequently execute arbitrary code with the permissions of the vulnerable process.</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Rule</p></th><th class="confluenceTh"><p>Severity</p></th><th class="confluenceTh"><p>Likelihood</p></th><th class="confluenceTh"><p>Remediation Cost</p></th><th class="confluenceTh"><p>Priority</p></th><th class="confluenceTh"><p>Level</p></th></tr><tr><td class="confluenceTd"><p>FIO30-C</p></td><td class="confluenceTd"><p>High</p></td><td class="confluenceTd"><p>Likely</p></td><td class="confluenceTd"><p>Medium</p></td><td class="confluenceTd"><p><span style="color: red;"><strong>P18</strong></span></p></td><td class="confluenceTd"><p><span style="color: red;"><strong>L1</strong></span></p></td></tr></tbody></table></div><p><span style="font-size: 16.0px;line-height: 1.5;"><br /></span></p><p><span style="font-size: 16.0px;line-height: 1.5;">Automated Detection</span></p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Tool</p></th><th class="confluenceTh"><p>Version</p></th><th class="confluenceTh"><p>Checker</p></th><th class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" class="confluenceTd"><a href="CodeSonar_142409787.html">CodeSonar</a></td><td colspan="1" class="confluenceTd">4.0</td><td colspan="1" class="confluenceTd"><p><strong>IO.INJ.FMT</strong></p><p><strong>MISC.FMT</strong></p></td><td colspan="1" class="confluenceTd"><p>Format String Injection</p><p>Format String</p></td></tr><tr><td colspan="1" class="confluenceTd"><p><a href="https://www.securecoding.cert.org/confluence/display/seccode/Rose" rel="nofollow">Compass/ROSE</a></p></td><td colspan="1" class="confluenceTd"> </td><td colspan="1" class="confluenceTd"><p> </p></td><td colspan="1" class="confluenceTd"> </td></tr><tr><td colspan="1" class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/display/seccode/Coverity" rel="nofollow">Coverity</a></td><td colspan="1" class="confluenceTd">6.5</td><td colspan="1" class="confluenceTd"><strong>TAINTED_STRING_WARNING</strong></td><td colspan="1" class="confluenceTd">Fully implemented</td></tr><tr><td colspan="1" class="confluenceTd"><p><a href="https://www.securecoding.cert.org/confluence/display/seccode/Fortify" rel="nofollow">Fortify SCA</a></p></td><td colspan="1" class="confluenceTd"><p>5.0</p></td><td colspan="1" class="confluenceTd"> </td><td colspan="1" class="confluenceTd"> </td></tr><tr><td colspan="1" class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/display/seccode/GCC" rel="nofollow">GCC</a></td><td colspan="1" class="confluenceTd">4.3.5</td><td colspan="1" class="confluenceTd"> </td><td colspan="1" class="confluenceTd"><p>Can detect violations of this rule when the <code>-Wformat-security</code> flag is used</p></td></tr><tr><td colspan="1" class="confluenceTd"><p><a href="https://www.securecoding.cert.org/confluence/display/seccode/Klocwork+Cross+Reference" rel="nofollow">Klocwork</a></p></td><td colspan="1" class="confluenceTd">9.1</td><td colspan="1" class="confluenceTd"><p><strong>SV.FMTSTR.GENERIC<br /></strong><strong>SV.TAINTED.FMTSTR</strong></p></td><td colspan="1" class="confluenceTd"> </td></tr><tr><td colspan="1" class="confluenceTd"><p><a href="CERT-C-Rules-implemented-in-the-LDRA-tool-suite_37257475.html">LDRA tool suite</a></p></td><td colspan="1" class="confluenceTd">9.5.1</td><td colspan="1" class="confluenceTd"><p><strong>86 D</strong></p></td><td colspan="1" class="confluenceTd">Enhanced Enfordement</td></tr><tr><td colspan="1" class="confluenceTd"><p><a href="https://www.securecoding.cert.org/confluence/display/seccode/Splint" rel="nofollow">Splint</a></p></td><td colspan="1" class="confluenceTd">3.1.1</td><td colspan="1" class="confluenceTd"> </td><td colspan="1" class="confluenceTd"> </td></tr></tbody></table></div><h3 id="FIO30-C.Excludeuserinputfromformatstrings-RelatedVulnerabilities">Related Vulnerabilities</h3><p>Two examples of format-string vulnerabilities resulting from a violation of this rule include <a href="https://www.securecoding.cert.org/confluence/display/seccode/AA.+Bibliography#AA.Bibliography-VU286468" rel="nofollow">Ettercap</a> and <a href="https://www.securecoding.cert.org/confluence/display/seccode/AA.+Bibliography#AA.Bibliography-VU649732" rel="nofollow">Samba</a>.</p><p>In Ettercap v.NG-0.7.2, the <code>ncurses</code> user interface suffers from a format-string defect. The <code>curses_msg()</code> function in <code>ec_curses.c</code> calls <code>wdg_scroll_print()</code>, which takes a format string and its parameters and passes it to <code>vw_printw()</code>. The <code>curses_msg()</code> function uses one of its parameters as the format string. This input can include user data, allowing for a format-string vulnerability.</p><p>The Samba AFS ACL mapping VFS plug-in fails to properly <a href="BB.-Definitions_1054.html#BB.Definitions-sanitize">sanitize</a> user-controlled file names that are used in a format specifier supplied to <code>snprintf()</code>. This <a href="BB.-Definitions_1054.html#BB.Definitions-securityflaw">security flaw</a> becomes exploitable when a user can write to a share that uses Samba's <code><a href="http://afsacl.so" class="external-link" rel="nofollow">afsacl.so</a></code> library for setting Windows NT access control lists on files residing on an AFS file system.</p><p>Search for <a href="BB.-Definitions_1054.html#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+FIO30-C" class="external-link" rel="nofollow">CERT website</a>.</p><h2 id="FIO30-C.Excludeuserinputfromformatstrings-RelatedGuidelines">Related Guidelines</h2><div class="table-wrap"><table class="confluenceTable"><tbody><tr><td class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=637">SEI CERT C++ Coding Standard</a></td><td class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/display/cplusplus/VOID+FIO30-CPP.+Exclude+user+input+from+format+strings">VOID FIO30-CPP. Exclude user input from format strings</a></td></tr><tr><td class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">CERT Oracle Secure Coding Standard for Java</a></td><td class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/display/java/IDS06-J.+Exclude+unsanitized+user+input+from+format+strings">IDS06-J. Exclude unsanitized user input from format strings</a></td></tr><tr><td class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/display/perl/CERT+Perl+Secure+Coding+Standard" rel="nofollow">CERT Perl Secure Coding Standard</a></td><td class="confluenceTd"><a href="https://www.securecoding.cert.org/confluence/display/perl/IDS30-PL.+Exclude+user+input+from+format+strings" rel="nofollow">IDS30-PL. Exclude user input from format strings</a></td></tr><tr><td class="confluenceTd"><a href="AA.-Bibliography_414.html#AA.Bibliography-ISO-IECTR24772-2013">ISO/IEC TR 24772:2013</a></td><td class="confluenceTd">Injection [RST]</td></tr><tr><td class="confluenceTd"><a href="AA.-Bibliography_414.html#AA.Bibliography-ISO-IECTS17961">ISO/IEC TS 17961:2013</a></td><td class="confluenceTd">Including tainted or out-of-domain input in a format string [usrfmt]</td></tr><tr><td class="confluenceTd"><a href="http://cwe.mitre.org/" class="external-link" rel="nofollow">MITRE CWE</a></td><td class="confluenceTd"><a href="http://cwe.mitre.org/data/definitions/134.html" class="external-link" rel="nofollow">CWE-134</a>, Uncontrolled Format String</td></tr></tbody></table></div><h2 id="FIO30-C.Excludeuserinputfromformatstrings-Bibliography">Bibliography</h2><div class="table-wrap"><table class="confluenceTable"><tbody><tr><td class="confluenceTd">[<a href="https://www.securecoding.cert.org/confluence/display/seccode/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013" rel="nofollow">IEEE Std 1003.1:2013</a>]</td><td class="confluenceTd">XSH, System Interfaces, <code>syslog</code></td></tr><tr><td class="confluenceTd">[<a href="AA.-Bibliography_414.html#AA.Bibliography-Seacord2013">Seacord 2013b</a>]</td><td class="confluenceTd">Chapter 6, &quot;Formatted Output&quot;</td></tr><tr><td class="confluenceTd">[<a href="AA.-Bibliography_414.html#AA.Bibliography-Viega05">Viega 2005</a>]</td><td class="confluenceTd">Section 5.2.23, &quot;Format String Problem&quot;</td></tr></tbody></table></div><p> </p><hr /><p><a href="https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=1040" rel="nofollow"><img class="confluence-embedded-image" src="attachments/285/11403289.png" data-image-src="attachments/285/11403289.png"></a> <a href="https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=1040" rel="nofollow"><img class="confluence-embedded-image" src="attachments/285/11403291.png" data-image-src="attachments/285/11403291.png"></a> <a href="https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=7503877" rel="nofollow"><img class="confluence-embedded-image" src="attachments/285/11403290.png" data-image-src="attachments/285/11403290.png"></a></p>
+                    </div>
+
+                    
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Sep 25, 2015 14:19</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

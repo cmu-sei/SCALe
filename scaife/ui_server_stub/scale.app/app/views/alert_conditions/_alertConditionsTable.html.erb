@@ -1,0 +1,82 @@
+<!-- This file contains the upper half of web page. This is just the template for the table, and the
+actual alertConditions are displayed within fastalerts -->
+<%= form_tag("/alertConditions/update", :remote => true, :id => "massUpdateForm") do %>
+  <div id="below-filter-panel" class="row">
+  <!-- Here is the mass update form -->
+    <%= hidden_field_tag(:project_id, @project_id) %>
+      <div id="select-all" class="col-md-4 below-filter-panel-item">
+        <% if @view == "fused" %>
+          <%= label_tag(:select_all_label, "Select all #{@alertConditionTotal} Meta-alerts: ") %>
+        <% elsif @view == "unfused" %>
+          <%= label_tag(:select_all_label, "Select all #{@alertConditionTotal} Displays: ") %>
+        <% end %>
+        <%= check_box_tag "select_all_checkbox" %>
+        <div>
+          <%= link_to 'Set selected to', "/modals/mass-update",  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
+        </div>
+        <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="mass-update-modal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+          </div>
+        </div>
+      </div>
+
+    <div id="scaife-mode" class="col-lg-4 below-filter-panel-item">
+      <%= label_tag(:scaife_mode_label, "SCAIFE Mode: ") %>
+      <%= select_tag(:scaife_mode_select, options_for_select([['Connected'], ['Demo'], ['SCALe-only']], @scaife_mode)) %>
+      <% if not @scaife_mode_msg.nil? %>
+        <div id="scaife-msg"><%= @scaife_mode_msg %></div>
+      <% end %>
+    </div>
+    <% unless @scaife_mode == "SCALe-only" %>
+      <div class="col-lg-4 below-filter-panel-item">
+        <%= label_tag(:classify, "Run Classifier: ") %>
+        <% if @project_not_uploaded_to_scaife and @scaife_mode == "Connected" %>
+            <a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Please Upload this Project to SCAIFE to Enable Running Classifiers."></a>
+        <% else %>
+          <%= select("classifier_instance", "chosen", options_for_select(@available_classifiers_to_run, @classifier_chosen), prompt: "-Select Classifier Instance-") %>
+          <button type="button" id="run-classifier-btn" class="btn btn-primary" <% if @available_classifiers_to_run.empty? or @classifier_chosen.blank? %>disabled<% end %>>Classify</button>
+        <% end %>
+      </div>
+    <% end %>
+  </div
+  <br/>
+  <br/>
+
+  <div id="alert_condition_scroll">
+	<table id="alert_conditions_table" class="table-bordered table-striped table-condensed">
+      <!-- and here is the main table of alertConditions -->
+      <thead>
+        <tr>
+          <th><h3><input type="checkbox" id="selectAllCheckboxes"></h3></th>
+          <th>ID</th>
+          <th>Flag</th>
+          <th>Verdict</th>
+          <th>Supplemental</th>
+          <th>Notes</th>
+          <th>Previous</th>
+          <th>Path</th>
+          <th>Line</th>
+          <th>Message</th>
+          <th>Checker </h3></th>
+          <th>Tool </h3></th>
+          <th>Condition </h3></th>
+          <th>Title</th>
+          <th>Confidence</th>
+          <th>AlertCondition Pri</th>
+          <th>Sev</th>
+          <th>Lik</th>
+          <th>Rem</th>
+          <th>Pri</th>
+          <th>Lev</th>
+          <th>CWE_Lik</th>
+        </tr>
+      </thead>
+      <tbody id="alertConditionsTableBody">
+        <!-- Rows in the fast or fused alertConditions table will be rendered here -->
+      </tbody>
+	</table>
+  </div> <!-- end alert_condition_scroll -->
+<% end %>
+<br/>
+<div id="target"></div>

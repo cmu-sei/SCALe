@@ -1,0 +1,152 @@
+JS-1	/app/assets/javascripts/filterStorage.js	2	'setFilters' is defined but never used.
+JS-1	/app/assets/javascripts/filterStorage.js	34	'getFilters' is defined but never used.
+JS-1	/app/assets/javascripts/filterStorage.js	51	'clearFilters' is defined but never used.
+JS-1	/app/assets/javascripts/filterStorage.js	56	'val' is defined but never used.
+JS-2	/app/assets/javascripts/modals.js	77	Expected '!==' and instead saw '!='.
+JS-3	/app/assets/javascripts/modals.js	100	'let' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+JS-3	/app/assets/javascripts/modals.js	100	'destructuring expression' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+JS-4	/app/assets/javascripts/modals.js	131	'ctype' is already defined.
+JS-3	/app/assets/javascripts/modals.js	135	'let' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+JS-3	/app/assets/javascripts/modals.js	135	'destructuring expression' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+JS-4	/app/assets/javascripts/modals.js	239	'scheme' is already defined.
+JS-2	/app/assets/javascripts/modals.js	277	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	287	Expected '!==' and instead saw '!='.
+JS-5	/app/assets/javascripts/modals.js	305	Missing semicolon.
+JS-2	/app/assets/javascripts/modals.js	309	Expected '{' and instead saw 'var'.
+JS-2	/app/assets/javascripts/modals.js	311	Expected '{' and instead saw 'var'.
+JS-4	/app/assets/javascripts/modals.js	311	'inputVal' is already defined.
+JS-6	/app/assets/javascripts/modals.js	314	'inputVal' used out of scope.
+JS-6	/app/assets/javascripts/modals.js	314	'inputVal' used out of scope.
+JS-6	/app/assets/javascripts/modals.js	320	'inputVal' used out of scope.
+JS-2	/app/assets/javascripts/modals.js	320	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	321	Expected '{' and instead saw 'weight'.
+JS-6	/app/assets/javascripts/modals.js	321	'inputVal' used out of scope.
+JS-2	/app/assets/javascripts/modals.js	348	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	358	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	368	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	369	Expected '{' and instead saw '$'.
+JS-5	/app/assets/javascripts/modals.js	393	Missing semicolon.
+JS-5	/app/assets/javascripts/modals.js	398	Missing semicolon.
+JS-2	/app/assets/javascripts/modals.js	403	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	475	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	481	Expected '===' and instead saw '=='.
+JS-7	/app/assets/javascripts/modals.js	481	Confusing use of '!'.
+JS-2	/app/assets/javascripts/modals.js	481	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	483	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	486	Expected '===' and instead saw '=='.
+JS-8	/app/assets/javascripts/modals.js	521	'validateGrouping' was used before it was defined.
+JS-2	/app/assets/javascripts/modals.js	526	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	527	Expected '{' and instead saw 'parenStack'.
+JS-2	/app/assets/javascripts/modals.js	528	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	530	Expected '{' and instead saw 'return'.
+JS-2	/app/assets/javascripts/modals.js	539	Expected '{' and instead saw 'return'.
+JS-8	/app/assets/javascripts/modals.js	542	'validateTabFormula' was used before it was defined.
+JS-2	/app/assets/javascripts/modals.js	547	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	547	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	548	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	548	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	549	Expected '{' and instead saw 'operators'.
+JS-2	/app/assets/javascripts/modals.js	556	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	557	Expected '{' and instead saw 'colOptions'.
+JS-2	/app/assets/javascripts/modals.js	559	Expected '{' and instead saw 'colOptions'.
+JS-8	/app/assets/javascripts/modals.js	576	'validateFormula' was used before it was defined.
+JS-2	/app/assets/javascripts/modals.js	585	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	585	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	586	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	586	Expected '===' and instead saw '=='.
+JS-2	/app/assets/javascripts/modals.js	587	Expected '{' and instead saw 'operators'.
+JS-3	/app/assets/javascripts/modals.js	592	'let' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+JS-3	/app/assets/javascripts/modals.js	592	'destructuring expression' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).
+JS-8	/app/assets/javascripts/modals.js	608	'getAvailableColumns' was used before it was defined.
+JS-2	/app/assets/javascripts/modals.js	617	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	617	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	618	Expected '{' and instead saw 'taxnmOptions'.
+JS-2	/app/assets/javascripts/modals.js	619	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	620	Expected '{' and instead saw 'taxnmOptions'.
+JS-2	/app/assets/javascripts/modals.js	625	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	626	Expected '{' and instead saw 'colOptions'.
+JS-2	/app/assets/javascripts/modals.js	628	Expected '{' and instead saw 'colOptions'.
+JS-2	/app/assets/javascripts/modals.js	631	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	631	Expected '!==' and instead saw '!='.
+JS-2	/app/assets/javascripts/modals.js	632	Expected '{' and instead saw 'colOptions'.
+JS-8	/app/assets/javascripts/modals.js	643	'validateClassifier' was used before it was defined.
+JS-2	/app/assets/javascripts/modals.js	651	Expected '===' and instead saw '=='.
+JS-8	/app/assets/javascripts/modals.js	665	'getClassifierValues' was used before it was defined.
+JS-2	/app/assets/javascripts/modals.js	668	Expected '!==' and instead saw '!='.
+JS-5	/app/assets/javascripts/modals.js	685	Missing semicolon.
+JS-5	/app/assets/javascripts/modals.js	688	Missing semicolon.
+JS-8	/app/assets/javascripts/modals.js	701	'openEditModal' was used before it was defined.
+JS-9	/app/assets/javascripts/modals.js	49	'alert' is not defined.
+JS-9	/app/assets/javascripts/modals.js	209	'confirm' is not defined.
+JS-9	/app/assets/javascripts/modals.js	397	'col_val' is not defined.
+JS-9	/app/assets/javascripts/modals.js	399	'col_val' is not defined.
+JS-9	/app/assets/javascripts/modals.js	479	'user_columns' is not defined.
+JS-9	/app/assets/javascripts/modals.js	487	'user_columns' is not defined.
+JS-9	/app/assets/javascripts/modals.js	490	'user_columns' is not defined.
+JS-9	/app/assets/javascripts/modals.js	494	'user_columns' is not defined.
+JS-9	/app/assets/javascripts/modals.js	676	'ahp_selector' is not defined.
+JS-9	/app/assets/javascripts/modals.js	678	'ahp_selector' is not defined.
+JS-9	/app/assets/javascripts/modals.js	680	'ahp_selector' is not defined.
+JS-9	/app/assets/javascripts/modals.js	681	'ahp_label' is not defined.
+JS-9	/app/assets/javascripts/modals.js	683	'inputFields' is not defined.
+JS-9	/app/assets/javascripts/modals.js	684	'inputFields' is not defined.
+JS-9	/app/assets/javascripts/modals.js	685	'ahp_values' is not defined.
+JS-9	/app/assets/javascripts/modals.js	686	'inputFields' is not defined.
+JS-9	/app/assets/javascripts/modals.js	687	'ahp_values' is not defined.
+JS-9	/app/assets/javascripts/modals.js	690	'ahp_values' is not defined.
+JS-9	/app/assets/javascripts/modals.js	690	'inputFields' is not defined.
+JS-9	/app/assets/javascripts/modals.js	692	'ahp_label' is not defined.
+JS-9	/app/assets/javascripts/modals.js	692	'ahp_values' is not defined.
+JS-9	/app/assets/javascripts/modals.js	721	'alert' is not defined.
+JS-1	/app/assets/javascripts/modals.js	4	'e' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	48	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	48	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	48	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	84	'e' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	116	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	121	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	121	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	121	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	151	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	156	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	156	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	156	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	184	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	189	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	189	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	189	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	225	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	230	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	230	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	230	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	249	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	254	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	254	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	254	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	275	'e' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	285	'e' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	311	'inputVal' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	415	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	420	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	420	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	420	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	439	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	444	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	444	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	444	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	505	'result' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	508	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	508	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	508	'xhr' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	720	'err' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	720	'status' is defined but never used.
+JS-1	/app/assets/javascripts/modals.js	720	'xhr' is defined but never used.
+JS-5	/app/assets/javascripts/onload.js	27	Missing semicolon.
+JS-5	/app/assets/javascripts/onload.js	40	Missing semicolon.
+JS-9	/app/assets/javascripts/onload.js	45	'setFilters' is not defined.
+JS-9	/app/assets/javascripts/onload.js	50	'clearFilters' is not defined.
+JS-9	/app/assets/javascripts/onload.js	53	'getFilters' is not defined.
+JS-9	/app/assets/javascripts/onload.js	73	'cname' is not defined.
+JS-9	/app/assets/javascripts/onload.js	77	'project_id' is not defined.
+JS-9	/app/assets/javascripts/onload.js	79	'cname' is not defined.
+JS-1	/app/assets/javascripts/onload.js	82	'result' is defined but never used.

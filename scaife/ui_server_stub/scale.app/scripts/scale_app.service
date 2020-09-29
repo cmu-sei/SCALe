@@ -1,0 +1,13 @@
+[Unit]
+Description=Job that runs the scale web application server
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+User=vagrant
+WorkingDirectory=/home/vagrant/scale.app
+ExecStart=/usr/local/bin/bundle exec thin start --port 8083
+ExecStop=/usr/local/bin/bundle exec thin stop
+
+[Install]
+WantedBy=multi-user.target

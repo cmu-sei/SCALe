@@ -1,0 +1,77 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+        
+one:
+  name: "MyString"
+  project_id: 1
+  formula: "formula"
+  p_scheme_type: "local"
+  weighted_columns: 0
+  confidence: 5.5
+  cert_severity: 9
+  cert_likelihood: 9
+  cert_remediation: 9
+  cert_priority: 9
+  cert_level: 9
+  cwe_likelihood: 9
+
+two:
+  name: "ProjectId"
+  project_id: 1
+  formula: "formula"
+  p_scheme_type: "local"
+  weighted_columns: 0
+  confidence: 5.5
+  cert_severity: 9
+  cert_likelihood: 9
+  cert_remediation: 9
+  cert_priority: 9
+  cert_level: 9
+  cwe_likelihood: 9
+
+edit:
+  name: "edit"
+  project_id: 1
+  formula: "IF_CWES(cwe_likelihood+safeguard_countermeasure)+IF_CERT_RULES(cert_likelihood)"
+  p_scheme_type: "local"
+  confidence: 5.5
+  cert_severity: 9
+  cert_likelihood: 9
+  cert_remediation: 9
+  cert_priority: 9
+  cert_level: 9
+  cwe_likelihood: 9
+  weighted_columns: {
+    coupling: 2
+  }
+
+delete:
+  name: "delete"
+  project_id: 1
+  formula: "IF_CWES(cwe_likelihood+safeguard_countermeasure)+IF_CERT_RULES(cert_likelihood)"
+  p_scheme_type: "local"
+  confidence: 5.5
+  cert_severity: 9
+  cert_likelihood: 9
+  cert_remediation: 9
+  cert_priority: 9
+  cert_level: 9
+  cwe_likelihood: 9
+  weighted_columns: {
+    coupling: 2
+  }
+
+run:
+  name: "run"
+  project_id: 9
+  formula: "IF_CWES(cwe_likelihood+safeguard_countermeasure)+IF_CERT_RULES(cert_likelihood)"
+  p_scheme_type: "local"
+  confidence: 5.5
+  cert_severity: 9
+  cert_likelihood: 9
+  cert_remediation: 9
+  cert_priority: 9
+  cert_level: 9
+  cwe_likelihood: 9
+  weighted_columns: {
+    coupling: 2
+  }

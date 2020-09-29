@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportDefinition type="standard">
+   <TemplateName>Fortify Developer Workbook</TemplateName>
+   <TemplatePath />
+   <LogoPath>/fortify.jpg</LogoPath>
+   <Footnote>Copyright 2014 Fortify Software Inc.</Footnote>
+   <UserName />
+   <ReportSection optionalSubsections="false" enabled="true">
+      <Title>Report Overview</Title>
+      <SubSection enabled="true">
+         <Title>Report Summary</Title>
+         <Description>This provides a high level summary of the findings that the analysis produced.  Also includes basic information on the scope of the scan.</Description>
+         <Text>On Jul 6, 2015, a source code review was performed over the d2u code base. 66 files, 1,197 LOC (Executable) were scanned. A total of 191 issues were uncovered during the analysis.  This report provides a comprehensive description of all the types of issues found in this project.  Specific examples and source code are provided for each issue type.</Text>
+      </SubSection>
+      <SubSection enabled="true">
+         <Title>Issue Summary by Fortify Priority Order</Title>
+         <Description>A table summarizing the number of issues found and the breakdown of issues in each Fortify Priority Level</Description>
+         <IssueListing limit="-1" listing="false">
+            <Refinement />
+            <Chart chartType="table">
+               <Axis>Fortify Priority Order</Axis>
+               <MajorAttribute>Analysis</MajorAttribute>
+               <GroupingSection count="136">
+                  <groupTitle>High</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="49">
+                  <groupTitle>Low</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="6">
+                  <groupTitle>Critical</groupTitle>
+               </GroupingSection>
+            </Chart>
+         </IssueListing>
+      </SubSection>
+   </ReportSection>
+   <ReportSection optionalSubsections="false" enabled="true">
+      <Title>Issue Summary</Title>
+      <SubSection enabled="true">
+         <Title>Overall number of results</Title>
+         <Description>Results count</Description>
+         <Text>The scan found 191 issues.</Text>
+      </SubSection>
+      <SubSection enabled="true">
+         <Title>Issues By Category</Title>
+         <IssueListing limit="-1" listing="false">
+            <Refinement />
+            <Chart chartType="table">
+               <Axis>Category</Axis>
+               <MajorAttribute>Analysis</MajorAttribute>
+               <GroupingSection count="131">
+                  <groupTitle>Format String</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="32">
+                  <groupTitle>System Information Leak: Internal</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="10">
+                  <groupTitle>Dangerous Function: strcpy()</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="6">
+                  <groupTitle>Path Manipulation</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="3">
+                  <groupTitle>Memory Leak</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="2">
+                  <groupTitle>Integer Overflow</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="2">
+                  <groupTitle>Missing Check against Null</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="2">
+                  <groupTitle>Poor Style: Value Never Read</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="2">
+                  <groupTitle>Race Condition: File System Access</groupTitle>
+               </GroupingSection>
+               <GroupingSection count="1">
+                  <groupTitle>Insecure Temporary File</groupTitle>
+               </GroupingSection>
+            </Chart>
+         </IssueListing>
+      </SubSection>
+   </ReportSection>
+   <ReportSection optionalSubsections="true" enabled="true">
+      <Title>Results Outline</Title>
+      <SubSection enabled="true">
+         <Title>Vulnerability Examples by Category</Title>
+         <Description>Results summary of all issue categories.  Vulnerability examples are provided by category.</Description>
+         <IssueListing limit="5" listing="true">
+            <Refinement />
+            <Chart chartType="list">
+               <Axis>Category</Axis>
+               <MajorAttribute>Analysis</MajorAttribute>
+               <GroupingSection count="131">
+                  <groupTitle>Format String</groupTitle>
+                  <MajorAttributeSummary>
+                     <MetaInfo>
+                        <Name>Abstract</Name>
+                        <Value>Allowing an attacker to control a function's format string can result in a buffer overflow.</Value>
+                     </MetaInfo>
+                     <MetaInfo>
+                        <Name>Explanation</Name>
+                        <Value>None</Value>
+                     </MetaInfo>
+                     <MetaInfo>
+                        <Name>Recommendations</Name>
+                        <Value>Whenever possible, pass static format strings to functions that accept a format string argument. If format strings must be constructed dynamically, define a set of valid format strings and make selections from this safe set. Finally, always verify that the number of formatting directives in the selected format string corresponds to the number of arguments to be formatted.</Value>
+                     </MetaInfo>
+                     <AttributeValue>
+                        <Name>&lt;Unaudited&gt;</Name>
+                        <Count>131</Count>
+                     </AttributeValue>
+                     <AttributeValue>
+                        <Name>Not an Issue</Name>
+                        <Count>0</Count>
+                     </AttributeValue>
+                     <AttributeValue>
+                        <Name>Reliability Issue</Name>
+                        <Count>0</Count>
+                     </AttributeValue>
+                     <AttributeValue>
+                        <Name>Bad Practice</Name>
+                        <Count>0</Count>
+                     </AttributeValue>
+                     <AttributeValue>
+                        <Name>Suspicious</Name>
+                        <Count>0</Count>
+                     </AttributeValue>
+                     <AttributeValue>
+                        <Name>Exploitable</Name>
+                        <Count>0</Count>
+                     </AttributeValue>
+                  </MajorAttributeSummary>
+
+  <Issue ruleID="B5084B1B-0E81-4C22-8B55-3CD558799A08" iid="E2A1D2A4ECB78532B61A26E4163DD638">
+     <Category>THIS_CHECKER_HAS_NO_RULE</Category>
+     <Folder>High</Folder>
+     <Kingdom>Input Validation and Representation</Kingdom>
+     <Abstract>Message3</Abstract>
+     <Friority>High</Friority>
+     <Primary>
+	<FileName>common.c</FileName>
+	<FilePath>common.c</FilePath>
+	<LineStart>3</LineStart>
+	<Snippet>Snippet</Snippet>
+     </Primary>
+  </Issue>
+               </GroupingSection>
+            </Chart>
+         </IssueListing>
+      </SubSection>
+   </ReportSection>
+</ReportDefinition>
+

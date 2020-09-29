@@ -1,0 +1,36 @@
+<!-- This file contains the pagination code that not only
+contains the pagination links, but also form elements that submit
+the number of alertConditions to show per page -->
+<div class="alert-conditions-per-page">
+  <!-- Select number of alertConditions to display per page -->
+  <div id="pageCount">
+    <div class="row">
+      <div class="col-lg-2" style="padding: 0px;">
+        <span> Showing <%= @alertConditionStart %> to <%= @alertConditionEnd %> of
+          <% if @view == "fused" %>
+            <span id="totalRecords"><%= @alertConditionTotal %></span> |  <strong data-toggle="tooltip" title="Count of Meta-Alert (m) ID's per page.">Meta-alerts per page: </strong>
+          <% elsif  @view == "unfused" %>
+            <span id="totalRecords"><%= @alertConditionTotal %></span> |  <strong data-toggle="tooltip" title="Count of Display (d) ID's per page.">Displays per page: </strong>
+          <% end %>
+        </span>
+      </div>
+      <div class="col-md-2">
+        <%= select_tag(:alertConditionsPerPage, options_for_select([["10",10], ["25",25], ["50",50], ["100",100], ["500",500]],
+        @alertConditionsPerPage), :class => "form-control") %>
+      </div>
+      <div class="col-md-1">
+        <%= submit_tag("Go", :class => "btn btn-secondary") %>
+      </div>
+      <div class="col-md-7" style="padding: 0px;">
+        <div class="alert-conditions-per-page pull-right pagination">
+          <!--AlertConditionsHelper::LinkRendererAlertConditionsHelper::LinkRenderer-->
+          <%= will_paginate @temp, :renderer => BootstrapPagination::Rails %>
+        </div>
+      </div>
+    </div>
+    </div>
+   </div>
+</div>
+
+<div>
+</div>

@@ -1,0 +1,94 @@
+<!-- This is the main portal page that lists all the current projects -->
+<% if flash[:scaife_project_upload_message] %>
+    <%= javascript_tag "alert('" + flash[:scaife_project_upload_message] + "')" %>
+<% end %>
+
+<div id="project-loader">
+  <!-- This loader div is simply to hold the loading gif -->
+  <img src="/ajax-loader.gif" alt="loading...">
+</div>
+
+<h1>SCALe Projects</h1>
+
+<div class="page_content">
+<table id="project_list" class="table table-bordered" width=100% height=300px>
+<thead>
+  <tr>
+    <th valign="top">Name</th>
+    <th valign="top">Description</th>
+    <th valign="top">SCAIFE Information</th>
+    <th valign="top">Project Options</th>
+  </tr>
+</thead>
+ <tbody>
+
+<!-- For each project we show some basic information and
+the links corresponding to the various actions.
+Create DB brings you to the database page
+Edit brings you to the edit project page
+Export Tables is a download link for a CSV file with the alertConditions for this project, similar to past excel spreadsheets
+Export DB is a download link for a sqlite database with a database structure that allows a smaller database, with adjudications and manual alerts/alertConditions may have been added.
+Destroy is a link that will purge the Rails database of all alerts and messages associated with this project. It does not delete from the scale archive as a safety. -->
+<% @projects.each do |p| %>
+  <tr>
+    <td><%= link_to p.name, p %></td>
+    <td><%= p.description %></td>
+    <td>
+      <% if p.scaife_uploaded_on %>
+        Uploaded to SCAIFE: <span class="label label-success">yes</span>
+      <% else %>
+        Uploaded to SCAIFE: <span class="label label-warning">no</span>
+      <%end %>
+      <br />
+      <br />
+      <% if p.publish_data_updates %>
+        Publish Data Updates to SCAIFE: <span class="label label-success">yes</span>
+      <% else %>
+        Publish Data Updates to SCAIFE: <span class="label label-warning">no</span>
+      <%end %>
+      <br />
+      <br />
+      <% if p.subscribe_to_data_updates %>
+        Subscribe to Data Updates from SCAIFE: <span class="label label-success">yes</span>
+      <% else %>
+         Subscribe to Data Updates from SCAIFE: <span class="label label-warning">no</span>
+      <%end %>
+    </td>
+    <td>
+      <span>
+        <a href="<%= edit_project_path(p) %>" class="edit_project btn btn-default glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Edit" role="button"></a>
+        <a href="/projects/<%= p.id %>/export" class="export_tables btn btn-default" data-toggle="tooltip" data-placement="top" title="Export Tables" role="button">
+            <img alt="Export Tables" border="0" height="28" width="28" class="dock-item" src="/assets/icons/export_tables.png" /></a>
+        <a href="/projects/<%= p.id %>/exportdb" class="export_db btn btn-default" data-toggle="tooltip" data-placement="top" title="Export Database" role="button">
+            <img alt="Export Database" border="0" height="28" width="28" class="dock-item" src="/assets/icons/export_db.png" /></a>
+        <a <% if session[:scaife_mode] == "Connected" %>href="/projects/<%= p.id %>/upload_project"<% end %> class="upload_project btn btn-default glyphicon glyphicon-export" data-toggle="tooltip" data-placement="top"
+           title="<% if session[:scaife_mode] != "Connected" %>Log In Above to <% end %>Upload SCALe project to SCAIFE" role="button" <% if session[:scaife_mode] != "Connected" %>disabled<% end %>></a>
+        <a href="/projects/<%= p.id %>" data-confirm="Delete project?" data-method="delete" class="delete_project btn btn-default glyphicon glyphicon-remove"
+           data-toggle="tooltip" data-placement="top" title="Delete" role="button"></a>
+      </span>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<a href="<%= new_project_path %>" id="new_project" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Create a new project using data from SCALe or the SCAIFE DataHub" role="button">New project</a>
+
+
+<br/>
+<br/>
+
+<% if @scaife_active %>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      SCAIFE Integrations
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <%= render partial: "projects/scaife/pills", locals: { modal: false, disable_lang_select: true } %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+</div>

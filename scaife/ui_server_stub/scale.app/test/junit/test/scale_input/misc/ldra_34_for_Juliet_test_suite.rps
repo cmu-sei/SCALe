@@ -1,0 +1,1366 @@
+  **************************************************************************************
+                  ******                                                                          ******
+                  ******                     LDRArules (R) Code Review Report                     ******
+                  ******                                                                          ******
+                  ******   System : CWE15_External_Control_of_System_or_Configuration_Setting_1   ******
+                  ******                                                                          ******
+                  **************************************************************************************
+
+
+
+      ----------------------------------------------------------------------------------------------------
+                                                ***************************
+                                                *                         *
+                                                *  Overall Result:  FAIL  *
+                                                *                         *
+                                                ***************************
+      ----------------------------------------------------------------------------------------------------
+
+
+      Report Production
+      -----------------
+      * C/C++ LDRArules Version: 9.4.6           * C Config. File: C:\Program Files (x86)\LDRA\LDRArules_C_CPP_9.4.6\c\creport.dat
+      * C++ Config. File: C:\Program Files (x86)\LDRA\LDRArules_C_CPP_9.4.6\cpp\cppreport.dat
+                                                 * Produced On: Thu May 04 2017 at 02:38:49
+      * C Penalty File: C:\Program Files (x86)\LDRA\LDRArules_C_CPP_9.4.6\c\cpen.dat
+                                                 * C++ Penalty File: C:\Program Files (x86)\LDRA\LDRArules_C_CPP_9.4.6\cpp\cpppen.dat
+
+
+      Report Configuration
+      --------------------
+      * Report Level: Summary Report             * Procedures Reported: Fails Only
+      * C Programming Standards Model: CWE       * C++ Programming Standards Model: CWE
+      * Line Numbers refer to: Original Source File
+                                                 * Violation Details: Violations Only
+      * Reporting Scope: Source file and associated header
+
+
+      Analysis Phases Run
+      -------------------
+      * Static: Yes                              * Complexity: No
+      * Static Data Flow: No                     * Information Flow: No
+      * Cross Reference: No
+
+
+
+
+
+
+      --------------------------------------------------------------------------------
+
+
+      Contents
+      --------
+      Overall Code Review Summary
+         * Totals of Violations for each Standard
+         * Table of Procedure Results
+         * Table of Source Files in System
+         * Table of Global Basic Information
+
+      Report on Program Components
+         * Code Review Results Global Program and Selected Procedures
+
+      Key to Terms
+
+
+
+
+                                             *********************************
+                                             *                               *
+                                             *  Overall Code Review Summary  *
+                                             *                               *
+                                             *********************************
+
+
+      Totals of Violations for Selected Code Review Standards
+      -------------------------------------------------------
+         '-' indicates required Analysis Phase results are not yet available.
+         'Off' indicates that the standard is switched off in the Penalty File (<lang>pen.dat).
+         'MR'indicates that the standard is Misra Restricted.
+         '*' indicates standard has been violated.
+
+      =========================================================================================
+      NUMBER OF
+      VIOLATIONS    LDRA CODE        RULE STANDARDS                                    CWE CODE
+      =========================================================================================
+       0               5 S           Empty then clause.
+       0              20 S           Parameter not declared explicitly.
+       0              21 S           Number of parameters does not match.
+       0              23 S           Procedure is not explicitly called in code analysed.
+       0              27 S           Void procedure with return statement.
+       1              35 S         * Static procedure is not explicitly called in code analysed.
+       0              36 S           Function has no return statement.
+       0              39 S           Unsuitable type for loop variable.
+       0              41 S           Ellipsis used in procedure parameter list.
+       6              44 S         * Use of banned function or variable.
+       0              47 S           Array bound exceeded.
+       0              48 S           No default case in switch statement.
+       0              51 S           Shifting value too far.
+       0              52 S           Unsigned expression negated.
+       0              54 S           Sizeof operator with side effects.
+       0              56 S           Equality comparison of floating point.
+       0              57 S           Statement with no side effect.
+       0              58 S           Null statement found.
+       0              64 S           Void procedure used in expression.
+       0              65 S           Void variable passed as parameter.
+       0              66 S           Function with empty return expression.
+       6              71 S         * Pointer assignment to wider scope.
+       0              73 S           Bit field not signed or unsigned int.
+       0              76 S           More than one of # or ## in a macro.
+       0              77 S           Macro replacement list needs parentheses.
+       0              78 S           Macro parameter not in brackets.
+       0              81 S           Use of trigraph.
+       0              86 S           Attempt to define reserved word.
+       0              93 S           Value is not of appropriate type.
+       MR             98 S           Actual and formal parameters inconsistent (MR).
+       0              99 S           Function use is not a call.
+       0             100 S           #include filename is non conformant.
+       0             101 S           Function return type inconsistent.
+       0             105 S           Initialisation brace { } fault.
+       0             107 S           Type mismatch in ternary expression.
+       0             113 S           Non standard character in source.
+       0             115 S           String incorrectly terminated.
+       0             118 S           main must be int (void) or int (int,char*[]).
+       0             119 S           Nested comment found.
+       0             127 S           Array has no bounds specified.
+       13            131 S         * Name reused in inner scope.
+       0             133 S           Assignment operator in RHS of && or ||.
+       0             134 S           Volatile variable in complex expression.
+       0             135 S           Parameter list is KR.
+       0             136 S           Bit operator with boolean operand.
+       15            139 S         * Construct leads to infeasible code.
+       48            140 S         * Infeasible loop condition found.
+       0             148 S           No return type for function/procedure.
+       2             157 S         * Modification of string literal.
+       517           170 S         * Procedure call has no prototype and no defn.
+       0             176 S           Non standard escape sequence in source.
+       0             203 S           Cast on a constant value.
+       12            243 S         * Included file not protected with #define.
+       0             248 S           Divide by zero in preprocessor directive.
+       0             296 S           Function declared at block scope.
+       4             299 S         * Pointer to function declared without typedef.
+       0             302 S           Comment possibly contains code.
+       0             324 S           Macro call has wrong number of parameters.
+       0             326 S           Declaration is missing type.
+       0             329 S           Operation not appropriate to plain char.
+       0             330 S           Implicit conversion of underlying type.
+       0             332 S           Widening cast on complex integer expression.
+       0             335 S           Operator defined contains illegal items.
+       0             336 S           #if expansion contains define operator.
+       0             339 S           #include directive with illegal items.
+       0             340 S           Use of function like macro.
+       0             341 S           Preprocessor construct as macro parameter.
+       0             344 S           Cast on volatile value.
+       7             355 S         * Variables not unique within 64 characters.
+       0             376 S           Use of octal escape sequence.
+       0             377 S           Null character used within a string.
+       2             381 S         * Enum, struct or union not typedeffed.
+       111           382 S         * (void) missing for discarded return value.
+       0             389 S           Bool value incremented/decremented.
+       111           397 S         * Array initialisation has insufficient items.
+       0             401 S           Use of sizeof on an array parameter.
+       0             403 S           Negative (or potentially negative) shift.
+       0             404 S           Array initialisation has too many items.
+       0             406 S           Use of ++ or -- on RHS of && or || operator.
+       0             407 S           free used on string.
+       0             408 S           Volatile variable accessed on RHS of && or ||.
+       0             411 S           Inappropriate value assigned to enum.
+       0             412 S           Undefined behaviour, \ before E-O-F.
+       0             427 S           Filename in #include not in < > or " ".
+       0             432 S           Inappropriate type - should be plain char.
+       0             433 S           Type conversion without cast.
+       0             434 S           Signed/unsigned conversion without cast.
+       0             435 S           Float/integer conversion without cast.
+       0             437 S           < > <= >= used on different object pointers.
+       0             438 S           Pointer subtraction not addressing one array.
+       0             439 S           Cast from pointer to integral type.
+       0             440 S           Cast from integral type to pointer.
+       0             441 S           Float cast to non-float.
+       0             442 S           Signed integral type cast to unsigned.
+       0             443 S           Unsigned integral type cast to signed.
+       0             444 S           Integral type cast to non-integral.
+       0             446 S           Narrower int conversion without cast.
+       0             450 S           Wide string and string concatenated.
+       0             452 S           No cast for widening complex int expression.
+       0             456 S           Implicit float widening for function return.
+       0             457 S           Implicit int widening for function return.
+       0             458 S           Implicit conversion: actual to formal param.
+       0             465 S           Struct/union not completely specified.
+       0             479 S           Right shift loses all bits.
+       0             480 S           String function params access same variable.
+       0             482 S           Incomplete structure referenced.
+       0             483 S           free parameter is not heap item.
+       0             484 S           Attempt to use already freed object.
+       0             486 S           Incorrect number of formats in output function.
+       0             487 S           Insufficient space allocated.
+       0             488 S           Value outside range of underlying type.
+       0             489 S           Insufficient space for operation.
+       0             491 S           No cast for widening int parameter.
+       0             493 S           Numeric overflow.
+       0             494 S           Numeric underflow.
+       517           496 S         * Function call with no prior declaration.
+       0             503 S           Function returns local resources.
+       0             506 S           Use of boolean with relational operator.
+       0             520 S           Bit field is not bool or explicit integral.
+       0             545 S           Assignment of overlapping storage.
+       0             553 S           Function and proto should both be static.
+       48            554 S         * Cast to an unrelated type.
+       0             565 S           Assignment to wider scope.
+       0             567 S           Pointer arithmetic is not on array.
+       0             568 S           #include "filename" uses standard library name.
+       0             573 S           Macro concatenation of uni char names.
+       0             575 S           Linkage differs from previous declaration.
+       0             576 S           Function pointer is of wrong type.
+       0             577 S           Sizeof argument is a pointer.
+       0             579 S           More than one variable per declaration.
+       0             582 S           const object reassigned.
+       0             583 S           Comparison of pointer and string literal.
+       1             584 S         * Remainder of % op could be negative.
+       0             585 S           Bitwise and arith operations on same data.
+       2             586 S         * Format is not %j for user defined type.
+       0             587 S           Const local variable not immediately initialised.
+       0             588 S           Use of system function.
+       0             589 S           Format is not appropriate type.
+       0             590 S           Mode fault in fopen.
+       0             591 S           Inappropriate use of file pointer.
+       0             592 S           Use of filename based functions.
+       0             593 S           Use fseek() rather than rewind().
+       0             594 S           Use setvbuf() rather than setbuf().
+       0             600 S           Argument of strlen is unterminated.
+       0             602 S           strtok may change the parse string.
+       0             606 S           Cast involving function pointer.
+       0             608 S           Use of explicitly undefined language feature.
+       0             609 S           Use of implicitly undefined language feature.
+       0             617 S           Function call may return unexpected value.
+       0             618 S           Use of memcmp between structures.
+       0             623 S           String assigned to non const object.
+       0             629 S           Divide by zero found.
+       0             630 S           Duplicated enumeration value.
+       0             631 S           Declaration not reachable.
+       0             633 S           Use of a broken or risky cryptography algorithm.
+       18            634 S         * Empty block found.
+       0             635 S           Cast from pointer to float type.
+       0             636 S           Cast from float type to pointer.
+       0             642 S           Function return type with array field.
+       -               5 C           Procedure contains infinite loop.
+       -               2 D           Function does not return a value on all paths.
+       -               6 D           Recursion in procedure calls found.
+       -               8 D           DD data flow anomalies found.
+       -              15 D           Unused procedural parameter.
+       -              17 D           Identifier not unique within 31 characters.
+       -              20 D           No declaration for variable found before use.
+       -              27 D           Variable should be declared static.
+       -              28 D           Potentially infinite loop found.
+       -              35 D           Expression has side effects.
+       -              41 D           Procedure call has no prototype declared.
+       -              42 D           Local pointer returned in function result.
+       -              43 D           Divide by 0 found.
+       -              48 D           Attempt to write to unopened file.
+       -              50 D           Memory not freed after last reference.
+       -              51 D           Attempt to read from freed memory.
+       -              53 D           Attempt to use uninitialised pointer.
+       -              54 D           Unsafe use of function pointer variable.
+       -              57 D           Global not initialised at declaration.
+       -              61 D           Procedure should be declared static.
+       -              62 D           Pointer parameter should be declared const.
+       -              63 D           No definition in system for prototyped procedure.
+       -              65 D           Void function has no side effects.
+       -              72 D           Potential side effect problem in expression.
+       -              75 D           Attempt to open file pointer more than once.
+       -              76 D           Procedure is not called or referenced in code analysed.
+       -              77 D           Local structure returned in function result.
+       -              78 D           Global variable should be declared const.
+       -              80 D           Potentially unused function-modified value.
+       -              81 D           Attempt to remove an open file.
+       -              82 D           fsetpos values not generated by fgetpos.
+       -              83 D           Potentially repeated call to ungetc.
+       -              84 D           No fseek or flush before I/O.
+       -              85 D           Filename not verified before fopen.
+       -              86 D           User input not checked before use.
+       -              87 D           Illegal shared object in signal handler.
+       -              88 D           Illegal use of longjmp in signal handler.
+       -              89 D           Illegal use of raise in signal handler.
+       -              90 D           Unguarded global used in threaded function.
+       -              91 D           Function return value potentially unused.
+       -              93 D           Local variable should be declared const.
+       -              94 D           Named variable declared but not used in code.
+       -              97 D           Signal called from within signal handler.
+       -             105 D           DU anomaly dead code, variable value is unused on all paths.
+       -             107 D           Attempt to change system call capture string.
+       -             109 D           Tainted argument to formatted i/o function.
+       -             112 D           Free called twice on same variable.
+       -             113 D           File closed more than once.
+       -               1 X           Declaration types do not match across a system.
+       -              61 X           Identifier match in 31 chars.
+       -              62 X           Function prototype/defn return type mismatch (MR).
+       -              63 X           Function prototype/defn param type mismatch (MR).
+       -              64 X           Array bound exceeded at call.
+       -              66 X           Insufficient array space at call.
+       -              67 X           Identifier is typographically ambiguous.
+       -              68 X           Parameter indexing array too big at call.
+       -              69 X           Global array bound exceeded at use.
+       -              70 X           Array has insufficient space.
+       -              71 X           Insufficient space for copy.
+       -              72 X           Parameter indexing array too small at call.
+       0               1 Q           Call has execution order dependant side effects.
+       0               5 Q           File does not end with new line.
+       0               1 U           Inter-file recursion found.
+       1               1 J         * Unreachable Code found.
+
+
+      =========================================================================================
+      NUMBER OF
+      VIOLATIONS    LDRA CODE        RULE STANDARDS (ADDITIONAL FOR C++)               CWE CODE
+      =========================================================================================
+       0              38 S           Use of static class member.                       CWE 500
+       0             485 S           Array deletion without [].                        CWE 762
+       1             527 S         * No master exception handler.                      CWE 248
+       0             540 S           Cast from pointer to void to pointer.             CWE 588,737
+       0             564 S           Reference assignment to wider scope.              CWE 562,825
+       -              56 D           Throw found with no catch in scope.               CWE 460
+       -              71 D           No matching catch for throw in called function.   CWE 460
+
+
+
+      =========================================================================================
+      NUMBER OF
+      VIOLATIONS    LDRA CODE        (C) CHECKING (MANDATORY) STANDARDS                CWE CODE
+      =========================================================================================
+       102            49 S         * Logical conjunctions need brackets.
+       0              59 S           Else alternative missing in if.
+       0              62 S           Switch case not terminated with break.
+       51             94 S         * Casting operation on a pointer.
+       52             95 S         * Casting operation to a pointer.
+       0              96 S           Use of mixed mode arithmetic.
+       0             132 S           Assignment operator in boolean expression.
+       0             331 S           Literal value requires a U suffix.
+       0             361 S           Expression needs brackets.
+       -              45 D           Pointer not checked for null before use.
+       -              49 D           File pointer not closed on exit.
+       -              69 D           Procedure contains UR data flow anomalies.
+
+
+
+      =========================================================================================
+      NUMBER OF
+      VIOLATIONS    LDRA CODE        (O) OPTIONAL STANDARDS                            CWE CODE
+      =========================================================================================
+
+
+      No Standards have been set as Optional.
+
+      Number of Rule Standards checked           163
+      Number of Checking Standards checked       9
+      Number of Optional Standards checked       0
+      Number of Informational Standards checked  10
+      Total Standards checked                    172
+      Total Standards checked including Informational
+                                                 182
+
+
+      Number of Rule Standards checked           158
+      Number of Checking Standards checked       9
+      Number of Optional Standards checked       0
+      Number of Informational Standards checked  10
+      Total Standards checked                    167
+      Total Standards checked including Informational
+                                                 177
+
+
+
+
+      ----------------------------------------------------------------------------------------------------
+                                              ===============================
+                                              **   OVERALL RESULT:  FAIL   **
+                                              ===============================
+      ----------------------------------------------------------------------------------------------------
+
+  
+ Out of 279 program components, 82  (29.39 %) pass ( of which 0 conditionally pass ) 
+ and  197 fail ( of which 0 fail only because of insufficient comments )
+
+
+ Procedure Results
+ -----------------
+       ============================================================================
+       CODE REVIEW RESULT     PROCEDURE            SOURCE FILE    UNIQUE VIOLATIONS
+       ============================================================================
+       FAIL                   Global Program
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_01_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_01.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_01.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_01_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_01.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_02_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_02.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_02.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_02.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_02_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_02.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_03_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_03.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_03.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_03.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_03_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_03.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_04_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_04.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_04.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_04.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_04_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_04.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_05_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_05.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_05.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_05.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_05_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_05.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_06_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_06.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_06.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_06.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_06_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_06.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_07_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_07.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_07.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_07.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_07_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_07.c
+                                                                     0  
+       Pass                   staticReturnsTrue    CWE15_External_Control_of_System_or_Configuration_Setting__w32_08.c
+                                                                     0  
+       Pass                   staticReturnsFalse   CWE15_External_Control_of_System_or_Configuration_Setting__w32_08.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_08_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_08.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_08.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_08.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_08_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_08.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_09_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_09.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_09.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_09.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_09_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_09.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_10_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_10.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_10.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_10.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_10_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_10.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_11_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_11.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_11.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_11.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_11_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_11.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_12_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_12.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_12.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_12_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_12.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_13_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_13.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_13.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_13.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_13_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_13.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_14_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_14.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_14.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_14.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_14_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_14.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_15_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_15.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_15.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_15.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_15_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_15.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_16_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_16.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_16.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_16_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_16.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_17_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_17.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_17.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_17_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_17.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_18_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_18.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_18.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_18_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_18.c
+                                                                     0  
+       FAIL                   badSource            CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_21_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                                     1  #
+       FAIL                   goodG2B1Source       CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                                     1  #
+       FAIL                   goodG2B2Source       CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_21_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22a.c
+                                                                     1  #
+       FAIL                   goodG2B1             CWE15_External_Control_of_System_or_Configuration_Setting__w32_22a.c
+                                                                     1  #
+       FAIL                   goodG2B2             CWE15_External_Control_of_System_or_Configuration_Setting__w32_22a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22_badSource
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22_goodG2B1Source
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22_goodG2B2Source
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_22b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_31_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_31.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_31.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_31_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_31.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_32_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_32.c
+                                                                     2  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_32.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_32_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_32.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_33::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_33.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_33::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_33.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_33::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_33.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_34_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_34.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_34.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_34_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_34.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_41.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_41.c
+                                                                     0  
+       FAIL                   badSource            CWE15_External_Control_of_System_or_Configuration_Setting__w32_42.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_42_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_42.c
+                                                                     1  #
+       FAIL                   goodG2BSource        CWE15_External_Control_of_System_or_Configuration_Setting__w32_42.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_42.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_42_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_42.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43::badSource
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43::goodG2BSource
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_43.cpp
+                                                                     0  
+       FAIL                   badSink              CWE15_External_Control_of_System_or_Configuration_Setting__w32_44.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_44_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_44.c
+                                                                     1  #
+       FAIL                   goodG2BSink          CWE15_External_Control_of_System_or_Configuration_Setting__w32_44.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_44.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_44_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_44.c
+                                                                     0  
+       FAIL                   badSink              CWE15_External_Control_of_System_or_Configuration_Setting__w32_45.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_45_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_45.c
+                                                                     1  #
+       FAIL                   goodG2BSink          CWE15_External_Control_of_System_or_Configuration_Setting__w32_45.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_45.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_45_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_45.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_51a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_51b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_52a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52a.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52b.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52b.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52c_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52c.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52c_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_52c.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_53a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53a.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53b.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53b.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53c_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53c.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53c_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53c.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53d_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53d.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53d_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_53d.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_54a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54a.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54b.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54b.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54c_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54c.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54c_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54c.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54d_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54d.c
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54d_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54d.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54e_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54e.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54e_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_54e.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_61a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61b_badSource
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61b_goodG2BSource
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_61b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62a.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62::badSource
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62b.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62::goodG2BSource
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_62b.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_63a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_63b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_64a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_64b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_65a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_65b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_66a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_66b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_67a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_67b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68a.c
+                                                                     1  #
+       FAIL                   goodG2B              CWE15_External_Control_of_System_or_Configuration_Setting__w32_68a.c
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68_good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68a.c
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68b_badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68b_goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_68b.c
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72a.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72::badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72b.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72::goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_72b.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73a.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73::badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73b.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73::goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_73b.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74a.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74::badSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74b.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74::goodG2BSink
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_74b.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81::CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_bad::action
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_bad.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81::CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_goodG2B::action
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_goodG2B.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_81a.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82::CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_bad::action
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_bad.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82::CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_goodG2B::action
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_goodG2B.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_82a.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83::CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad::CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83::CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad::~CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83::CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B::CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83::CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B::~CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_83a.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84::CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad::CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84::CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad::~CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84::CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B::CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B.cpp
+                                                                     0  
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84::CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B::~CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B.cpp
+                                                                     0  
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84::bad
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84a.cpp
+                                                                     1  #
+       FAIL                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84::goodG2B
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84a.cpp
+                                                                     1  #
+       Pass                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84::good
+                                                   CWE15_External_Control_of_System_or_Configuration_Setting__w32_84a.cpp
+                                                                     0  
+       FAIL                   printLine            io.c              1  #
+       FAIL                   printWLine           io.c              1  #
+       FAIL                   printIntLine         io.c              1  #
+       FAIL                   printShortLine       io.c              1  #
+       FAIL                   printFloatLine       io.c              1  #
+       FAIL                   printLongLine        io.c              1  #
+       FAIL                   printLongLongLine    io.c              1  #
+       FAIL                   printSizeTLine       io.c              1  #
+       FAIL                   printHexCharLine     io.c              1  #
+       FAIL                   printWcharLine       io.c              1  #
+       FAIL                   printUnsignedLine    io.c              1  #
+       FAIL                   printHexUnsignedCharLine
+                                                   io.c              1  #
+       FAIL                   printDoubleLine      io.c              1  #
+       FAIL                   printStructLine      io.c              1  #
+       FAIL                   printBytesLine       io.c              1  #
+       FAIL                   decodeHexChars       io.c              1  #
+       FAIL                   decodeHexWChars      io.c              1  #
+       Pass                   globalReturnsTrue    io.c              0  
+       Pass                   globalReturnsFalse   io.c              0  
+       FAIL                   globalReturnsTrueOrFalse
+                                                   io.c              1  #
+       FAIL                   good1                io.c              1  #
+       FAIL                   good2                io.c              1  #
+       FAIL                   good3                io.c              1  #
+       FAIL                   good4                io.c              1  #
+       FAIL                   good5                io.c              1  #
+       FAIL                   good6                io.c              1  #
+       FAIL                   good7                io.c              1  #
+       FAIL                   good8                io.c              1  #
+       FAIL                   good9                io.c              1  #
+       FAIL                   bad1                 io.c              1  #
+       FAIL                   bad2                 io.c              1  #
+       FAIL                   bad3                 io.c              1  #
+       FAIL                   bad4                 io.c              1  #
+       FAIL                   bad5                 io.c              1  #
+       FAIL                   bad6                 io.c              1  #
+       FAIL                   bad7                 io.c              1  #
+       FAIL                   bad8                 io.c              1  #
+       FAIL                   bad9                 io.c              1  #
+       FAIL                   main                 main.cpp          1  #
+       FAIL                   internal_start       std_thread.c      1  #
+       FAIL                   stdThreadCreate      std_thread.c      1  #
+       FAIL                   stdThreadJoin        std_thread.c      1  #
+       FAIL                   stdThreadDestroy     std_thread.c      1  #
+       FAIL                   stdThreadLockCreate  std_thread.c      1  #
+       FAIL                   stdThreadLockAcquire std_thread.c      1  #
+       FAIL                   stdThreadLockRelease std_thread.c      1  #
+       FAIL                   stdThreadLockDestroy std_thread.c      1  #
+
+
+
+ Global Information
+ ------------------
+ Source Files in System
+ ----------------------
+      ========================================================================
+      NAME                                              LAST MODIFICATION DATE
+      ========================================================================
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcasesupport\std_thread.c
+                                                        Tue Nov 29 15:55:42 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcasesupport\io.c
+                                                        Tue Nov 29 15:55:42 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_68b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_54d.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_73b.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_16.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_66b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_73a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_11.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_43.cpp
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_65b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_51b.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_06.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_10.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_64a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_22b.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_63b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_41.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_65a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_61b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_bad.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_03.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_84a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_42.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_01.c
+                                                        Fri Dec 02 13:20:08 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_33.cpp
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_31.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_62a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_62b.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_09.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_61a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_goodG2B.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_53c.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_44.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_goodG2B.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_51a.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_63a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_08.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_66a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_21.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_05.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_07.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_68a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_bad.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_22a.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_64b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_18.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_67b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_14.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_53a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\main.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_74a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_53b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_54c.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_54e.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_52b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_74b.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_83a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_04.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_45.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_17.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_72a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_52c.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_52a.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_54a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_15.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_67a.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_54b.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_81a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_12.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_53d.c
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_72b.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_02.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_34.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_82a.cpp
+                                                        Tue Nov 29 15:36:14 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_32.c
+                                                        Tue Nov 29 15:36:12 2016
+      C:\Juliet_Test_Suite_v1.2_for_C_Cpp\testcases\CWE15_External_Control_of_System_or_Configuration_Setting\CWE15_External_Control_of_System_or_Configuration_Setting__w32_13.c
+                                                        Tue Nov 29 15:36:12 2016
+
+
+
+ --------------------------------------------------------------------------------
+
+
+ Global Basic Information
+ ------------------------
+      Number of procedures:                       278
+      Number of locally uncalled procedures:        0
+      Number of reformatted executable lines:    6812
+      Number of lines of comments:               6042
+
+
+ 
+                                *********************************************************
+                                *                                                       *
+                                *  Summary Report on all Program Components which FAIL  *
+                                *                                                       *
+                                *********************************************************
+
+
+                                      **********************************************
+                                      *                                            *
+                                      *  Globals / code outside procedures - FAIL  *
+                                      *                                            *
+                                      **********************************************
+
+ Standards Violation Summary - All files
+ ---------------------------------------
+      =====================================================================================
+      CODE  FILE: SRC LINE     VIOLATION                                           STANDARD
+      =====================================================================================
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_22a.c: 48
+                               Variables not unique within 64 characters.
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_22a.c: 49
+                               Variables not unique within 64 characters.
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_22b.c: 112
+                               Variables not unique within 64 characters.
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_22b.c: 113
+                               Variables not unique within 64 characters.
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_45.c: 28
+                               Variables not unique within 64 characters.
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_68a.c: 28
+                               Variables not unique within 64 characters.
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_68b.c: 28
+                               Variables not unique within 64 characters.
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_bad.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_81_goodG2B.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_81a.cpp: 18
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_bad.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_82_goodG2B.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_82a.cpp: 18
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_bad.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_83_goodG2B.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_83a.cpp: 18
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_bad.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_84_goodG2B.cpp: 19
+                               Included file not protected with #define.           CWE 735
+      M     CWE15_External_Control_of_System_or_Configuration_Setting__w32_84a.cpp: 18
+                               Included file not protected with #define.           CWE 735
+      M     std_thread.c: 13   Enum, struct or union not typedeffed.
+      M     std_thread.c: 121  Enum, struct or union not typedeffed.
+
+
+
+ --------------------------------------------------------------------------------
+
+ 
+                   *************************************************************************************
+                   *                                                                                   *
+                   *       CWE15_External_Control_of_System_or_Configuration_Setting__w32_01_bad       *
+                   *  (29 to 109 CWE15_External_Control_of_System_or_Configuration_Setting__w32_01.c)  *
+                   *                                       FAIL                                        *
+                   *                                                                                   *
+                   *************************************************************************************
+
+ Standards Violation Summary
+ ---------------------------
+      ==========================
+      CODE   LINE      VIOLATION
+      ==========================
+      M      43        Function call with no prior declaration.     : WSAStartup
+      M      43        Function call with no prior declaration.     : MAKEWORD
+      M      48        Function call with no prior declaration.     : socket
+      M      56        Function call with no prior declaration.     : htons
+      M      57        Function call with no prior declaration.     : bind
+      C      57        Casting operation to a pointer.
+      M      61        Function call with no prior declaration.     : listen
+      M      65        Function call with no prior declaration.     : accept
+      M      82        Function call with no prior declaration.     : recv
+      M      92        Function call with no prior declaration.     : closesocket
+      M      96        Function call with no prior declaration.     : closesocket
+      M      100       Function call with no prior declaration.     : WSACleanup
+      M      104       Function call with no prior declaration.     : SetComputerNameA
+      M      32        Array initialisation has insufficient items. : dataBuffer[*]; given=1, expected=100
+      M      43        Procedure call has no prototype and no defn. : WSAStartup
+      M      43        Procedure call has no prototype and no defn. : MAKEWORD
+      M      48        Procedure call has no prototype and no defn. : socket
+      M      53        (void) missing for discarded return value.
+      M      56        Procedure call has no prototype and no defn. : htons
+      M      57        Procedure call has no prototype and no defn. : bind
+      C      57        Casting operation on a pointer.
+      M      57        Cast to an unrelated type.
+      M      61        Procedure call has no prototype and no defn. : listen
+      M      65        Procedure call has no prototype and no defn. : accept
+      M      82        Procedure call has no prototype and no defn. : recv
+      C      83        Logical conjunctions need brackets.
+      C      83        Logical conjunctions need brackets.
+      M      89        Infeasible loop condition found.
+      M      92        Procedure call has no prototype and no defn. : closesocket
+      M      96        Procedure call has no prototype and no defn. : closesocket
+      M      100       Procedure call has no prototype and no defn. : WSACleanup
+      M      104       Procedure call has no prototype and no defn. : SetComputerNameA
+
+
+
+

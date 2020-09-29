@@ -1,0 +1,21 @@
+$(document).ready(function() {
+  <% if @response_msg.present? %>
+    <% if @response_msg === "Log in to SCAIFE first" %>
+      $("#connect_to_scaife").click();
+      $('#scaife-login-modal').on('hidden.bs.modal', function () {
+        if(!$('#scaife-register-modal').is(':visible')) {
+          window.location.reload();
+        } else {
+          $('#scaife-register-modal').on('hidden.bs.modal', function () {
+            window.location.reload();
+          });
+        }
+      });
+    <% else %>
+      <% if not ["User Successfully Logged Out", "SCAIFE registration server offline"].include? @response_msg %>
+        alert("<%= j @response_msg %>");
+      <% end %>
+      window.location.reload();
+    <% end %>
+  <% end %>
+});

@@ -1,0 +1,51 @@
+<!-- This file allows for additional messages that refer to an alert to be displayed in a separate window-->
+
+<h1>Additional Information for Display (alertCondition) ID <%= @display.id %></h1>
+Note: alertConditions can have the same primary message if their secondary messages differ.
+In that case, each set of secondary messages provides a different data-flow
+and/or control-flow path that could potentially make the code flaw condition true.
+If any such secondary messages show the alertCondition is true, the whole meta-alert should be marked true
+(even if some secondary message flows couldn't actually lead to the condition).
+Mark the primary and supplemental determinations for the meta-alert according to the most severe of the found-correct adjudications.
+
+
+<h3>Secondary Messages</h3>
+<br/>
+<table id="messages_table" class="table-bordered table-striped table-condensed">
+  <tr><th>Message</th><th>Line</th><th>Path</th></tr>
+  <% @messages.each do |m| %>
+  	<tr>
+    <td><%= m.message %></td>
+	  <td class="message-link"><%= content_tag(:a, { href: m.link.to_s, target: 'message_frame' }) do  %>
+        <%= m.line %>
+      <% end %></td>
+    <td><%= m.path %></td>
+	</tr>
+  <% end %>
+</table>
+<br/>
+
+<h3>Determination Log</h3>
+<table id="determinations_table" class="table-bordered table-striped table-condensed">
+  <tr><th>Time</th><th>Flag</th><th>Verdict</th><th>Supplemental</th><th>Notes</th></tr>
+  <% @determinations.each do |d| %>
+  <tr>
+    <td><%= d.time.to_s %></td>
+    <td><%= d.flag ? "[x]" : "[]" %></td>
+    <td><%= ["[Unknown]","[Complex]","[False]","[Dependent]","[True]"][d.verdict] %></td>
+    <td>
+      <%= d.ignored ? "Ignored " : "" %>
+      <%= d.dead ? "Dead " : "" %>
+      <%= d.inapplicable_environment ? "Inapplicable Env. " : "" %>
+      <%= d.dangerous_construct.to_i == 0 ? "" : "Dangerous Construct - " +
+          ["No", "Low", "Med", "High"][d.dangerous_construct.to_i] %>
+    </td>
+    <td><%= d.notes %></td>
+  </tr>
+  <% end %>
+</table>
+<br/>
+
+<div id="iframeContainer">
+    <iframe id="message_frame" name="message_frame" width="100%" height="400" src="<%=request.protocol%><%=request.host%>:<%=request.port%>/GNU/<%= @display.project_id %>/HTML/index.html"></iframe>
+    </div>

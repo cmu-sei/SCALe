@@ -1,0 +1,17 @@
+$(document).ready(function() {
+  registerFormId = "#register-form-msg";
+  <% if @response_code == 201 %>
+    <% if @login_response_code == 200 %>
+      $(".scaife-visible").each(function() {
+        $(this).show();
+      });
+      location.reload();
+    <% else %>
+      $(registerFormId).show();
+      $(registerFormId).text("<%= j @login_response_msg %>");
+    <% end %>
+  <% else %>
+    $(registerFormId).show();
+    $(registerFormId).text("<%= j @response_msg %>");
+  <% end %>
+});

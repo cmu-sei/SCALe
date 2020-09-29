@@ -1,0 +1,88 @@
+$(document).ready(function() {
+
+  <% if @modal %>
+    var modal_element = $("#scaife-integration-modal");
+    var load_element = modal_element.find(".modal-content");
+  <% else %>
+      var load_element = $("#scaife-integration");
+  <% end %>
+
+  if (load_element.length == 0) {
+    alert("problem finding load_element");
+  }
+
+  load_element.html("<%= j (render partial: @render_skin_path) %>");
+
+  // invoke form-specific setup here
+  var tab_link = null;
+  <% case @current_action %>
+  <% when "langSelect" %>
+    //console.log("run lang_select_setup");
+    lang_select_setup(load_element);
+    tab_link = $("#lang-tab-link");
+  <% when "langUpload" %>
+    //console.log("run lang_upload_setup");
+    lang_upload_setup(load_element);
+    tab_link = $("#lang-tab-link");
+  <% when "langMap" %>
+    //console.log("run lang_map_setup");
+    lang_map_setup(load_element);
+    tab_link = $("#lang-tab-link");
+  <% when "taxoSelect" %>
+    //console.log("run taxo_select_setup");
+    var tools2taxos;
+    var project_taxos;
+    <% if @project.present? %>
+      <% tools2taxos, project_taxos = @project._tools2taxo_inference() %>
+      tools2taxos = <%= tools2taxos.to_json.html_safe %>;
+      project_taxos = <%= project_taxos.to_json.html_safe %>;
+    <% end %>
+    taxo_select_setup(load_element, tools2taxos, project_taxos);
+    tab_link = $("#taxo-tab-link");
+  <% when "taxoUpload" %>
+    //console.log("run taxo_upload_setup");
+    taxo_upload_setup(load_element);
+    tab_link = $("#taxo-tab-link");
+  <% when "taxoMap" %>
+    //console.log("run taxo_map_setup");
+    taxo_map_setup(load_element);
+    tab_link = $("#taxo-tab-link");
+  <% when "toolUpload" %>
+    //console.log("run tool_upload_setup");
+    tool_upload_setup(load_element);
+    tab_link = $("#tool-tab-link");
+  <% when "toolMap" %>
+    //console.log("run tool_map_setup");
+    tool_map_setup(load_element);
+    tab_link = $("#tool-tab-link");
+  <% when "scaifeIntegration" %>
+    //console.log("run scaife_integration_setup");
+    scaife_integration_setup(load_element);
+    tab_link = $("#scaife-integration-tab-link");
+  <% end %>
+  if (tab_link != null && tab_link.length > 0) {
+    tab_link.tab('show');
+  }
+
+  <% if @errors.present? %>
+    var msg_element = load_element.find("#scaife-integration-error-msg");
+    <% # NOTE: use single quotes for escaping purposes %>
+    <% err_str = @errors.map { |e| e.strip.to_s }.join('<br/>\n') %>
+    var decoded = "<%= err_str %>";
+    decoded = decode_html_entities(decoded);
+    msg_element.text(decoded);
+    msg_element.show();
+  <% end %>
+  <% if @success.present? %>
+    var msg_element = load_element.find("#scaife-integration-success-msg");
+    var decoded = "<%= @success %>";
+    decoded = decode_html_entities(decoded);
+    msg_element.text(decoded);
+    msg_element.show();
+  <% end %>
+
+  <% if @modal %>
+    modal_element.modal();
+  <% end %>
+
+});

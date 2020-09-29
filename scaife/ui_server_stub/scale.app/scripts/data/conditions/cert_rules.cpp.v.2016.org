@@ -1,0 +1,83 @@
+|CON50-CPP|Do not destroy a mutex while it is locked|Medium|Probable|High|4|3|
+|CON51-CPP|Ensure actively held locks are released on exceptional conditions|Low|Probable|Low|6|2|
+|CON52-CPP|Prevent data races when accessing bit-fields from multiple threads|Medium|Probable|Medium|8|2|
+|CON53-CPP|Avoid deadlock by locking in a predefined order|Low|Probable|Medium|4|3|
+|CON54-CPP|Wrap functions that can spuriously wake up in a loop|Low|Unlikely|Medium|2|3|
+|CON55-CPP|Preserve thread safety and liveness when using condition variables|Low|Unlikely|Medium|2|3|
+|CON56-CPP|Do not speculatively lock a non-recursive mutex that is already owned by the calling thread|Low|Unlikely|High|1|3|
+|CTR50-CPP|Guarantee that container indices and iterators are within the valid range|High|Likely|High|9|2|
+|CTR51-CPP|Use valid references, pointers, and iterators to reference elements of a container|High|Probable|High|6|2|
+|CTR52-CPP|Guarantee that library functions do not overflow|High|Likely|Medium|18|1|
+|CTR53-CPP|Use valid iterator ranges|High|Probable|High|6|2|
+|CTR54-CPP|Do not subtract iterators that do not refer to the same container|Medium|Probable|Medium|8|2|
+|CTR55-CPP|Do not use an additive operator on an iterator if the result would overflow|High|Likely|Medium|18|1|
+|CTR56-CPP|Do not use pointer arithmetic on polymorphic objects|High|Likely|High|9|2|
+|CTR57-CPP|Provide a valid ordering predicate|Low|Probable|High|2|3|
+|CTR58-CPP|Predicate function objects should not be mutable|Low|Likely|High|3|3|
+|DCL50-CPP|Do not define a C-style variadic function|High|Probable|Medium|12|1|
+|DCL51-CPP|Do not declare or define a reserved identifier|Low|Unlikely|Low|3|3|
+|DCL52-CPP|Never qualify a reference type with const or volatile|Low|Unlikely|Low|3|3|
+|DCL53-CPP|Do not write syntactically ambiguous declarations|Low|Unlikely|Medium|2|3|
+|DCL54-CPP|Overload allocation and deallocation functions as a pair in the same scope|Low|Probable|Low|6|2|
+|DCL55-CPP|Avoid information leakage when passing a class object across a trust boundary|Low|Unlikely|High|1|3|
+|DCL56-CPP|Avoid cycles during initialization of static objects|Low|Unlikely|Medium|2|3|
+|DCL57-CPP|Do not let exceptions escape from destructors or deallocation functions|Low|Likely|Medium|6|2|
+|DCL58-CPP|Do not modify the standard namespaces|High|Unlikely|Medium|6|2|
+|DCL59-CPP|Do not define an unnamed namespace in a header file|Medium|Unlikely|Medium|4|3|
+|DCL60-CPP|Obey the one-definition rule|High|Unlikely|High|3|3|
+|ERR50-CPP|Do not abruptly terminate the program|Low|Probable|Medium|4|3|
+|ERR51-CPP|Handle all exceptions|Low|Probable|Medium|4|3|
+|ERR52-CPP|Do not use setjmp() or longjmp()|Low|Probable|Medium|4|3|
+|ERR53-CPP|Do not reference base classes or class data members in a constructor or destructor function-try-block handler|Low|Unlikely|Medium|2|3|
+|ERR54-CPP|Catch handlers should order their parameter types from most derived to least derived|Medium|Likely|Low|18|1|
+|ERR55-CPP|Honor exception specifications|Low|Likely|Low|9|2|
+|ERR56-CPP|Guarantee exception safety|High|Likely|High|9|2|
+|ERR57-CPP|Do not leak resources when handling exceptions|Low|Probable|High|2|3|
+|ERR58-CPP|Handle all exceptions thrown before main() begins executing|Low|Likely|Low|9|2|
+|ERR59-CPP|Do not throw an exception across execution boundaries|High|Probable|Medium|12|1|
+|ERR60-CPP|Exception objects must be nothrow copy constructible|Low|Probable|Medium|4|3|
+|ERR61-CPP|Catch exceptions by lvalue reference|Low|Unlikely|Low|3|3|
+|ERR62-CPP|Detect errors when converting a string to a number|Medium|Unlikely|Medium|4|3|
+|EXP50-CPP|Do not depend on the order of evaluation for side effects|Medium|Probable|Medium|8|2|
+|EXP51-CPP|Do not delete an array through a pointer of the incorrect type|Low|Unlikely|Medium|2|3|
+|EXP52-CPP|Do not rely on side effects in unevaluated operands|Low|Unlikely|Low|3|3|
+|EXP53-CPP|Do not read uninitialized memory|High|Probable|Medium|12|1|
+|EXP54-CPP|Do not access an object outside of its lifetime|High|Probable|High|6|2|
+|EXP55-CPP|Do not access a cv-qualified object through a cv-unqualified type|Medium|Probable|Medium|8|2|
+|EXP56-CPP|Do not call a function with a mismatched language linkage|Low|Unlikely|Medium|2|3|
+|EXP57-CPP|Do not cast or delete pointers to incomplete classes|Medium|Unlikely|Medium|4|3|
+|EXP58-CPP|Pass an object of the correct type to va_start|Medium|Unlikely|Medium|4|3|
+|EXP59-CPP|Use offsetof() on valid types and members|Medium|Unlikely|Medium|4|3|
+|EXP60-CPP|Do not pass a nonstandard-layout type object across execution boundaries|High|Probable|Medium|12|1|
+|EXP61-CPP|A lambda object must not outlive any of its reference captured objects|High|Probable|High|6|2|
+|EXP62-CPP|Do not access the bits of an object representation that are not part of the object's value representation|High|Probable|High|6|2|
+|EXP63-CPP|Do not rely on the value of a moved-from object|Medium|Probable|Medium|8|2|
+|FIO50-CPP|Do not alternately input and output from a file stream without an intervening positioning call|Low|Likely|Medium|6|2|
+|FIO51-CPP|Close files when they are no longer needed|Medium|Unlikely|Medium|4|3|
+|INT50-CPP|Do not cast to an out-of-range enumeration value|Medium|Unlikely|Medium|4|3|
+|MEM50-CPP|Do not access freed memory|High|Likely|Medium|18|1|
+|MEM51-CPP|Properly deallocate dynamically allocated resources|High|Likely|Medium|18|1|
+|MEM52-CPP|Detect and handle memory allocation errors|High|Likely|Medium|18|1|
+|MEM53-CPP|Explicitly construct and destruct objects when manually managing object lifetime|High|Likely|Medium|18|1|
+|MEM54-CPP|Provide placement new with properly aligned pointers to sufficient storage capacity|High|Likely|Medium|18|1|
+|MEM55-CPP|Honor replacement dynamic storage management requirements|High|Likely|Medium|18|1|
+|MEM56-CPP|Do not store an already-owned pointer value in an unrelated smart pointer|High|Likely|Medium|18|1|
+|MEM57-CPP|Avoid using default operator new for over-aligned types|Medium|Unlikely|Low|6|2|
+|MSC50-CPP|Do not use std::rand() for generating pseudorandom numbers|Medium|Unlikely|Low|6|2|
+|MSC51-CPP|Ensure your random number generator is properly seeded|Medium|Likely|Low|18|1|
+|MSC52-CPP|Value-returning functions must return a value from all exit paths|Medium|Probable|Medium|8|2|
+|MSC53-CPP|Do not return from a function declared [[noreturn]]|Medium|Unlikely|Low|2|3|
+|MSC54-CPP|A signal handler must be a plain old function|High|Probable|High|6|2|
+|OOP50-CPP|Do not invoke virtual functions from constructors or destructors|Low|Unlikely|Medium|2|3|
+|OOP51-CPP|Do not slice derived objects|Low|Probable|Medium|4|3|
+|OOP52-CPP|Do not delete a polymorphic object without a virtual destructor|Low|Likely|Low|9|2|
+|OOP53-CPP|Write constructor member initializers in the canonical order|Medium|Unlikely|Medium|4|3|
+|OOP54-CPP|Gracefully handle self-copy assignment|Low|Probable|High|2|3|
+|OOP55-CPP|Do not use pointer-to-member operators to access nonexistent members|High|Probable|High|6|2|
+|OOP56-CPP|Honor replacement handler requirements|Low|Probable|High|2|3|
+|OOP57-CPP|Prefer special member functions and overloaded operators to C Standard Library functions|High|Probable|High|6|2|
+|OOP58-CPP|Copy operations must not mutate the source object|Low|Likely|Low|9|2|
+|STR50-CPP|Guarantee that storage for strings has sufficient space for character data and the null terminator|High|Likely|Medium|18|1|
+|STR51-CPP|Do not attempt to create a std::string from a null pointer|High|Likely|Medium|18|1|
+|STR52-CPP|Use valid references, pointers, and iterators to reference elements of a basic_string|High|Probable|High|6|2|
+|STR53-CPP|Range check element access|High|Unlikely|Medium|6|2|

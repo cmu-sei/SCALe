@@ -1,0 +1,420 @@
+$( function() {
+	$("#priority-scheme-modal").find(".modal-content").html("<%= j (render "priority_schemes") %>");
+	$("#priority-scheme-modal").modal();
+});
+
+//--------------Delete current scheme in the modal----------------------//
+$(document).on("click", "#delete-priority-modal", function(e){
+    e.preventDefault();
+
+    var pid = $("#project_id").attr("value");
+
+
+    if(confirm("Are you sure?")){
+        var scheme = $("#priority-label-modal").text();
+
+        $.ajax({
+            type: "POST",
+            url: "/priorities/delete",
+            data: {
+                project_id: pid,
+                priority_name: scheme,
+                priority_id: $("#scheme_id").val(),
+            },
+            datatype: "html",
+            success: function(result){
+                $("#priority-errors").hide();
+                $("#modal-placement").modal("toggle");
+                window.location.reload();
+            },
+            error: function(xhr, status, err){
+                $("#priority-errors").html("Unable to delete prioritization scheme");
+                $("#priority-errors").show();
+                return false;
+            }
+        });
+    }
+});
+
+//-----Add the math buttons and column names chosen to the taxonomy related textarea-----//
+$(document).on("click", ".formulaBtn, .add-field-button", function(){
+    var thisButton = $(this);
+    var weight = "";
+    var tabInfo = "";
+    var textField = "";
+    var cursor = null;
+    var curFormula = "";
+
+    //Be sure the column chosen has a weight greater than zero when used.
+    if(thisButton.attr("id").includes("add-field-")){
+        var taxonomy = thisButton.attr("id").replace("add-field-", "");
+        var userSelection = $("#" + taxonomy + "_fields option:selected");
+
+        var classname = userSelection.attr("class");
+        tabInfo = classname.substring(classname.indexOf(" ") + 1)
+        var columnName = tabInfo + userSelection.val();
+
+        if(userSelection.attr("id") != null)
+            var inputVal = $("#upload_" + userSelection.val()).val();
+        else
+            var inputVal = $("#" + columnName).val();
+
+
+        if(inputVal <= 0 || inputVal > 10){
+            //Warn the user about specifying a weight for the column
+            $("#" + tabInfo +"modal_errors").html("Weights must be between 1 and 10 to use in the formula.");
+            return;
+        }
+
+        if(inputVal != 1) //one is default value for a weighted column.
+           weight = $("#times").text() + inputVal;
+
+        textField = userSelection.text()
+
+    }else{ //a math button was pressed
+        var parentId = thisButton.parent().attr("id");
+        tabInfo = parentId.substring(parentId.indexOf("_") + 1) + "_";
+        textField = thisButton.text().replace(/\u2212/, "-");
+    }
+
+    $("#" + tabInfo +"modal_errors").html("");
+
+    cursor = $("#" + tabInfo + "txt")[0].selectionStart; //get the current position of the cursor
+    curFormula = $("#" + tabInfo + "txt").val();
+    $("#" + tabInfo + "txt").val(curFormula.substring(0, cursor) + textField +
+                                 weight + curFormula.substring(cursor));
+
+});
+
+
+//-----Generate the final formula based on the tabular input--------//
+$(document).on("click", "#genFormula", function(){
+    var formula = "";
+    var count = 0;
+    $("#formula-errors").html("");
+    $("#formula").val(""); //erase content of current formula
+
+    $(".tab-content").children().each(function(){ //each content div in the modal
+        var tabInfo = $(this).attr("id").substring($(this).attr("id").indexOf("_") + 1);
+        var thisTextArea = $(this).find("textarea").val();
+
+        if(thisTextArea == ""){
+            $("#formula-errors").html("Please check the tabs to makes sure each taxonomy has a formula");
+            return;
+        }else if (thisTextArea != null){
+            //text area has a value for this tab.
+            if(!(validateTabFormula(tabInfo, thisTextArea) && validateGrouping(thisTextArea))){
+                $("#formula-errors").html("Invalid formula in the " + tabInfo + " tab.");
+                return;
+            }
+
+            if(count == 0){
+                formula = "IF_" + tabInfo + "(" + thisTextArea + ")";
+            }else{
+                formula += "+IF_" + tabInfo + "(" + thisTextArea + ")";
+            }
+
+            count += 1;
+        }
+    });
+
+    if($("#formula-errors").html() == "")
+        $("#formula").val(formula);
+});
+
+
+//-----Uncheck the "save priority" checkbox if the form fields change-----//
+$(document).on("change", "#priority-fields,#priority_name", function(){
+    $(".priority-message").hide();
+});
+
+//-----Toggle the Project Only save option -----//
+$(document).on("change", "input[name='save-type']", function(){
+    if(this.value == "remote"){
+        $("#project-only").show();
+    }else{
+        $("#project-only").hide();
+    }
+});
+
+//-----Bind "save priority" button to create or update priority scheme when clicked----//
+$(document).on("click", "#saveScheme", function(e){
+    e.preventDefault();
+
+    //$(".priority-message").hide();
+
+    // Ensure the priority scheme name exists
+    priority_name = $("#priority_name").val();
+
+    if(priority_name == ""){
+        $("#formula-errors").html("Priority Schemes must have a Name");
+        return;
+    }
+
+    //Get the save method for this prioritization scheme
+    var saveType = $("input[name='save-type']:checked").val();
+
+    if(saveType == "remote"){
+        if($("#remote-project-checkbox").is(':checked')){
+            saveType = "project-only";
+        }
+    }
+
+    var thisProject = $("#project_id").attr("value");
+    var formula = $("#formula").val();
+
+    if(formula == ""){
+        $("#formula-errors").html("Please check the tabs to makes sure each taxonomy has a formula. Then, click on the 'Generate the Formula' button to create the formula");
+        return;
+    }
+
+    if(!(validateGrouping(formula) && validateFormula(formula))){
+        $("#formula-errors").html("Invalid formula syntax");
+        return false; //On failures populate an error and don"t send form
+    }
+
+    var options = getAvailableColumns()[1].replace(/user_/g, "").split("|");
+    var cols = {}
+
+    $.each(options, function(key, col_name){
+        if(col_name){
+            col_val = $("td").filter(
+            function (index) {
+                return $(this).text() == col_name;
+            }
+            ).next("td")
+            .find("input").val();
+            cols[col_name] = col_val;
+        }
+    });
+
+    if($("#priority-label-modal").text() == "Create New Scheme"){
+        $.ajax({
+            type: "POST",
+            url: "/priorities/"+thisProject+"/save",
+            contentType: "application/json",
+            data: JSON.stringify({
+                priority_name: priority_name,
+                project_id: thisProject,
+                columns: cols,
+                formula: formula,
+                save_type: saveType
+            }),
+            datatype: "json",
+            success: function(result){
+                $("#save-priority-error").hide();
+                $("#save-priority-success").html("Priority Scheme Saved");
+                $("#save-priority-success").show();
+                return;
+            },
+            error: function(xhr, status, err){
+                $("#save-priority-success").hide();
+                $("#save-priority-error").html("Error Saving Priority Scheme");
+                $("#save-priority-error").show();
+                return false;
+            }
+        });
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "/priorities/"+thisProject+"/edit",
+            contentType: "application/json",
+            data: JSON.stringify({
+                priority_name: priority_name,
+                project_id: thisProject,
+                priority_id: $("#scheme_id").val(),
+                columns: cols,
+                formula: formula,
+                save_type: saveType
+            }),
+            datatype: "json",
+            success: function(result){
+                $("#save-priority-error").hide();
+                if (result["message"] == "SCAIFE Success"){
+                    $("#save-priority-success").html("Priority Scheme Saved in SCAIFE. Priority Scheme is not present in SCALe");
+                }else{
+                    $("#save-priority-success").html("Priority Scheme Saved");
+                }
+                $("#save-priority-success").show();
+            },
+            error: function(xhr, status, err){
+                $("#save-priority-success").hide();
+                $("#save-priority-error").html("Error Updating Priority Scheme");
+                $("#save-priority-error").show();
+                return false;
+            }
+        });
+    }
+});
+
+
+//Perform Data Validation of Modal Forms prior to submitting
+$(document).on("click", "#submit-priority-modal", function(e){
+    e.preventDefault();
+
+    var ctype = $("#priority-label-modal").text();
+    var thisProject = $("#project_id").attr("value");
+
+    var formula = $("#formula").val();
+
+    if(!(validateGrouping(formula) && validateFormula(formula))){
+      $("#formula-errors").html("Invalid formula syntax");
+      return false; //On failures populate an error and don"t send form
+    }
+
+    var options = getAvailableColumns();
+    $.ajax({
+          type: "POST",
+          url: "/priorities/"+thisProject+"/run",
+          data: {
+              name: $("#priority_name").val(),
+              project_id: thisProject,
+              columns: options[1],
+              formula: formula
+          },
+          datatype: "html",
+          success: function(result){
+              $("#priority-errors").hide();
+              $("#modal-placement").modal("toggle");
+              window.location.reload();
+          },
+          error: function(xhr, status, err){
+              $("#priority-errors").html("Unable to run Prioritization Scheme");
+              $("#priority-errors").show();
+              return false;
+          }
+      });
+
+});
+
+/* ********************** HELPER FUNCTIONS ***************************************** */
+function validateGrouping(formula){
+    //Ensure the number of parenthesis match
+    var parenStack = [];
+
+    for(var i=0; i < formula.length; i++){
+        if(formula.charAt(i) == "(")
+           parenStack.push("E");
+        else if(formula.charAt(i) == ")"){
+           if(!parenStack.length) ///fail if trying to pop without an open parenthesis
+              return false;
+
+           parenStack.pop();
+       }
+    }
+
+    if(parenStack.length){
+        return false;
+    }else
+        return true;
+}
+
+function validateTabFormula(thisTab, formula){
+    var operators ="";
+    var colOptions = ""; //options in the tab to be used for formula
+
+    $("#btns_" + thisTab.toLowerCase() + " button").each(function(){ //Get operator button text
+        if($(this).attr("id") != "lpar" && $(this).attr("id") != "rpar"){
+            button_text = $(this).text();
+
+            if($(this).attr("id") == "ndash")
+                button_text = "-";
+
+            operators += "\\" + button_text;
+        }
+    });
+
+    var columns = $("#e_" + thisTab + " table").find($("td.labels"));
+    columns.each(function(i){ //get the column labels in the tab priority table
+        if(i != columns.length-1)
+            colOptions += $(this).text() + "|";
+        else
+            colOptions += $(this).text();
+    });
+
+    var customColumns = $("#user_data table").find($("td.labels"));
+    customColumns.each(function(){ //get the columns from user uploads
+            colOptions += "|" + $(this).text();
+    });
+
+    var mathEquation = new RegExp(
+                        "^[\\(\\s]*(" + colOptions + ")\\s?(\\*([2-9]|10))?\\s?(["
+                                      + operators + "][\\s\\(]*(\\d{1,3}|"+ colOptions
+                                      + "\\s?(\\*([2-9]|10))?)[\\s\\)]*)*[\\s\\)]?$");
+
+    if(mathEquation.test(formula)){
+        return true;
+    }
+
+    return false;
+}
+
+function validateFormula(formula){
+    //-----Make sure the formula fits the regular expression within a math equation----//
+    // (TAXONOMY\( COLUMN (* OPERATOR [\dCOLUMN] \))+
+    var operators ="";
+
+    var mathButtons = $("#operator_buttons").find("button");
+
+    //get the operators (needed because they are not regular asci characters but html safe characters)
+    mathButtons.each(function(){
+        var op = $(this).text();
+
+        if(op != "(" && op != ")" && op != "Add Field"){
+            operators += "\\" + op.replace(/\u2212/, "-");
+        }
+    });
+
+    let [taxnmOptions, colOptions] = getAvailableColumns();
+
+    colOptions = colOptions.replace(/user_/g, "");
+
+    var mathEquation = "[\\(\\s]*(" + colOptions + ")\\s?(\\*([2-9]|10))?\\s?(["
+                                    + operators + "][\\s\\(]*(\\d{1,3}|"+ colOptions
+                                    + "\\s?(\\*([2-9]|10))?)[\\s\\)]*)*[\\s\\)]?";
+
+    var formulaExp = new RegExp("^(" + taxnmOptions + ")\\(" + mathEquation + "\\)\\s?(["
+                                     + operators + "]\\s?(" + taxnmOptions + ")\\("
+                                     + mathEquation + "\\))*$");
+
+    if(formulaExp.test(formula)){
+        return true;
+    }
+
+    return false;
+}
+
+function getAvailableColumns(){
+    var colOptions = ""; //options in the drop-down to be used for formula
+    var taxnmOptions = ""; //append if statements to taxonomies available
+
+    var tabs = $(".tab-content").children();
+
+    tabs.each(function(e){ //each content div in the modal
+        var tabInfo = $(this).attr("id").substring($(this).attr("id").indexOf("_") + 1);
+
+        if(e != tabs.length-1 && tabInfo != "VIEW_ALL" )
+            taxnmOptions += "IF_" + tabInfo + "|";
+        else if (tabInfo != "VIEW_ALL")
+            taxnmOptions += "IF_" + tabInfo;
+
+        var allColumns = $(this).find("td.labels");
+
+        allColumns.each(function(i){
+            if(i != allColumns.length-1)
+                colOptions += $(this).text() + "|";
+            else
+                colOptions += $(this).text();
+        });
+
+        if(e != tabs.length-1 && tabInfo != "VIEW_ALL")
+            colOptions += "|";
+    });
+
+    var customColumns = $("#user_data table").find($("td.labels"));
+    customColumns.each(function(){ //get the columns from user uploads
+            colOptions += "|" + $(this).attr("id");
+    });
+
+    return [taxnmOptions, colOptions];
+}

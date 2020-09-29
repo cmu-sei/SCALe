@@ -1,0 +1,147 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-md-offset-2 justify-content-center">
+      <table class="table table-scroll table-condensed">
+        <thead>
+          <tr>
+            <th colspan="5" class="header_items">Existing mappings</th>
+          </tr>
+          <tr>
+            <td colspan="2" class="header_items" colspan=3>SCALe</td>
+            <td class="header_items"></td>
+            <td colspan="2" class="header_items" colspan=3>SCAIFE</td>
+          </tr>
+          <tr>
+            <td class="header_items" align="center">Name</td>
+            <td class="header_items" align="center">Version</td>
+            <td class="header_items" align="center">&lt;--&gt;</td>
+            <td class="header_items" align="center">Name</td>
+            <td class="header_items" align="center">Version</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @scaife_active %>
+            <% @languages_in_scaife.each do |lang| %>
+              <% scaife_lang = @scaife_languages_by_id[lang.scaife_language_id] %>
+              <tr>
+                <td><%= lang.name %></td>
+                <td><%= lang.version %></td>
+                <td align="center">-</td>
+                <% if scaife_lang.present? %>
+                  <td><%= scaife_lang["language"] %></td>
+                  <td><%= scaife_lang["version"] %></td>
+                <% else %>
+                  <td>unknown</td>
+                  <td><!-- colspan not working on td? --></td>
+                <% end %>
+              </tr>
+            <% end %>
+          <% else %>
+            <td colspan="5" class="header_items" align="center"><em>Not connected to SCAIFE</em></td>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row top-buffer">
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="vertical-menu">
+            <% accordion_id = @modal ? "accordion-unmapped-langs-modal" : "accordion-unmapped-langs" %>
+            <div class="list-unstyled src-lang-list" style="width:210px">
+              <div class="header_items">Unmapped Languages:</div>
+              <div class="accordion" id="<%= accordion_id %>">
+                <div class="panel multi-select-list">
+                  <% lgc = 0 %>
+                  <% LanguageGroup.all.each do |lg| %>
+                    <% if @project.present? %>
+                      <% langs = lg.languages & @project.languages %>
+                    <% else %>
+                      <% langs = lg.languages %>
+                    <% end %>
+                    <% langs -= @languages_in_scaife %>
+                    <% if langs.present? %>
+                      <% li_id = @modal ? "collapse-map-modal-#{lgc}" : "collapse-map-#{lgc}" %>
+                      <a class="list-item" data-toggle="collapse" href="#<%= li_id %>" role="button" aria-expanded="false" aria-controls="<%= li_id %>"><%= lg.name %></a>
+                      <div id="<%= li_id %>" class="collapse", data-parent="#<%= accordion_id %>">
+                        <div class="list-unstyled-sublist">
+                          <div class="header_items"><em>Select Version:</em></div>
+                          <div class="sublist-item sublist-all">all</div>
+                          <% langs.each do |lang| %>
+                            <% if @project.blank? or @project.languages.exists?(lang.id) %>
+                              <% if lang.scaife_language_id.blank? %>
+                                <div data-id="<%= lang.id %>" class="sublist-item" style="display:block"><%= lang.version %></div>
+                                <%= hidden_field(:map_langs, lang.id) %>
+                              <% end %>
+                            <% end %>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+                    <% lgc += 1 %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="vertical-menu">
+            <div class="list-unstyled tgt-lang-list" style="width:210px">
+              <% if @scaife_languages_by_id.present? %>
+                <div class="header_items">SCAIFE Languages:</div>
+                <% @scaife_languages_by_id.each_value do |lang| %>
+                  <div data-id="<%= lang['code_language_id'] %>" class="list-item"><%= "#{lang['language']} #{lang['version']}" %></div>
+                <% end %>
+              <% else %>
+                <div class="header_items">No SCAIFE Language Targets</div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-xs-6">
+          <div class="flop-buttons">
+            <button class="btn-md btn-default map-lang-button" type="button">Map Selected &gt;&gt;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-12 justify-content-center">
+          <table class="table table-scroll table-condensed">
+            <thead>
+              <tr>
+                <td colspan="3" class="header_items" align="center">Proposed mappings</td>
+              </tr>
+              <tr>
+                <td class="header_items" align="center">SCALe</td>
+                <td class="header_items" align="center">&lt;--&gt;</td>
+                <td class="header_items" align="center">SCAIFE</td>
+              </tr>
+            </thead>
+            <tbody class="map-lang-list">
+              <% @languages_not_in_scaife.each do |lang| %>
+                <tr data-id="<%= lang.id %>" class="list-item" style="display:none">
+                  <td id="src-<%= lang.id %>"><%= "#{lang.name} #{lang.version}" %></td>
+                  <td align="center">-</td>
+                  <td id="tgt-<%= lang.id %>"></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-xs-6">
+          <div class="flop-buttons">
+            <button class="btn-md btn-default unmap-lang-button" type="button">&lt;&lt; Unmap Selected</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

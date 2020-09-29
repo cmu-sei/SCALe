@@ -1,0 +1,168 @@
+<!--
+This page is the core of the web interface. This shows all alertConditions pertaining to a project, and is
+where scale auditing occurs
+This file is split into two parts: an upper and a lower div, which
+correspond to the upper and lower halves of the webpage.
+-->
+<% if flash[:scaife_run_classifier_message] %>
+  <%= javascript_tag "alert('" + flash[:scaife_run_classifier_message] + "')" %>
+<% end %>
+
+<div id="adjustable-splitter">
+
+  <div id="upper-split" class="container">
+    <!-- A heading for the form -->
+    <div class="row">
+      <h1>Project: <%= @project.name %></h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-1 pull-down" style="padding: 0px;">
+        <%= link_to "New Alert + Condition", "/projects/#{@project_id}/add", id: "create_new_alert_and_condition" %>
+      </div>
+      <div class="col-sm-9"></div>
+      <div class="col-sm-2" style="padding: 0px;">
+        <span class="pull-right">
+          <%= label_tag(:fusedView, "Fused View: ", :class=>"control-label") %>
+          <div class="btn-group">
+            <%= link_to "On", "/projects/#{@project_id}/fused", class:"btn", id: "fused_on_button" %>
+            <%= link_to "Off", "/projects/#{@project_id}/unfused", class:"btn", id: "fused_off_button" %>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <br/>
+
+    <%= form_tag("/alert_conditions", :method => "get", :remote => true, :id=>"wrapperForm", :class=>"form-horizontal") do %>
+      <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+
+            <div id="filterForm">
+
+              <!-- A heading for the form -->
+              <%= hidden_field_tag(:project_id, @project_id) %>
+              <div class="form-group">
+                <!-- Form input for filtering by display scale ID -->
+                <div class="col-sm-2">
+                  <%= select_tag(:id_type, options_for_select(@options_for_ids, selected: @selected_id_type), :class=>"col-sm-1 form-control") %>
+                </div>
+                <div class="col-sm-1">
+                  <%= number_field_tag(:ID, @ID, :class=>"form-control") %>
+                </div>
+                <!-- Form input for filtering by verdict -->
+                <%= label_tag(:verdict, "Verdict: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-2">
+                  <%= select_tag(:verdict, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3], ['True',4]],selected: @verdict), :class => "form-control") %>
+                </div>
+                <!-- Form input for filtering by previous -->
+                <%= label_tag(:previous, "Previous: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-2">
+                  <%= select_tag(:previous, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3],['True',4]], selected: @previous), :class => "form-control") %>
+                </div>
+                <!-- Form input for filtering by path -->
+                <%= label_tag(:path, " Path: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-2">
+                  <%= text_field_tag(:path, @path, :class=>"form-control") %>
+                </div>
+              </div> <!-- end form-group -->
+
+              <!-- filter options Row 2 -->
+              <div class="form-group">
+                <!-- Form input for filtering by line -->
+                <%= label_tag(:line, " Line: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-1">
+                  <%= number_field_tag(:line, @line, :class=>"form-control") %>
+                </div>
+                <!-- Form input for filtering by checker -->
+                <%= label_tag(:checker, " Checker: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-2">
+                  <%= select_tag(:checker, options_for_select(@checkers, selected: @checker), :class => "form-control") %>
+                </div>
+                <!-- Form input for filtering by tool -->
+                <%= label_tag(:tool, " Tool: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-1">
+                  <%= select_tag(:tool, options_for_select(@tools, selected: @tool), :class => "form-control") %>
+                </div>
+                <!-- Form input for filtering by condition -->
+                <%= label_tag(:condition, " Condition: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-1">
+                  <%= select_tag(:condition, options_for_select(@conditions, selected: @condition), :class => "form-control") %>
+                </div>
+                 <!-- Form input for filtering by taxonomy -->
+                <%= label_tag(:taxonomy, " Taxonomy: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-2">
+                  <%= select_tag(:taxonomy, options_for_select(@options_for_categories, selected: @selected_taxonomy), :class => "form-control") %>
+                </div>
+              </div> <!-- end form-group -->
+
+              <!-- filter options Row 3 -->
+              <div class="form-group">
+                <!-- Form input for deciding sort direction -->
+                <%= label_tag(:sort_direction, "Sort direction: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-1">
+                      <%= select_tag(:sort_direction, options_for_select([["asc", "asc"],["desc", "desc"]], selected: @sort_direction), :class => "form-control") %>
+                </div>
+                <!-- Form input for deciding sort criterion-->
+                <%= label_tag(:sort_column, "Sort by: ", :class=>"col-sm-1 control-label") %>
+                <!--add ["CWE Likelihood","cwe_likelihood"] later for filtering and also notes-->
+                <div class="col-sm-2">
+                      <%= select_tag(:sort_column, options_for_select([["Display (d) ID", "id"],["Meta-Alert (m) ID", "meta_alert_id"],["Flag", "flag"],["Line", "line"],["Severity", "severity"],["Likelihood","likelihood"],["Remediation","remediation"],["CERT Priority","priority"],["Level","level"],["Checker","checker"],["Message","message"],["Path","path"], ["Confidence","confidence"], ["AlertCondition Priority", "meta_alert_priority"]], selected: @sort_column), :class => "form-control") %>
+                </div>
+              </div> <!-- end form-group -->
+
+              <!-- Hidden form input to keep track of the page number -->
+              <%= hidden_field_tag "page", "1" %>
+              <%= submit_tag("Filter", :class => "btn btn-primary") %>
+              <button type="button" id="clear-filters" class="btn">Clear Filters</button>
+
+            </div> <!-- end form -->
+          </div> <!-- end panel-heading-->
+        </div> <!-- end panel-->
+      </div><!-- end row-->
+      <div id="loader">
+        <!-- This loader div is simply to hold the loading gif -->
+        <img src="/ajax-loader.gif" alt="loading...">
+      </div>
+      <div class="pageContainer">
+        <!-- This div contains the pagination links, which
+        is loaded from the _alertConditionsPerPage partial -->
+      </div>
+    <% end %>
+    <div id="fused_conflict_error" class="alert-danger"></div>
+    <div id="tableContainer">
+      <!-- This div contains the table of alerts, which is
+      loaded from the _alertsConditionsTable partial -->
+    </div>
+  </div>  <!--end upper-split -->
+
+  <div id="lower-split">
+    <!-- GNU Global pages are loaded via an iframe -->
+    <iframe id="src_frame" name="src_frame" width="100%" height="400" src="<%=request.protocol%><%=request.host%>:<%=request.port%>/GNU/<%= @project_id %>/HTML/index.html"></iframe>
+  </div> <!-- end lower-split -->
+
+</div> <!--end adjustable-splitter-->
+
+<div id="myModal" class="modal">
+  <!-- This modal is for displaying extra messages. -->
+</div>
+
+<script type="text/javascript">
+
+  // set up adjustable source code iframe as a splitter
+  $().ready(function() {
+    var splitter = $('#adjustable-splitter');
+    splitter.split({
+      orientation: 'horizontal',
+      limit: 10,
+      position: '70%',
+      onDrag: function(event) {
+        // resize iframe to lower-split on adjust
+        $("#src_frame").height($("#lower-split").height());
+      }
+    });
+    // resize iframe to lower-split on initial load
+    $("#src_frame").height($("#lower-split").height());
+  });
+
+</script>

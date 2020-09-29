@@ -1,0 +1,151 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-md-offset-2 justify-content-center">
+      <div class="table-fixed-scroll-outer">
+        <table class="table-fixed-scroll-inner table table-condensed">
+          <thead>
+            <tr>
+              <th colspan="5">Existing mappings</th>
+            </tr>
+            <tr>
+              <td colspan="2">SCALe</td>
+              <td></td>
+              <td colspan="2">SCAIFE</td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Version</td>
+              <td>&lt;--&gt;</td>
+              <td>Name</td>
+              <td>Version</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @scaife_active %>
+              <% @taxonomies_in_scaife.each do |taxo| %>
+                <% scaife_taxo = @scaife_taxonomies_by_id[taxo.scaife_tax_id] %>
+                <tr>
+                  <td><%= taxo.name %></td>
+                  <td><%= taxo.version %></td>
+                  <td align="center">-</td>
+                  <% if scaife_taxo.present? %>
+                    <td><%= scaife_taxo["taxonomy_name"] %></td>
+                    <td><%= scaife_taxo["taxonomy_version"] %></td>
+                  <% else %>
+                    <td>unknown</td>
+                    <td><!-- colspan not working on td? --></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% else %>
+              <td colspan="5" align="center"><em>Not connected to SCAIFE</em></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row top-buffer">
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="table-fixed-scroll-outer">
+            <table class="table-fixed-scroll-inner table table-condensed">
+              <thead>
+                <tr>
+                  <% scope = @project.present? ? "Project" : "SCALe" %>
+                  <% if @taxonomies_not_in_scaife.present? %>
+                    <td colspan="2" class="header_items"><%= scope %> Taxonomies</th>
+                  <% else %>
+                    <td colspan="2" class="header_items">All <%= scope %> Taxonomies Already Uploaded/Mapped</td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td>Version</td>
+                </tr>
+              </thead>
+              <tbody class="src-taxo-list">
+                <% @taxonomies_not_in_scaife.each do |taxo| %>
+                  <tr data-id="<%= taxo.id %>" class="list-item" style="display:none">
+                    <td><%= "#{taxo.name}" %></td>
+                    <td><%= "#{taxo.version_string}" %></td>
+                    <%= hidden_field(:map_taxos, taxo.id) %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="table-fixed-scroll-outer">
+            <table class="table-fixed-scroll-inner table table-condensed">
+              <thead>
+                <tr>
+                  <td colspan="2">SCAIFE Taxonomies</td>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td>Version</td>
+                </tr>
+              </thead>
+              <tbody class="tgt-taxo-list">
+                <% @scaife_taxonomies_by_id.each_value do |scaife_taxo| %>
+                  <tr data-id="<%= scaife_taxo["taxonomy_id"] %>" class="list-item">
+                    <td class="tgt-name"><%= scaife_taxo["taxonomy_name"] %></td>
+                    <td class="tgt-version"><%= scaife_taxo["taxonomy_version"] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row top-buffer text-center">
+        <div class="col-xs-6">
+          <div class="flop-buttons">
+            <button class="btn-md btn-default map-taxo-button" type="button">Map Selected &gt;&gt;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="table-fixed-scroll-outer">
+            <table class="table-fixed-scroll-inner table table-condensed">
+              <thead>
+                <tr>
+                  <td colspan="5">Proposed mappings</td>
+                </tr>
+                <tr>
+                  <td colspan="2">SCALe</td>
+                  <td>&lt;--&gt;</td>
+                  <td colspan="2">SCAIFE</td>
+                </tr>
+              </thead>
+              <tbody class="map-taxo-list">
+                <% @taxonomies_not_in_scaife.each do |taxo| %>
+                  <tr data-id="<%= taxo.id %>" class="list-item" style="display:none">
+                    <td><%= taxo.name %></td>
+                    <td><%= taxo.version %></td>
+                    <td align="center">-</td>
+                    <td class="tgt-name"></td>
+                    <td class="tgt-version"></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row top-buffer text-center">
+        <div class="col-xs-6">
+          <div class="flop-buttons">
+            <button class="btn-md btn-default unmap-taxo-button" type="button">&lt;&lt; Unmap Selected</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

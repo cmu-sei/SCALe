@@ -1,0 +1,15 @@
+[Unit]
+Description=Job that starts docker-compose service inside a Vagrant VM
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=forking
+RemainAfterExit=yes
+User=vagrant
+WorkingDirectory=/home/vagrant/project
+ExecStart=/home/vagrant/project/start.sh
+ExecStop=/home/vagrant/project/stop.sh
+
+[Install]
+WantedBy=multi-user.target

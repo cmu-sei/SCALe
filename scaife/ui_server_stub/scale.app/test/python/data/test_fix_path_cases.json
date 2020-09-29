@@ -1,0 +1,15 @@
+{
+    "src_description": "Path of source code for fix-path.py to scan",
+    "input_description": "Path name to feed to fix-path.py",
+    "answer_description": "Path name that fix-path.py should produce given input",
+    "testcases": [{
+        "description":"Case to test SCALE-293",
+        "src":"project-293",
+        "input":"packet.c",
+        "answer":"/dir/packet.c"
+    },{
+        "description":"A case without leading directory",
+        "src":"project-293/dir",
+        "input":"packet.c",
+        "answer":"packet.c"
+    }]}

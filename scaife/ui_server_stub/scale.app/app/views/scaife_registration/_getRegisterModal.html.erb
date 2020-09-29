@@ -1,0 +1,52 @@
+<div class="modal-header">
+<div class="panel panel-info">
+<div class="panel-heading">
+  <button type="button" class="close" data-dismiss="modal">x</button>
+  <h4 class="modal-title" id="scaifeRegisterModalLabel">SCAIFE: Sign Up</h4>
+</div>
+</div>
+</div>
+<div hidden id="register-form-msg" class="alert alert-danger"></div>
+<%= form_tag("/scaife-registration/register-submit", :remote => true, :id => "scaifeRegisterForm") do %>
+<div class="modal-body">
+  <div class="row">
+    <%= label_tag 'First Name', nil, class: 'col-md-12 form-label' %>
+  </div>
+  <div class="row">
+    <%= text_field_tag "firstname_field", nil, class: 'col-md-12' %>
+  </div>
+  </br>
+  <div class="row">
+    <%= label_tag 'Last Name', nil, class: 'col-md-12 form-label' %>
+  </div>
+  <div class="row">
+    <%= text_field_tag "lastname_field", nil, class: 'col-md-12' %>
+  </div>
+  </br>
+  <div class="row">
+    <%= label_tag 'Organization', nil, class: 'col-md-12 form-label' %>
+  </div>
+  <div class="row">
+    <%= text_field_tag "org_field", nil, class: 'col-md-12' %>
+  </div>
+  </br>
+  <div class="row">
+      <%= label_tag 'Username', nil, class: 'col-md-12 form-label' %>
+  </div>
+  <div class="row">
+    <%= text_field_tag "user_field", nil, class: 'col-md-12' %>
+  </div>
+  </br>
+  <div class="row">
+    <%= label_tag 'Password', nil, class: 'col-md-12 form-label' %>
+  </div>
+  <div class="row">
+    <%= password_field_tag "password_field", nil, class: 'col-md-12' %>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="row">
+    <%= submit_tag("Register", :class => "form-btn btn btn-primary col-md-12") %>
+  </div>
+</div>
+<% end %>

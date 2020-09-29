@@ -1,0 +1,539 @@
+h1{
+     font-size: 30px;
+}
+
+.navbar{
+	margin-bottom: 0;
+}
+
+.nav-button {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.dropdown-menu-right {
+    top: 0;
+    left: 100%;
+    width: 110%;
+}
+
+
+.caret-right {
+    border-left: 5px solid;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+}
+.container{
+     width:100%;
+}
+
+.main_content{
+     width:90%;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.page_content{
+     margin-top: 50px;
+}
+
+.checkbox_lg {
+    width: 16px; 
+    height: 16px;
+}
+
+/*Projects*/
+
+.input-group .form-control {
+    float: none;
+}
+
+
+.glyphicon {
+    font-size: 20px;
+}
+
+.inline {
+   float: right;
+   //direction: rtl;
+   //display:inline-block;
+   margin-right:5px;
+}
+
+/* Alert_Conditions Table */
+#alert_conditions_table {
+	border-collapse: separate;
+}	
+
+#alert_condition_scroll {
+  overflow: auto;
+  height: 500px;
+}
+
+/*
+  note: this works on firefox, but not on chrome.
+  On chrome it works on single row headers if you
+  make the <th> cells sticky in the same way.
+  IE is right out.
+*/
+#alert_condition_scroll thead {
+  position: sticky;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  top: 0;
+}
+
+/*
+  Adding this is harmless for firefox, but chrome
+  falls back on it and it works...only for single
+  row headers.
+*/
+#alert_condition_scroll thead th {
+  position: sticky;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  top: 0;
+}
+
+th {
+  background-color: #fff;
+  background-clip: padding-box;
+}
+
+/* AlertConditions */
+
+#below-filter-panel {
+	padding-top: 2em;
+}
+
+.below-filter-panel-item {
+	padding-left: 0;
+}
+
+#select_all_checkbox {
+	vertical-align: text-bottom;
+}
+
+.form-horizontal .control-label{
+    text-align: left;
+}
+
+.pagination{
+    margin: 0px;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    color: white;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+#myModal .modal-content {
+	width: 20%;
+}
+
+.form-btn {
+	width: 100%;
+}
+
+.form-label {
+	margin-left: -15px;
+}
+
+.modal-body {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.modal-footer{
+	margin-top: 1em;
+}
+
+/* The Close Button */
+.close-button {
+    color: #222222;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    z-index: 2000;
+}
+
+.close-button:hover,
+.close-button:focus,
+.remove-field:hover,
+.remove-field:focus  {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Classifier Modal */
+.remove-field {
+    color: #444444;
+    font-size: 28px;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#currentProjects {
+	overflow: hidden;
+}
+
+.vertical-menu {
+	width: 100%;
+	height: 230px;
+	border: 2px solid #ccc;
+	overflow-y: auto;
+	margin-bottom: 5px;
+}
+.vertical-menu a {
+	color: black;
+	text-decoration: none;
+	display: block;
+}
+
+#all_projects {
+	float: left;
+}
+
+#move_buttons {
+	height: 200px;
+	text-align: center;
+	display:inline-block;
+}
+
+#move_buttons button {
+	vertical-align: center;
+}
+
+#selected_projects {
+	float: right;
+}
+
+li.active_item {
+	background-color: #d9edf7;
+}
+
+.header_items {
+	background-color: #f5f5f5;
+	border-bottom: 1px solid #ccc;
+}
+
+.ahList{
+	list-style: none;
+	padding-top: 10px;
+}
+
+.ahList input{
+	width: 10em;
+}
+
+.ahList label{
+	display: inline-block;
+	width: 5em;
+	text-align: right;
+	padding-right: 2px;
+}
+
+/* indented sublist */
+.list-unstyled-sublist {
+  list-style: none;
+  padding-left: 1em;
+  margin-bottom: 0;
+}
+
+.list-active-item {
+  background-color: #d9edf7;
+}
+
+.sync-row {
+  text-align: center;
+}
+
+.vertical-sync-panel {
+	width: 60%;
+	height: 200px;
+	border: 2px solid #ccc;
+        display: inline-block;
+	overflow-y: auto;
+	margin-bottom: 5px;
+}
+
+.scroll-sync-left {
+  text-align: left;
+  margin-left: 10px;
+  float: left;
+}
+
+.scroll-sync-right {
+  text-align: left;
+  margin-right: 10px;
+  float: right;
+}
+
+.menu-row {
+  text-align: left;
+}
+
+/*
+.menu-block-left {
+  float: left;
+}
+
+.menu-block-center {
+  width: 20%;
+  height: 200px;
+  display: inline-block;
+}
+
+.menu-block-center button {
+}
+
+
+.menu-block-right {
+  float: right;
+}
+*/
+
+.container-horizontal {
+  display: flex;
+  display: -webkit-flex;
+  padding: 10px;
+  justify-content: space-around;
+  align-items: stretch;
+  align-content: center;
+  //border: 2px solid #ccc;
+}
+
+.container-vertical {
+  display: flex;
+  display: -webkit-flex;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  //border: 2px solid #ccc;
+}
+
+.container-plain-vertical {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  //border: 2px solid #ccc;
+}
+
+.container-plain-horizontal {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  //border: 2px solid #ccc;
+}
+
+.container-plain-horizontal-stretch {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  //border: 2px solid #ccc;
+}
+
+.menu-item {
+  margin-bottom: 5px;
+}
+
+.table-fixed-scroll-outer {
+  width: 100%;
+  overflow: auto;
+  height: 230px;
+  border: 1px solid #ccc;
+}
+
+/*
+  note: this works on firefox, but not on chrome.
+  On chrome it works on single row headers if you
+  make the <th> cells sticky in the same way.
+  IE is right out.
+*/
+.table-fixed-scroll-inner {
+  table-layout: fixed;
+  width: 100%;
+  
+  thead {
+    position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    top: 0;
+  }
+  thead tr, tbody tr {
+    border-top: none;
+  }
+  thead tr th, thead tr td {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+    background-clip: padding-box;
+    text-align: center;
+  }
+
+  tbody{
+      width: 100%;
+  }
+}
+
+/*
+    background-color: #f5f5f5;
+*/
+
+/* these sort of work, but fixed width equal spaced cols */
+.table-scroll {
+  border: 2px solid #ccc;
+  tbody {
+    display: block;
+    overflow: auto;
+    height: 200px;
+  }
+  thead, tbody tr {
+    border-bottom: 2px solid #ccc;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  thead tr th {
+    text-align: center;
+  }
+}
+
+.suggested {
+  background-color: #ffffb3;
+}
+
+/* bs 3.3.7: allows horizontal centering odd number of row columns
+   e.g. <div class="row text-center"> */
+.row.text-center > div {
+  display: inline-block;
+  float: none;
+}
+
+/* bs 3.3.7: vertically center the content of a single col
+   e.g. <div class="col-xs-4 vcenter"> */
+.vcenter {
+   display: inline-block;
+   vertical-align: middle;
+   float: none;
+}
+
+/* bs 3.3.7: vertically center the content of all cols in row
+   e.g <div class="row vertical-align"> */
+.vertical-align {
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical-align > [class^="col-"],
+.vertical-align > [class*=" col-"] {
+  display: flex;
+  align-items: center; /* vertical */
+  //justify-content: center; /* use for horizontal multiple items */
+}
+
+/* bs 3.3.7: space between rows */
+.row.top-buffer {
+  margin-top:20px;
+}
+
+.project-upload-headers {
+  padding: 5px;
+  background: #337ab7;
+  color: white;
+  font-size: 30px;
+}
+
+.project-upload-icons, .project-upload-icons:hover, .project-upload-icons:after {
+    color: white;
+}
+
+/* Prioritization Modal */
+textarea {
+	width: 100%;
+	height: 70%;
+	resize: none;
+}
+
+.labels {
+	padding: 10px;
+	text-align: right;	
+}
+
+.priority-table input {
+	width: 5em;
+}
+
+.tax_formula {
+	display:inline-block;
+	float:right;
+	width: 70%;
+}
+
+.mSuccess {
+	display: inline-block;
+	color: green;
+}
+
+.mErrors {
+	display: inline-block;
+	color: red;
+}
+
+.formulaBtn{
+	font-size: 17px;
+}
+
+/*Delete modal button*/
+#delete-modal {
+	float: right;
+	margin-right: 2em;
+	color: white;
+	padding: 5px;
+	border-radius: 4px;
+	background: red; 
+}
+
+/*Delete priority modal button*/
+#delete-priority-modal {
+    float: right;
+    margin-right: 2em;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    background: red; 
+}
+
+#adjustable-splitter {
+  height: 100vh !important;
+}
+
+#lower-split {
+  border: 1px solid #888;
+  overflow-y: hidden;
+}

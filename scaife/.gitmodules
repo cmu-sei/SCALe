@@ -1,0 +1,13 @@
+[submodule "stats_server_stub/swagger_server/rapidclass_scripts"]
+	path = stats_server_stub/swagger_server/rapidclass_scripts
+	url = ssh://git@bitbucket.cc.cert.org:7999/scal/rapidclass_scripts.git
+	branch = stats_dev
+[submodule "datahub_server_stub/swagger_server/rapidclass_scripts"]
+	path = datahub_server_stub/swagger_server/rapidclass_scripts
+	url = ssh://git@bitbucket.cc.cert.org:7999/scal/rapidclass_scripts.git
+	branch = dh_dev
+[submodule "ui_server_stub/scale.app"]
+	path = ui_server_stub/scale.app
+	url = ssh://git@bitbucket.cc.cert.org:7999/scal/scale.app.git
+	branch = minnow
+
