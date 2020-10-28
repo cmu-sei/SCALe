@@ -23,7 +23,7 @@
 <!-- </legal> -->
 
 
-# Information About the SCAIFE-SCALe 1.2.2 Public Release (includes SCALe r.6.2.2.2.A)
+# Information About the SCAIFE-SCALe 1.2.2 Public Release (includes SCALe r.6.2.3.2.A)
 
 This release is for public distribution. In creating the release, parts of SCAIFE were removed since the entire system is not publicly releasable at this time. SCALe was developed as a separable module for the SCAIFE system instantiation and used as the UI module within the system. This release does not have the full set of five SCAIFE API (.yaml) files described below, however the SCAIFE API .yaml files are published on GitHub at https://github.com/cmu-sei/SCAIFE-API. Use these files when instructions say to view the API in swagger-editor. The tech manual with some additional instructions beyond the SCAIFE/SCALe HTML manual (mentioned below) can be helpful with getting started in SCALe. More specifically, the "Partial Access" method found here: `https://resources.sei.cmu.edu/asset_files/UsersGuide/2020_012_001_644362.docx` describes how to start SCALe as a UI module in SCAIFE when the other servers are not available. Note: The HTML manual, the technical manual, and other documents we previously published may have references to the `model_api` directory, that recently changed to the `scaife` directory and should be interchanged where appropriate.
 
