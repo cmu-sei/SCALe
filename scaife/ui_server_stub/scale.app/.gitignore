@@ -72,9 +72,6 @@
 # Ignore restart script (differing ports)
 # /restart.sh
 
-# Ignore application controller because that's apparently where the password is... (should be changed)
-/app/controllers/application_controller.rb
-
 # Ignore test_config.json
 /test/junit/test/src/test/java/test_config.json
 /test/junit/test/target/*
