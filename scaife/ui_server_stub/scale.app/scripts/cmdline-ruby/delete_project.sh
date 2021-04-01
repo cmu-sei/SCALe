@@ -1,10 +1,11 @@
-#!/bin/sh -f
+#!/bin/bash -f
+#
 # Deletes a project, given its project id
-# Should be called within SCALe folder hierarchy.
+
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -25,12 +26,19 @@
 # DM19-1274
 # </legal>
 
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BIN_DIR=$(dirname "$BIN_LOC")
+. $BIN_DIR/../env.sh
+
 project_id=$1
 
+# required for rails homing
+cd $SCALE_DIR
+
 echo "
-  p = Project.find($project_id);
-  p.destroy;
-  pc = ProjectsController.new();
+  p = Project.find($project_id)
+  p.destroy
+  pc = ProjectsController.new()
   pc.nuke_project_files($project_id)
 " | bundle exec rails console
 

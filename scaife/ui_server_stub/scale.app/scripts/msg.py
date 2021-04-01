@@ -6,9 +6,9 @@
 # usage: msg.py <db> <alert-id> > <org-file>
 #
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON

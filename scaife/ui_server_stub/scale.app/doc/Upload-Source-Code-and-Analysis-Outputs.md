@@ -4,9 +4,9 @@ title: 'SCALe : Upload Source Code and Analysis Outputs'
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [SCALe Quick Start Demo for
     Auditors](SCALe-Quick-Start-Demo-for-Auditors.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -96,30 +96,23 @@ database** .
 
 ![](attachments/CreateProjectFromDatabase.png)
 
-The alerts are now ready to audit.
+The alertConditions are now ready to audit.
 
 ------------------------------------------------------------------------
 
 [![](attachments/arrow_left.png)](SCALe-Quick-Start-Demo-for-Auditors.md)
 [![](attachments/arrow_up.png)](SCALe-Quick-Start-Demo-for-Auditors.md)
-[![](attachments/arrow_right.png)](Inspect-Alerts-for-Violations-of-CERT-Secure-Coding-Rules.md)
+[![](attachments/arrow_right.png)](Inspect-AlertConditions-to-Adjudicate-for-Conditions.md)
 
 Attachments:
 ------------
 
-![](images/icons/bullet_blue.gif)
-[rosecheckers.txt](attachments/rosecheckers.txt) (text/plain)
-![](images/icons/bullet_blue.gif) [UploadSource.png](attachments/UploadSource.png) (image/png)
-![](images/icons/bullet_blue.gif) [UploadSAToolOutput.png](attachments/UploadSAToolOutput.png) (image/png)
-![](images/icons/bullet_blue.gif)
-[dos2unix-7.2.2.zip](attachments/dos2unix-7.2.2.zip)
-(application/zip)
-![](images/icons/bullet_blue.gif)
-[CreateDatabase.png](attachments/CreateDatabase.png) (image/png)
-![](images/icons/bullet_blue.gif)
-[CreateProjectFromDatabase.png](attachments/CreateProjectFromDatabase.png) (image/png)
-![](images/icons/bullet_blue.gif)
-[CreateProjectScreen.png](attachments/CreateProjectScreen.png) (image/png)
-[SpecifyNameDesc.png](attachments/SpecifyNameDesc.png) (image/png)
-![](images/icons/bullet_blue.gif)
-[NewProjectButton.png](attachments/NewProjectButton.png) (image/png)
+![](images/icons/bullet_blue.gif) [rosecheckers.txt](attachments/rosecheckers.txt) (text/plain)\
+![](images/icons/bullet_blue.gif) [UploadSource.png](attachments/UploadSource.png) (image/png)\
+![](images/icons/bullet_blue.gif) [UploadSAToolOutput.png](attachments/UploadSAToolOutput.png) (image/png)\
+![](images/icons/bullet_blue.gif) [dos2unix-7.2.2.zip](attachments/dos2unix-7.2.2.zip)(application/zip)\
+![](images/icons/bullet_blue.gif) [CreateDatabase.png](attachments/CreateDatabase.png) (image/png)\
+![](images/icons/bullet_blue.gif) [CreateProjectFromDatabase.png](attachments/CreateProjectFromDatabase.png) (image/png)\
+![](images/icons/bullet_blue.gif) [CreateProjectScreen.png](attachments/CreateProjectScreen.png) (image/png)\
+![](images/icons/bullet_blue.gif) [SpecifyNameDesc.png](attachments/SpecifyNameDesc.png) (image/png)\
+![](images/icons/bullet_blue.gif) [NewProjectButton.png](attachments/NewProjectButton.png) (image/png)\

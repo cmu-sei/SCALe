@@ -7,9 +7,9 @@
 # status code 0 if all services are up within the the alloted time.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -32,7 +32,7 @@
 
 import sys, re, argparse
 import bootstrap
-from bootstrap import VERBOSE
+from bootstrap import VERBOSE, ServiceException
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     parser.add_argument("-v", "--verbose", action=bootstrap.Verbosity)
     args = parser.parse_args()
     if args.list:
-        print("available services: %s" \
-            % ', '.join(sorted(bootstrap.standard_svcs)))
+        print "available services: %s" \
+            % ', '.join(sorted(bootstrap.load_services_from_config()))
         sys.exit(0)
     include = args.include
     if include:
@@ -65,5 +65,9 @@ if __name__ == "__main__":
     exclude = args.exclude
     if exclude:
         exclude = [x.strip() for x in re.split(r",", exclude)]
-    bootstrap.wait_for_services(timeout=args.timeout,
-            include=include, exclude=exclude, localhost=args.localhost)
+    try:
+        bootstrap.wait_for_services(timeout=args.timeout,
+                include=include, exclude=exclude, localhost=args.localhost)
+    except ServiceException as e:
+        print e.message
+        sys.exit(1)

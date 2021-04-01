@@ -4,12 +4,27 @@ title: 'SCAIFE : Customization'
 
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Source Code Analysis Integrated Framework Environment (SCAIFE)](SCAIFE-Welcome.md)
 <!-- <legal> -->
-<!-- SCAIFE System version 1.2.2 -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- This material is based upon work funded and supported by the -->
+<!-- Department of Defense under Contract No. FA8702-15-D-0002 with -->
+<!-- Carnegie Mellon University for the operation of the Software -->
+<!-- Engineering Institute, a federally funded research and development -->
+<!-- center. -->
+<!--  -->
+<!-- The view, opinions, and/or findings contained in this material are -->
+<!-- those of the author(s) and should not be construed as an official -->
+<!-- Government position, policy, or decision, unless designated by other -->
+<!-- documentation. -->
+<!--  -->
+<!-- References herein to any specific commercial product, process, or -->
+<!-- service by trade name, trade mark, manufacturer, or otherwise, does -->
+<!-- not necessarily constitute or imply its endorsement, recommendation, -->
+<!-- or favoring by Carnegie Mellon University or its Software Engineering -->
+<!-- Institute. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
-<!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
+<!-- INSTITUTE MATERIAL IS FURNISHED ON AN 'AS-IS' BASIS. CARNEGIE MELLON -->
 <!-- UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR -->
 <!-- IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF -->
 <!-- FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS -->
@@ -17,30 +32,17 @@ title: 'SCAIFE : Customization'
 <!-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, -->
 <!-- TRADEMARK, OR COPYRIGHT INFRINGEMENT. -->
 <!--  -->
-<!-- [DISTRIBUTION STATEMENT F] Further dissemination only as directed by -->
-<!-- OSD/ASD R&E (determination date: 2019-12-11) or higher DoD authority. -->
+<!-- [DISTRIBUTION STATEMENT A] This material has been approved for public -->
+<!-- release and unlimited distribution.  Please see Copyright notice for -->
+<!-- non-US Government use and distribution. -->
 <!--  -->
-<!-- Notice to DoD Subcontractors: This document may contain Covered -->
-<!-- Defense Information (CDI).  Handling of this information is subject to -->
-<!-- the controls identified in DFARS 252.204-7012 – SAFEGUARDING COVERED -->
-<!-- DEFENSE INFORMATION AND CYBER INCIDENT REPORTING -->
+<!-- This work is licensed under a Creative Commons Attribution-ShareAlike -->
+<!-- 4.0 International License. -->
 <!--  -->
-<!-- This Software includes and/or makes use of Third-Party Software -->
-<!-- subject to its own license. -->
-<!--  -->
-<!-- This material includes field names used in the Software Assurance -->
-<!-- Marketplace (SWAMP), a service that provides continuous software -->
-<!-- assurance capabilities to developers and researchers at -->
-<!-- https://www.mir-swamp.org/#.  Copyright © 2012-2020 The Morgridge -->
-<!-- Institute for Research, Inc. All rights reserved.” -->
-<!--  -->
-<!-- This material includes field names used in the Software Assurance Tool -->
-<!-- (SwAT), a tool that is used by analysts to analyze static analysis -->
-<!-- alerts from multiple static analysis -->
-<!-- tools. https://www.cerdec.army.mil/ Combat Capabilities Development -->
-<!-- Command (CCDC) C5ISR Center. All rights reserved. -->
-<!--  -->
-<!-- DM19-1273 -->
+<!-- Carnegie Mellon® and CERT® are registered in the U.S. Patent and -->
+<!-- Trademark Office by Carnegie Mellon University. -->
+<!--   -->
+<!-- DM20-0043 -->
 <!-- </legal> -->
 
 The SCAIFE manual (documentation) copyright covers all pages of the SCAIFE/SCALe manual with filenames that start with text 'SCAIFE' and that copyright is [here](SCAIFE-MANUAL-copyright.md).
@@ -164,6 +166,30 @@ java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar help genera
 ```
 
 In that case, you will also have to replace ${HOME} in the previous command with the actual installation location of swagger-codegen.
+
+
+Auto-Generated SCAIFE Server and Client Code from API Definition
+-----------------
+
+Using the `swagger-codegen` tool, you can automatically generate client and server code from the API definition files. The server code includes stubs, and you will need to fill in code within the function itself. The client code provides function calls you can make in appropriate places in your code, and you will need to initialize variables, assign to them, or provide data for any function parameters.
+
+Next: information about how to auto-generate SCAIFE client code from the SCAIFE API definition files, then mark it.
+
+First, install  `swagger-codegen`. Then, switch to the directory where it's installed and auto-generate client code in your language of choice for one (of the five) swagger APIs , e.g. for Java code for the DataHub (some filepaths below are specific to a machine, so substitute your own filepaths, for example where you see `/home/lflynn/scale/epp/` below you should substitute your own filepath):
+
+```
+cd ~/opt/swagger/swagger-codegen
+
+java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i  /home/lflynn/scale/epp/scaife/datahub_server_stub/swagger_server/swagger/swagger.yaml -l java -o /home/lflynn/temp/swagger-api-client/swagger-java-datahub-client
+```
+
+After auto-generating the code for as many of the five modules as needed, add the SCAIFE API markings file (make sure the markings file is updated as described in another section of this page, to contain the correct text, version, and year) to the base directory (in the example above, that is `swagger-java-client`).
+
+Then, make a tarball starting from the base directory. E.g.,
+
+`tar -czvf swagger-api-java-client-code.tar.gz swagger-api-client`
+
+
 
 Copyright Information
 ===================

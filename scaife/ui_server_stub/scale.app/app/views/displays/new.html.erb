@@ -190,6 +190,17 @@
   <div class="create-display-form form-group">
 
     <div class="row">
+    <%= f.label(:class_label, "class_label: ", :class=>"col-sm-2 control-label") %>
+    <div class="col-sm-1">
+      <%= f.select(:previous, options_for_select([['False',0],['True',1]]), {}, {class: 'form-control'}) %>
+    </div>
+    </div>
+
+
+  </div>
+  <div class="create-display-form form-group">
+
+    <div class="row">
     <%= f.label(:confidence, "confidence: ", :class=>"col-sm-2 control-label") %>
     <div class="col-sm-1">
       <%= f.text_field(:confidence, :class => "form-control") %>

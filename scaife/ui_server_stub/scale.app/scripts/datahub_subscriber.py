@@ -5,9 +5,9 @@
 # Publishers must use the same topic string to send data objects of a given type.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -41,7 +41,7 @@ from multiprocessing import Process, Queue
 
   
 config_data = bootstrap.scaife_config()
-pulsar_url = config_data['development']['pulsar']
+pulsar_url = config_data['pulsar']
 client = pulsar.Client('pulsar://' + pulsar_url)
 
 new_determinations_schema = AvroSchema(SendAlertVerdictUpdateParams)
@@ -128,7 +128,6 @@ def messages(consumer):
 def start_subscription(topic_name, subscription_name):
     
     consumer = create_consumer(topic_name, subscription_name)
-    messages(consumer)
     
     try:
         for msg in messages(consumer):

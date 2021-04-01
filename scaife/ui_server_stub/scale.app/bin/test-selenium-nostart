@@ -4,9 +4,9 @@
 # (probably from an earlier docker-compose stage)
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -31,21 +31,28 @@ BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
 BIN_DIR=$(dirname "$BIN_LOC")
 SCRIPTS_DIR=$(readlink -f "$BIN_DIR/../scripts")
 
+# avoid the "Can't load /root/.rnd into RNG" message
+openssl rand -writerand $HOME/.rnd
+
 mkdir -p test-output/selenium
 mkdir -p cert
 openssl req -newkey rsa:2048 -nodes -days 365 -subj '/CN=localhost' -keyout ./cert/server.key -x509 -out ./cert/server.crt
 
-# Rename the test_config.json for
-if [ -f ./test/junit/test/src/test/resources/test_config.json ]; then
-  mv "./test/junit/test/src/test/resources/test_config.json" "./test/junit/test/src/test/resources/test_config.json.$(date +%s)"
-fi
-mv ./test/junit/test/src/test/resources/{bamboo.test_config.json,test_config.json}
+JTEST_DIR=./test/junit/test
 
+# Rename the test_config.json for bamboo
+TC_RSRC_DIR=$JTEST_DIR/src/test/resources
+if [ -f $TC_RSRC_DIR/test_config.json ]; then
+  mv "$TC_RSRC_DIR/test_config.json" "$TC_RSRC_DIR/test_config.json.$(date +%s)"
+fi
+cp $TC_RSRC_DIR/bamboo.test_config.json $TC_RSRC_DIR/test_config.json
+
+# SCALe is presumed to already be running
 # Invoke selenium tests
-cd ./test/junit/test/
-mvn "$@" test
+cd $JTEST_DIR
+mvn --batch-mode "$@" test
 cd ../../../
 
-mv ./test/junit/test/target/surefire-reports/*.xml ./test-output/selenium/
+mv $JTEST_DIR/target/surefire-reports/*.xml ./test-output/selenium/
 
 exit 0

@@ -6,9 +6,9 @@
 # exit code.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -60,7 +60,7 @@ def compare(src_project=None, tgt_project=None, keep=False):
                 file=sys.stderr)
     # canonicalize them both
     if keep:
-        # retain in scale.app/tmp/src.sqlite3
+        # retain in scale.app/tmp
         src_canon_file = bootstrap.get_tmp_file(
                 basename="src.dat", ephemeral=False)
         tgt_canon_file = bootstrap.get_tmp_file(

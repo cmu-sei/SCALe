@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -107,7 +107,7 @@ gem 'thin', '~> 1.7.2' #needed for running SCALe (bundle exec thin start --port 
 # gem 'capistrano'
 
 # To create/export zip files
-#gem 'rubyzip', '=1.1.0'
+gem 'rubyzip', '=1.3'
 gem 'zip-zip'
 
 #see config/boot.rb
@@ -118,3 +118,6 @@ gem 'rest-client'
 gem 'webmock'
 
 gem 'rails-controller-testing'
+
+# needed for openapi_client
+gem 'typhoeus', '~> 1.0', '>= 1.0.1'

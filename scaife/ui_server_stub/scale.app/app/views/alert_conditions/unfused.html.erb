@@ -30,7 +30,7 @@ correspond to the upper and lower halves of the webpage.
         <div class="panel panel-info">
           <div class="panel-heading">
             <div id="filterForm">
-  
+
               <!-- A heading for the form -->
               <%= hidden_field_tag(:project_id, @project_id) %>
               <div class="form-group">
@@ -57,7 +57,7 @@ correspond to the upper and lower halves of the webpage.
                   <%= text_field_tag(:path, @path, :class=>"form-control") %>
                 </div>
               </div> <!-- end form-group -->
-  
+
               <!-- filter options Row 2 -->
               <div class="form-group">
                 <!-- Form input for filtering by line -->
@@ -86,7 +86,7 @@ correspond to the upper and lower halves of the webpage.
                   <%= select_tag(:taxonomy, options_for_select(@options_for_categories, selected: @selected_taxonomy), :class => "form-control") %>
                 </div>
               </div> <!-- end form-group -->
-  
+
               <!-- filter options Row 3 -->
               <div class="form-group">
                 <!-- Form input for deciding sort direction -->
@@ -100,14 +100,19 @@ correspond to the upper and lower halves of the webpage.
                 <div class="col-sm-2">
                   <%= select_tag(:sort_column, options_for_select([["Display (d) ID", "id"],["Flag", "flag"],["Line", "line"],["Severity", "severity"],["likelihood","likelihood"],["Remediation","remediation"],["CERT Priority","priority"],["Level","level"],["Checker","checker"],["Message","message"],["Path","path"], ["AlertCondition Priority", "meta_alert_priority"]], selected: @sort_column), :class => "form-control") %>
                 </div>
+                <!-- Form input for shuffling by seed -->
+                <%= label_tag(:seed, "Shuffle Seed: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-1">
+                  <%= number_field_tag(:seed, @seed, :class=>"form-control") %>
+                </div>
               </div> <!-- end form-group -->
-  
+
               <!-- Hidden form input to keep track of the page number -->
               <%= hidden_field_tag "page", "1" %>
-  
+
               <%= submit_tag("Filter", :class => "btn btn-primary") %>
               <button type="button" id="clear-filters" class="btn">Clear Filters</button>
-  
+
             </div> <!-- end form -->
           </div> <!-- end panel-heading-->
         </div> <!-- end panel-->
@@ -158,4 +163,3 @@ correspond to the upper and lower halves of the webpage.
   });
 
 </script>
-

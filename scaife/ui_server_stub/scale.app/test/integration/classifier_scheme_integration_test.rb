@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -32,13 +32,16 @@ class ClassifierSchemeIntegrationTest < ActionDispatch::IntegrationTest
     source_domain = "source_domain"
     adaptive_heuristic_name = "adaptive_heuristic_name"
     adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    use_pca = 0
+    feature_category = "intersection"
+    semantic_features = false
+    num_meta_alert_threshold = 100
     ahpo_name = "ahpo_name"
     ahpo_parameters = "ahpo_parameters"
     status = 405
     mode = "SCALe-only"
 
-    request_create_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain,
-      adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, status)
+    request_create_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold, status)
   end
 
   test "createClassifier returns 200 on success in Demo scaife_mode" do
@@ -48,13 +51,16 @@ class ClassifierSchemeIntegrationTest < ActionDispatch::IntegrationTest
     source_domain = "source_domain"
     adaptive_heuristic_name = "adaptive_heuristic_name"
     adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    use_pca = 0
+    feature_category = "intersection"
+    semantic_features = false
+    num_meta_alert_threshold = 100
     ahpo_name = "ahpo_name"
     ahpo_parameters = "ahpo_parameters"
     status = 200
     mode = "Demo"
 
-    request_create_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain,
-      adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, status)
+    request_create_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold, status)
   end
 
   test "createClassifier returns 400 on bad request in Demo scaife_mode" do
@@ -64,13 +70,16 @@ class ClassifierSchemeIntegrationTest < ActionDispatch::IntegrationTest
     source_domain = "source_domain"
     adaptive_heuristic_name = "adaptive_heuristic_name"
     adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    use_pca = 0
+    feature_category = "intersection"
+    semantic_features = false
+    num_meta_alert_threshold = 100
     ahpo_name = "ahpo_name"
     ahpo_parameters = "ahpo_parameters"
     status = 400
     mode = "Demo"
 
-    request_create_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain,
-     adaptive_heuristic_name , adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, status)
+    request_create_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name , adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold, status)
   end
 
   test "viewClassifier returns 405 in SCALe-only scaife_mode" do
@@ -106,29 +115,35 @@ class ClassifierSchemeIntegrationTest < ActionDispatch::IntegrationTest
     source_domain = "source_domain"
     adaptive_heuristic_name = "adaptive_heuristic_name"
     adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    use_pca = 0
+    feature_category = "intersection"
+    semantic_features = false
+    num_meta_alert_threshold = 100
     ahpo_name = "ahpo_name"
     ahpo_parameters = "ahpo_parameters"
     status = 405
     mode = "SCALe-only"
 
-    request_edit_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name,
-      adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, status)
+    request_edit_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold, status)
   end
 
-  test "editClassifier returns 200 on success in Demo scaie_mode" do
+  test "editClassifier returns 200 on success in Demo scaife_mode" do
     classifier_instance_name = classifier_schemes(:two).classifier_instance_name
     classifier_type = "classtype"
     project_id = 1
     source_domain = "source_domain"
     adaptive_heuristic_name = "adaptive_heuristic_name"
     adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    use_pca = 0
+    feature_category = "intersection"
+    semantic_features = false
+    num_meta_alert_threshold = 100
     ahpo_name = "ahpo_name"
     ahpo_parameters = "ahpo_parameters"
     status = 200
     mode = "Demo"
 
-    request_edit_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name,
-      adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, status)
+    request_edit_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold, status)
   end
 
   test "editClassifier returns 400 on bad request" do
@@ -138,13 +153,16 @@ class ClassifierSchemeIntegrationTest < ActionDispatch::IntegrationTest
     source_domain = "source_domain"
     adaptive_heuristic_name = "adaptive_heuristic_name"
     adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    use_pca = 0
+    feature_category = "intersection"
+    semantic_features = false
+    num_meta_alert_threshold = 100
     ahpo_name = "ahpo_name"
     ahpo_parameters = "ahpo_parameters"
     status = 400
     mode = "Demo"
 
-    request_edit_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name,
-      adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, status)
+    request_edit_classifier(mode, classifier_instance_name, classifier_type, project_id, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold, status)
   end
 
   test "deleteClassifier returns 405 in SCALe-only scaife_mode" do
@@ -253,4 +271,5 @@ class ClassifierSchemeIntegrationTest < ActionDispatch::IntegrationTest
     request_run_classifier(project.id, classifier_instance_name, mode)
     assert_equal last_used, Project.find(project.id).last_used_confidence_scheme
   end
+
 end

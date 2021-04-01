@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -45,8 +45,6 @@ class AlertConditionsController < ApplicationController
   require 'csv'
   require 'will_paginate/array'
   include LogDet
-  include Scaife::Api::Registration
-  include Scaife::Api::Datahub
   include Scaife::FormatConversion
   include Utility::Timing
 
@@ -67,6 +65,7 @@ class AlertConditionsController < ApplicationController
     @tool = helpers.getFilterSelection(:tool, :tool, "")
     @sort_column = helpers.getFilterSelection(:sort_column, :sort_column,
       "meta_alert_priority")
+    @seed = helpers.getFilterSelection(:seed, :seed, "")
     @checker = helpers.getFilterSelection(:checker, :checker, "")
     @condition = helpers.getFilterSelection(:condition, :condition, "")
     @selected_id_type = helpers.getFilterSelection(:id_type, :id_type,
@@ -97,7 +96,7 @@ class AlertConditionsController < ApplicationController
     backup_db = backup_external_db_from_id(@project_id)
     if File.exists? backup_db
       if Project.max_external_linked_checker_id.blank?
-        # cache this value for the upcomping conditional
+        # cache this value for the upcoming conditional
         backup_db = backup_external_db_from_id(@project_id)
         if File.exists? backup_db
           FileUtils.cp(backup_db, external_db())
@@ -139,94 +138,96 @@ class AlertConditionsController < ApplicationController
   # Determines of the project has been uploaded to SCAIFE, defaults to it has not been uploaded (used in Demo mode also)
   @project_not_uploaded_to_scaife = true
 
-    # Retrieve available classifiers from SCAIFE
-    @classifierList = []
-    @priorityList = []
-    scaife_priority_ids = []
+  # Retrieve available classifiers from SCAIFE
+  @classifierList = []
+  @priorityList = []
+  scaife_priority_ids = []
 
-    if "Connected" == @scaife_mode
-      scaife_statistics_controller = ScaifeStatisticsController.new
-      list_classifiers_response = scaife_statistics_controller.listClassifiers(session[:login_token])
+  if "Connected" == @scaife_mode
+    c = ScaifeStatisticsController.new
+    list_classifiers_result = c.listClassifiers(session[:login_token])
 
-      if list_classifiers_response.is_a?(String)
-        @classifierScaifeError = list_classifiers_response
+    if list_classifiers_result.is_a?(String)
+        puts "#{__method__}() error listClassifiers(): #{c.scaife_status_code}: #{list_classifiers_result}"
+      @classifierScaifeError = list_classifiers_result
+    else
+      if list_classifiers_result.blank?
+        @classifierScaifeError = "Classifiers Unavailable in the SCAIFE Stats Module"
       else
-        if list_classifiers_response.blank?
-          @classifierScaifeError = "Classifiers Unavailable in the SCAIFE Stats Module"
+        # make sure there are some SCAIFE projects to select
+        c = ScaifeDatahubController.new
+        list_projects_result = c.listProjects(session[:login_token])
+        if list_projects_result.is_a?(String) #Failed to connect to Registration/DataHub server
+         puts "#{__method__}() error listProjects(): #{c.scaife_status_code}: #{list_projects_result}"
+          @classifierScaifeError = "Failed to retrieve SCAIFE projects from DataHub"
+        elsif list_projects_result.blank?
+          @classifierScaifeError = "Must upload a project to SCAIFE first"
         else
-          # make sure there are some SCAIFE projects to select
-          scaife_datahub_controller = ScaifeDatahubController.new
-          list_projects_response = scaife_datahub_controller.listProjects(session[:login_token])
-          if list_projects_response.is_a?(String) #Failed to connect to Registration/DataHub server
-            msg = "Failed to retrieve SCAIFE projects from DataHub"
-            #puts msg
-            @classifierScaifeError = msg
-          elsif list_projects_response.blank?
-            @classifierScaifeError = "Must upload a project to SCAIFE first"
-          else
-            list_classifiers_response.each do |object|
-              @classifierList.push(object["classifier_type"])
-            end
+          list_classifiers_result.each do |object|
+            @classifierList.push(object.classifier_type)
           end
         end
       end
+    end
 
-      # Get the available classifier instances that can be run in SCAIFE
-      scale_existing_classifiers = ClassifierScheme.pluck("classifier_instance_name", "scaife_classifier_instance_id")
+    # Get the available classifier instances that can be run in SCAIFE
+    scale_existing_classifiers = ClassifierScheme.pluck("classifier_instance_name", "scaife_classifier_instance_id")
 
-      @available_classifiers_to_run = []
+    @available_classifiers_to_run = []
 
-      if scale_existing_classifiers.present?
-        scale_existing_classifiers.each do |class_name, class_id|
-          if class_id.present?
-            @available_classifiers_to_run.push(class_name) # Classifier Instance has been created in SCAIFE and can be used
-          end
+    if scale_existing_classifiers.present?
+      scale_existing_classifiers.each do |class_name, class_id|
+        if class_id.present?
+          @available_classifiers_to_run.push(class_name) # Classifier Instance has been created in SCAIFE and can be used
         end
       end
+    end
 
     if @project.scaife_project_id.present?
       @project_not_uploaded_to_scaife = false
-      end
+    end
 
-        scaife_prioritization_controller = ScaifePrioritizationController.new
+    c = ScaifePrioritizationController.new
 
-        scaife_project_id = scaife_prioritization_controller.get_scaife_project_id(@project_id)
-        get_priorities_response = scaife_prioritization_controller.listPriorities(session[:login_token], scaife_project_id)
+    scaife_project_id = c.get_scaife_project_id(@project_id)
+    result = c.listPriorities(session[:login_token], scaife_project_id)
 
-        if not get_priorities_response["priority_list"].nil?
-            get_priorities_response["priority_list"].each do |priority_scheme|
-                @priorityList.push([priority_scheme["priority_scheme_id"], priority_scheme["priority_scheme_name"]])
-                scaife_priority_ids.push(priority_scheme["priority_scheme_id"])
-            end
-        end
-
-        scale_priority_list = []
-        scale_priority_list.push(*PriorityScheme.pluck("id", "name", "scaife_p_scheme_id", "p_scheme_type"))
-
-        if not scaife_priority_ids.empty?
-            scale_priority_list.each do |p|
-                if not scaife_priority_ids.include? p[2]
-                  if p[3] == "global" or p[3] == "local"
-                    @priorityList.push([p[0], p[1]])
-                  end
-                end
-            end
-        else
-            @priorityList.push(*PriorityScheme.pluck("id", "name")) #["priority1", "priority2", "priority3"]
-        end
-
-        @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
+    if result.is_a?(String)
+      puts "#{__method__}() error listPriorities(): #{c.scaife_status_code}: #{result}"
     else
-        @classifierList = ["Demo-Xgboost", "Demo-Random Forest", "Demo-Logistic Regression"]
+      result.each do |priority_scheme|
+        @priorityList.push([priority_scheme.priority_scheme_id, priority_scheme.priority_scheme_name])
+        scaife_priority_ids.push(priority_scheme.priority_scheme_id)
+      end
+    end
+
+    scale_priority_list = []
+    scale_priority_list.push(*PriorityScheme.pluck("id", "name", "scaife_p_scheme_id", "p_scheme_type"))
+
+    if not scaife_priority_ids.empty?
+      scale_priority_list.each do |p|
+        if not scaife_priority_ids.include? p[2]
+          if p[3] == "global" or p[3] == "local"
+            @priorityList.push([p[0], p[1]])
+          end
+        end
+      end
+    else
+      @priorityList.push(*PriorityScheme.pluck("id", "name")) #["priority1", "priority2", "priority3"]
+    end
+
+    @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
+  else
+    @classifierList = ["Demo-Xgboost", "Demo-Random Forest", "Demo-Logistic Regression"]
 
     # In Demo mode all classifiers can be run since the data is artificial
     @available_classifiers_to_run = ClassifierScheme.pluck("classifier_instance_name")
 
-        @priorityList = PriorityScheme.pluck("id", "name") #["priority1", "priority2", "priority3"]
-        @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
-    end
+    @priorityList = PriorityScheme.pluck("id", "name") #["priority1", "priority2", "priority3"]
+    @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
+  end # end if SCAIFE connected
 
-    @existingClassifiers = ClassifierScheme.pluck("classifier_instance_name, classifier_type")
+  @existingClassifiers = ClassifierScheme.pluck("classifier_instance_name, classifier_type")
 
          # Using triple-click to select and copy a path from the web app
          # will include a leading and trailing space, so remove them.
@@ -314,6 +315,15 @@ class AlertConditionsController < ApplicationController
           .where(filter)
           .order(ordering)
 
+        if @seed != ""
+          if @seed.to_i == 0
+            rng = Random.new
+          else
+            rng = Random.new(@seed.to_i)
+          end
+          @displays = @displays.shuffle(random: rng)
+        end
+
         $displayedAlertConditions = @displays
 
         @alertConditionStart = @alertConditionsPerPage * (page-1) + 1
@@ -360,6 +370,7 @@ class AlertConditionsController < ApplicationController
           d[:next_confidence] != d[:confidence]
           puts("333 Reading next_confidence fields ")
           d.update_attribute(:confidence, d[:next_confidence])
+          d.update_attribute(:class_label, d[:class_label])
         end
       end
       scale_project.update_attribute(:confidence_lock, 0)
@@ -378,6 +389,7 @@ class AlertConditionsController < ApplicationController
     session[:line] = nil
     session[:tool] = nil
     session[:sort_column] = nil
+    session[:seed] = nil
     session[:checker] = nil
     session[:condition] = nil
     session[:id_type] = nil
@@ -472,9 +484,8 @@ class AlertConditionsController < ApplicationController
         scaife_m_alert_det = {"meta_alert_id": scaife_meta_alert_id, "determination": determination}
         scaife_meta_alerts_dets.append(scaife_m_alert_det)
 
-        scaife_datahub_controller = ScaifeDatahubController.new
-        send_meta_alerts_response = scaife_datahub_controller.sendMetaAlertsForProject(session[:login_token], scaife_project_id, scaife_meta_alerts_dets)
-        #puts send_meta_alerts_response
+        c = ScaifeDatahubController.new
+        result = c.sendMetaAlertsForProject(session[:login_token], scaife_project_id, scaife_meta_alerts_dets)
       end
     end
 
@@ -643,8 +654,6 @@ class AlertConditionsController < ApplicationController
     determinations = con.execute(
       "SELECT * FROM determinations WHERE project_id=#{con.quote(project_id.to_s)}")
 
-    internal_db = Rails.configuration.x.db_path
-    external_db = Rails.configuration.x.external_db_path
     backup_db = backup_external_db_from_id(@project.id)
     if not File.exists? backup_db
       archive_db = archive_backup_db_from_id(@project.id)
@@ -661,14 +670,14 @@ class AlertConditionsController < ApplicationController
     end
 
     # shuffle source db to external for updates
-    FileUtils.cp(src_db, external_db)
+    FileUtils.cp(src_db, external_db())
 
     priority_schemes = PriorityScheme.where(project_id: project_id).to_a
     user_uploads = UserUpload.all.to_a
     classifier_schemes = ClassifierScheme.all.to_a
     performance_metrics = PerformanceMetrics.where(project_id: project_id).to_a
     classifier_metrics = ClassifierMetrics.where(project_id: project_id).to_a
-    meta_alert_updated_vals = con.execute("SELECT confidence, meta_alert_priority, MIN(meta_alert_id) FROM displays WHERE project_id=#{con.quote(project_id.to_s)} GROUP BY meta_alert_id")
+    #meta_alert_updated_vals = con.execute("SELECT confidence, meta_alert_priority, MIN(meta_alert_id) FROM displays WHERE project_id=#{con.quote(project_id.to_s)} GROUP BY meta_alert_id")
 
     project_languages = @project.languages
     project_tools = @project.tools
@@ -777,7 +786,9 @@ class AlertConditionsController < ApplicationController
           "id", "classifier_instance_name", "classifier_type",
           "source_domain", "created_at", "updated_at",
           "adaptive_heuristic_name", "adaptive_heuristic_parameters",
-          "ahpo_name", "ahpo_parameters"]
+          "use_pca", "feature_category", "semantic_features", 
+          "ahpo_name", "ahpo_parameters", "num_meta_alert_threshold"]
+
         ActiveRecord::Base.transaction do
           classifier_schemes.each do |r|
             values = cs_fields.collect{|f| ActiveRecord::Base.connection.quote(r[f])}
@@ -807,7 +818,7 @@ class AlertConditionsController < ApplicationController
       #copy data from ClassifierMetrics to external db
       ActiveRecord::Base.transaction do
         con.execute("DELETE FROM ClassifierMetrics")
-        cm_fields = ["project_id", "scaife_classifier_instance_id", "transaction_timestamp", "num_labeled_meta_alerts_used_for_classifier_evaluation", "accuracy", "precision", "recall", "f1"]
+        cm_fields = ["project_id", "scaife_classifier_instance_id", "transaction_timestamp", "num_labeled_meta_alerts_used_for_classifier_evaluation", "test_accuracy", "test_precision", "test_recall", "test_f1", "num_labeled_meta_alerts_used_for_classifier_training", "num_labeled_T_test_suite_used_for_classifier_training", "num_labeled_F_test_suite_used_for_classifier_training", "num_labeled_T_manual_verdicts_used_for_classifier_training", "num_labeled_F_manual_verdicts_used_for_classifier_training", "num_code_metrics_tools_used_for_classifier_training", "top_features_impacting_classifier", "train_accuracy", "train_precision", "train_recall", "train_f1"]
         ActiveRecord::Base.transaction do
           classifier_metrics.each do |cm|
             values = cm_fields.collect{|f| ActiveRecord::Base.connection.quote(cm[f])}
@@ -824,8 +835,13 @@ class AlertConditionsController < ApplicationController
         @displays.each do |d|
             meta_alert_id = d.meta_alert_id
             scaife_meta_alert_id = d.scaife_meta_alert_id
+            class_label = d.class_label
             confidence = d.confidence
             meta_alert_priority = d.meta_alert_priority
+
+            if not class_label
+              class_label = ""
+            end
 
             if not confidence
               confidence = "-1"
@@ -842,7 +858,8 @@ class AlertConditionsController < ApplicationController
             con.execute(
               "UPDATE MetaAlerts" \
               " SET confidence_score=" + confidence.to_s + \
-              ", priority_score=" + meta_alert_priority.to_s + \
+              ", class_label='" + class_label.to_s + \
+              "', priority_score=" + meta_alert_priority.to_s + \
               ", scaife_meta_alert_id='" + scaife_meta_alert_id.to_s + \
               "' WHERE id=" + meta_alert_id.to_s
             )
@@ -862,7 +879,7 @@ class AlertConditionsController < ApplicationController
         end
       end
 
-      con.execute("ATTACH '#{internal_db.to_s}' AS DEV")
+      con.execute("ATTACH '#{internal_db().to_s}' AS DEV")
       ActiveRecord::Base.transaction do
         con.execute("DELETE FROM Tools")
         con.execute("DELETE FROM Languages")
@@ -903,7 +920,7 @@ class AlertConditionsController < ApplicationController
     # connection now back to development db
 
     # shuffle changes back to backup_db or archive_db
-    FileUtils.cp(external_db, src_db)
+    FileUtils.cp(external_db(), src_db)
     return src_db
   end
 
@@ -939,11 +956,11 @@ class AlertConditionsController < ApplicationController
     end
 
     if "Connected" == @scaife_mode
-
-      scaife_statistics_controller = ScaifeStatisticsController.new
-      run_classifier_response = scaife_statistics_controller.runClassifier(session[:login_token], @classifier_instance_id, @project_id)
-      if run_classifier_response.is_a?(String) #Failed to connect to Registration/Stats server
-        flash[:scaife_run_classifier_message] =  run_classifier_response
+      c = ScaifeStatisticsController.new
+      result = c.runClassifier(session[:login_token], @classifier_instance_id, @project_id)
+      if result.is_a?(String) #Failed to connect to Registration/Stats server
+        puts "#{__method__}() error runClassifier(): #{c.scaife_status_code}: #{result}"
+        flash[:scaife_run_classifier_message] =  result
         respond_to do |format|
           format.any { return }
         end
@@ -953,22 +970,37 @@ class AlertConditionsController < ApplicationController
         # data from the external DB)
         self.class.archiveDB(@scale_project_id)
 
-        classifier_metrics = run_classifier_response["classifier_analysis"]
+        classifier_metrics = result.classifier_analysis
         classifier_analysis = Hash.new
-        classifier_analysis["accuracy"] = classifier_metrics["accuracy"]
-        classifier_analysis["f1"] = classifier_metrics["f1"]
+        classifier_analysis["train_accuracy"] = classifier_metrics["train_accuracy"]
+        classifier_analysis["train_f1"] = classifier_metrics["train_f1"]
+        classifier_analysis["train_precision"] = classifier_metrics["train_precision"]
+        classifier_analysis["train_recall"] = classifier_metrics["train_recall"]
+        classifier_analysis["test_accuracy"] = classifier_metrics["test_accuracy"]
+        classifier_analysis["test_f1"] = classifier_metrics["test_f1"]
+        classifier_analysis["test_precision"] = classifier_metrics["test_precision"]
+        classifier_analysis["test_recall"] = classifier_metrics["test_recall"]
+
         classifier_analysis["num_labeled_meta_alerts_used_for_classifier_evaluation"] = classifier_metrics["num_labeled_meta_alerts_used_for_classifier_evaluation"]
-        classifier_analysis["precision"] = classifier_metrics["precision"]
-        classifier_analysis["recall"] = classifier_metrics["recall"]
-        ClassifierMetrics.addRecord(@project_id, run_classifier_response["classifier_instance_id"], classifier_analysis)
-        meta_alerts_probabilities = run_classifier_response["probability_data"]
+        classifier_analysis["num_labeled_meta_alerts_used_for_classifier_training"] = classifier_metrics["num_labeled_meta_alerts_used_for_classifier_training"]
+        classifier_analysis["num_labeled_T_test_suite_used_for_classifier_training"] = classifier_metrics["num_labeled_T_test_suite_used_for_classifier_training"]
+        classifier_analysis["num_labeled_F_test_suite_used_for_classifier_training"] = classifier_metrics["num_labeled_F_test_suite_used_for_classifier_training"]
+        classifier_analysis["num_labeled_T_manual_verdicts_used_for_classifier_training"] = classifier_metrics["num_labeled_T_manual_verdicts_used_for_classifier_training"]
+        classifier_analysis["num_labeled_F_manual_verdicts_used_for_classifier_training"] = classifier_metrics["num_labeled_F_manual_verdicts_used_for_classifier_training"]
+        classifier_analysis["num_code_metrics_tools_used_for_classifier_training"] = classifier_metrics["num_code_metrics_tools_used_for_classifier_training"]
+        classifier_analysis["top_features_impacting_classifier"] = classifier_metrics["top_features_impacting_classifier"]
+
+        ClassifierMetrics.addRecord(@project_id, result.classifier_instance_id, classifier_analysis)
+        meta_alerts_probabilities = result.probability_data
         puts "Received " + meta_alerts_probabilities.length.to_s + " confidence values from the Stats Module"
         ActiveRecord::Base.transaction do
           for entry in meta_alerts_probabilities
-            meta_alert_id = entry["meta_alert_id"]
-            probability = entry["probability"]
+            meta_alert_id = entry.meta_alert_id
+            class_label = entry.label
+            probability = entry.probability
             records = Display.where(scaife_meta_alert_id: meta_alert_id)
             if nil != records
+              records.update_all(class_label: class_label.to_s)
               records.update_all(confidence: probability.to_f.truncate(2))
             end
           end
@@ -987,17 +1019,29 @@ class AlertConditionsController < ApplicationController
       @project_id = @project.id.to_s
       #csvPath current hard coded, will upgrade to API (DO NOT USE user input)
       csvPath = "../demo/confidence.csv"
-      dbPath = "../db/development.sqlite3"
+      dbPath = internal_db()
       classifier_analysis = Hash.new
-      classifier_analysis["accuracy"] = 0.91
-      classifier_analysis["f1"] = 0.18
+      classifier_analysis["train_accuracy"] = 0.91
+      classifier_analysis["train_f1"] = 0.18
+      classifier_analysis["train_precision"] = 0.50
+      classifier_analysis["train_recall"] = 0.11
+      classifier_analysis["test_accuracy"] = 0.91
+      classifier_analysis["test_f1"] = 0.18
+      classifier_analysis["test_precision"] = 0.50
+      classifier_analysis["test_recall"] = 0.11
+
       classifier_analysis["num_labeled_meta_alerts_used_for_classifier_evaluation"] = 1000
-      classifier_analysis["precision"] = 0.50
-      classifier_analysis["recall"] = 0.11
+      classifier_analysis["num_labeled_meta_alerts_used_for_classifier_training"] = 1950
+      classifier_analysis["num_labeled_T_test_suite_used_for_classifier_training"] = 720
+      classifier_analysis["num_labeled_F_test_suite_used_for_classifier_training"] = 830
+      classifier_analysis["num_labeled_T_manual_verdicts_used_for_classifier_training"] = 175
+      classifier_analysis["num_labeled_F_manual_verdicts_used_for_classifier_training"] = 225
+      classifier_analysis["num_code_metrics_tools_used_for_classifier_training"] = 3
+      classifier_analysis["top_features_impacting_classifier"] = "num_alerts_per_source_file: 1.5;code_language__C++: 0.125"
+
       res = ClassifierMetrics.addRecord(@project_id, "sample_scaife_classifier_instance_id", classifier_analysis)
       if not res
         msg = "failed to insert classifier metric #{@project_id}:sample_scaife_classifier_instance_id"
-        #puts msg
         flash[:demo_run_classifier_message] = msg
       end
       if not '#{@project.id.to_s}'.match('\d*')  # from web request, so must sanitize
@@ -1069,8 +1113,7 @@ class AlertConditionsController < ApplicationController
     else
       if session[:login_token]
         begin # attempt to logout of SCAIFE
-          r_token = rand 100..999
-          logout_response = SCAIFE_logout(session[:login_token], r_token)
+          logout_response = logout_user(session[:login_token])
           session.delete(:login_token)
         rescue
           session.delete(:login_token)
@@ -1086,45 +1129,45 @@ class AlertConditionsController < ApplicationController
   end
 
 
-  def get_scaife_taxonomies(scaife_datahub_controller)
-     get_taxonomy_list_response = scaife_datahub_controller.listTaxonomies(session[:login_token])
+  def get_scaife_taxonomies(datahub_controller)
+     result = datahub_controller.listTaxonomies(session[:login_token])
 
-     if get_taxonomy_list_response.is_a?(String) #Failed to connect to Registration/DataHub server
+     if result.is_a?(String) #Failed to connect to Registration/DataHub server
           upload_project_message = "Failed to retrieve SCAIFE code languages"
           return upload_project_message, nil, nil
      else
          scaife_taxonomies_ids = Hash.new
          taxonomy_ids = []
-         for entry in get_taxonomy_list_response
-             tax_id = entry["taxonomy_id"]
-             taxonomy_ids.append(tax_id)
+         for entry in result
+           tax_id = entry.taxonomy_id
+           taxonomy_ids.append(tax_id)
 
-             taxonomy_object = OpenStruct.new
-             taxonomy_object.name = entry["taxonomy_name"]
-             taxonomy_object.version = entry["taxonomy_version"]
+           taxonomy_object = OpenStruct.new
+           taxonomy_object.name = entry.taxonomy_name
+           taxonomy_object.version = entry.taxonomy_version
 
-             scaife_taxonomies_ids[taxonomy_object] = tax_id
+           scaife_taxonomies_ids[taxonomy_object] = tax_id
          end
          return taxonomy_ids, scaife_taxonomies_ids
      end
   end
 
 
-  def get_scaife_languages(scaife_datahub_controller)
-      list_languages_response = scaife_datahub_controller.listLanguages(session[:login_token])
+  def get_scaife_languages(datahub_controller)
+      result = datahub_controller.listLanguages(session[:login_token])
 
-      if list_languages_response.is_a?(String) #Failed to connect to Registration/DataHub server
+      if result.is_a?(String) #Failed to connect to Registration/DataHub server
           @upload_project_message = "Failed to retrieve SCAIFE code languages"
           return @upload_project_message, nil
       else
           scaife_languages_ids = Hash.new
           scaife_languages = []
-          for language_object in list_languages_response
+          for language_object in result
               code_language_object = OpenStruct.new
               #code_language_object.code_language_id = language_object["code_language_id"]
-              code_language_object.name = language_object["language"]
-              code_language_object.version = language_object["version"]
-              scaife_languages_ids[code_language_object] = language_object["code_language_id"]
+              code_language_object.name = language_object.language
+              code_language_object.version = language_object.version
+              scaife_languages_ids[code_language_object] = language_object.code_language_id
               scaife_languages.append(code_language_object)
           end
           return scaife_languages, scaife_languages_ids
@@ -1180,6 +1223,7 @@ class AlertConditionsController < ApplicationController
 
       alerts.each do |entry_id, display_list|
           d = display_list[0]
+          scale_alert_id = d.alert_id
           checker_id = nil
           #tool_name = d.tool.split("_")[0] #remove "_oss"
           tool_name = d.tool
@@ -1199,24 +1243,24 @@ class AlertConditionsController < ApplicationController
 
           # TODO: Update once the displays table has a code_language_version column (or links directly to a language_id
           most_likely_language = @project.languages.where(name: d.code_language).first
-          @code_language = {"language": most_likely_language.name, "version": most_likely_language.version}
+          @code_language = {language: most_likely_language.name, version: most_likely_language.version}
 
           @secondary_messages = []
 
-          @message = {"line_start": d.line, "line_end": d.line, "filepath": d.path, "message_text": d.message}
+          @message = {line_start: d.line, line_end: d.line, filepath: d.path, message_text: d.message}
 
-          alert_secondary_messages = secondary_message_list[d.alert_id]
+          alert_secondary_messages = secondary_message_list[scale_alert_id]
 
           if alert_secondary_messages.length > 1 # Primary message is in the list of secondary messages
             for m in alert_secondary_messages
-              @secondary_messages.append({"line_start": m.line, "line_end": m.line, "filepath": m.path, "message_text": m.message})
+              @secondary_messages.append({line_start: m.line, line_end: m.line, "filepath": m.path, "message_text": m.message})
             end
           end
 
-          @alert_object = {"code_language": @code_language, "tool_id": tool_id, "checker_id": checker_id, "primary_message": @message}
+          @alert_object = {code_language: @code_language, ui_alert_id: scale_alert_id.to_s, tool_id: tool_id, checker_id: checker_id, primary_message: @message}
 
           if @secondary_messages.present?
-            @alert_object["secondary_messages"] = @secondary_messages
+            @alert_object[:secondary_messages] = @secondary_messages
           end
 
           if checker_id.present?
@@ -1225,101 +1269,26 @@ class AlertConditionsController < ApplicationController
               puts "No corresponding Checker in SCAIFE for Display " + d.id.to_s
           end
       end
-    return @alerts, @unique_tool_ids
+      # tool_ids needs to specifically be class Array when passed to API
+      return @alerts, @unique_tool_ids.to_a
   end
 
 
-  def create_code_languages_in_scaife(scaife_datahub_controller, project_id)
-    # Create CodeLanguages
-    scale_languages, scale_languages_ids = get_scale_languages(project_id)
-
-    for lang in scale_languages
-      language_name = lang.name
-      language_version = lang.version
-      create_language_response = scaife_datahub_controller.createLanguage(session[:login_token], language_name, language_version)
-      create_language_response = scaife_datahub_controller.createLanguage(session[:login_token], language_name, "generic")
-      if create_language_response.is_a?(String) #Failed to connect to Registration/DataHub server
-        raise create_language_response
-      end
-    end
-
-    scaife_languages, scaife_languages_ids = get_scaife_languages(scaife_datahub_controller)
-
-    code_language_ids = []
-    for scale_lang in scale_languages
-      if scaife_languages_ids.keys.include? scale_lang
-        scaife_lang_id = scaife_languages_ids[scale_lang]
-        code_language_ids.append(scaife_lang_id)
-      end
-    end
-    return code_language_ids
-  end
-
-  def create_taxonomies_in_scaife(scaife_datahub_controller, code_language_ids)
-
-     with_external_db() do |con|
-       @taxonomy_entries = con.execute("Select * FROM Conditions GROUP BY name")
-     end
-     # connection now back to development db
-
-     taxonomies = { "cwe" => [], "cert" => [] }
-     @taxonomy_entries.each do |record|
-         #TODO: Update taxonomy_name when that information is added to the database (RC-1113)
-         conditions = []
-
-         if "CWE" == record["name"][0, 3]
-             taxonomy_name = "cwe"
-         else
-             taxonomy_name = "cert"
-         end
-
-         taxonomies[taxonomy_name].append( {"code_language_ids": code_language_ids, "condition_name": record["name"], "title": record["title"]} )
-     end
-
-     taxonomy_conditions_ids = Hash.new
-
-     taxonomies.each do |taxonomy_name, conditions|
-         conditions_ids = Hash.new
-         taxonomy_version = "generic"
-         description = "Sample taxonomy description"
-         author_source = nil
-
-         create_taxonomy_response = scaife_datahub_controller.createTaxonomy(session[:login_token], taxonomy_name, taxonomy_version, description, conditions, author_source)
-
-         #if not create_taxonomy_response.include? "conditions"
-         #    raise "Response from create_taxonomy did not include conditions"
-         #end
-
-         conditions = create_taxonomy_response["conditions"]
-         if conditions
-             conditions.each do |c|
-                 c_id = c["condition_id"]
-                 c_name = c["condition_name"]
-                 conditions_ids[c_name] = c_id
-             end
-         taxonomy_conditions_ids[taxonomy_name] = conditions_ids
-         end
-     end
-     return taxonomy_conditions_ids
-  end
-
-
-  def get_scaife_tools(scaife_datahub_controller)
+  def get_scaife_tools(datahub_controller)
      # Get SCAIFE Tools
      tool_ids = []
      scaife_tools_ids = Hash.new
-     get_tool_list_response = scaife_datahub_controller.listTools(session[:login_token])
-     #puts get_tool_list_response
+     result = datahub_controller.listTools(session[:login_token])
 
-     if get_tool_list_response.is_a?(String) #Failed to connect to Registration/DataHub server
-         return get_tool_list_response, nil
+     if result.is_a?(String) #Failed to connect to Registration/DataHub server
+         return result, nil
      else
-         for tool in get_tool_list_response
+         for tool in result
              tool_object = OpenStruct.new
-             t_id = tool["tool_id"]
+             t_id = tool.tool_id
              tool_ids.append(t_id.to_s)
-             tool_object.name = tool["tool_name"]
-             tool_object.version = tool["tool_version"]
+             tool_object.name = tool.tool_name
+             tool_object.version = tool.tool_version
              scaife_tools_ids[tool_object] = t_id
          end
      end
@@ -1327,7 +1296,7 @@ class AlertConditionsController < ApplicationController
   end
 
 
-  def create_tools_in_scaife(scaife_datahub_controller, code_language_ids)
+  def create_tools_in_scaife(datahub_controller, code_language_ids)
       @scale_tools = Tool.all
 
       for t in @scale_tools
@@ -1345,11 +1314,11 @@ class AlertConditionsController < ApplicationController
 
           if not mappings.empty?
             checker_mapping = {}
-            checker_mapping["mapping_source"] = "SCALe UI"
-            checker_mapping["mapper_identity"] = ["secure coding team"]
-            checker_mapping["mapping_version"] = t.version # Keep same version as the tool for now
-            checker_mapping["mapping_date"] = DateTime.now
-            checker_mapping["mappings"] = mappings
+            checker_mapping[:mapping_source] = "SCALe UI"
+            checker_mapping[:mapper_identity] = ["secure coding team"]
+            checker_mapping[:mapping_version] = t.version # Keep same version as the tool for now
+            checker_mapping[:mapping_date] = DateTime.now
+            checker_mapping[:mappings] = mappings
 
             checker_mappings = [checker_mapping]
           end
@@ -1364,8 +1333,8 @@ class AlertConditionsController < ApplicationController
           end
 
           #TODO: Update code_metrics_headers RC-1390
-          code_metrics_headers = {}
-          upload_tool_response = scaife_datahub_controller.uploadTool(session[:login_token], tool_name, tool_version, tool_category, code_language_ids, checker_mappings, checker_names, code_metrics_headers, author_source)
+          code_metrics_headers = []
+          result = datahub_controller.uploadTool(session[:login_token], tool_name, tool_version, tool_category, code_language_ids, checker_mappings, checker_names, code_metrics_headers, author_source)
       end
   end
 
@@ -1446,38 +1415,31 @@ class AlertConditionsController < ApplicationController
 
 
   def uploadProject
-      @project_id = params[:project_id]
-      @project = Project.find(params[:project_id])
+    @project_id = params[:project_id]
+    @project = Project.find(params[:project_id])
 
-      # note: this is important so that models/project.rb loads (and
-      # therefore ProjectLanguage loads as well)
-      @project = Project.find(params[:project_id])
+    # note: this is important so that models/project.rb loads (and
+    # therefore ProjectLanguage loads as well)
+    @project = Project.find(params[:project_id])
 
-      scaife_datahub_controller = ScaifeDatahubController.new
+    datahub_controller = ScaifeDatahubController.new
 
-      #Note that the lines below exist to enable easier developement/testing of code that involves package/project uploads to SCAIFE.
-      #Uncomment the following three lines to automatically upload persistent, required objects to SCAIFE.
+    start_timestamps = get_timestamps()
+    @upload_project_message = ""
+    @scaife_mode = session[:scaife_mode]
+    @displays = Display.where("project_id = " + @project_id.to_s)
+    scale_project = Project.find_by_id(@project_id)
 
-      #temp_code_language_ids = create_code_languages_in_scaife(scaife_datahub_controller, @project_id)
-      #create_taxonomies_in_scaife(scaife_datahub_controller, temp_code_language_ids)
-      #create_tools_in_scaife(scaife_datahub_controller, temp_code_language_ids)
-
-      start_timestamps = get_timestamps()
-      @upload_project_message = ""
-      @scaife_mode = session[:scaife_mode]
-      @displays = Display.where("project_id = " + @project_id.to_s)
-      scale_project = Project.find_by_id(@project_id)
-
-      if "Connected" != @scaife_mode
-          @upload_project_message = "Failed to connect to SCAIFE servers"
-          flash[:scaife_project_upload_message] =  @upload_project_message
-          respond_to do |format|
-              format.any { redirect_to "/" and return}
-          end
+    if "Connected" != @scaife_mode
+      @upload_project_message = "Failed to connect to SCAIFE servers"
+      flash[:scaife_project_upload_message] =  @upload_project_message
+      respond_to do |format|
+        format.any { redirect_to "/" and return}
       end
+    end
 
-      package_name = scale_project.name
-      package_description = scale_project.description.strip
+    package_name = scale_project.name
+    package_description = scale_project.description.strip
 
     # Check on language selection and upload requirements
     begin
@@ -1594,11 +1556,10 @@ class AlertConditionsController < ApplicationController
     scaife_taxonomies_ids = {}
     taxos_in_scaife.each do |taxo|
       entry = scaife_taxos_by_id[taxo.scaife_tax_id]
-      tax_id = entry["taxonomy_id"]
+      tax_id = entry.taxonomy_id
       taxonomy_object = OpenStruct.new
-      taxonomy_object.name = entry["taxonomy_name"]
-      taxonomy_object.version = entry["taxonomy_version"]
-
+      taxonomy_object.name = entry.taxonomy_name
+      taxonomy_object.version = entry.taxonomy_version
       scaife_taxonomies_ids[taxonomy_object] = tax_id
     end
     @taxonomy_scaife_ids = scaife_taxonomies_ids.values()
@@ -1613,336 +1574,316 @@ class AlertConditionsController < ApplicationController
       scaife_tools_ids[tool_object] = t_id
     end
 
-      # Get SCAIFE taxonomy condition information
-      # DH API Call -- GET /taxonomies/{taxonomy_id} (get_taxonomy)
-      taxonomy_conditions_ids = Hash.new
+    # Get SCAIFE taxonomy condition information
+    # DH API Call -- GET /taxonomies/{taxonomy_id} (get_taxonomy)
+    taxonomy_conditions_ids = Hash.new
 
-      scaife_taxonomies_ids.each do |scaife_taxonomy, tax_id|
-          conditions_ids = Hash.new
-          taxonomy_name = scaife_taxonomy.name
-          get_taxonomy_response = scaife_datahub_controller.getTaxonomy(session[:login_token], tax_id)
+    scaife_taxonomies_ids.each do |scaife_taxonomy, tax_id|
+      conditions_ids = Hash.new
+      taxonomy_name = scaife_taxonomy.name
+      result = datahub_controller.getTaxonomy(session[:login_token], tax_id)
 
-          if not get_taxonomy_response.include? "conditions"
-             raise "Response from get_taxonomy did not include conditions"
-         end
-
-         conditions = get_taxonomy_response["conditions"]
-         conditions.each do |c|
-             c_id = c["condition_id"]
-             c_name = c["condition_name"]
-             conditions_ids[c_name] = c_id
-         end
-         taxonomy_conditions_ids[taxonomy_name] = conditions_ids
+      if result.conditions.blank?
+        raise "Response from get_taxonomy did not include conditions"
       end
 
-      @is_test_suite = false
-      if nil != scale_project.test_suite_name
-          @is_test_suite = true
+      conditions = result.conditions
+      conditions.each do |c|
+        c_id = c.condition_id
+        c_name = c.condition_name
+        conditions_ids[c_name] = c_id
       end
+      taxonomy_conditions_ids[taxonomy_name] = conditions_ids
+    end
 
-      @author_source = "GENERIC_SCALE_AUTHOR_SOURCE"
-      @code_source_url = ""
-      @source_file_url = ""
-      @source_function_url = ""
-      @test_suite_id = ""
+    @is_test_suite = false
+    if scale_project.test_suite_name.present?
+      @is_test_suite = true
+    end
 
-      if "" == package_description
-          package_description = "None" # Note: SCAIFE requires a package description
-      end
+    @author_source = "GENERIC_SCALE_AUTHOR_SOURCE"
+    @code_source_url = ""
+    @source_file_url = ""
+    @source_function_url = ""
+    @test_suite_id = ""
 
-      # Get SCAIFE ToolData
-      # DH API Call 7 -- GET /tools/{tool_id} (get_tool_data)
-      @checker_name_id = Hash.new
-      scaife_tools_ids.each do |tool_obj, tool_id|
-          get_tool_data_response = scaife_datahub_controller.getToolData(session[:login_token], tool_id)
+    if package_description.blank?
+      package_description = "None" # Note: SCAIFE requires a package description
+    end
 
-          if get_tool_data_response.is_a?(String) #Failed to connect to Registration/DataHub server
-              @upload_project_message = get_tool_data_response
-          else
-              tool = get_tool_data_response
-              tool_id = tool["tool_id"]
-              #if "FFSA" == tool["category"] and not tool["source_mappings"] # Some tools like SWAMP are not uploading checkers
-              #  raise "FFSA tool created without source_mappings"
-              #end
-              if tool["source_mappings"]
-                for source_mappings in tool["source_mappings"]
-                    for checker in source_mappings["checker_mappings"]
-                      checker_id = checker["checker_id"]
-                      checker_name = checker["checker_name"]
-                      @checker_name_id[checker_name] = checker_id
-                    end
-                end
-              end
-          end
-      end
+    # Get SCAIFE ToolData
+    # DH API Call 7 -- GET /tools/{tool_id} (get_tool_data)
+    @checker_name_id = Hash.new
+    scaife_tools_ids.each do |tool_obj, tool_id|
+      result = datahub_controller.getToolData(session[:login_token], tool_id)
 
-      if @is_test_suite
-          @test_suite_name = scale_project.test_suite_name
-          @test_suite_version = scale_project.test_suite_version
-          #TODO: Update test_suite_type and other info
-          @test_suite_type = "juliet"
-          @manifest_urls = []
-          @use_license_file_url = ""
-          @author_source = "author"
-
-          # Call SCAIFE function create_test_suite
-          # DH API Call 8 -- POST /test_suites (create_test_suite)
-          puts "Creating Test Suite Object..."
-          create_test_suite_response = scaife_datahub_controller.createTestSuite(session[:login_token], @test_suite_name, @test_suite_version, @test_suite_type, @manifest_urls, @use_license_file_url, @author_source, @language_version)
-
-          if create_test_suite_response.is_a?(String) #Failed to connect to Registration/DataHub server
-              @upload_project_message = "Failed to create SCAIFE test suite"
-          else
-              @test_suite_id = create_test_suite_response["test_suite_id"]
-              scale_project.update(scaife_test_suite_id: @test_suite_id)
-          end
-      end
-
-      puts "Formatting Alerts for SCAIFE..."
-      alerts = @displays.group_by(&:alert_id)
-      @alerts, @tool_ids = format_alerts_for_scaife(@project_id, scaife_tools_ids, @checker_name_id, alerts)
-
-      # Call SCAIFE function create_package
-      #DH API Call 9 -- POST /packages (create_package)
-      @package_id = ""
-      @scaife_alerts_alert_ids = Hash.new
-      puts "Sending " + @alerts.length.to_s + " SCALe alerts to SCAIFE"
-      create_package_response = scaife_datahub_controller.createPackage(session[:login_token], package_name, package_description, @author_source, @code_language_ids, @code_source_url, @source_file_url, @source_function_url, @test_suite_id, @alerts, @tool_ids)
-      if create_package_response.is_a?(String) #Failed to connect to Registration/DataHub server
-        puts "uploadProject() error createPackage(): #{create_package_response}"
-        if @debug.present?
-          @upload_project_message = "#{scaife_datahub_controller.response}"
-        else
-          @upload_project_message = "Failed to create SCAIFE package"
-        end
+      if result.is_a?(String) #Failed to connect to Registration/DataHub server
+        puts "#{__method__}() error getToolData(): #{datahub_controller.scaife_status_code}: #{result}"
+        @upload_project_message = result
       else
-          package = create_package_response
-          alert_mappings = package["alert_mappings"]
-
-          puts "Number of alerts uploaded: " + alert_mappings.length.to_s
-          if alert_mappings
-            alert_mappings.each do |alert_data|
-                alert_object = OpenStruct.new
-                alert_id = alert_data["alert_id"]
-                alert_primary_message = alert_data["primary_message"]
-                alert_object.checker_id = alert_data["checker_id"]
-                alert_object.line_number = alert_primary_message["line_start"]
-                alert_object.filepath = alert_primary_message["filepath"]
-                @scaife_alerts_alert_ids[alert_object] = alert_id
+        tool = result
+        tool_id = tool.tool_id
+        #if "FFSA" == tool["category"] and not tool["source_mappings"] # Some tools like SWAMP are not uploading checkers
+        #  raise "FFSA tool created without source_mappings"
+        #end
+        if tool.source_mappings
+          for source_mappings in tool.source_mappings
+            for checker in source_mappings.checker_mappings
+              checker_id = checker.checker_id
+              checker_name = checker.checker_name
+              @checker_name_id[checker_name] = checker_id
             end
           end
-          @package_id = package["package_id"]
-          scale_project.update(scaife_package_id: @package_id)
-      end
-
-      @src = archive_src_dir_from_id(@project_id).join(scale_project.source_file)
-      @source_file_csv = ""
-      @source_function_csv = ""
-
-
-      # Call SCAIFE function upload_codebase_for_package
-      # DH API Call 10 -- POST /packages/{package_id} (upload_codebase_for_package)
-      puts "Uploading Codebase: #{scale_project.source_file}"
-      upload_codebase_for_package_response = scaife_datahub_controller.uploadCodebaseForPackage(session[:login_token], @package_id, @src, @source_file_csv, @source_file_csv)
-
-      if upload_codebase_for_package_response.is_a?(String) #Failed to connect to Registration/DataHub server
-          @upload_project_message = upload_codebase_for_package_response
-      end
-
-      if @is_test_suite
-          @test_suite_source_file = ""
-          @test_suite_source_function = ""
-          @use_license_file = ""
-
-          project_file_info = scale_project.file_info_file
-          project_function_info = scale_project.function_info_file
-          project_license_file = scale_project.license_file
-
-          # Manifest file is require in API
-          @manifest_file = archive_supplemental_dir_from_id(@project_id).join(scale_project.manifest_file)
-
-          if project_file_info # Optional file info csv
-            @test_suite_source_file = archive_supplemental_dir_from_id(@project_id).join(project_file_info)
-          end
-
-          if project_function_info # Optional function info csv
-            @test_suite_source_function = archive_supplemental_dir_from_id(@project_id).join(project_function_info)
-          end
-
-         #TODO: SCALe currently doesn't allow users to upload a license file
-          #if project_license_file # Optional use license file
-          #  @use_license_file = archive_supplemental_dir_from_id(@project_id).join(project_license_file)
-          #end
-
-          # Call SCAIFE function upload_test_suite
-          # DH API Call 11 -- POST /test_suites/{test_suite_id}/packages/{package_id} (upload_test_suite)
-          puts "Uploading Test Suite Files: #{@test_suite_id}"
-          upload_test_suite_response = scaife_datahub_controller.uploadTestSuite(session[:login_token], @test_suite_id, @package_id, @manifest_file, @use_license_file, @test_suite_source_file, @test_suite_source_function)
-
-          if upload_test_suite_response.is_a?(String) #Failed to connect to Registration/DataHub server
-              @upload_project_message = "Failed to upload SCAIFE test suite"
-          end
-      end
-
-      # TODO: Call SCAIFE function upload_tool_output
-      # DH API Call 12 -- POST /tools/{tool_id}/packages/{package_id} (upload_tool_output)
-
-      @project_name = package_name
-      @project_description = package_description
-
-      @scale_alerts_alert_ids = Hash.new
-      alerts.each do |entry_id, display_list|
-          for d in display_list
-              alert_object = OpenStruct.new
-              alert_object.checker_id = @checker_name_id[d.checker]
-              alert_object.line_number = d.line
-              alert_object.filepath = d.path
-              @scale_alerts_alert_ids[alert_object] = d.alert_id.to_s
-          end
-      end
-
-      scale_scaife_alert_ids = get_alert_id_mappings(@scale_alerts_alert_ids, @scaife_alerts_alert_ids)
-
-      package_id = nil
-      meta_alert_id = nil
-      puts "Formatting Project Data for SCAIFE..."
-      scaife_project_data = JSON.parse(project_scale_to_scaife(@project_id.to_i, package_id, meta_alert_id, true))
-
-      @meta_alerts = []
-      alerts_not_loaded = Set[]
-
-      scale_meta_alerts_ids = Hash.new
-      scaife_project_data["meta_alerts"].each do |m_alert|
-          scale_meta_alert_id = m_alert["meta_alert_id"]
-          scale_alert_ids = m_alert["alert_ids"]
-          scaife_alert_ids = []
-          for scale_a_id in scale_alert_ids
-             scaife_a_id = scale_scaife_alert_ids[scale_a_id]
-             if nil != scaife_a_id
-                 scaife_alert_ids.append(scaife_a_id)
-             else
-                 alerts_not_loaded |= [scale_a_id] # Remove duplicate warnings for the same alert
-             end
-
-             Display.where(project_id: @project_id).where(alert_id: scale_a_id).update_all(scaife_alert_id: scaife_a_id)
-          end
-
-          scale_scaife_condition_ids = Hash.new
-          if scaife_alert_ids.any?
-              filepath = m_alert["filepath"]
-              line_number = m_alert["line_number"]
-              scale_condition_id = m_alert["condition_id"].to_s
-              condition_name = Condition.find_by_id(scale_condition_id).name
-              scaife_condition_id = nil
-              if taxonomy_conditions_ids
-                  taxonomy_conditions_ids.each do |taxonomy_name, conditions_ids|
-                  #TODO: Code does not account for taxonomy versions or different taxonomies with the same condition names
-                      if conditions_ids.keys.include? condition_name
-                          scaife_condition_id = conditions_ids[condition_name]
-                          scale_scaife_condition_ids[scaife_condition_id] = scale_condition_id
-                      end
-                  end
-              end
-              det = m_alert["determination"]
-
-              determination = nil
-
-              # Send determinations in the request only if the determinations are present
-              if not det.nil?
-                  determination = {"flag_list": det["flag_list"], \
-                                   "inapplicable_environment_list": det["inapplicable_environment_list"], \
-                                   "ignored_list": det["ignored_list"], "verdict_list": det["verdict_list"], \
-                                   "dead_list": det["dead_list"], "notes_list": det["notes_list"], \
-                                   "dangerous_construct_list": det["dangerous_construct_list"] \
-                                  }
-              end
-
-              if not scaife_condition_id.nil?
-                  m_alert = {"condition_id": scaife_condition_id,  "filepath": filepath, \
-                             "line_number": line_number, "alert_ids": scaife_alert_ids}
-
-                  if not determination.nil?
-                    m_alert["determination"] = determination
-                  end
-
-                  scale_ma = OpenStruct.new
-                  scale_ma.filepath = filepath
-                  scale_ma.condition_id = scaife_condition_id
-                  scale_ma.line_number = line_number
-                  scale_meta_alerts_ids[scale_ma] = scale_meta_alert_id
-                  @meta_alerts.append(m_alert)
-              end
-          end
-      end
-
-      if not alerts_not_loaded.empty?
-        puts "SCALe alerts failed to upload to SCAIFE: " + alerts_not_loaded.to_s
-      end
-
-      puts "Sending " + @meta_alerts.length.to_s + " SCALe meta-alerts to SCAIFE"
-      create_project_response = scaife_datahub_controller.createProject(session[:login_token], @project_name, @project_description, @author_source, @package_id, @meta_alerts, @taxonomy_scaife_ids)
-
-      if create_project_response.is_a?(String) #Failed to connect to Registration/DataHub server
-        if @debug.present?
-          @upload_project_message = "#{scaife_datahub_controller.response}"
-        else
-          @upload_project_message = create_project_response
         end
+      end
+    end
+
+    if @is_test_suite
+      @test_suite_name = scale_project.test_suite_name
+      @test_suite_version = scale_project.test_suite_version
+      #TODO: Update test_suite_type and other info (RC-1738)
+      @test_suite_type = "juliet"
+      @manifest_urls = []
+      @use_license_file_url = ""
+      @author_source = "author"
+
+      # Call SCAIFE function create_test_suite
+      # DH API Call 8 -- POST /test_suites (create_test_suite)
+      puts "Creating Test Suite Object..."
+      result = datahub_controller.createTestSuite(session[:login_token], @test_suite_name, @test_suite_version, @test_suite_type, @manifest_urls, @use_license_file_url, @author_source, @language_version)
+
+      if result.is_a?(String) #Failed to connect to Registration/DataHub server
+        @upload_project_message = "Failed to create SCAIFE test suite"
       else
-          @upload_project_message = "Data uploaded to SCAIFE!"
-          project = create_project_response
-          @scaife_project_id = project["project_id"]
-          meta_alert_mappings = project["meta_alert_mappings"]
+        @test_suite_id = result.test_suite_id
+        scale_project.update(scaife_test_suite_id: @test_suite_id)
+      end
+    end
 
-          puts "Number of meta-alerts uploaded: " + meta_alert_mappings.length.to_s
-          ActiveRecord::Base.transaction do
-            meta_alert_mappings.each do |ma_mapping|
-              scaife_ma_id = ma_mapping["meta_alert_id"]
-              scaife_ma = OpenStruct.new
-              scaife_ma.filepath = ma_mapping["filepath"]
-              scaife_ma.condition_id = ma_mapping["condition_id"]
-              scaife_ma.line_number = ma_mapping["line_number"]
-              scale_ma_id = scale_meta_alerts_ids[scaife_ma]
-              records = Display.where(project_id: @project_id).where(meta_alert_id: scale_ma_id)
-              if records.length < 1
-                raise "No SCALe meta-alert matching SCAIFE meta-alert " + scaife_ma_id
-              end
-              records.update_all(scaife_meta_alert_id: scaife_ma_id)
-            end
-          end
-          scale_project.update(scaife_project_id: @scaife_project_id)
-          scale_project.update(scaife_uploaded_on: Time.now)
+    puts "Formatting Alerts for SCAIFE..."
+    alerts = @displays.group_by(&:alert_id)
+    @alerts, @tool_ids = format_alerts_for_scaife(@project_id, scaife_tools_ids, @checker_name_id, alerts)
 
-          # DECISION: Should data forwarding and publishing updates be automatically turned on
-          # when a project is uploaded to SCAIFE?? For now, it is.
-          enable_data_forwarding_response, status_code = scaife_datahub_controller.enableDataForwarding(session[:login_token], @scaife_project_id)
-          if 200 != status_code
-            @upload_project_message = "Failed to enable data forwarding."
-            flash[:scaife_project_upload_message] =  @upload_project_message
-            puts "uploadProject() createProject() error (#{status_code}): #{enable_data_forwarding_response}"
-            respond_to do |format|
-              format.any { redirect_to "/" and return}
-            end
-          end
+    # Call SCAIFE function create_package
+    #DH API Call 9 -- POST /packages (create_package)
+    @package_id = ""
+    @scale_scaife_alert_ids = Hash.new
+    puts "Sending #{@alerts.length} SCALe alerts to SCAIFE"
+    result = datahub_controller.createPackage(session[:login_token], package_name, package_description, @author_source, @code_language_ids, @code_source_url, @source_file_url, @source_function_url, @test_suite_id, @alerts, @tool_ids)
+    if result.is_a?(String) #Failed to connect to Registration/DataHub server
+      puts "uploadProject() error createPackage(): #{datahub_controller.scaife_status_code} #{result}"
+      if @debug.present?
+        @upload_project_message = "#{result}"
+      else
+        @upload_project_message = "Failed to create SCAIFE package"
+      end
+    else
+      package = result
+      alert_mappings = package.alert_mappings
+      puts "Number of alerts uploaded: " + alert_mappings.length.to_s
+      if alert_mappings
+        alert_mappings.each do |alert_data|
+          scaife_alert_id = alert_data.alert_id
+          scale_alert_id = alert_data.ui_alert_id
+          @scale_scaife_alert_ids[scale_alert_id] = scaife_alert_id
+        end
+      end
+      @package_id = package.package_id
+      scale_project.update(scaife_package_id: @package_id)
+    end
 
-          scale_project.update(subscribe_to_data_updates: true)
-          scale_project.update(publish_data_updates: true)
+    @src = archive_src_dir_from_id(@project_id).join(scale_project.source_file)
+    @source_file_csv = ""
+    @source_function_csv = ""
+
+    # Call SCAIFE function upload_codebase_for_package
+    # DH API Call 10 -- POST /packages/{package_id} (upload_codebase_for_package)
+    puts "Uploading Codebase: #{scale_project.source_file}"
+    result = datahub_controller.uploadCodebaseForPackage(session[:login_token], @package_id, @src, @source_file_csv, @source_file_csv)
+
+    if result.is_a?(String) #Failed to connect to Registration/DataHub server
+      puts "\nuploading codebase failed: #{datahub_controller.scaife_status_code}: #{result}\n"
+      @upload_project_message = result
+    end
+
+    if @is_test_suite
+      @test_suite_source_file = ""
+      @test_suite_source_function = ""
+      @use_license_file = ""
+
+      project_file_info = scale_project.file_info_file
+      project_function_info = scale_project.function_info_file
+      project_license_file = scale_project.license_file
+
+      # Manifest file is require in API
+      @manifest_file = archive_supplemental_dir_from_id(@project_id).join(scale_project.manifest_file)
+
+      if project_file_info # Optional file info csv
+        @test_suite_source_file = archive_supplemental_dir_from_id(@project_id).join(project_file_info)
       end
 
-      end_timestamps = get_timestamps()
-      PerformanceMetrics.addRecord(@scaife_mode, "uploadProject", "Time to upload a SCALe project to SCAIFE", "SCALe_user", "Unknown", @scaife_project_id, start_timestamps, end_timestamps)
-
-
-      # make sure exported DB is up to date and reflects
-      # the current project (project_scale_to_scaife() consumes
-      # data from the external DB)
-      puts "Syncing Databases..."
-      self.class.archiveDB(@project_id)
-
-      flash[:scaife_project_upload_message] = @upload_project_message
-      respond_to do |format|
-          format.any { redirect_to "/"}
+      if project_function_info # Optional function info csv
+        @test_suite_source_function = archive_supplemental_dir_from_id(@project_id).join(project_function_info)
       end
+
+     #TODO: SCALe currently doesn't allow users to upload a license file
+      #if project_license_file # Optional use license file
+      #  @use_license_file = archive_supplemental_dir_from_id(@project_id).join(project_license_file)
+      #end
+
+      # Call SCAIFE function upload_test_suite
+      # DH API Call 11 -- POST /test_suites/{test_suite_id}/packages/{package_id} (upload_test_suite)
+      puts "Uploading Test Suite Files: #{@test_suite_id}"
+      result = datahub_controller.uploadTestSuite(session[:login_token], @test_suite_id, @package_id, @manifest_file, @use_license_file, @test_suite_source_file, @test_suite_source_function)
+
+      if result.is_a?(String) #Failed to connect to Registration/DataHub server
+        if @debug.present?
+          @upload_project_message = result
+        else
+          @upload_project_message = "Failed to upload SCAIFE test suite"
+        end
+      end
+    end
+
+    # TODO: Call SCAIFE function upload_tool_output
+    # DH API Call 12 -- POST /tools/{tool_id}/packages/{package_id} (upload_tool_output)
+
+    @project_name = package_name
+    @project_description = package_description
+
+    package_id = nil
+    meta_alert_id = nil
+    puts "Formatting Project Data for SCAIFE..."
+    scaife_project_data = JSON.parse(project_scale_to_scaife(@project_id.to_i, package_id, meta_alert_id, true))
+
+    @meta_alerts = []
+    alerts_not_loaded = Set[]
+
+    scale_meta_alerts_ids = Hash.new
+    scaife_project_data["meta_alerts"].each do |m_alert|
+      scale_meta_alert_id = m_alert["meta_alert_id"].to_s
+      scale_alert_ids = m_alert["alert_ids"]
+      scaife_alert_ids = []
+
+      ActiveRecord::Base.transaction do
+        for scale_a_id in scale_alert_ids
+          scale_a_id = scale_a_id.to_s
+          scaife_a_id = @scale_scaife_alert_ids[scale_a_id]
+          if nil != scaife_a_id
+            scaife_alert_ids.append(scaife_a_id)
+          else
+            alerts_not_loaded |= [scale_a_id] # Remove duplicate warnings for the same alert
+          end
+
+          Display.where(project_id: @project_id).where(alert_id: scale_a_id).update_all(scaife_alert_id: scaife_a_id)
+        end
+      end
+
+      scale_scaife_condition_ids = Hash.new
+      if scaife_alert_ids.any?
+        filepath = m_alert["filepath"]
+        line_number = m_alert["line_number"]
+        scale_condition_id = m_alert["condition_id"].to_s
+        condition_name = Condition.find_by_id(scale_condition_id).name
+        scaife_condition_id = nil
+        taxonomy_conditions_ids.each do |taxonomy_name, conditions_ids|
+          #TODO: Code does not account for taxonomy versions or different taxonomies with the same condition names
+          if conditions_ids.keys.include? condition_name
+            scaife_condition_id = conditions_ids[condition_name]
+            scale_scaife_condition_ids[scaife_condition_id] = scale_condition_id
+          end
+        end
+        det = m_alert["determination"]
+
+        determination = nil
+
+        # Send determinations in the request only if the determinations are present
+        if det.present?
+          determination = {
+            flag_list: det["flag_list"],
+            inapplicable_environment_list: det["inapplicable_environment_list"],
+            ignored_list: det["ignored_list"],
+            verdict_list: det["verdict_list"],
+            dead_list: det["dead_list"],
+            notes_list: det["notes_list"],
+            dangerous_construct_list: det["dangerous_construct_list"],
+          }
+        end
+
+        if scaife_condition_id.present?
+          m_alert = {
+            "condition_id": scaife_condition_id, 
+            "filepath": filepath,
+            "line_number": line_number,
+            "alert_ids": scaife_alert_ids,
+            "ui_meta_alert_id": scale_meta_alert_id,
+          }
+          if determination.present?
+            m_alert["determination"] = determination
+          end
+          @meta_alerts.append(m_alert)
+        end
+      end
+    end
+
+    if alerts_not_loaded.present? 
+      puts alerts_not_loaded.length.to_s + " SCALe alerts failed to upload to SCAIFE: " + alerts_not_loaded.to_s
+    end
+
+    puts "Sending " + @meta_alerts.length.to_s + " SCALe meta-alerts to SCAIFE"
+    result = datahub_controller.createProject(session[:login_token], @project_name, @project_description, @author_source, @package_id, @meta_alerts, @taxonomy_scaife_ids)
+
+    if result.is_a?(String) #Failed to connect to Registration/DataHub server
+      @upload_project_message = result
+    else
+      @upload_project_message = "Data uploaded to SCAIFE!"
+      project = result
+      @scaife_project_id = project.project_id
+      meta_alert_mappings = project.meta_alert_mappings
+      puts "Number of meta-alerts uploaded: " + meta_alert_mappings.length.to_s
+      ActiveRecord::Base.transaction do
+        meta_alert_mappings.each do |ma_mapping|
+          scaife_ma_id = ma_mapping.meta_alert_id
+          scale_ma_id = ma_mapping.ui_meta_alert_id
+          records = Display.where(project_id: @project_id).where(meta_alert_id: scale_ma_id)
+          if records.length < 1
+            raise "No SCALe meta-alert matching SCAIFE meta-alert " + scaife_ma_id
+          end
+          records.update_all(scaife_meta_alert_id: scaife_ma_id)
+        end
+      end
+      scale_project.update(scaife_project_id: @scaife_project_id)
+      scale_project.update(scaife_uploaded_on: Time.now)
+
+      # DECISION: Should data forwarding and publishing updates be automatically turned on
+      # when a project is uploaded to SCAIFE?? For now, it is.
+      result, status_code = datahub_controller.enableDataForwarding(session[:login_token], @scaife_project_id)
+      if 200 != status_code
+        @upload_project_message = "Failed to enable data forwarding."
+        flash[:scaife_project_upload_message] =  @upload_project_message
+        puts "uploadProject() error createProject(): (#{datahub_controller.scaife_status_code}): #{result}"
+        respond_to do |format|
+          format.any { redirect_to "/" and return}
+        end
+      end
+
+      scale_project.update(subscribe_to_data_updates: true)
+      scale_project.update(publish_data_updates: true)
+    end
+
+    end_timestamps = get_timestamps()
+    PerformanceMetrics.addRecord(@scaife_mode, "uploadProject", "Time to upload a SCALe project to SCAIFE", "SCALe_user", "Unknown", @scaife_project_id, start_timestamps, end_timestamps)
+
+    # make sure exported DB is up to date and reflects
+    # the current project (project_scale_to_scaife() consumes
+    # data from the external DB)
+    puts "Syncing Databases..."
+    self.class.archiveDB(@project_id)
+
+    flash[:scaife_project_upload_message] = @upload_project_message
+    respond_to do |format|
+        format.any { redirect_to "/"}
+    end
 
   end
 

@@ -12,9 +12,9 @@
 #    python -m swagger_server --mode test
 
 # <legal>
-# SCAIFE System version 1.2.2
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -65,5 +65,5 @@ if __name__ == '__main__':
             help="specify 'test' or 'production'")
     args = parser.parse_args()
 
-    mode = args.mode or os.getenv("FLASK_ENV") or os.getenv("MODE")
+    mode = args.mode or os.getenv("FLASK_ENV") or os.getenv("SCAIFE_MODE")
     main(mode=mode)

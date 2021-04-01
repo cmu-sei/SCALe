@@ -3,9 +3,9 @@ title: 'SCALe : Static Analysis Tools'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Audit Instructions](Audit-Instructions.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -66,6 +66,8 @@ built using the GNU Compiler Collection on Linux:
 -   [Coverity Prevent](Coverity-Prevent.md)
 -   [Fortify SCA](Fortify-SCA.md)
 -   [Cppcheck](Cppcheck.md)
+-   [Clang](Clang.md)
+-   [CodeSonar](CodeSonar.md)
 
 These code metrics tools can be used:
 
@@ -85,6 +87,8 @@ built using Microsoft Visual Studio on Windows:
 -   [Coverity Prevent](Coverity-Prevent.md)
 -   [LDRA](LDRA.md)
 -   [Cppcheck](Cppcheck.md)
+-   [CodeSonar](CodeSonar.md)
+-   [Clang](Clang.md)
 -   [Parasoft C/C++Test](Parasoft.md)
 
 These code metrics tools can be used:

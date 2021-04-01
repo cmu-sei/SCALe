@@ -2,9 +2,9 @@
 title: 'SCALe (SCALe)'
 ---
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -76,9 +76,7 @@ Available Pages:
           Auditors](SCALe-Quick-Start-Demo-for-Auditors.md)
           -   [Upload Source Code and Analysis
               Outputs](Upload-Source-Code-and-Analysis-Outputs.md)
-          -   [Inspect Alerts for Violations of CERT Secure
-              Coding
-              Rules](Inspect-Alerts-for-Violations-of-CERT-Secure-Coding-Rules.md)
+          -   [Inspect AlertConditions to Adjudicate for Conditions](Inspect-AlertConditions-to-Adjudicate-for-Conditions.md)
           -   [Export Analysis Results from the Web
               Application](Export-Analysis-Results-from-the-Web-Application.md)
       -   [Audit Instructions](Audit-Instructions.md)
@@ -86,8 +84,10 @@ Available Pages:
               Tools](Static-Analysis-Tools.md)
               -   [B Lint](B-Lint.md)
               -   [CCSM](CCSM.md)
+              -   [Clang](Clang.md)
               -   [Coverity Prevent](Coverity-Prevent.md)
               -   [Cppcheck](Cppcheck.md)
+              -   [CodeSonar](CodeSonar.md)
               -   [Eclipse](Eclipse.md)
               -   [FindBugs / SpotBugs](FindBugs-SpotBugs.md)
               -   [Find-Security-Bugs](Find-Security-Bugs.md)
@@ -99,7 +99,7 @@ Available Pages:
               -   [Microsoft Visual Studio Static Analyzer](Microsoft-Visual-Studio-Static-Analyzer.md)
               -   [Parasoft C/C++Test](Parasoft.md)
               -   [PC-Lint / FlexeLint](PC-Lint-FlexeLint.md)
-              -   [Perl Critic](Perl-Critic.md)
+              -   [Perl::Critic](Perl-Critic.md)
               -   [CERT Rosecheckers](CERT-Rosecheckers.md)
               -   [Understand](Understand.md)
           -   [Cascading Determinations from Old Codebase to New
@@ -107,8 +107,7 @@ Available Pages:
           -   [CSV file]( CSV-file.md)
           -   [Emacs ORG files](Emacs-ORG-files.md)
           -   [SQL Dump](SQL-Dump.md)
-          -   [Validating SCALe
-              Alerts](Validating-SCALe-Alerts.md)
+          -   [Validating SCALe AlertConditions](Validating-SCALe-AlertConditions.md)
               -   [Creating a Random
                   Sample](Creating-a-Random-Sample.md)
           -   [Building an Audit
@@ -119,7 +118,7 @@ Available Pages:
           SCALe](Adding-a-Tool-to-SCALe.md)
       -   [Web App Design](Web-App-Design.md)
       -   [Manual Project
-          Creation](Manual-Project-Creation.md)
+          Creation](Command-Line-Project-Creation.md)
       -   [Export Analysis Results from the Web Application
           (Internal)](Export-Analysis.md)
       -   [Exported Database

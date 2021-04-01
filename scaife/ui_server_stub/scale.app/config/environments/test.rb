@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -64,7 +64,9 @@ Scale::Application.configure do
 
   #config.logger = Logger.new(STDOUT)
 
-  config.x.external_db_dir = config.x.db_dir.join('test')
+  config.x.archive_dir = Rails.root.join("archive/test")
+
+  # for unit tests
   config.x.test_data_dir = Rails.root.join('test/data')
 
   # test external db project id

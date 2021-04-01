@@ -3,9 +3,9 @@ title: 'SCALe : Exported Database Design'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -138,7 +138,7 @@ with the alert.
 ### Tables:
 
 * **Projects**: Holds information about a SCALe project. Contains only one record per database.
-* **MetaAlerts**: Links to a condition (CERT rule or CWE), path,line. Also stores latest-calculated value (if any has been calculated) for meta-alert priority and/or confidence that the meta-alert is true (confidence as calculated by a classifier).
+* **MetaAlerts**: Links to a condition (CERT rule or CWE), path,line. Also stores latest-calculated value (if any has been calculated) for meta-alert priority and/or confidence that the meta-alert is true or false (confidence as calculated by a classifier).
 * **Determinations**: Holds history of determinations per meta-alert,
 including primary and supplemental verdicts, notes, flag, and timestamp
 (latter includes date). This data will be useful for developing
@@ -385,6 +385,7 @@ acceptable.):
 |---|:---:|---|
 | id | INTEGER | Starts at 0, increments by 1. |
 | condition_id | INTEGER | |
+| class_label | VARCHAR | Indicates whether a meta-alert is true positive ("true") or false positive ("false") |
 | confidence_score | REAL | Latest-calculated classifier confidence score |
 | priority_score | INTEGER | Latest-calculated alert priority score |
 | scaife_meta_alert_id | VARCHAR | meta alert id from SCAIFE |
@@ -510,8 +511,12 @@ Every MetaAlert will have at least one Determination, which will be created at d
 | updated_at | DATETIME | |
 | adaptive_heuristic_name | TEXT | |
 | adaptive_heuristic_parameters** | TEXT | |
+| feature_category | TEXT | |
+| semantic_features | BOOLEAN | |
+| use_pca | BOOLEAN | |
 | ahpo_name | TEXT  | |
 | ahpo_parameters** | TEXT | |
+| num_meta_alert_threshold | INTEGER | |
 | scaife_classifier_instance_id | VARCHAR | classifier scheme instance id from SCAIFE |
 
 **field names vary and are dynamically updated based on user input.
@@ -552,10 +557,21 @@ NOTE: data only populated if user uploads CSV with appropriate data
 | scaife_classifier_instance_id | VARCHAR(255) | classifier scheme instance id from SCAIFE |
 | transaction_timestamp | DATETIME | When the metric was collected |
 | num_labeled_meta_alerts_used_for_classifier_evaluation | INTEGER  | For example, with a total labeled dataset of 100 meta-alerts, if 70 of them were used to train the classifier, then there would be 30 labeled meta-alerts used for classifier evaluation. These labeled meta-alerts come from the dataset the classifier is run on, which may or may not be the dataset used to create the classifier.  This dataset typically does not include any labeled data received since classifier creation. |
-| accuracy | DECIMAL | The fraction of correct predictions made by the classifier |
-| precision | DECIMAL | The proportion of positive identifications that were actually correct |
-| recall | DECIMAL | The proportion of true positives that were correctly identified  |
-| f1 | DECIMAL | An overall measure of a classifier’s accuracy that combines precision and recall |
+| train_accuracy | DECIMAL | The fraction of correct predictions made by the classifier on the training data set |
+| train_precision | DECIMAL | The proportion of positive identifications that were actually correct on the training data set |
+| train_recall | DECIMAL | The proportion of true positives that were correctly identified  in the training data set |
+| train_f1 | DECIMAL | An overall measure of a classifier’s accuracy on the training data set that combines precision and recall |
+| test_accuracy | DECIMAL | The fraction of correct predictions made by the classifier on the test data set |
+| test_precision | DECIMAL | The proportion of positive identifications that were actually correct on the test data set |
+| test_recall | DECIMAL | The proportion of true positives that were correctly identified in the test data set |
+| test_f1 | DECIMAL | An overall measure of a classifier’s accuracy on the test data set that combines precision and recall |
+| num_labeled_meta_alerts_used_for_classifier_training | INTEGER | |
+| num_labeled_T_test_suite_used_for_classifier_training | INTEGER | |
+| num_labeled_F_test_suite_used_for_classifier_training | INTEGER | |
+| num_labeled_T_manual_verdicts_used_for_classifier_training | INTEGER | |
+| num_labeled_F_manual_verdicts_used_for_classifier_training | INTEGER | |
+| num_code_metrics_tools_used_for_classifier_training | INTEGER | |
+| top_features_impacting_classifier | TEXT | |
 
 ### VERDICT
 

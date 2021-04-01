@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -118,7 +118,7 @@ $(document).ready(function(){
 			  $('#submit-modal').html("Loading...");
 			  $('#classifier-errors').hide();
 			  
-			  let [source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters] = getClassifierValues();
+			  let [source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold] = getClassifierValues();
 
 			  $.ajax({
 					type: "POST",
@@ -131,9 +131,13 @@ $(document).ready(function(){
 						source_domain: source_domain,
 						adaptive_heuristic_name: adaptive_heuristic_name,
 						adaptive_heuristic_parameters: adaptive_heuristic_parameters,
+						use_pca: use_pca,
+						feature_category: feature_category,
+						semantic_features: semantic_features,
 						ahpo_name: ahpo_name,
-                        ahpo_parameters: ahpo_parameters,
-                        scaife_classifier_id: classifier_id
+                                                ahpo_parameters: ahpo_parameters,
+                                                num_meta_alert_threshold: num_meta_alert_threshold,
+                                                scaife_classifier_id: classifier_id
 					}),
 					datatype: "json",
 					success: function(result){
@@ -164,7 +168,7 @@ $(document).ready(function(){
 		    	  
 	    	  $('#submit-modal').html("Loading...");
 	    	  
-			  let [source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters] = getClassifierValues();
+			  let [source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold] = getClassifierValues();
 
 			  $.ajax({
 					type: "POST",
@@ -177,8 +181,12 @@ $(document).ready(function(){
 						project_id: thisProject,
 						adaptive_heuristic_name: adaptive_heuristic_name,
 						adaptive_heuristic_parameters: adaptive_heuristic_parameters,
+						use_pca: use_pca,
+						feature_category: feature_category,
+						semantic_features: semantic_features,
 						ahpo_name: ahpo_name,
                                                 ahpo_parameters: ahpo_parameters,
+                                                num_meta_alert_threshold: num_meta_alert_threshold,
                                                 scaife_classifier_id: classifier_id
 					}),
 					datatype: "json",
@@ -383,8 +391,12 @@ function getClassifierValues(){
 	  }
 
 	  var ahpo_name = $('#ahpoSelects').find(':selected').text();
+          var use_pca = $("#use_pca_checkbox").is(":checked");
+          var feature_category = $('input[name=feature_radio_button]:checked').val()
+          var semantic_features = $("#semantic_features_checkbox").is(":checked");
+          var num_meta_alert_threshold = $('#numMetaAlertThreshold').val();
 
-	  return [source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters];
+	  return [source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, use_pca, feature_category, semantic_features, ahpo_name, ahpo_parameters, num_meta_alert_threshold];
 }
 
 function openEditModal(thisClassifier){ //function helper to open the modal for an existing classifier

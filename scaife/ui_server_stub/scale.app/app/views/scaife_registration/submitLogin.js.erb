@@ -1,9 +1,9 @@
 $(document).ready(function() {
   loginFormId = "#login-form-msg";
-  <% if @response_code == 200 %>
+  <% if @scaife_status_code == 200 %>
     location.reload();
   <% else %>
     $(loginFormId).show();
-    $(loginFormId).text("<%= j @response_msg %>");
+    $(loginFormId).text("<%= j @scaife_response %>");
   <% end %>
 });

@@ -2,7 +2,7 @@ This document describes the structure of the SCALe distribution.  This
 information is intended to aid people working on peripheral SCALe
 development work, such as packagers or SELinux policy authors.
 
-This manifest specifies an intended set of user/group/mode settings
+This manifest specifies an intended set of user/group/permission settings
 for running SCALe as an unprivileged virtual user. It does not apply
 to instances where SCALE is run privileged. This could include a
 Docker container, such as in some SCAIFE releases. Some files may be
@@ -14,9 +14,9 @@ remains pending until an automated enforcement testing script will be
 created.
 
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -43,19 +43,21 @@ created.
 There are some files that SCALe must be able to create, or write to if
 already created. They need not exist in an initial distribution.
 
-A good strategy is to create these files as empty files before starting
-the server. Such a file should be owned by the scale user and scale
-grup, and have permissions 0600. Their size/content/hash will change
-as SCALe modifies them, so these aspects of the files should not be
-verified as part of package verification.
+A good strategy is to create these files as empty files before
+starting the server. Such a file should be owned by the scale user and
+scale grup, and have permissions 600, unless otherwise
+specified. Their size/content/hash will change as SCALe modifies them,
+so these aspects of the files should not be verified as part of
+package verification.  Some directories will also initially be empty
+and be filled by the server.
 
-These files will have the phrase
+These files and directories will have the phrase
 `created_by_scale_post_release`. before their introduction.
 
 ## `<Root directory>`
 
 The root directory in which SCALe is installed should be user root,
-group root, and no more permissive than mode 0755.
+group root, and no more permissive than permission 755.
 
 
 MetaData
@@ -95,8 +97,8 @@ Building SCALe
 ## `Gemfile.lock`
 ## `Rakefile`
 
-These folders and files instruct Ruby to download sufficient gems for
-distributing SCALe.
+These files and directories instruct Ruby to download sufficient gems
+for distributing SCALe.
 
 ## `.git`
 ## `.gitingore`
@@ -106,7 +108,8 @@ These files are used by GIT to indicate the proper version of SCALe.
 
 ## `requirements.txt`
 
-Some python modules are required that are not in python's standard library. They are listed in this file. If using pip, use:
+Some python modules are required that are not in python's standard
+library. They are listed in this file. If using pip, use:
 
   pip install -r requirements.txt
 
@@ -118,15 +121,15 @@ Otherwise use apt-get to install the distro packaged versions:
 Testing SCALe
 =============
 
-These folders and files are used when testing SCALe, but are not
-touched by the SCALe web app itself. They should be user scale,
-group scale, mode 0700.
+These directories and files are used when testing SCALe, but are not
+touched by the SCALe web app itself. They should be user scale, group
+scale, permission 700.
 
-## bin`
+## `bin`
 
 This contains several binary executables for testing SCALe.
 
-## .coverage
+## `.coverage`
 
 This file is produced when running coverage tests on the SCALe web
 app. It is not accessed by the web app itself.
@@ -138,12 +141,12 @@ testing SCALe.
 
 ## `test-output`
 
-This folder contains output from running SCALe tests.
+This directory contains output from running SCALe tests.
 
 ## `test`
 
-This folder contains specific tests for SCALe, such as unit tests in
-Python and Java. Not used by the SCALe web app itself.
+This directory contains specific tests for SCALe, such as unit tests
+in Python and Java. Not used by the SCALe web app itself.
 
 
 SCALe Deployment
@@ -159,7 +162,9 @@ A script for creating a distribute-able tarball of SCALe.
 
 ## `packages`
 
-A folder for holding distribute-able SCALe tarballs.
+`created_by_scale_post_release`
+
+A directory for holding distribute-able SCALe tarballs.
 
 ## `Dockerfile`
 
@@ -171,8 +176,8 @@ part of a CI/CD process.
 ## `roles`
 ## `Vagrantfile`
 
-These folders contain information for building SCALe into a VM using
-Vagrant.
+These directories contain information for building SCALe into a VM
+using Vagrant.
 
 ## `scale_1804.json`
 ## `scale.json`
@@ -184,11 +189,11 @@ SCALe Web App Code
 ==================
 
 With exceptions noted below, all files below `app` should be user
-root, group root, and mode 0755 (for directories) or mode 0644 (for
-files).
+root, group root, and permission 755 (for directories) or permission
+644 (for files).
 
-SCALe reads all files into these files & folders, but does not write
-anything to them.
+SCALe reads all files into these files & directories, but does not
+write anything to them.
 
 ## `app`
 
@@ -200,7 +205,7 @@ code, et. al.
 
 This files contains SCALe configuration data, including TLS settings
 and potentially passwords.  _It must be protected from casual
-viewing._ It should be user scale, group scale, mode 0600.
+viewing._ It should be user scale, group scale, permission 600.
 
 For packaging, this file should be marked as a configuration file, so
 that SCALe package upgrades do not overwrite local changes to this
@@ -224,23 +229,23 @@ resetting data on the SCALe server.
 
 ## `vendor`
 
-This folder contain the gems used by SCALe.
+This directory contain the gems used by SCALe.
 
 
 SCALe Web App Configuration
 ===========================
 
-These files and folders contain configuration data for SCALe. They may
-be modified by an administrator, and they are ready, but not modified,
-by the web app. Unless otherwise specified, the information is not
-sensitive.
+These files and directories contain configuration data for SCALe. They
+may be modified by an administrator, and they are ready, but not
+modified, by the web app. Unless otherwise specified, the information
+is not sensitive.
 
 ## `cert`
 
 If the SCALe web app is run in SSL mode, the SSL certificates should
 be stored here. If run outside of SSL mode, this directory may be
 empty. Nonetheless, the data here is sensitive, and so it should be
-user scale, group scale, mode 0700.
+user scale, group scale, permission 700.
 
 ## `config`
 
@@ -249,7 +254,7 @@ Various configuration data for SCALe.
 ## `config.ru`
 
 This file contains configuration information for Rack-based servers to
-start SCALe.  It should be user root, group root, mode 0644.
+start SCALe.  It should be user root, group root, permission 644.
 
 
 SCALe Web App Data
@@ -259,7 +264,7 @@ SCALe Web App Data
 
 The archive directory is where SCALe unpacks artifacts that are
 uploaded.  SCALe writes to this directory tree.  It should be user
-scale, group scale, mode 0700.
+scale, group scale, permission 700.
 
 The bulk of SCALe's data will be in this directory tree.
 
@@ -268,23 +273,27 @@ The bulk of SCALe's data will be in this directory tree.
 The directory tree that contains SCALe databases.
 
 SCALe creates database files in this directory during normal
-operation.  It should be user scale, group scale, mode 0700.
+operation.  It should be user scale, group scale, permission 700.
 
 With exceptions noted below, all files below `db`` should be user
-scale, group scale, and mode 0755 (for directories) or mode 0644 (for
-files).
+scale, group scale, and permission 755 (for directories) or permission
+644 (for files).
 
 ## `db/development.sqlite3`
+## `db/development.db`
+## `db/external.db`
 
-This is the primary internal database actually read and written by the
-SCALe web app at startup (tables: languages, taxonomies, and tools),
-when auditing data, when users upload user data, and when a new SCALe
-project is created.
+`created_by_scale_post_release`
 
-It should be packaged as an empty file, user scale, group scale, mode
-0600.  Its size/content/hash will change as SCALe modifies it, so
-these aspects of the file should not be verified as part of package
-verification.
+These are the primary internal and external databases actually read
+and written by the SCALe web app at startup (tables: languages,
+taxonomies, and tools), when auditing data, when users upload user
+data, and when a new SCALe project is created.
+
+They should be packaged as empty files, user scale, group scale,
+permissions 600.  Their size/content/hash will change as SCALe
+modifies it, so these aspects of the files should not be verified as
+part of package verification.
 
 ## `db/external.sqlite3`
 
@@ -293,6 +302,11 @@ verification.
 This holds any database that is used when importing or exporting a
 database into the SCALe web app.
 
+It should be packaged as an empty file, user scale, group scale,
+permissions 600.  Its size/content/hash will change as SCALe modifies
+it, so these aspects of the file should not be verified as part of
+package verification.
+
 ## `db/test.sqlite3`
 
 `created_by_scale_post_release`
@@ -300,20 +314,20 @@ database into the SCALe web app.
 This holds a database used for testing the app. It is not used by
 SCALe when in production mode.
 
+It should be packaged as an empty file, user scale, group scale,
+permissions 600.  Its size/content/hash will change as SCALe modifies
+it, so these aspects of the file should not be verified as part of
+package verification.
+
 ## `db/backup`
 
 `created_by_scale_post_release`
 
-This folder should have permissions mode 700.
-
-This folder holds backups of the db/development.sqlite3 and
+This directory holds backups of the db/development.sqlite3 and
 db/external.sqlite3 files.
 
-## `db/backup`
-
-This holds backups of the archive folder.  It should be user scale,
-group scale, mode 0700.
-
+It should be initially packaged as an empty directory, and be owned by
+user scale, group scale, permissions 700.
 
 ## `log`
 
@@ -328,20 +342,37 @@ execution.
 
 The actual log file written by the web app.
 
+It should be packaged as an empty file, user scale, group scale,
+permissions 600.  Its size/content/hash will change as SCALe modifies
+it, so these aspects of the files should not be verified as part of
+package verification.
+
+## `log/test.log`
+
+`created_by_scale_post_release`
+
+This log file is written by the web app only when testing. It is not
+used by SCALe when in production mode.
+
+It should be packaged as an empty file, user scale, group scale,
+permissions 600.  Its size/content/hash will change as SCALe modifies
+it, so these aspects of the file should not be verified as part of
+package verification.
+
 ## `public`
 
-This folder contains web pages used by SCALe. Most are not writable,
-except as noted below:
+This directory contains web pages used by SCALe. Most are not
+writable, except as noted below:
 
 ## `public/GNU`
 
-This folder contains web pages generated by GNU Global when a new
-project is created by SCALe. The web app must create sub-folders
+This directory contains web pages generated by GNU Global when a new
+project is created by SCALe. The web app must create sub-directories
 numbered after each project.
 
 ## `public/doc`
 
-This folder contains the SCALe documentation made available under
+This directory contains the SCALe documentation made available under
 SCALE's 'help' link. It also contains the CERT Secure Coding
 standards. SCALe can read any file here, but never changes them.
 

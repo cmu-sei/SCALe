@@ -6,7 +6,7 @@ title: 'SCAIFE : Manual Copyright'
 SCAIFE : Manual Copyright
 =========================
 
-Copyright 2020 Carnegie Mellon University.
+Copyright 2021 Carnegie Mellon University.
 
 This material is based upon work funded and supported by the
 Department of Defense under Contract No. FA8702-15-D-0002 with

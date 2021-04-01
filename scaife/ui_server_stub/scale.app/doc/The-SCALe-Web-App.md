@@ -3,9 +3,9 @@ title: 'SCALe : The SCALe Web App'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -43,8 +43,7 @@ This section documents the administration and use of the SCALe web app.
     -   [Supported
         Browsers](#supported-browsers)
     -   [Uploading output from Static Analyzers (both alerts from general flaw-finder tools and metrics from code metrics tools)](#uploading-output-from-static-analyzers-both-alerts-from-general-flaw-finder-tools-and-metrics-from-code-metrics-tools)
-    -   [Inspecting Alerts for Violations of CERT Secure Coding
-        Rules ](#inspecting-alerts-for-violations-of-cert-secure-coding-rules)
+    -   [Inspecting AlertConditions to Adjudicate for the Condition](#inspecting-alertconditions-to-adjudicate-for-the-condition)
         -   [The AlertCondition Viewer](#the-alertcondition-viewer)
         -   [The Auditing Workflow](#the-auditing-workflow)
             -   [Sorting the AlertConditions by CERT
@@ -82,8 +81,8 @@ It is a Ruby on Rails application, accessed through a web browser. The
 main use cases for this application are as follows:
 
 1.  Uploading alerts and code metrics from static analyzers
-2.  Inspecting alerts for violations of CERT Secure Coding rules or
-    instances of Common Weakness Enumeration weaknesses (CWEs)
+2.  Inspecting alertConditions to adjudicate for the condition: look for a violation of the CERT Secure Coding rule or
+    an instance of the Common Weakness Enumeration weakness (CWEs)
 3.  Exporting analysis results
 
 This diagram illustrates how users interact with the web app.
@@ -448,31 +447,36 @@ He could also click the icon on the left titled **Download**
 the alert database to his system. After creating the project, Mike's job
 is done.
 
-### Inspecting Alerts for Violations of CERT Secure Coding Rules 
+### Inspecting AlertConditions to Adjudicate for the Condition
 
-After Mike the Analyst uploads the alerts to the web app, it is Eve the
-Auditor's job to inspect these alerts. To do so, Eve navigates to the
-SCALe web app and logs in using information obtained from Alice. She
+After Mike the Analyst uploads the alerts to the web app, it is Eve the
+Auditor's job to inspect the alertConditions. To do so, Eve navigates to the
+SCALe web app and logs in using information obtained from Alice. She
 arrives at the web app homepage where she clicks on the name of the
 project created by Mike:
 
-![](attachments/InspectingAlerts.png)
+![](attachments/InspectingAlertConditions.png)
 
 #### The AlertCondition Viewer
 
 Clicking the project name takes Eve to the AlertCondition Viewer page. This page
 allows her to view all of the alertConditions produced by the static analysis
-tools. She can filter the alertConditions using various criteria. Information
+tools. She can filter the alertConditions using various criteria. Information
 pertinent to auditing is provided for each alertCondition. For example, the
-location of the alert in the source code is provided. The source code
-associated with each alert can also be viewed in the browser. A link is
-provided to each CERT Secure Coding rule and/or CWE associated with the alert. Eve's
+location of the alert in the source code is provided. The source code
+associated with each alert can also be viewed in the browser. A link is
+provided to each CWE and/or CERT Secure Coding rule associated with the alert. Eve's
 job is to determine if each alertCondition is indeed a violation of its
 corresponding CWE or CERT Secure Coding rule.
 
-Here is a screenshot of the alertCondition viewer:
+Below is a screenshot of the alertCondition viewer.
+NOTE it needs the following corrections to the labels on the left side:
 
-![](attachments/AlertViewer.png)
+-   "Alert List" should be changed to "AlertCondition List (in fused view, can list meta-alerts)"
+-   "Alert filters" should be changed to "AlertCondition or Meta-Alert filters"
+
+
+![](attachments/AlertConditionsViewer.png)
 
 From top to bottom:
 
@@ -489,7 +493,7 @@ From top to bottom:
     completely implemented, and selecting the button does not classify
     the alertConditions. It currently simply inserts example confidence values,
     not real ones.)
--   The **alertCondition List** section displays the Meta-Alerts, as fused alertConditions
+-   The **alertCondition List** section displays the meta-alerts, as fused alertConditions
     (that show a meta-alert ID on the yellow-colored-background row that
     audit determinations can be made on) or as single alertConditions (in a
     white-background row) that show a Display (d) ID. 
@@ -507,11 +511,11 @@ From top to bottom:
         on the desired page number.
     -   In 'Fused view', each top-level (not expanded) row of the 'alertCondition
         List' shows a Meta-Alert
-        -   it shows the ***Display (d) ID*** (aka alertCondition ID) if the Meta-Alert has only one alertCondition, meaning no alertCondition fusion happened)
-        -   it shows the ***Meta-Alert (m) ID*** if the Meta-Alert contains fused alertConditions, and also can be expanded to show the single alertConditions it contains
+        -   it shows the ***Display (d) ID*** (aka alertCondition ID) if the Meta-Alert has only one alertCondition, meaning no alertCondition fusion happened)
+        -   it shows the ***Meta-Alert (m) ID*** if the Meta-Alert contains fused alertConditions, and also can be expanded to show the single alertConditions it contains
     -   In 'Unfused view', each row of the 'alertCondition List' shows an
         alertCondition
-        -   an alertCondition is a single Alert **with information about only one of the conditions its checker maps to**
+        -   an alertCondition is a single alert **with information about only one of the conditions its checker maps to**
         -   If that alert's checker maps to multiple conditions, there will be a separate row in the 'alertCondition List' for each of the conditions it maps to.
 -   The **Source Code Viewer** section at the bottom displays the code
     associated with a given meta-alert.
@@ -522,13 +526,12 @@ The following table describes the fields displayed in the AlertCondition Viewer
 section (not all of these are visible in the screenshot above).
 
 +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------+
-| AlertCondition Property Name   | Description                                                                                                                                                                             | Possible Values       |
+| AlertCondition Property Description                                                                                                                                                                               Possible Values       |
+| Name                                                                                                                                                                                                            |                       |
 +=======================+=========================================================================================================================================================================================+=======================+
-| ID                    | A unique ID                                                                                                                                                                             | Positive integer      |
-|                       | associated with this                                                                                                                                                                    |                       |
-|                       | meta-alert (could be                                                                                                                                                                    |                       |
-|                       | multiple alertConditions fused                                                                                                                                                          |                       |
-|                       | or a single alertCondition)                                                                                                                                                             |                       |
+| ID                    | A unique ID associated with this item.  In fused view, if multiple alertConditions map to the meta-alert, then it shows the meta-alert ID and ends with "(m)".                          | Positive integer      |
+|                       | In fused view, if only one alertCondition maps to the meta-alert, then it shows the alertCondition(Display) ID and "(d)". In unfused view, it shows the                                 |                       |
+|                       | alertCondition (development.sqlite3 database, display table) ID and "(d)".                                                                                                              |                       | 
 +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------+
 | Flag                  | A binary value                                                                                                                                                                          | Flagged or not        |
 |                       | associated with the                                                                                                                                                                     | flagged               |
@@ -678,7 +681,7 @@ section (not all of these are visible in the screenshot above).
 |                       | Secure Coding rules)                                                                                                                                                                    |                       |
 |                       | or indicates a                                                                                                                                                                          |                       |
 |                       | potential instance of                                                                                                                                                                   |                       |
-|                       | (e.g., for CWEs)                                                                                                                                                                        |                       |
+|                       | (e.g., for a CWE)                                                                                                                                                                       |                       |
 +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------+
 | Confidence            | Placeholder field for                                                                                                                                                                   |                       |
 |                       | confidence that                                                                                                                                                                         |                       |
@@ -686,8 +689,14 @@ section (not all of these are visible in the screenshot above).
 |                       | Not currently used by                                                                                                                                                                   |                       |
 |                       | SCALe web app.                                                                                                                                                                          |                       |
 +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------+
-| AlertCondition Priority        | Priority of making a                                                                                                                                                                    |                       |
-| (AlertCondition Pri)           | manual                                                                                                                                                                                  |                       |
+| Label                 | Placeholder field for                                                                                                                                                                   |                       |
+|                       | class_label that                                                                                                                                                                        |                       |
+|                       | Meta-Alert is True or False.                                                                                                                                                            |                       |
+|                       | Not currently used by                                                                                                                                                                   |                       |
+|                       | SCALe web app.                                                                                                                                                                          |                       |
++-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------+
+| AlertCondition Priority| Priority of making a                                                                                                                                                                   |                       |
+| (AlertCondition Pri)   | manual                                                                                                                                                                                 |                       |
 |                       | determination of the                                                                                                                                                                    |                       |
 |                       | verdict for                                                                                                                                                                             |                       |
 |                       | the Meta-Alert, as                                                                                                                                                                      |                       |
@@ -787,8 +796,8 @@ section (not all of these are visible in the screenshot above).
 
 
 ##### Filtering by Path
-Filepaths for the filter require the user to input exact file paths starting from the source code archive's (decompressed) base directory. The entries for the "Path" field in the alertCondition list provide filepaths that can be used for this filter.
-* The filepaths here may differ from the filepath strings in tool output (e.g., output from flaw-finding static analysis tools or code metrics tools). Those tools' filepaths may differ at the beginning (e.g., a tool's output filepath may have "/home/USERNAME/SOME_DIRECTORY" at the beginning), and also the archive's base directory name may be different.
+* Filepaths for the filter require the user to input exact file paths starting from the source code archive's (decompressed) base directory. The entries for the "Path" field in the alertCondition list provide filepaths that can be used for this filter.
+  * The filepaths here may differ from the filepath strings in tool output (e.g., output from flaw-finding static analysis tools or code metrics tools). Those tools' filepaths may differ at the beginning (e.g., a tool's output filepath may have "/home/USERNAME/SOME_DIRECTORY" at the beginning), and also the archive's base directory name may be different.
 
 
 ##### Sorting by Display (d) ID
@@ -810,6 +819,17 @@ Filepaths for the filter require the user to input exact file paths starting fro
   in order by Meta-Alert (m) ID. The expanded rows within a fused alertCondition will
   have their Display (d) ID in the ID field, and appear in ascending order by
   Display (d) ID.
+
+#### Shuffling
+
+Rather than specifying a sort order, you can request that the elements
+be shuffled into a random order. If the **Shuffle Seed** is empty, no
+shuffling takes place. If it is given the value 0, the elements are
+shuffled in a non-reproducible random order. If it has any positive
+number, that serves as a seed for SCALe's pseudo random number
+generator (PRNG). This means that if two SCALe users provide the same
+filtering constraints and the same nonzero shuffle seed, they will
+both get the same shuffling of elemenets.
 
 #### The Auditing Workflow
 
@@ -848,7 +868,7 @@ question. There are two methods CERT recommends for auditing:
 ##### Sorting the AlertConditions by CERT Priority
 
 Note that CERT priority (defined per-CERT-rule by CERT) is different
-than alert priority (which is short for meta-alert priority, as determined by a prioritization formula). To sort
+than alertCondition priority (which is short for meta-alert priority, as determined by a prioritization formula). To sort
 the alertConditions by CERT Priority, Eve selects **CERT Priority** in the **Sort
 By **drop-down in the AlertCondition Filter toolbar, chooses **desc** in the
 adjacent box to indicate a descending sort, and clicks **Filter**. The
@@ -902,7 +922,7 @@ learned so far.
 ##### Updating AlertCondition Verdicts
 
 Once Eve comes to a conclusion regarding a Meta-Alert (a single alertCondition
-[alertCondition](Terms-and-Definitions.md#alertCondition) or
+[alertCondition](Terms-and-Definitions.md#alertcondition) or
 multiple fused alertConditions), she sets the **Verdict** field
 appropriately. This table describes the possible verdicts:
 
@@ -978,7 +998,7 @@ menu controls the flag status of the selected alertConditions.
 ##### Updating Supplemental Verdicts
 
 Once Eve comes to a conclusion regarding an
-[alertCondition](Terms-and-Definitions.md#alertCondition)'s
+[alertCondition](Terms-and-Definitions.md#alertcondition)'s
 supplemental verdict, she sets the **Supplemental Verdict** field
 appropriately.  A pop-up window appears when she selects the
 Supplemental Verdict field for a Meta-Alert, and she can choose one or
@@ -1029,7 +1049,7 @@ The screenshot below shows a warning that appears if the button
 Name the prioritization scheme, e.g., in the figure above the name is
 'myPrioritizationScheme1'. To save the scheme, select 'Save Priority'.
 Depending on the SCAIFE mode chosen in the interface you may see different
-options for saving a priority scheme. The default mode in SCALe is Local.
+options for saving a prioritization scheme. The default mode in SCALe is Local.
 Local prioritization schemes are saved to the SCALe database only.
 
 If you are in 'SCAIFE-connected' mode additional options for saving the prioritization
@@ -1045,7 +1065,7 @@ bottom-right of the popup. This will calculate values and put them in
 the 'Alert pri' ("alertCondition Priority") field for the meta-alerts, as shown
 below. Note: Prioritization scheme calculations that use confidence values while
 in 'Demo' or 'SCALE-only' mode will only use randomly-generated confidence values in the results for
-alert priority. On the other hand, in 'SCAIFE-connected' mode real confidence values should
+alertCondition priority. On the other hand, in 'SCAIFE-connected' mode real confidence values should
 be populated by running a SCAIFE classifier prior to creating and running a prioritization scheme
 that will use the confidence field in its calculation.
 
@@ -1220,11 +1240,11 @@ project.
 
 Tom saves the file to his local system. He can now open the file's CSV
 tables in a spreadsheet tool such as Excel. The CSV files contain
-information about every alert in the project, including the tool that
-produced the alert, the file and line number where the alert occurs, the
-message from the alert, the audit verdict, and so on. See
-this [table](#AlertCondition-Viewer-Fields) for a detailed explanation of
-all the alert's fields.
+information about every alertCondition in the project, including the tool that
+produced the alert, the file and line number associated with the alertCondition, the
+message from the alert, the audit verdict, and so on. See
+this [table](#alertcondition-viewer-fields) for a detailed explanation of
+all the alertCondition's fields.
 
 #### Making a Sanitized Version of Exported Analysis Results
 
@@ -1342,7 +1362,7 @@ Attachments:
 [UploadAddditionalFields.png](attachments/UploadAddditionalFields.png)
 (image/png)\
 ![](images/icons/bullet_blue.gif)
-[AlertViewer.png](attachments/AlertViewer.png)
+[AlertConditionsViewer.png](attachments/AlertConditionsViewer.png)
 (image/png)\
 ![](images/icons/bullet_blue.gif)
 [CascadedNotes.png](attachments/CascadedNotes.png) (image/png)\
@@ -1359,10 +1379,10 @@ Attachments:
 [ToolOutputUpload.png](attachments/ToolOutputUpload.png)
 (image/png)\
 ![](images/icons/bullet_blue.gif)
-[InspectingAlerts.png](attachments/InspectingAlerts.png)
+[InspectingAlertConditions.png](attachments/InspectingAlertConditions.png)
 (image/png)\
 ![](images/icons/bullet_blue.gif)
 [CSVExample.png](attachments/CSVExample.png)
 (image/png)\
 ![](images/icons/bullet_blue.gif)
-[NewFieldsOnScheme.png](attachments/NewFieldsOnScheme.png)
+[NewFieldsOnScheme.png](attachments/NewFieldsOnScheme.png)\

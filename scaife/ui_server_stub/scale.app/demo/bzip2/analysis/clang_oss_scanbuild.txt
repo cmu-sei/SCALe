@@ -1,0 +1,96 @@
+02:50:47 14 host# scan-build -plist -o ${PWD}/clang.out    make
+scan-build: Using '/usr/lib/llvm-6.0/bin/clang' for static analysis
+
+If compilation produces errors, or a large number of warnings,
+please read README.COMPILATION.PROBLEMS -- you might be able to
+adjust the flags in this Makefile to improve matters.
+
+Also in README.COMPILATION.PROBLEMS are some hints that may help
+if your build produces an executable which is unable to correctly
+handle so-called 'large files' -- files of size 2GB or more.
+
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c blocksort.c
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c huffman.c
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c crctable.c
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c randtable.c
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c compress.c
+compress.c:170:17: warning: The left operand of '==' is a garbage value
+      if (yy[0] == ll_i) {
+          ~~~~~ ^
+compress.c:193:19: warning: Assigned value is garbage or undefined
+            rtmp  = yy[1];
+                  ^ ~~~~~
+compress.c:225:7: warning: Value stored to 'zPend' is never read
+      zPend = 0;
+      ^       ~
+3 warnings generated.
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c decompress.c
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c bzlib.c
+bzlib.c:446:10: warning: Value stored to 'progress' is never read
+         progress = handle_compress ( strm );
+         ^          ~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+rm -f libbz2.a
+ar cq libbz2.a blocksort.o huffman.o crctable.o randtable.o compress.o decompress.o bzlib.o
+ranlib libbz2.a
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c bzip2.c
+bzip2.c: In function 'applySavedFileAttrToOutputFile':
+bzip2.c:1073:4: warning: ignoring return value of 'fchown', declared with attribute warn_unused_result [-Wunused-result]
+    (void) fchown ( fd, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bzip2.c:1805:4: warning: Value stored to 'i' is never read
+   i = j = 0; /* avoid bogus warning from egcs-1.1.X */
+   ^   ~~~~~
+1 warning generated.
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64  -o bzip2 bzip2.o -L. -lbz2
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c bzip2recover.c
+/usr/share/clang/scan-build-6.0/bin/../libexec/ccc-analyzer -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64  -o bzip2recover bzip2recover.o
+
+Doing 6 tests (3 compress, 3 uncompress) ...
+If there's a problem, things might stop at this point.
+
+./bzip2 -1  < sample1.ref > sample1.rb2
+./bzip2 -2  < sample2.ref > sample2.rb2
+./bzip2 -3  < sample3.ref > sample3.rb2
+./bzip2 -d  < sample1.bz2 > sample1.tst
+./bzip2 -d  < sample2.bz2 > sample2.tst
+./bzip2 -ds < sample3.bz2 > sample3.tst
+cmp sample1.bz2 sample1.rb2
+cmp sample2.bz2 sample2.rb2
+cmp sample3.bz2 sample3.rb2
+cmp sample1.tst sample1.ref
+cmp sample2.tst sample2.ref
+cmp sample3.tst sample3.ref
+
+If you got this far and the 'cmp's didn't complain, it looks
+like you're in business.
+
+To install in /usr/local/bin, /usr/local/lib, /usr/local/man and
+/usr/local/include, type
+
+   make install
+
+To install somewhere else, eg, /xxx/yyy/{bin,lib,man,include}, type
+
+   make install PREFIX=/xxx/yyy
+
+If you are (justifiably) paranoid and want to see what 'make install'
+is going to do, you can first do
+
+   make -n install                      or
+   make -n install PREFIX=/xxx/yyy      respectively.
+
+The -n instructs make to show the commands it would execute, but
+not actually execute them.
+
+Instructions for use are in the preformatted manual page, in the file
+bzip2.txt.  For more detailed documentation, read the full manual.
+It is available in Postscript form (manual.ps), PDF form (manual.pdf),
+and HTML form (manual.html).
+
+You can also do "bzip2 --help" to see some helpful information.
+"bzip2 -L" displays the software license.
+
+scan-build: Analysis run complete.
+scan-build: Analysis results (plist files) deposited in '/host/clang.out/2021-03-24-145108-194-1'
+02:51:33 15 host#

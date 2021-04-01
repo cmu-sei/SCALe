@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -36,8 +36,8 @@ class FormatConversionTest < ActiveSupport::TestCase
     # populate db with test data
     ext_con = switch_db_con(true, @db)
     sql = "INSERT INTO MetaAlerts"\
-      " (condition_id, confidence_score, priority_score)"\
-      " VALUES(1,1.0,1),(2,2.0,2),(3,3.0,3),(4,4.0,4),(5,5.0,5),(6,6.0,6);"
+      " (condition_id, class_label, confidence_score, priority_score)"\
+      " VALUES(1,'true',1.0,1),(2,'true', 2.0,2),(3,'true',3.0,3),(4,'true',4.0,4),(5,'true',5.0,5),(6,'true',6.0,6);"
     ext_con.insert(sql)
     ext_con.commit_db_transaction
 

@@ -18,6 +18,15 @@
     "oses": ["Linux"]
   },
   {
+    "name": "codesonar",
+    "label": "CodeSonar",
+    "languages": [["C", "C++"]],
+    "type": "sca",
+    "versions": ["5.0"],
+    "license": "proprietary",
+    "oses": ["Windows", "Linux"]
+  },
+  {
     "name": "msvc",
     "label": "MS Code Analysis for C/C++ Warnings",
     "languages": [["C", "C++"]],
@@ -68,6 +77,24 @@
     "languages": [["C", "C++"]],
     "type": "sca",
     "versions": ["1.00", "1.66", "1.83", "1.86"],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "clang_oss",
+    "label": "clang",
+    "languages": [["C", "C++"]],
+    "type": "sca",
+    "versions": ["6.0"],
+    "license": "open source",
+    "oses": ["Windows", "Linux"]
+  },
+  {
+    "name": "clang_compiler_oss",
+    "label": "clang compiler",
+    "languages": [["C", "C++"]],
+    "type": "sca",
+    "versions": ["6.0"],
     "license": "open source",
     "oses": ["Windows", "Linux"]
   },

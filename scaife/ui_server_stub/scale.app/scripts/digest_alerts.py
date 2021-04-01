@@ -3,9 +3,9 @@
 # Script takes SCALe database file as input, and updates output from a tool.
 #
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -153,8 +153,9 @@ LEFT JOIN MetaAlertLinks ON MetaAlertLinks.alert_id = Alerts.id
                 if file_ext.startswith('.'):
                     file_ext = file_ext[1:]
                 code_language = ext2lang.get(file_ext, '')
+                #MetaAlert table columns: id, condition_id, class_label, confidence_score, priority_score, scaife_meta_alert_id, code_language
                 cur.execute(
-                    "INSERT INTO MetaAlerts VALUES(NULL, ?, -1, 0, NULL, ?)", [condition_id, code_language])
+                    "INSERT INTO MetaAlerts VALUES(NULL, ?, NULL, -1, 0, NULL, ?)", [condition_id, code_language])
                 meta_alert = cur.lastrowid
                 ma_cnt += 1
             else:

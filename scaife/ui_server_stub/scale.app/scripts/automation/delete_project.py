@@ -4,9 +4,9 @@
 # nothing but delete a given project (ID or name) from the database.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -35,7 +35,7 @@ from automate import ScaleSession, FetchError
 from bootstrap import VERBOSE
 
 def main(project):
-    if os.path.exists(bootstrap.development_db()):
+    if os.path.exists(bootstrap.internal_db):
         # only resolve project name if db is hosted locally
         project_id, project_name = bootstrap.project_id_and_name(project)
         if not project_id:

@@ -1,7 +1,7 @@
 -- <legal>
--- SCALe version r.6.2.2.2.A
+-- SCALe version r.6.5.5.1.A
 -- 
--- Copyright 2020 Carnegie Mellon University.
+-- Copyright 2021 Carnegie Mellon University.
 -- 
 -- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 -- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -119,6 +119,7 @@ CREATE TABLE ConditionCheckerLinks (
 CREATE TABLE MetaAlerts (
   id INTEGER PRIMARY KEY,
   condition_id INTEGER,
+  class_label VARCHAR,
   confidence_score REAL,
   priority_score INTEGER,
   scaife_meta_alert_id VARCHAR,
@@ -178,6 +179,10 @@ CREATE TABLE ClassifierSchemes (
   adaptive_heuristic_parameters TEXT,
   ahpo_name TEXT,
   ahpo_parameters TEXT,
+  use_pca BOOLEAN,
+  feature_category TEXT,
+  semantic_features BOOLEAN,
+  num_meta_alert_threshold INTEGER,
   scaife_classifier_instance_id VARCHAR
 );
 CREATE TABLE PerformanceMetrics (
@@ -198,10 +203,21 @@ CREATE TABLE ClassifierMetrics (
   scaife_classifier_instance_id VARCHAR,
   transaction_timestamp DATETIME,
   num_labeled_meta_alerts_used_for_classifier_evaluation INTEGER,
-  accuracy REAL,
-  precision REAL,
-  recall REAL,
-  f1 REAL
+  train_accuracy REAL,
+  train_precision REAL,
+  train_recall REAL,
+  train_f1 REAL,
+  test_accuracy REAL,
+  test_precision REAL,
+  test_recall REAL,
+  test_f1 REAL,
+  num_labeled_meta_alerts_used_for_classifier_training INTEGER,
+  num_labeled_T_test_suite_used_for_classifier_training INTEGER,
+  num_labeled_F_test_suite_used_for_classifier_training INTEGER,
+  num_labeled_T_manual_verdicts_used_for_classifier_training INTEGER,
+  num_labeled_F_manual_verdicts_used_for_classifier_training INTEGER,
+  num_code_metrics_tools_used_for_classifier_training INTEGER,
+  top_features_impacting_classifier TEXT
 );
 CREATE TABLE Tools (
   id INTEGER PRIMARY KEY,

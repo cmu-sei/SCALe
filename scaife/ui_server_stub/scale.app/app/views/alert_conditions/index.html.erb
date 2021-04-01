@@ -107,7 +107,12 @@ correspond to the upper and lower halves of the webpage.
                 <%= label_tag(:sort_column, "Sort by: ", :class=>"col-sm-1 control-label") %>
                 <!--add ["CWE Likelihood","cwe_likelihood"] later for filtering and also notes-->
                 <div class="col-sm-2">
-                      <%= select_tag(:sort_column, options_for_select([["Display (d) ID", "id"],["Meta-Alert (m) ID", "meta_alert_id"],["Flag", "flag"],["Line", "line"],["Severity", "severity"],["Likelihood","likelihood"],["Remediation","remediation"],["CERT Priority","priority"],["Level","level"],["Checker","checker"],["Message","message"],["Path","path"], ["Confidence","confidence"], ["AlertCondition Priority", "meta_alert_priority"]], selected: @sort_column), :class => "form-control") %>
+                      <%= select_tag(:sort_column, options_for_select([["Display (d) ID", "id"],["Meta-Alert (m) ID", "meta_alert_id"],["Flag", "flag"],["Line", "line"],["Severity", "severity"],["Likelihood","likelihood"],["Remediation","remediation"],["CERT Priority","priority"],["Level","level"],["Checker","checker"],["Message","message"],["Path","path"], ["Label","class_label"], ["Confidence","confidence"], ["AlertCondition Priority", "meta_alert_priority"]], selected: @sort_column), :class => "form-control") %>
+                </div>
+                <!-- Form input for shuffling by seed -->
+                <%= label_tag(:seed, "Shuffle Seed: ", :class=>"col-sm-1 control-label") %>
+                <div class="col-sm-1">
+                  <%= number_field_tag(:seed, @seed, :class=>"form-control") %>
                 </div>
               </div> <!-- end form-group -->
 

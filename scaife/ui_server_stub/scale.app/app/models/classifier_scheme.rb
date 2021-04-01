@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -49,18 +49,23 @@ class ClassifierScheme < ApplicationRecord
             adaptive heuristics section.
     adaptive_heuristic_parameters (json) - Parameters for the adaptive_heuristic (They vary
                depending on the type of adaptive_heuristic).
+    use_pca - Specifies if the classifier should apply principal component analysis (PCA).
+    feature_category - Selected feature category (i.e., "union" or "intersection")
+    semantic_features - Specifies if the classifier should consider semantic features.
     ahpo_name (string) - Automated Hyper-Parameter Optimization. name field
             represented by the AHPO selected from the dropdown in
             the classifier schemes model in the AHPO section. There
             will be options, but none implemented yet.
     ahpo_parameters (json) - Parameters for the ahpo (They vary
                depending on the type of ahpo).
+    num_meta_alert_threshold - Specifies the number of new meta-alerts received before retraining the classifier.
 
 
   rescue Exception => e
 
 =end
-  def self.insertClassifier(classifier_instance_name, classifier_type, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, scaife_classifier_id=nil, scaife_classifier_instance_id=nil)
+  def self.insertClassifier(classifier_instance_name, classifier_type, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, use_pca, feature_category, semantic_features, num_meta_alert_threshold, scaife_classifier_id=nil, scaife_classifier_instance_id=nil)
+
     ts = Time.now
 
     # ActiveRecord sanitizes and also uses prepared statement
@@ -70,19 +75,23 @@ class ClassifierScheme < ApplicationRecord
       source_domain: source_domain,
       created_at: ts,
       updated_at: ts,
-      adaptive_heuristic_name: adaptive_heuristic_name,
+      adaptive_heuristic_name: adaptive_heuristic_name.present? ? adaptive_heuristic_name : "None",
       adaptive_heuristic_parameters: adaptive_heuristic_parameters,
-      ahpo_name: ahpo_name,
+      ahpo_name: ahpo_name.present? ? ahpo_name : "None",
       ahpo_parameters: ahpo_parameters,
       scaife_classifier_id: scaife_classifier_id,
-      scaife_classifier_instance_id: scaife_classifier_instance_id
+      scaife_classifier_instance_id: scaife_classifier_instance_id,
+      semantic_features: semantic_features,
+      use_pca: use_pca,
+      feature_category: feature_category,
+      num_meta_alert_threshold: num_meta_alert_threshold
     )
 
     return cs
 
   end
 
-  def self.editClassifier(classifier_instance_name, classifier_type, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, scaife_classifier_id=nil, scaife_classifier_instance_id=nil)
+  def self.editClassifier(classifier_instance_name, classifier_type, source_domain, adaptive_heuristic_name, adaptive_heuristic_parameters, ahpo_name, ahpo_parameters, use_pca, feature_category, semantic_features, num_meta_alert_threshold, scaife_classifier_id=nil, scaife_classifier_instance_id=nil)
     ts = Time.now
 
     cs = ClassifierScheme.find_by(classifier_instance_name: classifier_instance_name)
@@ -100,6 +109,10 @@ class ClassifierScheme < ApplicationRecord
     cs.ahpo_parameters = ahpo_parameters
     cs.scaife_classifier_id = scaife_classifier_id
     cs.scaife_classifier_instance_id = scaife_classifier_instance_id
+    cs.use_pca = use_pca
+    cs.feature_category = feature_category
+    cs.semantic_features = semantic_features
+    cs.num_meta_alert_threshold = num_meta_alert_threshold
     cs.save!
 
     return cs

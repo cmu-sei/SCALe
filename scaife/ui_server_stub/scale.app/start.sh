@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 #
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -26,10 +26,18 @@
 #
 # Run subscription services and SCALe server
 
-if [ -e cert/server.crt ] && [ -e cert/server.key ]; then
-    sed -i 's/config\.force_ssl = false/config.force_ssl = true/' app/controllers/application_controller.rb
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BASE_DIR=$(dirname "$BIN_LOC")
+
+. $BASE_DIR/env.sh
+echo "starting with RAILS_ENV: $RAILS_ENV"
+
+maybe_set_rails_env $*
+
+if [ -e $SCALE_DIR/cert/server.crt ] && [ -e $SCALE_DIR/cert/server.key ]; then
+    sed -i 's/config\.force_ssl = false/config.force_ssl = true/' $SCALE_DIR/app/controllers/application_controller.rb
     exec bundle exec thin start --ssl --port 8083 --ssl-cert-file cert/server.crt --ssl-key-file cert/server.key
 else
-    sed -i 's/config\.force_ssl = true/config.force_ssl = false/' app/controllers/application_controller.rb
+    sed -i 's/config\.force_ssl = true/config.force_ssl = false/' $SCALE_DIR/app/controllers/application_controller.rb
     exec bundle exec thin start --port 8083
 fi

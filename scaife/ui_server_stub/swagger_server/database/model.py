@@ -1,7 +1,7 @@
 # <legal>
-# SCAIFE System version 1.2.2
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -100,6 +100,7 @@ class DefectInfo(EmbeddedDocument):
 
 
 class SourceFunction(Document):
+    package_id = StringField(required=True) # Required to ensure the SourceFunctions are associated with a package
     name = StringField()
     line_start = IntField()
     line_end = IntField()
@@ -108,6 +109,7 @@ class SourceFunction(Document):
 
 
 class SourceFile(Document):
+    package_id = StringField(required=True) # Required to ensure the SourceFiles are associated with a package
     suite_id = StringField()
     test_id = StringField()
     filename = StringField()
@@ -134,46 +136,17 @@ class Message(EmbeddedDocument):
     source_function = ReferenceField(SourceFunction)
 
 
-class ConditionFields(Document):
-    # Use this class for common fields outside of the Taxonomy Condition object.
-    # For now, this is blank.
-    meta = {'allow_inheritance': True} 
-
-
-class Cert(ConditionFields):
-    likelihood = IntField()
-    remediation = IntField()
-    severity = IntField()
-    priority = IntField()
-    level = IntField()
-
-# Legacy rc_scripts uses Cwe
-class Cwe(ConditionFields):
-    tool_id = StringField() 
-    tool_name = StringField(required=True) 
-    total_matches = IntField(required=True) 
-    checkers = DictField(required=True) 
-    likelihood = IntField()
-
-    meta = {
-        'indexes': [
-            'tool_name',
-            ('tool_name')
-        ]
-    }
-    cwe_id = StringField() #field name in ophelia db
-
 class Condition(Document): 
-    condition_name = StringField(required=True) #the condition name, i.e INT32-C; for CWEs its just the number (e.g., 398)
+    condition_name = StringField(required=True) # The condition name, i.e INT32-C; for CWEs its just the number (e.g., 398)
     title = StringField() #required=True) 
-    taxonomy = ReferenceField('Taxonomy') #parent node
+    taxonomy = ReferenceField('Taxonomy') # Parent node
     platforms = ListField(StringField())
     languages = ListField(ReferenceField(CodeLanguage), default=[])
     condition_id = StringField() # Used to populate Stats database (statswork/scripts/db/ophelia2testDB.py)
     condition_fields = DictField() # Fields and values like {'remediation': 1}
     
 
-class CheckerCondition(Document): #checkers map to conditions
+class CheckerCondition(Document): # Checkers map to conditions
     checker = ReferenceField('Checker')
     conditions = ListField(ReferenceField(Condition)) # 'rules' from previous CheckerMapping table
     
@@ -191,8 +164,8 @@ class Taxonomy(Document):
 class CheckerMapping(Document):
     tool_id = StringField()
     description = StringField()
-    mapper_identity = ListField(StringField()) #vendor-public, SC-team, etc.
-    mapping_source = StringField() #origin of mapping data
+    mapper_identity = ListField(StringField()) # Vendor-public, SC-team, etc.
+    mapping_source = StringField() # Origin of mapping data
     mapping_version = StringField()
     publishable_public_or_not = BooleanField(default=False)
     dod_publication = BooleanField(default=False)
@@ -206,7 +179,7 @@ class CheckerMapping(Document):
 
 class SpeculativeMapping(Document):
     tool_id = StringField()
-    tool_name = StringField(required=True) #field name in ophelia db
+    tool_name = StringField(required=True) # Field name in ophelia db
     checker_id = StringField(required=True)
     cwe_id = StringField(required=True)
     matches = IntField()
@@ -223,17 +196,16 @@ class Checker(Document):
             ('tool')
         ]
     }
-    checker_id = StringField() #field name in ophelia db
     
 
 class Alert(Document):
     tool_id = StringField()
     code_language = ReferenceField(CodeLanguage)
-    package_id = StringField()
+    package_id = StringField(required=True) # Required to ensure the Alerts are associated with a package
     primary_message = EmbeddedDocumentField(Message)
     secondary_messages = EmbeddedDocumentListField(Message)
     verdict = DictField()  # Speculative mappings for a test suite. The verdict field will not be populated if the alert is not associated with a test suite.
-    checker_id = StringField() #field name in ophelia db
+    checker_id = StringField()
 
 
 class TestSuite(Document):
@@ -241,12 +213,11 @@ class TestSuite(Document):
     test_suite_version = StringField()
     test_suite_type = StringField(options=['juliet', 'stonesoup'], required=True)
     sard_test_suite_id = StringField()
-    manifest_files = ListField(StringField()) #May need to change this to list of files (below)
-    #manifest_files = ListField(FileField())
+    manifest_files = ListField(StringField())
     code_languages = ListField(ReferenceField(CodeLanguage))
-    manifest_urls = ListField(StringField()) #Safe URL field
-    source_file_filenames = ListField(StringField()) #names of sourcefile CSVs uploaded for this test suite
-    source_function_filenames = ListField(StringField()) #names of sourcefile CSVs uploaded for this test suite
+    manifest_urls = ListField(StringField()) # Safe URL field
+    source_file_filenames = ListField(StringField()) # Names of sourcefile CSVs uploaded for this test suite
+    source_function_filenames = ListField(StringField()) # Names of sourcefile CSVs uploaded for this test suite
     use_license_file = FileField()
     uploader_id = StringField(required=True)
     uploader_organization_id = StringField(required=True)
@@ -259,10 +230,11 @@ class Tool(Document):
     code_languages = ListField(ReferenceField(CodeLanguage))
     tool_output_file = FileField() #to be used in future updates
     tool_version = StringField(default="generic")
+    tool_parser_name = StringField()
     language_platforms = ListField(StringField())
     checkers = ListField(ReferenceField(Checker))
     checker_mappings = ListField(ReferenceField(CheckerMapping))  # for FFSA tools
-    metrics_data_headers = DictField()  # for metrics tools
+    code_metrics_headers = ListField()  # for metrics tools
     uploader_id = StringField(required=True)
     uploader_organization_id = StringField(required=True)
     author_source = StringField(default="No Author Source Provided")
@@ -277,7 +249,8 @@ class MetaAlert(Document):
     alerts = ListField(ReferenceField(Alert), default=[]) #, unique_with='condition_id')
     auto_verdict = DictField()
     ct_pm_verdict = DictField()
-    project_id = StringField() #meta-alerts are per-projects
+    project_id = StringField(required=True) # Meta-alerts are per-project, required to ensure the meta-alerts are associated with a project
+    timestamp = DateTimeField()
     
     def clean(self):
         if self.condition_id is None and self.checker_id is None:
@@ -300,11 +273,6 @@ class MetaAlert(Document):
   #  }
 
 
-class Module(Document):
-   module_ip = StringField(required=True)
-   users = ListField(StringField())
-
-
 class Package(Document):
     package_name = StringField(required=True)
     package_description = StringField()
@@ -313,15 +281,14 @@ class Package(Document):
     author_source = StringField()
     uploader_organization_id = StringField(required=True)
     source_files = ListField(ReferenceField(SourceFile))
-    source_functions = ListField(ReferenceField(SourceFunction))
     code_source_filename = StringField()
     source_code_url = StringField() #Should be URIField when implemented
     source_file_url = StringField()
     source_function_url = StringField()
-    modules = ListField(ReferenceField(Module)) #modules that open an AH on this package
+    source_file_extensions = ListField(StringField(), default=[])
     on_hold = BooleanField(default=False)
     on_hold_data = ReferenceField('Package_On_Hold')
-    alerts = ListField(ReferenceField(Alert), default=[])
+    alerts = ListField(ReferenceField(Alert))
     tools = ListField(ReferenceField(Tool))
     package_sharing_status = StringField(default="Global")  #field used to limit user access to the package
     test_suite = ReferenceField(TestSuite) 
@@ -337,32 +304,16 @@ class Project(Document):
    uploader_organization_id = StringField(required=True)
    is_test_suite = BooleanField(default=False)
    adaptive_heuristic_is_active = BooleanField(default=False)
-   modules = ListField(ReferenceField(Module)) #modules that open an AH on this project
+   publish_data_updates = BooleanField(default=False)
+   use_checkers_on_meta_alerts = BooleanField(default=False)
    on_hold = BooleanField(default=False)
    on_hold_data = ReferenceField('Project_On_Hold')
    project_sharing_status = StringField(default="Global") #field used to limit user access to the project
-   use_checkers_on_meta_alerts = BooleanField(default=False)
-   meta_alerts = ListField(ReferenceField(MetaAlert), default=[])
+   meta_alerts = ListField(ReferenceField(MetaAlert))
    package = ReferenceField(Package)
    taxonomies = ListField(ReferenceField(Taxonomy))
    created_at = DateTimeField(required=True)
    updated_at = DateTimeField()
-
-
-class Project_On_Hold(Document):
-   project_id = StringField()
-   meta_alerts = ListField(ReferenceField(MetaAlert))
-   taxonomies = ListField(ReferenceField(Taxonomy))
-   time_on_hold = DateTimeField() #will contain the most recent time a hold was requested
-   modules = ListField(ReferenceField(Module)) #modules that have this project on hold.
-
-
-class Package_On_Hold(Document):
-   package_id = StringField()
-   alerts = ListField(ReferenceField(Alert))
-   tools = ListField(ReferenceField(Tool))
-   time_on_hold = DateTimeField() #will contain the most recent time a hold was requested
-   modules = ListField(ReferenceField(Module)) #modules that have this package on hold.
 
 
 class CrossTaxonomyTestSuiteMappings(Document):
@@ -371,10 +322,10 @@ class CrossTaxonomyTestSuiteMappings(Document):
     such as CERT rules or FFSA tool-specific taxonomies. This document states that a known flaw of type `condition`
     in a test suite file at `file-path` can also be described as an instance of some `related_condition`
     '''
-    test_suite_types = ListField(StringField()) # Types of test suite associated with this mapping
+    test_suite_types = ListField(StringField()) # Types of test suites associated with this mapping
     condition = ReferenceField(Condition)
     related_condition = ReferenceField(Condition)
-    source_file = ReferenceField(SourceFile) #needed for compatibility with SourceFunction field name
+    source_file = ReferenceField(SourceFile)
 
 
 class PerformanceMetrics(Document):
@@ -385,6 +336,7 @@ class PerformanceMetrics(Document):
     request_id = StringField()
     elapsed_time = FloatField() #wall-clock time in fractional seconds
     cpu_time = FloatField() #in fractional seconds
+
 
 
 class Ahpo(EmbeddedDocument):
@@ -438,6 +390,7 @@ class Observation(Document):
     classifier_confidence_value = FloatField()
     adaptive_heuristic_confidence_value = FloatField()
     reweighted_confidence_value = FloatField()
+    timestamp = DateTimeField(required=True)
 
 
 class ClassifierData(Document):
@@ -475,6 +428,7 @@ class ClassifierInstance(Document):
     name = StringField()
     author_id = StringField(required=True)
     author_organization_id = StringField(required=True)
+    use_semantic_features = BooleanField(default=False)
     # Associated projects -- train and run
     training_project_ids = ListField(StringField())
     ran_on_project_ids = ListField(StringField())
@@ -482,6 +436,7 @@ class ClassifierInstance(Document):
     binary = BinaryField() #for binarized classifier object
     # Settings related to update handling
     n_meta_alert_updates_since_training = IntField(default=0)
+    num_meta_alert_threshold = IntField(default=100)
     last_trained = DateTimeField()
     adaptive_heuristic = EmbeddedDocumentField(AdaptiveHeuristic)
     ahpo = EmbeddedDocumentField(Ahpo)
@@ -490,7 +445,30 @@ class ClassifierInstance(Document):
     probabilities = ListField(FloatField())
     encoded_feature_columns = ListField(StringField())
     encoded_feature_order = ListField(StringField())
+    use_pca = BooleanField(default=False)
+    pca_binary = BinaryField() #for binarized PCA object
     adaptive_heuristic_is_active = BooleanField(default=False)
+    feature_selection_category = StringField(default="intersection")
+    num_labeled_meta_alerts_used_for_classifier_training = IntField()
+    num_labeled_T_test_suite_used_for_classifier_training = IntField()
+    num_labeled_F_test_suite_used_for_classifier_training = IntField() 
+    num_labeled_T_manual_verdicts_used_for_classifier_training = IntField()
+    num_labeled_F_manual_verdicts_used_for_classifier_training = IntField()
+    num_code_metrics_tools_used_for_classifier_training = IntField()
+    top_features_impacting_classifier = ListField(StringField())
+    training_classifier_metrics = DictField()
+    timestamp = DateTimeField(required=True)
 
+
+class ClassifierPerformanceMetrics(Document):
+    classifier_instance_id = StringField(required=True)
+    transaction_timestamp = DateTimeField(required=True)
+    num_labeled_meta_alerts_used_for_classifier_training = IntField()
+    num_labeled_T_test_suite_used_for_classifier_training = IntField()
+    num_labeled_F_test_suite_used_for_classifier_training = IntField() 
+    num_labeled_T_manual_verdicts_used_for_classifier_training = IntField()
+    num_labeled_F_manual_verdicts_used_for_classifier_training = IntField()
+    num_code_metrics_tools_used_for_classifier_training = IntField()
+    top_features_impacting_classifier = ListField(StringField())
 
 

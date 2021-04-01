@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -27,10 +27,9 @@ require 'test_helper'
 class ScaifeApiStatisticsTest < ActiveSupport::TestCase
 	test "SCAIFE_list_classifiers returns 200" do
 		x_access_token = "valid_access_token"
-		x_request_token = "valid_req_token"
 		code = 200
 
-		stub_and_test_list_classifiers(x_access_token, x_request_token, code)
+		stub_and_test_list_classifiers(x_access_token, code)
 	end
 
 end

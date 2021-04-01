@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -141,13 +141,12 @@ public class ScaleWebApp {
 	 * @param projectName
 	 * @param projectDescription
 	 * @param archivePath
-	 * @param coverityPath
-	 * @param fortifyPath
+	 * @param cppcheckPath
+	 * @param rosecheckersPath
 	 * @return
 	 */
-	public void createProjectWithFusion(
-										String projectName, String projectDescription,
-										String archivePath, String coverityPath, String fortifyPath) {
+	public void createProjectWithFusion(String projectName, String projectDescription,
+                                            String archivePath, String cppcheckPath, String rosecheckersPath) {
 
 		this.launch();
 		this.goHome();
@@ -160,12 +159,12 @@ public class ScaleWebApp {
 
 		this.UploadAnalysis.getArchiveUploader().sendKeys(archivePath);
 		ToolRow toolRow;
-		toolRow = this.UploadAnalysis.getToolRowById(ToolInfo.Coverity_C_ID, false);
+		toolRow = this.UploadAnalysis.getToolRowById(ToolInfo.CPPCHECK_OSS_C_ID, false);
 		toolRow.checkbox.click();
-		toolRow.uploadFile.sendKeys(coverityPath);
-		toolRow = this.UploadAnalysis.getToolRowById(ToolInfo.Fortify_C_ID, false);
+		toolRow.uploadFile.sendKeys(cppcheckPath);
+		toolRow = this.UploadAnalysis.getToolRowById(ToolInfo.Rosecheckers_OSS_C_ID, false);
 		toolRow.checkbox.click();
-		toolRow.uploadFile.sendKeys(fortifyPath);
+		toolRow.uploadFile.sendKeys(rosecheckersPath);
 
 		this.UploadAnalysis.getCreateDatabaseButton().click();
 		this.validatePage();
@@ -243,19 +242,25 @@ public class ScaleWebApp {
 		this.goHome();
 		this.Home.getNewProjectLink().click();
 
+		System.out.printf("project home, about to create: %s\n", name);
 		validatePage();
 		this.NewProject.getNameField().sendKeys(name);
 		this.NewProject.getDescriptionField().sendKeys(desc);
 		this.NewProject.getCreateProjectButton().click();
+		System.out.printf("project initial: %s\n", name);
 
+		System.out.printf("sending archive as key: %s\n", archive);
 		this.UploadAnalysis.getArchiveUploader().sendKeys(archive);
+		System.out.printf("sent archive as key: %s\n", archive);
 		ToolRow toolRow = this.UploadAnalysis.getToolRowById(tool, false);
 		toolRow.checkbox.click();
 		toolRow.uploadFile.sendKeys(path);
+		System.out.printf("sent tool as key: %s\n", path);
 
 		new WebDriverWait(this.driver, 20).until(ExpectedConditions.elementToBeClickable(this.UploadAnalysis.getCreateDatabaseButton()));
 
 		this.UploadAnalysis.getCreateDatabaseButton().click();
+		System.out.printf("project db created: %s\n", name);
 
 		new WebDriverWait(this.driver, 20).until(ExpectedConditions.visibilityOf(UploadAnalysis.getCreateProjectFromDatabaseButton()));
 		validatePage();
@@ -298,7 +303,7 @@ public class ScaleWebApp {
 		toolRow.tool_options.selectByVisibleText(selected_tool);
 
 		toolRow.uploadFile.sendKeys(path);
-		
+
 		if (finish) {
 			finishCreatingProjectFromDatabase();
 		}
@@ -647,16 +652,16 @@ public class ScaleWebApp {
 	public void powerClickElement(WebElement elm) {
 		((JavascriptExecutor)driver).executeScript("arguments[0].click()", elm);
 	}
-	
+
 	public void powerScrollAndClickElement(WebElement elm) {
 		scrollIntoView(elm);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click()", elm);
 	}
-	
+
 	public void scrollIntoView(WebElement elm) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elm);
 	}
-	
+
 	public void scrollIntoViewCoords(WebElement elm) {
 		((JavascriptExecutor)driver).executeScript("window.scrollTo(" + elm.getLocation().x + "," + elm.getLocation().y + ")");
 	}
@@ -797,18 +802,18 @@ public class ScaleWebApp {
 			ListItem item = this.itemsByLabel.get(label);
 			return this.itemIsSelectedById(item.id);
 		}
-	 
+
 		public void itemToggleByLabel(String label) {
 			ListItem item = this.itemsByLabel.get(label);
 			this.itemToggleById(item.id);
 		}
-	 
+
 		public void itemSelectByLabel(String label) {
 			if (! this.itemIsSelectedByLabel(label)) {
 				this.itemToggleByLabel(label);
 			}
 		}
-	 
+
 		public void itemDeselectByLabel(String label) {
 			if (this.itemIsSelectedByLabel(label)) {
 				this.itemToggleByLabel(label);
@@ -819,18 +824,18 @@ public class ScaleWebApp {
 			String label = ListItem.label(name, val);
 			return this.itemIsSelectedByLabel(label);
 		}
-	 
+
 		public void itemToggleByNameValue(String name, String val) {
 			String label = ListItem.label(name, val);
 			this.itemToggleByLabel(label);
 		}
-	 
+
 		public void itemSelectByNameValue(String name, String val) {
 			if (! this.itemIsSelectedByNameValue(name, val)) {
 				this.itemToggleByNameValue(name, val);
 			}
 		}
-	 
+
 		public void itemDeselectByNameValue(String name, String val) {
 			if (this.itemIsSelectedByNameValue(name, val)) {
 				this.itemToggleByNameValue(name, val);
@@ -1131,7 +1136,9 @@ public class ScaleWebApp {
 		public WebElement getArchiveUploader() {
 			new WebDriverWait(driver, 500).until(ExpectedConditions
 												 .elementToBeClickable(driver.findElement(By.id("file_source"))));
-			return driver.findElement(By.id("file_source"));
+			WebElement fsrc = driver.findElement(By.id("file_source"));
+			System.out.printf("found file_source: %s\n", fsrc);
+			return fsrc;
 		}
 
 		/**
@@ -1147,6 +1154,7 @@ public class ScaleWebApp {
 			List<WebElement> cells = driver.findElement(By.xpath(cbQuery)).findElement(By.xpath("../.."))
 				.findElements(By.tagName("td"));
 			row.checkbox = cells.get(0).findElement(By.className("selectTool"));
+			System.out.printf("found checkbox: %s : %s\n", id, row.checkbox);
 			WebElement versionTag = cells.get(1).findElement(By.id("tool_versions_" + id));
 
 			if (id.startsWith("swamp")) {
@@ -1276,7 +1284,7 @@ public class ScaleWebApp {
 			WebElement elm = driver.findElement(By.id("file_function_info_file"));
 			elm.sendKeys(val);
 		}
-		 
+
 	}
 
 
@@ -1369,7 +1377,7 @@ public class ScaleWebApp {
 
 	public class AlertConditionsViewerPage {
 
-		public int numAlertFields = 22; //number of alert items listed below, from checkbox to notes inclusive
+		public int numAlertFields = 23; //number of alert items listed below, from checkbox to notes inclusive
 
 		public class FilterElems {
 			public Select idTypeFilter;
@@ -1415,6 +1423,7 @@ public class ScaleWebApp {
 			public WebElement tool;
 			public WebElement condition;
 			public WebElement title;
+			public WebElement class_label;
 			public WebElement confidence;
 			public WebElement meta_alert_priority;
 			public WebElement sev;
@@ -1739,6 +1748,7 @@ public class ScaleWebApp {
 			alertConditionRow.tool = items.get(idx++);
 			alertConditionRow.condition = items.get(idx++).findElement(By.tagName("a"));
 			alertConditionRow.title = items.get(idx++);
+			alertConditionRow.class_label = items.get(idx++);
 			alertConditionRow.confidence = items.get(idx++);
 			alertConditionRow.meta_alert_priority = items.get(idx++);
 			alertConditionRow.sev = items.get(idx++);
@@ -1933,6 +1943,10 @@ public class ScaleWebApp {
 
 		public WebElement getTitleField() {
 			return driver.findElement(By.id("display_title"));
+		}
+
+		public WebElement getClassLabelCombobox() {
+			return driver.findElement(By.id("display_class_label"));
 		}
 
 		public WebElement getConfidenceField() {

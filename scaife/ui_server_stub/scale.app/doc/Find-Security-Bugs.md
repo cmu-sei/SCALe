@@ -3,9 +3,9 @@ title: 'SCALe : Find-Security-Bugs'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Audit Instructions](Audit-Instructions.md) / [Static Analysis Tools](Static-Analysis-Tools.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -29,7 +29,7 @@ title: 'SCALe : Find-Security-Bugs'
 SCALe : Find-Security-Bugs
 ===========================
 
-This is a plugin for Findbugs that focuses on specialized security
+This is a plugin for FindBugs that focuses on specialized security
 issues.
 
 ### Maven Integration
@@ -46,7 +46,7 @@ the toplevel directory, execute this command:
  ```
 
 The file `dplain.xml` lives in the new\_scale directory that you checked
-out earlier, and `convertXmlToText` lives in Findbugs' `bin` directory.
+out earlier, and `convertXmlToText` lives in FindBugs' `bin` directory.
 
-Once you have text output, here are instructions for [Converting Text Output to ORG files](Manual-Project-Creation.md).
+Once you have text output, here are instructions for [Converting Text Output to ORG files](Command-Line-Project-Creation.md).
 For these your tool is 'findsecbugs'.

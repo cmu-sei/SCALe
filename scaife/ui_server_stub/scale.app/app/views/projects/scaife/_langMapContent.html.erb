@@ -28,8 +28,8 @@
                 <td><%= lang.version %></td>
                 <td align="center">-</td>
                 <% if scaife_lang.present? %>
-                  <td><%= scaife_lang["language"] %></td>
-                  <td><%= scaife_lang["version"] %></td>
+                  <td><%= scaife_lang.language %></td>
+                  <td><%= scaife_lang.version %></td>
                 <% else %>
                   <td>unknown</td>
                   <td><!-- colspan not working on td? --></td>
@@ -92,7 +92,7 @@
               <% if @scaife_languages_by_id.present? %>
                 <div class="header_items">SCAIFE Languages:</div>
                 <% @scaife_languages_by_id.each_value do |lang| %>
-                  <div data-id="<%= lang['code_language_id'] %>" class="list-item"><%= "#{lang['language']} #{lang['version']}" %></div>
+                  <div data-id="<%= lang.code_language_id %>" class="list-item"><%= "#{lang.language} #{lang.version}" %></div>
                 <% end %>
               <% else %>
                 <div class="header_items">No SCAIFE Language Targets</div>

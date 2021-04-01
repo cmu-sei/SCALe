@@ -5,9 +5,9 @@
 # returns the expected output.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -28,23 +28,19 @@
 # DM19-1274
 # </legal>
 
-# Takes a single argument: the host that Pulsar runs on.
-HOST=$1
-
 # Preserve our own PID for easy shutdown
 PID=$$
 echo $PID > $SCALE_HOME/scale.app/tmp/connect_to_pulsar.pid
 
-url="http://${HOST}:8080/admin/v2/worker/cluster"
-cmd="wget -q -O - ${url}"
-expected='[{"workerId":"c-standalone-fw-localhost-8080","workerHostname":"localhost","port":8080}]'
+TIMEOUT=90
 
-while [ "`$cmd`" != "$expected" ]; do
-    echo waiting for Pulsar
-    sleep 2
-done
-echo Pulsar is available
+# exit 1 if timeout after 90 secs
+python scripts/wait_for_services.py -v -i pulsar -t $TIMEOUT
 
-# Launch subscriber and stash its PID for remote shutdown
-python scripts/stats_subscriber.py > $SCALE_HOME/scale.app/log/subscription.stats.log &
-echo $! > $SCALE_HOME/scale.app/tmp/stats_subscriber.pid
+if [ $? -eq 0 ]; then
+  # Launch subscriber and stash its PID for remote shutdown
+  python scripts/stats_subscriber.py > $SCALE_HOME/scale.app/log/subscription.stats.log &
+  echo $! > $SCALE_HOME/scale.app/tmp/stats_subscriber.pid
+else
+  exit 1
+fi

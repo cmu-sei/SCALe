@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -58,6 +58,7 @@ import scale_webapp.test.infra.ScaleWebApp;
 import scale_webapp.test.infra.ScaleWebApp.Verdict;
 import scale_webapp.test.infra.ScaleWebApp.AlertConditionsViewerPage.AlertConditionRow;
 import scale_webapp.test.infra.ScaleWebApp.HomePage.ProjectRow;
+import scale_webapp.test.infra.InputPathInfo;
 import scale_webapp.test.infra.ToolInfo;
 
 
@@ -117,14 +118,14 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 	 *
 	 * @throws InterruptedException
 	 */
-	public void testLocalProjectLinks() throws InterruptedException {
+    	/* public void testLocalProjectLinks() throws InterruptedException {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
 		String archivePath = new File(config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(config.inputDirectory, "dos2unix/analysis/fortify_10.xml").toString();
-		String fortifyEditPath = new File(config.inputDirectory, "dos2unix/analysis/fortify_10_edit.xml").toString();
-		String coverityEditPath = new File(config.inputDirectory, "dos2unix/analysis/coverity_1.json").toString();
+		String rosecheckersPath = new File(testInputPath, "rosecheckers_oss.txt").toString();
+		String rosecheckersEditPath = new File(testInputPath, "rosecheckers_oss_30.txt").toString();
+		String cppcheckEditPath = new File(config.inputDirectory, "dos2unix/analysis/cppcheck_oss_5.xml").toString();
 		File src = new File(config.inputDirectory, "test_docs/c");
 		File dest = new File(config.root, "public/doc/c");
 
@@ -146,8 +147,8 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 			webApp.launch();
 
 			//test createSimpleProject
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 			String suffix = "doc/c/FIO30-C.-Exclude-user-input-from-format-strings_347.html";
 
 			webApp.waitForAlertConditionsTableLoad();
@@ -165,8 +166,8 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 			} while (webApp.AlertConditionsViewer.goToNextPage());
 			Assert.assertEquals(x, 10);
 
-			//test EditSimpleProject(using fortifyEditPath)
-			webApp.EditSimpleProject(projectName, fortifyEditPath, ToolInfo.Fortify_C_ID);
+			//test EditSimpleProject(using rosecheckersEditPath)
+			webApp.EditSimpleProject(projectName, rosecheckersEditPath, ToolInfo.Rosecheckers_OSS_C_ID);
 
 			webApp.waitForAlertConditionsTableLoad();
 			x = 0;
@@ -180,8 +181,8 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 
 			Assert.assertEquals(x, 10);
 
-			//test EditSimpleProject(using coverityEditPath)
-			webApp.EditSimpleProject(projectName, coverityEditPath, ToolInfo.Coverity_C_ID);
+			//test EditSimpleProject(using cppcheckEditPath)
+			webApp.EditSimpleProject(projectName, cppcheckEditPath, ToolInfo.CPPCHECK_OSS_C_ID);
 
 			x = 0;
 			do {
@@ -192,22 +193,22 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 						!r.condition.getText().equals("CWE-377")) assert(false);
 				}
 			} while (webApp.AlertConditionsViewer.goToNextPage());
-			//System.out.println("testing EditSimpleProject(using " + coverityEditPath + ")");
+			//System.out.println("testing EditSimpleProject(using " + cppcheckEditPath + ")");
 			Assert.assertEquals(x, 12);
 		} finally {
 			cleanupWebApp(webApp, projectName);
 		}
-	}
+	}*/
 
 	/**
 	 * tests to see if remote links are used when local docs are not present
 	 */
-	public void testRemoteProjectLinks() {
+	/* public void testRemoteProjectLinks() {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
 		String archivePath = new File(config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(config.inputDirectory, "dos2unix/analysis/fortify_10.xml").toString();
+		String rosecheckersPath = new File(testInputPath, "rosecheckers_oss.txt").toString();
 		File dest = new File(config.root, "public/doc/c");
 
 		dest.mkdirs();
@@ -219,8 +220,8 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 			webApp = config.createApp();
 
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 			String link = "http://www.google.com/search?btnI&q=FIO30-C%20site%3Awww.securecoding.cert.org";
 
 			webApp.waitForAlertConditionsTableLoad();
@@ -234,7 +235,7 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 		} finally {
 			cleanupWebApp(webApp, projectName);
 		}
-	}
+	}*/
 
 
 	/**
@@ -257,28 +258,18 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String testProjectPath = new File(this.config.inputDirectory, "dos2unix").toString();
-		String testInputPath = new File(testProjectPath, "analysis").toString();
-
-		String archivePath = new File(testProjectPath, "dos2unix-7.2.2.zip").toString();
-		String gccPath = new File(testInputPath, "gcc_oss.txt").toString();
-		String rosecheckersPath = new File(testInputPath, "rosecheckers_oss.txt").toString();
-		//String coverityPath = new File(testInputPath, "coverity.json").toString();
-		String ccsmPath = new File(testInputPath, "ccsm_oss.csv").toString();
-		String lizardPath = new File(testInputPath, "lizard_oss.csv").toString();
-		//String understandPath = new File(testInputPath, "understand.csv").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String gccPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputGcc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
+		String ccsmPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCcsm).toString();
+		String lizardPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputLizard).toString();
 		String testPyScript = new File(this.config.root, "test/python/test_sanitizer.py").toString();
-
-		//String cppcheckPath = new File(testInputPath, "cppcheck_oss.xml").toString();
 
 		HashMap<String, String> tools = new HashMap<String, String>();
 		tools.put(gccPath, ToolInfo.GCC_OSS_C_ID);
 		tools.put(rosecheckersPath, ToolInfo.Rosecheckers_OSS_C_ID);
-		//tools.put(coverityPath, ToolInfo.Coverity_C_ID);
 		tools.put(ccsmPath, ToolInfo.CCSM_OSS_Metric_ID);
 		tools.put(lizardPath, ToolInfo.Lizard_OSS_Metric_ID);
-		//tools.put(understandPath, ToolInfo.Understand_Metric_ID);
-		//tools.put(cppcheckPath, ToolInfo.CPPCHECK_OSS_C_ID);;
 
 		String userUploadFilePath = new File(this.config.inputDirectory, "misc/user_upload_example.csv").toString();
 		String priorityName = "priorityScheme1";

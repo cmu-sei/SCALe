@@ -20,8 +20,8 @@
               <% if @scaife_tools_by_id.present? %>
                 <% @scaife_tools_by_id.each_value do |scaife_tool| %>
                   <tr>
-                    <td><%= "#{scaife_tool['tool_name']}" %></td>
-                    <td><%= "#{scaife_tool['tool_version']}" %></td>
+                    <td><%= "#{scaife_tool.tool_name}" %></td>
+                    <td><%= "#{scaife_tool.tool_version}" %></td>
                   </tr>
                 <% end %>
               <% else %>

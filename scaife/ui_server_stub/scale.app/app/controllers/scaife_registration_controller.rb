@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -24,8 +24,12 @@
 
 require 'scaife/api/registration'
 
-class ScaifeRegistrationController < ApplicationController
-  include Scaife::Api::Registration
+class ScaifeRegistrationController < ScaifeController
+
+  def _clear_scaife_session()
+    session.delete(:login_token)
+    session.delete(:scaife_mode)
+  end
 
   def getLoginModal
     respond_to do |format|
@@ -41,6 +45,79 @@ class ScaifeRegistrationController < ApplicationController
     end
   end
 
+  def get_server_access(server, login_token)
+    begin
+      api = UIToRegistrationApi.new
+      response, status_code, headers = \
+        api.get_server_access_with_http_info(server, login_token)
+      if status_code != 200
+        puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+        response = "Unknown Result"
+      end
+    rescue Scaife::Api::Registration::ApiError => e
+      staus_code = e.code
+      if [400, 404, 405].include? e.code
+        # Invalid Request, not found, etc
+        response = maybe_json_response(e.response_body)
+        if login_token.present?
+          puts "defined server access fail: #{e}"
+        end
+      else
+        # Unknown error
+        puts "\nException #{__method__} calling UIToRegistrationApi->get_server_access: #{e}\n"
+        response = "Error #{e.code}: #{e}"
+      end
+    end
+    return response, status_code
+  end
+
+  def _handle_login(user, pass)
+    # called in submitLogin() as well as submitRegister()
+    # returns: response_data, code, code_is_known, response message
+    code = nil
+    code_is_known = false
+    data = nil
+    response_msg = nil
+    if user.blank? or pass.blank?
+      return code, code_is_known, data, response_msg
+    end
+    begin
+      query_data = LoginCredentials.build_from_hash({
+        username: user,
+        password: pass
+      })
+      api = UIToRegistrationApi.new
+      data, code, headers = \
+        api.login_user_with_http_info(query_data)
+      if code == 200
+        code_is_known = true
+        response_msg = "OK"
+      else
+        # these shouldn't happen
+        code_is_known = false
+        response_msg = "Unknown Result"
+        puts "Unknown result in #{__method__}: #{code}: #{data}"
+      end
+    rescue Scaife::Api::Registration::ApiError => e
+      code = e.code
+      if [400, 405].include? e.code
+        # Invalid Request or Login Unavailable
+        code_is_known = true
+        response_msg = maybe_json_response(e.response_body)
+      else
+        # Unexpected Error
+        puts "\nException #{__method__} calling UIToRegistrationApi->login_user: #{e}\n"
+        code_is_known = false
+        if e.message.include? "resolve host name" 
+          response_msg = "SCAIFE servers not found"
+        else
+          response_msg = "Unknown Error"
+        end
+      end
+    end
+    return data, code, code_is_known, response_msg
+  end
+
 =begin
   User clicks "Register" button on _getRegisterModal.html.erb
 =end
@@ -50,54 +127,53 @@ class ScaifeRegistrationController < ApplicationController
     org = params[:org_field]
     user = params[:user_field]
     pass = params[:password_field]
+    @scaife_response = @scaife_login_response = nil
+    @scaife_status_code = @scaife_login_status_code = nil
     if first.blank? or last.blank? or org.blank? or user.blank? or pass.blank?
-      @response_msg = "Please populate all of the fields"
+      @scaife_response_msg = "Please populate all of the fields"
     else
       begin
-        response = SCAIFE_register(first, last, org, user, pass)
-        @response_code = response.code
-        if response.code == 201
+        query_data = UserInformation.build_from_hash({
+          first_name: first,
+          last_name: last,
+          organization_name: org,
+          username: user,
+          password: pass
+        })
+        api = UIToRegistrationApi.new
+        @scaife_response, @scaife_status_code, response_headers = \
+          api.register_users_with_http_info(query_data)
+        if @scaife_status_code == 201
           # continue with login
-          begin
-            login_response = SCAIFE_login(user, pass)
-            @login_response_code = login_response.code
-            if login_response.code == 200
-              connectPulsar()
-              session[:login_token] = JSON.parse(login_response.body)["x_access_token"]
-              session[:scaife_mode] = "Connected"
-            else
-              if [400, 405].include? login_response.code
-                # Invalid Request or Login Unavailable
-                @login_response_msg = login_response.body.gsub('"', '')
-              else
-                body = JSON.parse(response.body)
-                @login_response_msg = "Error #{@login_response_code}: #{body['title']}: #{body['detail']}"
-              end
-              session.delete(:login_token)
-              session.delete(:scaife_mode)
-            end
-          end
-        else
-          if [400, 405].include? response.code
-            # Invalid Request or Registration Unavailable
-            @response_msg = response.body.gsub('"', '')
+          login_data, @scaife_login_status_code, code_is_known, \
+            @scaife_login_response = _handle_login(user, pass)
+          if @scaife_login_status_code == 200
+            connectPulsar()
+            session[:login_token] = login_data.x_access_token
+            session[:scaife_mode] = "Connected"
           else
-            # Unknown error
-            body = JSON.parse(response.body)
-            msg = "Error #{@response_code}: #{body['title']}: #{body['detail']}"
-            puts msg
-            @response_msg = msg
+            _clear_scaife_session()
           end
-          session.delete(:login_token)
-          session.delete(:scaife_mode)
-        end
-      rescue Errno::ECONNREFUSED => e
-        # SCAIFE servers aren't running
-        puts "SCAIFE registration error: #{e.message}"
-        if @debug
-          @response_msg = e.message
         else
-          @response_msg = "Failed to connect to SCAIFE registration server"
+          # only other 2?? codes would show up here, so shouldn't happen
+          # these shouldn't happen
+          puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+          @scaife_response = "Unknown Result"
+          _clear_scaife_session()
+        end
+      rescue Scaife::Api::Registration::ApiError => e
+        @scaife_status_code = e.code
+        if [400, 405].include? e.code
+          # Invalid Request or Registration Unavailable
+          @scaife_response = maybe_json_response(e.response_body)
+        else
+          # Unexpected Error
+          puts "\nException #{__method__} calling UIToRegistrationApi->register_users: #{e}\n"
+          if e.message.include? "resolve host name" 
+            @scaife_response = "SCAIFE servers not found"
+          else
+            @scaife_response = "Unknown Error"
+          end
         end
       end
     end
@@ -109,48 +185,14 @@ class ScaifeRegistrationController < ApplicationController
   def submitLogin
     user = params[:user_field]
     pass = params[:password_field]
-    if user.blank? or pass.blank?
-      @response_msg = "Invalid User or Password"
+    response_data, @scaife_status_code, code_is_known, @scaife_response =
+      _handle_login(user, pass)
+    if @scaife_status_code == 200
+      connectPulsar()
+      session[:login_token] = response_data.x_access_token
+      session[:scaife_mode] = "Connected"
     else
-      begin
-        response = SCAIFE_login(user, pass)
-        @response_code = response.code
-        if response.code == 200
-          connectPulsar()
-          session[:login_token] = JSON.parse(response.body)["x_access_token"]
-          session[:scaife_mode] = "Connected"
-        else
-          if [400, 405].include? response.code
-            # Invalid Request # or Login Unavailable
-            @response_msg = response.body.gsub('"', '')
-          else
-            # Unexpected Error
-            begin
-              body = JSON.parse(response.body)
-              if @debug.present?
-                @response_msg = "Error #{@response_code}: #{body['title']}: #{body['detail']}"
-              else
-                @response_msg = body["title"]
-              end
-            rescue JSON::ParserError
-              puts "non-json response: #{response.body}"
-              @response_msg = "Failed to connect to SCAIFE registration server"
-            end
-          end
-          session.delete(:login_token)
-          session.delete(:scaife_mode)
-        end
-      rescue Errno::ECONNREFUSED => e
-        # SCAIFE servers aren't running
-        if @debug
-          puts "SCAIFE registration server not running: #{e.message}"
-          @response_msg = e.message
-        else
-          @response_msg = "Failed to connect to SCAIFE registration server"
-        end
-        session.delete(:login_token)
-        session[:scaife_mode] = "Demo"
-      end
+      _clear_scaife_session()
     end
     respond_to do |format|
       format.js
@@ -158,37 +200,30 @@ class ScaifeRegistrationController < ApplicationController
   end
 
   def submitLogout
+    @scaife_status_code = @scaife_response = nil
     begin
-      r_token = rand 100..999
-      response = SCAIFE_logout(session[:login_token], r_token)
-      @response_code = response.code
-      if response.code == 200
-        disconnectPulsar()
-        @response_msg = "User Successfully Logged Out"
-      else
-        if [400, 405].include? response.code
-          # Invalid Request or Logout Unavailable
-          @response_msg = response.body.gsub('"', '')
+      begin
+        api = UIToRegistrationApi.new
+        response_dta, @scaife_status_code, response_headers = \
+            api.logout_user_with_http_info(session[:login_token])
+        if @scaife_status_code == 200
+          @scaife_response = "User Successfully Logged Out"
+          disconnectPulsar()
         else
-          # Unknown Error
-          body = JSON.parse(response.body)
-          msg = "Error #{@response_code}: #{body['title']}: #{body['detail']}"
-          puts msg
-          if @debug.present?
-            @response_msg = msg
-          else
-            @response_msg = "Problem with SCAIFE registration server"
-          end
+          # Unknown 2?? response...
+          puts "error in #{__method__}: #{@scaife_status_code}: #{response_dta}"
+          @scaife_response = "Problem with SCAIFE registration server"
         end
-        self._clear_scaife_session()
-      end
-    rescue Errno::ECONNREFUSED => e
-      # SCAIFE registration server isn't running
-      if @debug
-        puts "SCAIFE registration server not running: #{e.message}"
-        @response_msg = e.message
-      else
-        @response_msg = "SCAIFE registration server offline"
+      rescue Scaife::Api::Registration::ApiError => e
+        @scaife_status_code = e.code
+        if [400, 405].include? e.code
+          # Invalid Request or Logout Unavailable
+          @scaife_response = maybe_json_response(e.response_body)
+        else
+          # Unexpected Error
+          puts "\nException #{__method__} calling UIToRegistrationApi->logout_users: #{e.message}\n"
+          @scaife_response = "Problem with SCAIFE registration server"
+        end
       end
     ensure
       self._clear_scaife_session()
@@ -199,18 +234,23 @@ class ScaifeRegistrationController < ApplicationController
   end
 
   def connectPulsar
-    script = Rails.root.join('scripts/connect_to_pulsar.sh')
-    spawn("#{script} pulsar")
+    if not self.offline_testing
+      script = Rails.root.join('scripts/connect_to_pulsar.sh')
+      spawn("#{script} pulsar")
+    end
   end
 
   def disconnectPulsar
     %w[stats_subscriber connect_to_pulsar].each do |pgm|
       path = Rails.root.join("tmp/#{pgm}.pid")
-      Process.kill('TERM', open(path).read.to_i)
-      File.delete(path)
+      if File.exist? path
+        Process.kill('TERM', open(path).read.to_i)
+        File.delete(path)
+      end
     end
   rescue Errno::ESRCH
   ensure
     puts('Pulsar disconnected')
   end
+
 end

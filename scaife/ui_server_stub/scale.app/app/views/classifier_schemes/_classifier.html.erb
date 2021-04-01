@@ -65,6 +65,41 @@
      </div>
      <br/>
      <hr/>
+     <div id="feature_selection">
+       <h4>Feature Selection</h4>
+         <div class="form-check">
+           <input class="form-check-input" type="radio" name="feature_radio_button" id="feature_intersection" value="intersection" <%= @selectedFeatureCategory == 'intersection' || @selectedFeatureCategory.nil? ? "checked" : '' %>>
+             <label class="form-check-label" for="feature_selection">
+               Only use features present in the data
+             </label>
+         </div>
+         <div class="form-check">
+           <input class="form-check-input" type="radio" name="feature_radio_button" id="feature_union" value="union" <%= @selectedFeatureCategory == 'union' ? "checked" : '' %>>
+           <label class="form-check-label" for="feature_selection">
+             Use all available features *
+           </label>
+           <p class="text-warning">* This option will replace missing data with placeholder values, which may make classification less accurate</p>
+         </div>
+    </div>
+
+    <div>
+        <input type="checkbox" class="form-check-input" id="semantic_features_checkbox">
+        <label class="form-check-label" for="semantic_features_checkbox">Use Semantic Features</label>  
+    </div>
+
+    <div>
+        <input type="checkbox" class="form-check-input" id="use_pca_checkbox">
+        <label class="form-check-label" for="use_pca_checkbox">Apply Principal Component Analysis (PCA)</label>
+    </div> 
+     
+
+    <div>   
+        <label for="numMetaAlertThreshold">Number of Meta-Alerts received before retraining</label>
+        <input type="number" id="numMetaAlertThreshold" name="numMetaAlertThreshold" min="1" value="100">      
+    </div> 
+
+
+    <hr/>
 
     <div id="ah">
 	  <% unless @adaptiveHeuristics.empty? %>

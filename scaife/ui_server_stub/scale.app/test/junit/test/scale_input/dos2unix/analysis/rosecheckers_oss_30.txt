@@ -1,0 +1,33 @@
+ /opt/rosecheckers/rosecheckers -DVER_REVISION="7.2.2" -DVER_DATE="2015-05-22" -DVER_AUTHOR="Erwin Waterlander" -DDEBUG=0 -DD2U_UNICODE -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DENABLE_NLS -DLOCALEDIR="/usr/share/locale" -DPACKAGE="dos2unix" -O2 -Wall -Wextra -Wconversion -c common.c -o common.o
+rosecheckers front-end complete
+common.c:254: error: FIO30-C: Message1
+common.c:255: error: FIO30-C: Message2
+common.c:256: error: FIO30-C: Message3
+common.c:257: error: FIO30-C: Message4
+common.c:258: error: FIO30-C: Message5
+common.c:259: error: FIO30-C: Message6
+common.c:260: error: FIO30-C: Message7
+common.c:261: error: FIO30-C: Message8
+common.c:262: error: FIO30-C: Message9
+common.c:263: error: FIO30-C: Message10
+common.c:265: error: FIO30-C: Message11
+common.c:267: error: FIO30-C: Message12
+common.c:268: error: FIO30-C: Message13
+common.c:270: error: FIO30-C: Message14
+common.c:276: error: FIO30-C: Message15
+common.c:277: error: FIO30-C: Message16
+common.c:279: error: FIO30-C: Message17
+common.c:280: error: FIO30-C: Message18
+common.c:281: error: FIO30-C: Message19
+common.c:282: error: FIO30-C: Message20
+common.c:283: error: FIO30-C: Message21
+common.c:286: error: FIO30-C: Message22
+common.c:288: error: FIO30-C: Message23
+common.c:290: error: FIO30-C: Message24
+common.c:292: error: FIO30-C: Message25
+common.c:293: error: FIO30-C: Message26
+common.c:295: error: FIO30-C: Message27
+common.c:296: error: FIO30-C: Message28
+common.c:297: error: FIO30-C: Message29
+common.c:299: error: FIO30-C: Message30
+rosecheckers complete

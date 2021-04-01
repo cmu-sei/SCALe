@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -107,6 +107,7 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 	public Boolean connectToScaife() {
 
 		Boolean connected = false;
+		waitForPageLoad(driver);
 		if (! scaifeActive()) {
 			System.out.println("establishing connection to SCAIFE");
 			new WebDriverWait(driver, 10).until(ExpectedConditions
@@ -135,6 +136,7 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 	public Boolean disconnectFromScaife() {
 
 		Boolean disconnected = false;
+		waitForPageLoad(driver);
 		if (scaifeActive()) {
 			System.out.println("tearing down connection to SCAIFE");
 			new WebDriverWait(driver, 10).until(ExpectedConditions
@@ -399,13 +401,19 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 
 		System.out.printf("creating project: %s\n", projectName);
 		this.createSimpleProject(projectName, projectDescription, archiveFile, analysisFile, toolID, false); // do not
-																												// finish
+		System.out.printf("created phase 1 project: %s\n", projectName);
+
 		String lang = "C";
 		List<String> lang_versions = Arrays.asList("89");
 		this.UploadAnalysis.selectLanguagesByName(lang, lang_versions);
+		System.out.println("selected C89");
 		this.finishCreatingProjectFromDatabase();
 
+		System.out.printf("submitted project: %s\n", projectName);
+
 		this.waitForAlertConditionsTableLoad();
+
+		System.out.printf("created project: %s\n", projectName);
 
 		// set some to verdict true
 		Select menu = new Select(this.driver.findElement(By.id("checker")));
@@ -486,12 +494,15 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 		String fileInfoFile = new File(dataDir, "micro_juliet_cpp_files.csv").toString();
 		String functionInfoFile = new File(dataDir, "micro_juliet_cpp_functions.csv").toString();
 
+		System.out.printf("creating project: %s\n", projectName);
 		this.createSimpleProject(projectName, projectDescription, archiveFile, analysisFile, toolID, false); // do not
-																												// finish
+		System.out.printf("created phase 1 project: %s\n", projectName);
+
 		Map<String, List<String>> langSelects = new HashMap<>();
 		langSelects.put("C", Arrays.asList("89"));
 		langSelects.put("C++", Arrays.asList("98"));
 		this.UploadAnalysis.selectLanguagesByName(langSelects);
+		System.out.println("selected C89, CPP98");
 
 		// test suit components
 		this.UploadAnalysis.enableTestSuite();
@@ -506,7 +517,10 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 		this.UploadAnalysis.setTestSuiteFunctionInfoFile(functionInfoFile);
 
 		this.finishCreatingProjectFromDatabase();
+		System.out.printf("submitted project: %s\n", projectName);
+
 		this.waitForAlertConditionsTableLoad();
+		System.out.printf("created project: %s\n", projectName);
 
 		// upload languages (already defined above)
 		// because we're uploading from splash page, need
@@ -630,9 +644,17 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 		System.out.printf("submitting classifier: %s\n", classifierName);
 		submitButton.click();
 
-		new WebDriverWait(driver, 500)
-			.until(ExpectedConditions.invisibilityOfElementLocated(By.id("modal-placement")));
-		this.waitForAlertConditionsTableLoad(50);
+		try {
+			new WebDriverWait(driver, 500)
+				.until(ExpectedConditions.invisibilityOfElementLocated(By.id("modal-placement")));
+			this.waitForAlertConditionsTableLoad(50);
+		} catch (TimeoutException e) {
+			// perhaps something went wrong, check for error text
+			WebElement err_elm = driver.findElement(By.id("classifier-errors"));
+			if (err_elm.isDisplayed()) {
+				throw new TimeoutException("error creating classifier: " + err_elm.getText());
+			}
+		}
 
 		return classifierName;
 		

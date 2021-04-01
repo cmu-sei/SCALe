@@ -15,8 +15,8 @@
           <% if @scaife_active %>
             <% @scaife_languages_by_id.each_value do |scaife_lang| %>
               <tr>
-                <td><%= "#{scaife_lang['language']}" %></td>
-                <td><%= "#{scaife_lang['version']}" %></td>
+                <td><%= "#{scaife_lang.language}" %></td>
+                <td><%= "#{scaife_lang.version}" %></td>
               </tr>
             <% end %>
           <% else %>

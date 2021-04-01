@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -34,6 +34,7 @@ import junit.framework.TestSuite;
 import scale_webapp.test.infra.AppConfig;
 import scale_webapp.test.infra.ScaleWebApp;
 import scale_webapp.test.infra.ToolInfo;
+import scale_webapp.test.infra.InputPathInfo;
 
 public class TestUploadAlertsStress extends TestCase {
 	private AppConfig config;
@@ -65,8 +66,8 @@ public class TestUploadAlertsStress extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "src100/src100.zip").toString();
-		String outputPath = new File(this.config.inputDirectory, "src100/analysis/coverity_100.json").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.RandomSrc).toString();
+		String outputPath = new File(this.config.inputDirectory, InputPathInfo.RandomSrcToolOutputRosecheckers100).toString();
 
 		try {
 			webApp = this.config.createApp();
@@ -74,7 +75,7 @@ public class TestUploadAlertsStress extends TestCase {
 
 			long before, after;
 			before = System.currentTimeMillis();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, outputPath, ToolInfo.Coverity_C_ID,
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, outputPath, ToolInfo.Rosecheckers_OSS_C_ID,
 					true);
 			after = System.currentTimeMillis();
 			System.out.println("100,100,Time," + (after - before));
@@ -95,8 +96,8 @@ public class TestUploadAlertsStress extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "src100/src100.zip").toString();
-		String outputPath = new File(this.config.inputDirectory, "src100/analysis/coverity_600.json").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.RandomSrc).toString();
+		String outputPath = new File(this.config.inputDirectory, InputPathInfo.RandomSrcToolOutputRosecheckers600).toString();
 
 		try {
 			webApp = this.config.createApp();
@@ -104,7 +105,7 @@ public class TestUploadAlertsStress extends TestCase {
 
 			long before, after;
 			before = System.currentTimeMillis();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, outputPath, ToolInfo.Coverity_C_ID,
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, outputPath, ToolInfo.Rosecheckers_OSS_C_ID,
 					true);
 			after = System.currentTimeMillis();
 			System.out.println("100,600,Time," + (after - before));
@@ -125,8 +126,8 @@ public class TestUploadAlertsStress extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "src100/src100.zip").toString();
-		String outputPath = new File(this.config.inputDirectory, "src100/analysis/coverity_1100.json").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.RandomSrc).toString();
+		String outputPath = new File(this.config.inputDirectory, InputPathInfo.RandomSrcToolOutputRosecheckers1100).toString();
 
 		try {
 			webApp = this.config.createApp();
@@ -134,7 +135,7 @@ public class TestUploadAlertsStress extends TestCase {
 
 			long before, after;
 			before = System.currentTimeMillis();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, outputPath, ToolInfo.Coverity_C_ID,
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, outputPath, ToolInfo.Rosecheckers_OSS_C_ID,
 					true);
 			after = System.currentTimeMillis();
 			System.out.println("100,1100,Time," + (after - before));

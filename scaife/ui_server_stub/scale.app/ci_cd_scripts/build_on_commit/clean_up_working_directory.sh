@@ -1,0 +1,1 @@
+../clean_up_working_directory.sh

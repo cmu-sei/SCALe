@@ -35,9 +35,9 @@
 # as described in the testing document.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -65,8 +65,6 @@ from automate import ScaleSession, FetchError
 
 from bootstrap import VERBOSE
 
-dev_db = bootstrap.development_db()
-
 analysis_dir = os.path.join(bootstrap.base_dir,
         "demo/micro_juliet_v1.2_cppcheck_b")
 
@@ -75,11 +73,16 @@ def test_file(basename):
 
 def main():
     # make sure SCAIFE services are up, including SCALe, start a session
-    bootstrap.assert_services_are_up()
+    try:
+        bootstrap.assert_services_are_up()
+    except AssertionError as e:
+        print >> sys.stderr, str(e)
+        sys.exit(1)
     sess = ScaleSession()
     sess.event_scaife_session_establish()
     # create a test suite project with microjuliet/cppcheck with C 89
     # and C++ 98
+    project_name="microjuliet/cppcheck"
     tools = {
         # by tool_group key
         "cppcheck_oss-c-cpp":
@@ -91,10 +94,11 @@ def main():
     ]
     lang_ids = []
     for name, plat, ver in langs:
-        lang = bootstrap.lang_by_name(dev_db, name, plat, version=ver)
+        lang = bootstrap.lang_by_name(bootstrap.internal_db,
+                name, plat, version=ver)
         lang_ids.append(lang.id_)
     sess.event_project_create(
-        name="microjuliet/cppcheck project",
+        name="%s project" % project_name,
         description="test project automation",
         src_file = test_file("micro_juliet_cpp.zip"),
         is_test_suite = True,
@@ -133,6 +137,8 @@ def main():
     # run classifier
     sess.query_scaife_classifier_run(classifier_name, primed=True)
     # all done, return newly created project ID
+    if VERBOSE:
+        print("automation complete: %s %s" % (project_name, sess.project_id))
     return sess.project_id
 
 # this has to happen below the definition of main(). Register this

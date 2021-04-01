@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -45,9 +45,9 @@ end
 
 module Scale
   class Application < Rails::Application
-    config.ids = [11, 12, 21, 22, 23, 24, 25, 26, 31, 32, 33, 34, 35, 36, 41, 42, 53, 61, 91, 92, 93]
-    config.names = ["gcc_oss", "rosecheckers_oss", "msvc", "pclint", "fortify", "coverity", "ldra", "cppcheck_oss", "eclipse_oss", "findbugs_oss","fortify","coverity", "javacheck_oss", "findsecbugs_oss", "perlcritic_oss", "blint_oss", "fortify", "swamp_scarf_oss", "lizard_oss", "ccsm_oss", "understand"]
-    config.platforms = ["c", "c", "c", "c", "c", "c", "c", "c", "java", "java", "java",  "java", "java", "java", "perl", "perl", "js", "agnostic", "metric", "metric", "metric"]
+    config.ids = [11, 12, 13, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 36, 41, 42, 53, 61, 91, 92, 93]
+    config.names = ["gcc_oss", "rosecheckers_oss", "codesonar", "msvc", "pclint", "fortify", "coverity", "ldra", "cppcheck_oss", "clang_oss", "clang_compiler_oss", "eclipse_oss", "findbugs_oss","fortify","coverity", "javacheck_oss", "findsecbugs_oss", "perlcritic_oss", "blint_oss", "fortify", "swamp_scarf_oss", "lizard_oss", "ccsm_oss", "understand"]
+    config.platforms = ["c", "c", "c", "c", "c", "c", "c", "c", "c", "java", "java", "java",  "java", "java", "java", "perl", "perl", "js", "agnostic", "metric", "metric", "metric"]
     # TODO must read this material from scripts/tools.org directly
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -55,6 +55,9 @@ module Scale
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
+
+    # so test mode autoloads libs
+    config.autoload_paths << "#{Rails.root}/lib"
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -105,10 +108,10 @@ module Scale
     config.x.scaife.list_packages = 'packages' # GET /packages
     config.x.scaife.list_languages = 'languages' # GET /languages
     config.x.scaife.create_language = 'languages' # POST /languages
-    config.x.scaife.get_taxonomy_list = 'taxonomies' # GET /taxonomies
+    config.x.scaife.list_taxonomies = 'taxonomies' # GET /taxonomies
     config.x.scaife.create_taxonomy = 'taxonomies' # POST /taxonomies
     config.x.scaife.edit_taxonomy = 'taxonomies' # PUT /taxonomies
-    config.x.scaife.get_tool_list = 'tools' # GET /tools
+    config.x.scaife.list_tools = 'tools' # GET /tools
     config.x.scaife.get_tool_data = 'tools' # GET /tools/<tool_id>
     config.x.scaife.upload_tool = 'tools' # POST /tools
     config.x.scaife.edit_tool = 'tools' # PUT /tools/<tool_id>
@@ -122,7 +125,7 @@ module Scale
     config.x.scaife.projects = 'projects'
 
     # SCAIFE server action relative urls for prioritization
-    config.x.scaife.get_priorities = 'priorities'
+    config.x.scaife.list_priority_schemes = 'priorities'
     config.x.scaife.create_priority_scheme = 'priorities'
     config.x.scaife.update_priority_scheme = 'priorities'
     config.x.scaife.get_priority_scheme = 'priorities'
@@ -151,8 +154,10 @@ module Scale
     config.x.external_db_path = Rails.root.join(config.x.external_db_filename)
     config.x.external_db_basename = File.basename(config.x.external_db_path)
 
-    config.x.db_backup_dir = config.x.db_dir.join("backup")
-    config.x.archive_dir = Rails.root.join("archive")
+    config.x.db_backup_dir = config.x.db_dir.join(Rails.env, "backup")
+    config.x.archive_dir = Rails.root.join("archive", Rails.env)
+    config.x.archive_backup_dir = config.x.archive_dir.join("backup")
+    config.x.archive_nobackup_dir = config.x.archive_dir.join("nobackup")
 
     # db adapter type
     config.x.db_adapter = config.x.db_config["adapter"]
@@ -160,6 +165,8 @@ module Scale
     # session capture
     config.x.session_capture_enabled = false
     config.x.session_capture_filename = "session_capture.json"
+
+    config.x.offline_testing = false
 
   end
 

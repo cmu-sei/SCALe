@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -25,209 +25,216 @@
 require 'scaife/api/statistics'
 require 'scaife/api/registration'
 
-class ScaifeStatisticsController < ApplicationController
-  include Scaife::Api::Statistics
-  include Scaife::Api::Registration
+class ScaifeStatisticsController < ScaifeController
 
 =begin
   User selects "Classifiers" -> "Create New Classifier" from header
 =end
   def listClassifiers(login_token)
-    @response = nil
+    @scaife_response = @scaife_status_code = nil
     @errors = []
     begin
-      with_scaife_statistics_access(login_token) do |access_token, request_token|
-        st_response = SCAIFE_list_classifiers(access_token, request_token)
-        #puts "Statistics server response:"
-        #puts st_response
-        body = JSON.parse(st_response.body)
-        if st_response.code == 200
-          @response = body
-        elsif st_response.code == 404
-          # note: classifiers are pre-loaded, so this is a failure
-          # if it happens
-          puts "Statistics: no classifiers available"
-        elsif [400, 401, 403].include? st_response.code
-          # 400 Invalid Request
-          # 401 Invalid Token Request
-          # 403 Missing Required Tokens
-          puts "Stats: (defined) server response #{st_response.code}: #{body['message']}"
-          @response = body
-          @errors << body
-        else
-          # Unexpected Error
-          puts "Stats: (undefined) server response #{st_response.code}: #body['message']body}"
-          @response = body.to_s
-          @errors << body
+      with_scaife_stats_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Statistics::UIToStatsApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.list_classifiers_with_http_info(access_token)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Statistics::ApiError => e
+          @scaife_status_code = e.code
+          if [400, 401, 403].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling UIToStatsApi->list_classifiers: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
         end
       end
     rescue ScaifeError => e
       # registration server issue
-      @response = e.message
-      @errors << @response
-    rescue JSON::ParserError
-      # HTML formatted error (hostname lookup failure perhaps)
-      @response = st_response.body
-      @errors << @response
+      @scaife_response = e.message
+      @errors << @scaife_response
     end
-    return @response
+    return @scaife_response
   end
 
   def deleteClassifier(login_token, ci_id)
-    @response = nil
+    @scaife_response = @scaife_status_code = nil
     @errors = []
     begin
-      with_scaife_statistics_access(login_token) do |access_token, request_token|
-        st_response = SCAIFE_delete_classifier(access_token, request_token, ci_id)
-        #puts "Statistics server response:"
-        #puts st_response
-        body = JSON.parse(st_response.body)
-        if st_response.code == 200
-          @response = body
-        elsif [400, 401, 403, 404].include? st_response.code
-          # 400 Invalid Request
-          # 401 Invalid Token Request
-          # 403 Missing Required Tokens
-          # 404 Unable to Delete Classifier
-          puts "Stats: (defined) server response #{st_response.code}: #{body}"
-          @response = body
-          @errors << body
-        else
-          # Unexpected Error
-          puts "Stats: (undefined) server response #{st_response.code}: #{body}"
-          @response = body.to_s
-          @errors << body
+      with_scaife_stats_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Statistics::UIToStatsApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.delete_classifier_with_http_info(access_token, ci_id)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Statistics::ApiError => e
+          @scaife_status_code = e.code
+          if [400, 401, 403, 404].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling UIToStatsApi->delete_classifiers: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
         end
       end
     rescue ScaifeError => e
       # registration server issue
-      @response = e.message
-      @errors << @response
-    rescue JSON::ParserError
-      # HTML formatted error (hostname lookup failure perhaps)
-      @response = st_response.body
-      @errors << @response
+      @scaife_response = e.message
+      @errors << @scaife_response
     end
-    return @response
+    return @scaife_response
   end
 
-  def createClassifier(login_token, c_id, c_type, ci_name, p_ids, ahpo_name, ahpo_params, ah_name, ah_params)
-    @response = nil
+  def createClassifier(login_token, c_id, c_type, ci_name, p_ids, ahpo_name, ahpo_params, ah_name, ah_params, use_pca, feature_category, semantic_features, num_meta_alert_threshold)
+    @scaife_response = @scaife_status_code = nil
     @errors = []
     begin
-      with_scaife_statistics_access(login_token) do |access_token, request_token|
-        st_response = SCAIFE_create_classifier(access_token, request_token, c_id, c_type, ci_name, p_ids, ahpo_name, ahpo_params, ah_name, ah_params)
-        #puts "Statistics server response:"
-        #puts st_response
-        body = JSON.parse(st_response.body)
-        if st_response.code == 200
-          @response = body
-        elsif [400, 401, 403, 404, 422, 501].include? st_response.code
-          # 400 Unable to Create Classifier
-          # 401 Invalid Token Request
-          # 403 Missing Required Tokens
-          # 404 Required Resources Not Found
-          # 422 Data Lacks Verdicts Labeled 'True' and 'False'
-          # 501 Error Retrieving DataHub Information
-          puts "Stats: (defined) server response #{st_response.code}: #{body}"
-          @response = body
-          @errors << body
-        else
-          # Unexpected Error
-          puts "Stats: (undefined) server response #{st_response.code}: #{body}"
-          @response = body.to_s
-          @errors << body
+      with_scaife_stats_access(login_token) do |access_token|
+        begin
+          data = self.symbolize_data({
+            classifier_id: c_id,
+            classifier_type: c_type,
+            classifier_instance_name: ci_name,
+            project_ids: p_ids,
+            ahpo_name: ahpo_name,
+            ahpo_parameters: ahpo_params,
+            adaptive_heuristic_name: ah_name,
+            adaptive_heuristic_parameters: ah_params,
+            use_pca: use_pca,
+            feature_selection_category: feature_category,
+            use_semantic_features: semantic_features,
+            num_meta_alert_threshold: num_meta_alert_threshold.to_i
+          })
+          data = Scaife::Api::Statistics::ClassifierInstance.build_from_hash(data)
+          api = Scaife::Api::Statistics::UIToStatsApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.create_classifier_instance_with_http_info(access_token, data)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Statistics::ApiError => e
+          @scaife_status_code = e.code
+          if [400, 401, 403, 404, 422, 501].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling UIToStatsApi->create_classifier_instance: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
         end
       end
     rescue ScaifeError => e
       # registration server issue
-      @response = e.message
-      @errors << @response
-    rescue JSON::ParserError
-      # HTML formatted error (hostname lookup failure perhaps)
-      @response = st_response.body
-      @errors << @response
+      @scaife_response = e.message
+      @errors << @scaife_response
     end
-    return @response
+    return @scaife_response
   end
 
-  def editClassifier(login_token, ci_id, c_id, c_type, ci_name, p_ids, ahpo_name, ahpo_params, ah_name, ah_params)
-    @response = nil
+
+  def editClassifier(login_token, ci_id, c_id, c_type, ci_name, p_ids, ahpo_name, ahpo_params, ah_name, ah_params, use_pca, feature_category, semantic_features, num_meta_alert_threshold)
+    @scaife_response = @scaife_status_code = nil
     @errors = []
     begin
-      with_scaife_statistics_access(login_token) do |access_token, request_token|
-        st_response = SCAIFE_edit_classifier(access_token, request_token, ci_id, c_id, c_type, ci_name, p_ids, ahpo_name, ahpo_params, ah_name, ah_params)
-        #puts "Statistics server response:"
-        #puts st_response
-        body = JSON.parse(st_response.body)
-        if st_response.code == 200
-          @response = body
-        elsif [400, 401, 403, 404, 422, 501].include? st_response.code
-          # 400 Unable to Edit Classifier
-          # 401 Invalid Token Request
-          # 403 Missing Required Tokens
-          # 404 Required Resources Not Found
-          # 422 Data Lacks Verdicts Labeled 'True' and 'False'
-          # 501 Error Retrieving DataHub Information
-          puts "Stats: (defined) server response #{st_response.code}: #{body}"
-          @response = body
-          @errors << body
-        else
-          # Unexpected Error
-          puts "Stats: (undefined) server response #{st_response.code}: #{body}"
-          @response = body.to_s
-          @errors << body
+      with_scaife_stats_access(login_token) do |access_token|
+        begin
+          data = self.symbolize_data({
+            classifer_instance_id: ci_id,
+            classifier_id: c_id,
+            classifier_type: c_type,
+            classifier_instance_name: ci_name,
+            project_ids: p_ids,
+            ahpo_name: ahpo_name,
+            ahpo_parameters: ahpo_params,
+            adaptive_heuristic_name: ah_name,
+            adaptive_heuristic_parameters: ah_params,
+            use_pca: use_pca,
+            feature_selection_category: feature_category,
+            use_semantic_features: semantic_features,
+            num_meta_alert_threshold: num_meta_alert_threshold.to_i
+          })
+          data = Scaife::Api::Statistics::ClassifierInstance.build_from_hash(data)
+          api = Scaife::Api::Statistics::UIToStatsApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.create_classifier_instance_with_http_info(access_token, data)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Statistics::ApiError => e
+          @scaife_status_code = e.code
+          if [400, 401, 403, 404, 422, 501].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling UIToStatsApi->edit_classifier_instance: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
         end
       end
     rescue ScaifeError => e
       # registration server issue
-      @response = e.message
-      @errors << @response
-    rescue JSON::ParserError
-      # HTML formatted error (hostname lookup failure perhaps)
-      @response = st_response.body
-      @errors << @response
+      @scaife_response = e.message
+      @errors << @scaife_response
     end
-    return @response
+    return @scaife_response
   end
 
   def runClassifier(login_token, ci_id, p_id)
-    @response = nil
+    @scaife_response = @scaife_status_code = nil
     @errors = []
     begin
-      with_scaife_statistics_access(login_token) do |access_token, request_token|
-        st_response = SCAIFE_run_classifier(access_token, request_token, ci_id, p_id)
-        #puts "Statistics server response:"
-        #puts st_response
-        body = JSON.parse(st_response.body)
-        if st_response.code == 200
-          @response = body
-        elsif [400, 401, 403, 404, 501].include? st_response.code
-          # 400 Unable to Run Classifier
-          # 401 Invalid Token Request
-          # 403 Missing Required Tokens
-          # 404 Required Resources Not Found
-          # 501 Error Retrieving DataHub Information
-          puts "Stats: (defined) server response #{st_response.code}: #{body}"
-          @response = body
-          @errors << body
-        else
-          # Unexpected Error
-          puts "Stats: (undefined) server response #{st_response.code}: #{body}"
-          @response = body.to_s
-          @errors << body
+      with_scaife_stats_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Statistics::UIToStatsApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.run_classifier_instance_with_http_info(access_token, ci_id, p_id)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Statistics::ApiError => e
+          @scaife_status_code = e.code
+          if [400, 401, 403, 404, 501].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling UIToStatsApi->run_classifier_instance: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
         end
       end
     rescue ScaifeError => e
       # registration server issue
-      @response = e.message
-      @errors << @response
-    rescue JSON::ParserError
-      # HTML formatted error (hostname lookup failure perhaps)
-      @response = st_response.body
-      @errors << @response
+      @scaife_response = e.message
+      @errors << @scaife_response
     end
-    return @response
+    return @scaife_response
   end
 
 end

@@ -4,9 +4,9 @@ title: 'SCALe : Export Analysis Results from the Web Application (Internal)'
 
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -62,7 +62,7 @@ every alert in the project: the tool that produced the alert,
 the file and line number where the alert occurs, the message from
 the alert, and so on. (However, as mentioned above, a SQLite export
 contains all the data from a project but a CSV export does not.) See
-[this table](The-SCALe-Web-App.md#alert-viewer-fields)
+[this table](The-SCALe-Web-App.md#alertcondition-viewer-fields)
 for a detailed explanation of all the alert fields.
 
 This completes our demo of the SCALe process.

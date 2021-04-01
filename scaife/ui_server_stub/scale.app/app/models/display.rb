@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -160,7 +160,7 @@ class Display < ActiveRecord::Base
     u_uploads_fields_all = u_uploads_fields_uniq + ["created_at", "updated_at"]
 
     c_schemes_fields_uniq = ["classifier_instance_name", "classifier_type", "source_domain", "created_at", "updated_at", "adaptive_heuristic_name", "adaptive_heuristic_parameters", "ahpo_name", "ahpo_parameters", "scaife_classifier_id", "scaife_classifier_instance_id"]
-    c_schemes_fields_all = c_schemes_fields_uniq + ["created_at", "updated_at", "scaife_classifier_id", "scaife_classifier_instance_id"]
+    c_schemes_fields_all = c_schemes_fields_uniq + ["created_at", "updated_at", "scaife_classifier_id", "scaife_classifier_instance_id", "use_pca", "feature_category", "semantic_features", "num_meta_alert_threshold"]
 
     # this one has a project_id
     p_schemes_fields_all = ["name", "formula", "weighted_columns", "confidence", "cert_severity", "cert_likelihood", "cert_remediation", "cert_priority", "cert_level", "cwe_likelihood", "p_scheme_type", "created_at", "updated_at", "scaife_p_scheme_id"]

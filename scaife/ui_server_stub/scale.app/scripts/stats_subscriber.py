@@ -1,13 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # This script contains code to subscribe to data objects from the Stats Module.
 # The topic is a string describing the type of data object that will be received (e.g., classifier_results).
 # Publishers must use the same topic string to send data objects of a given type.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -29,19 +29,21 @@
 # </legal>
 
 import os
+import atexit
+import random
 import pulsar
-from pulsar.schema import *
+from pulsar.schema import AvroSchema
 from publish_subscribe_schema import *
-from subprocess import *
+from multiprocessing import Process, Queue
 
 import bootstrap
 
 
-Config_Data = bootstrap.scaife_config()
-Client = pulsar.Client('pulsar://' + Config_Data['development']['pulsar'])
-Classifier_Results_Schema = AvroSchema(ClassifierResults)
-Db_File = os.getenv("SCALE_HOME") + "/scale.app/db/development.sqlite3"
+config_data = bootstrap.scaife_config()
+pulsar_url = config_data["pulsar"]
+client = pulsar.Client('pulsar://' + pulsar_url)
 
+classifier_results_schema = AvroSchema(ClassifierResults)
 
 def update_db(db_file, msg):
     import sqlite3
@@ -67,40 +69,85 @@ def update_db(db_file, msg):
 
         # Make this transactional, so SCALe doesn't see partially-filled data
         for prob_datum in msg.probability_data:
-            cur.execute("UPDATE displays SET next_confidence = ? "
+            cur.execute("UPDATE displays SET next_confidence = ?, class_label = ?"
                         "WHERE scaife_meta_alert_id = ?",
-                        [prob_datum.probability, prob_datum.meta_alert_id])
+                        [prob_datum.probability, prob_datum.label, prob_datum.meta_alert_id])
 
         cur.execute("UPDATE projects SET confidence_lock=2"
                     " WHERE scaife_project_id = ?", [msg.project_id])
         con.commit()
 
+def create_consumer(topic_name, subscription_name):
+    try:
+        consumer = client.subscribe(
+                topic=topic_name,
+                subscription_name=subscription_name,
+                schema=classifier_results_schema)
+    except:
+        suffix = str(random.randrange(100000))
+        consumer = client.subscribe(
+                topic=topic_name,
+                subscription_name=subscription_name + suffix,
+                schema=classifier_results_schema)
+    return consumer
 
-def main():
-    consumer = Client.subscribe(
-                      topic='classifier_predictions',
-                      subscription_name='sample_subscription',
-                      schema=Classifier_Results_Schema)
-
+def pass_messages(consumer, q):
+    # this is the child process
     while True:
         msg = consumer.receive()
         msg_data = msg.value()
         try:
-            print("Received a message")
+            # Print Statement available for visual testing
+            print("Child Process Received a Message")
             print("classifier_instance_id={} project_id={} probability_data={}"
                   .format(msg_data.classifier_instance_id,
                           msg_data.project_id,
                           msg_data.probability_data))
-            update_db(Db_File, msg_data)
 
             # Acknowledge successful processing of the message
             consumer.acknowledge(msg)
         except:
             # Message failed to be processed
+            print("Child Process DID NOT Received a Message")
             consumer.negative_acknowledge(msg)
+        # we could try passing the msg object itself if we want
+        q.put(msg_data)
 
-    consumer.unsubscribe()
-    consumer.close()
+def messages(consumer):
+    q = Queue()
+    p = Process(target=pass_messages, args=(consumer, q))
+    p.start()
+    def _reap_child():
+        if p.is_alive():
+            print("Terminating Spawned Process")
+            p.terminate()
+    atexit.register(_reap_child)
+
+    try:
+        while True:
+            msg = q.get()
+            print("Parent Got Message Data: %s" % msg)
+            yield msg
+    finally:
+        # could pass a timeout value
+        p.join()
+
+def main():
+    consumer = create_consumer("classifier_predictions", "sample_subscription")
+    try:
+        for msg in messages(consumer):
+            # TODO: Do something with the message
+            # Print Statement available for visual testing
+            print("Parent Process Received a Message")
+            print("classifier_instance_id={} project_id={} probability_data={}"
+                  .format(msg.classifier_instance_id,
+                          msg.project_id,
+                          msg.probability_data))
+            update_db(bootstrap.internal_db, msg)
+
+    finally:
+        consumer.unsubscribe()
+        consumer.close()
 
 
 if __name__ == "__main__":

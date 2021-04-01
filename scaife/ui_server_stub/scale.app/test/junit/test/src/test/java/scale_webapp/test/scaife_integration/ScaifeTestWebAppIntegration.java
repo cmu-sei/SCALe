@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -66,6 +66,8 @@ import scale_webapp.test.infra.ScaleWebApp.TableList;
 import scale_webapp.test.infra.ScaleWebApp.ToolRow;
 import scale_webapp.test.infra.ScaleWebApp.Verdict;
 import scale_webapp.test.infra.ToolInfo;
+import scale_webapp.test.infra.InputPathInfo;
+
 
 /**
  * Unit tests for core web app functionality.
@@ -118,43 +120,6 @@ public class ScaifeTestWebAppIntegration extends TestCase {
 			assert(webApp.scaifeActive());
 		}
 		finally {
-			cleanupWebApp(webApp, null);
-		}
-	}
-
-	/**
-	 * Test the creation of a project.
-	 */
-	public void testProjectCreateAndDelete() {
-		ScaleWebApp webApp = null;
-		String projectName = UUID.randomUUID().toString();
-		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
-
-		try {
-			// Build a model of our Web App with the given driver.
-			webApp = this.config.createApp();
-
-			// Launch the app, create a project, then go back to the home page
-			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID, false);
-			String lang = "C";
-			List<String> lang_vers = Arrays.asList("89");
-			webApp.UploadAnalysis.selectLanguagesByName(lang, lang_vers);
-			webApp.goHome();
-
-			// Test that the project appears in the list
-			ProjectRow project = webApp.Home.getProjectRowByName(projectName);
-			assertEquals(project.nameLink.getText(), projectName);
-			assertEquals(project.description.getText(), projectDescription);
-
-			webApp.destroyProject(projectName);
-			webApp.goHome();
-
-			assertFalse(webApp.Home.getProjectNames().contains(projectName));
-		} finally {
 			cleanupWebApp(webApp, null);
 		}
 	}
@@ -251,6 +216,7 @@ public class ScaifeTestWebAppIntegration extends TestCase {
 			System.out.println("selenium project matches automation project");
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			System.err.println(ex.toString());
 			assert(false);
 		}
 	}

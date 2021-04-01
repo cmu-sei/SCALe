@@ -1,10 +1,12 @@
-#!/bin/sh -f
-# Creates a new project, given a name and (optional) description as arguments
-# Should be called within SCALe folder hierarchy.
+#!/bin/bash -f
+#
+# Creates a new project, given a name and (optional) description as
+# arguments
+
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -25,11 +27,18 @@
 # DM19-1274
 # </legal>
 
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BIN_DIR=$(dirname "$BIN_LOC")
+. $BIN_DIR/../env.sh
+
 name=$1
 desc=$2
 
+# required for rails homing
+cd $SCALE_DIR
+
 echo "
-  new_project = Project.new({'name' => \"$name\", 'description' => \"$desc\"});
-  new_project.save;
-  print(\"#{new_project.id} is the new project id.\");
+  new_project = Project.new({'name' => \"$name\", 'description' => \"$desc\"})
+  new_project.save
+  print(\"#{new_project.id} is the new project id.\")
 " | bundle exec rails console

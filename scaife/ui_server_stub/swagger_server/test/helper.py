@@ -1,7 +1,7 @@
 # <legal>
-# SCAIFE System version 1.2.2
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -33,11 +33,12 @@ import json
 
 from flask import current_app as app
 from six import BytesIO
-from mongoengine import *
+from mongoengine import disconnect_all, register_connection
 from mongoengine.context_managers import switch_db, switch_collection
 from mongoengine.queryset import QuerySet
 
 import swagger_server.database.model as model
+from swagger_server import bootstrap
 
 # database aliases
 disconnect_all()
@@ -45,10 +46,22 @@ disconnect_all()
 STATS_DB_NAME = "stats_test"
 DATAHUB_DB_NAME = "datahub_test"
 
-register_connection('default', db=STATS_DB_NAME, name=STATS_DB_NAME, host='localhost', port=27017)
-register_connection('datahub', db=DATAHUB_DB_NAME, name=DATAHUB_DB_NAME, host='localhost', port=27017)
+datahub_module = bootstrap.datahub_module(localhost=True)
+datahub_svc = datahub_module.service
+datahub_db_svc = datahub_module.services_by_name["db_host"]
+datahub_url = "http://%s:%s" % (datahub_svc.host, datahub_svc.port)
 
-INPUT_DATA_FOLDER = "/swagger_server/test/data/"
+stats_module = bootstrap.stats_module(localhost=True)
+stats_svc = stats_module.service
+stats_db_svc = stats_module.services_by_name["db_host"]
+stats_url = "http://%s:%s" % (stats_svc.host, stats_svc.port)
+
+register_connection('default', db=STATS_DB_NAME, name=STATS_DB_NAME,
+        host=datahub_db_svc.host, port=datahub_db_svc.port)
+register_connection('datahub', db=DATAHUB_DB_NAME, name=DATAHUB_DB_NAME,
+        host=stats_db_svc.host, port=stats_db_svc.port)
+
+INPUT_DATA_FOLDER = bootstrap.bootstrap_dir.joinpath("test/data")
 
 
 def get_access_token(author_example, organization_example, module_name):  # get an authentication token
@@ -86,10 +99,8 @@ def create_classifier(classifier_id, classifier_type, adaptive_heuristic_id, ada
 def get_code_languages(): 
     code_languages_versions = []
   
-    data_filepath = os.getcwd() + INPUT_DATA_FOLDER + "languages.json"
-    f = open(data_filepath, 'r')
-    data = json.load(f)
-    f.close()
+    data_filepath = INPUT_DATA_FOLDER.joinpath("languages.json")
+    data = json.load(data_filepath.open())
     
     for lang in data:
         versions = data[lang]["versions"]
@@ -113,12 +124,14 @@ def get_conditions(data_filepath):
 def get_taxonomies_and_conditions(): 
     taxonomies_conditions = {}
 
-    cert_data_filepath = os.getcwd() + INPUT_DATA_FOLDER + "conditions/cert_rules.c.v.2016.org"
+    cert_data_filepath = INPUT_DATA_FOLDER.joinpath(
+            "conditions/cert_rules.c.v.2016.org")
 
     cert_conditions = get_conditions(cert_data_filepath)
     taxonomies_conditions["cert"] = cert_conditions
 
-    cert_data_filepath = os.getcwd() + INPUT_DATA_FOLDER + "conditions/cwe.all.v.2.11.org"
+    cert_data_filepath = INPUT_DATA_FOLDER.joinpath(
+            "conditions/cwe.all.v.2.11.org")
 
     cwe_conditions = get_conditions(cert_data_filepath)
     taxonomies_conditions["cwe"] = cwe_conditions
@@ -129,10 +142,8 @@ def get_tools():
     tool_names_versions = []
     tool_names_types = {}
   
-    data_filepath = os.getcwd() + INPUT_DATA_FOLDER + "tools.json"
-    f = open(data_filepath, 'r')
-    data = json.load(f)
-    f.close()
+    data_filepath = INPUT_DATA_FOLDER.joinpath("tools.json")
+    data = json.load(data_filepath.open())
     
     for obj in data:
         tool_name = obj["name"]
@@ -146,14 +157,22 @@ def get_tools():
 
 
 def get_codebase_filepath(package_name):
-    package_dir = os.getcwd() + INPUT_DATA_FOLDER + "packages"
-    input_file_path = os.path.join(package_dir, package_name)
-    return input_file_path
+    package_dir = INPUT_DATA_FOLDER.joinpath("packages")
+    input_file_path = package_dir.joinpath(package_name)
+    return str(input_file_path)
 
 
-def resolve_filepath(paths, temp_path):
+def get_test_suite_filepath(package_name):
+    package_dir = INPUT_DATA_FOLDER.joinpath("packages")
+    input_file_path = package_dir.joinpath("test_suite_files")
+    return str(input_file_path)
+
+
+def resolve_filepath(tool_name, paths, temp_path):
     file_path = None
     for p in paths:
+        if "cppcheck_oss" == tool_name:
+            temp_path = temp_path.split("\\")[-1]
         if temp_path in p:
             file_path = p
     if not file_path:
@@ -163,43 +182,46 @@ def resolve_filepath(paths, temp_path):
 
 def get_valid_filepaths(directory):
     paths = set()
+    idx = len(str(directory))
     for (dirpath, dirnames, filenames) in os.walk(directory):
         for fname in filenames:
-            file_path = os.path.join(dirpath, fname)[len(directory):]
+            file_path = os.path.join(dirpath, fname)[idx:]
             if file_path.rfind(os.sep) == 0:
                 file_path = file_path[len(os.sep):]  # chop off leading /
             paths.add(str(file_path)) 
     return paths
 
 
-def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_language_name, tool_id, tool_name, tool_checker_names_ids):
-    package_dir = os.getcwd() + INPUT_DATA_FOLDER + "packages"
-    output_dir = package_dir + "/output"
+def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_language_name, code_language_version, tool_id, tool_name, tool_checker_names_ids):
+    package_dir = INPUT_DATA_FOLDER.joinpath("packages")
+    output_dir = package_dir.joinpath("output")
     with zipfile.ZipFile(source_directory_filepath, "r") as zip_ref:
         zip_ref.extractall(output_dir)
 
     paths = get_valid_filepaths(output_dir)
 
-    code_language = {"language": code_language_name, "version": "generic"}
 
-    tsv_reader = csv.reader(open(tool_output_filepath, 'r'), delimiter='\t')
+    code_language = {"language": code_language_name, "version": code_language_version}
+
+    tsv_reader = csv.reader(tool_output_filepath.open(), delimiter='\t')
     alerts = []
+    unknown_checkers = set()
+    ui_alert_id = 0
     for fields in tsv_reader:
+        ui_alert_id += 1
         if not fields:
             continue 
         checker_name = fields[0].strip()
-        
         if (tool_name, checker_name) not in tool_checker_names_ids:
-            message = "WARNING: checker name " + checker_name + " in tool parser output, but not in .properties file"
-            print(message, file=sys.stdout)
+            unknown_checkers.add(checker_name)
             continue
         checker_id = tool_checker_names_ids[(tool_name, checker_name)]
         primary_message = None
         secondary_messages = []
         msg_index = 1
         while msg_index < len(fields) - 1:
-            temp_path = fields[msg_index].strip()
-            path = resolve_filepath(paths, temp_path)
+            temp_path = fields[msg_index].strip()   
+            path = resolve_filepath(tool_name, paths, temp_path)
             line_number = int(fields[msg_index + 1].strip())
             msg_text = fields[msg_index + 2].strip()
             message_data = {"line_start": line_number, "line_end": line_number, "filepath": path, "message_text": msg_text}
@@ -212,6 +234,7 @@ def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_l
             msg_index = msg_index + 3
 
         alert_object = {}
+        alert_object["ui_alert_id"] = str(ui_alert_id)      
         alert_object["code_language"] = code_language
         alert_object["tool_id"] = tool_id
         alert_object["checker_id"] = checker_id
@@ -219,36 +242,40 @@ def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_l
         if (0  == len(secondary_messages)):
             alert_object["secondary_messages"] = secondary_messages
         alerts.append(alert_object)
+    for c in unknown_checkers:
+        message = "WARNING: checker name " + c + " in tool parser output, but not in .properties file"
+        print(message, file=sys.stdout)
     return alerts
 
 
-def get_alerts(source_directory_filepath, tool_name, package_name, code_language_name, tool_id, tool_checker_names_ids): 
+def get_alerts(source_directory_filepath, tool_name, package_name, code_language_name, code_language_version, tool_id, tool_checker_names_ids): 
     alerts = {}
 
-    tool_parser_output_dir = os.getcwd() + INPUT_DATA_FOLDER + "tool_parser_output"
+    tool_parser_output_dir = INPUT_DATA_FOLDER.joinpath("tool_parser_output")
 
-    parser_output_files = os.listdir(tool_parser_output_dir)
-    for file_name in parser_output_files:
-        tool_output_filepath = tool_parser_output_dir + "/" + file_name
+    for file_name in tool_parser_output_dir.iterdir():
+        file_name = str(file_name)
+        tool_output_filepath = tool_parser_output_dir.joinpath(file_name)
         if not ((tool_name in file_name) and (package_name in file_name)):
             continue
 
-        alerts = get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_language_name, tool_id, tool_name, tool_checker_names_ids)        
+        alerts = get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_language_name, code_language_version, tool_id, tool_name, tool_checker_names_ids)        
     return alerts     
     
 
-def get_meta_alerts(alert_mappings, checker_ids_tool_checker_names, tool_checker_names_condition_names, condition_names_ids): 
+def get_meta_alerts(alert_mappings, ui_id_alert_data, checker_ids_tool_checker_names, tool_checker_names_condition_names, condition_names_ids): 
 
     temp_meta_alerts = {}
     #raise Exception(alert_mappings)
     all_conditions = set()
     for alert in alert_mappings:
         alert_id = alert["alert_id"]
-        checker_id = alert["checker_id"]
-        primary_message = alert["primary_message"]
+        ui_alert_id = alert["ui_alert_id"]
 
-        filepath = primary_message["filepath"]
-        line_number = int(primary_message["line_start"])
+        alert_data = ui_id_alert_data[ui_alert_id]
+        checker_id = alert_data["checker_id"]
+        filepath = alert_data["primary_message"]["filepath"]
+        line_number = alert_data["primary_message"]["line_start"]
 
         # Get condition_id from checker_id
         (tool_name, checker_name) = checker_ids_tool_checker_names[checker_id]
@@ -282,15 +309,13 @@ def get_meta_alerts(alert_mappings, checker_ids_tool_checker_names, tool_checker
 def get_checkers_and_conditions(): 
     tool_name_map = {}
 
-    properties_dir = os.getcwd() + INPUT_DATA_FOLDER + "properties"
+    properties_dir = INPUT_DATA_FOLDER.joinpath("properties")
 
-    property_files = os.listdir(properties_dir)
-    for file_name in property_files:
-        filepath = properties_dir + "/" + file_name
-        tool_name = file_name.split(".")[1]
+    for file_name in properties_dir.iterdir():
+        filepath = properties_dir.joinpath(file_name)
+        tool_name = str(file_name).split(".")[1]
         checkers_conditions = {}
-        f = open(filepath, 'r')
-        for line in f:
+        for line in filepath.open():
             line = line.strip()
             if (0 == len(line)) or ("#" in line):
                 continue
@@ -309,7 +334,9 @@ def standard2camel(name):
 def get_db_model_names(module_name):
     db_model_names = ["alert", "checker", "checker_condition", "checker_mapping", "code_language", "condition", "meta_alert", "package", "performance_metrics", "project", "source_file", "source_function", "taxonomy", "tool"]
     if "stats" == module_name:
-        db_model_names = db_model_names + ["classifier_data", "classifier_instance", "classifier", "observation"]
+        db_model_names = db_model_names + ["classifier_data", "classifier_instance", "classifier", "observation", "classifier_performance_metrics"]
+    else:
+        db_model_names = db_model_names + ["test_suite"]
     return db_model_names
 
 

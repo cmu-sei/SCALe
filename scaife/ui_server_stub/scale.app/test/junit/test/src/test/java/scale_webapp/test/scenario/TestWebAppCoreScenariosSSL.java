@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -38,7 +38,9 @@ import scale_webapp.test.infra.AppConfig;
 import scale_webapp.test.infra.LocalWebServer;
 import scale_webapp.test.infra.ScaleWebApp;
 import scale_webapp.test.infra.ScaleWebApp.HomePage.ProjectRow;
+import scale_webapp.test.infra.InputPathInfo;
 import scale_webapp.test.infra.ToolInfo;
+
 
 public class TestWebAppCoreScenariosSSL extends TestCase {
 	private AppConfig config;
@@ -129,8 +131,8 @@ public class TestWebAppCoreScenariosSSL extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 
 		try {
 			// Build a model of our Web App with the given driver.
@@ -138,8 +140,8 @@ public class TestWebAppCoreScenariosSSL extends TestCase {
 
 			// Launch the app, create a project, then go back to the home page
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.goHome();
 
 			// Test that the project appears in the list

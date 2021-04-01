@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -23,7 +23,6 @@
 # 
 # DM19-1274
 # </legal>
-
 
 # All other controllers inherit from this controller. Several sitewide
 # configurations are done here
@@ -50,6 +49,32 @@ class ApplicationController < ActionController::Base
 
   # unbuffered stdout for log monitoring
   $stdout.sync = true
+
+  def self.export_config
+    {
+      :env => Rails.env,
+      :app_dir => Rails.root.to_s,
+      :db_filename => Rails.configuration.x.db_filename.to_s,
+      :db_dir => Rails.configuration.x.db_dir.to_s,
+      :external_db_dir => Rails.configuration.x.external_db_dir.to_s,
+      :db_path => Rails.configuration.x.db_path.to_s,
+      :db_basename => Rails.configuration.x.db_basename.to_s,
+      :external_db_path => Rails.configuration.x.external_db_path.to_s,
+      :external_db_basename => Rails.configuration.x.external_db_basename.to_s,
+      :db_backup_dir => Rails.configuration.x.db_backup_dir.to_s,
+      :archive_dir => Rails.configuration.x.archive_dir.to_s,
+      :archive_backup_dir => Rails.configuration.x..archive_backup_dir.to_s,
+      :archive_nobackup_dir => Rails.configuration.x..archive_nobackup_dir.to_s,
+    }
+  end
+
+  def self.export_config_as_json(pretty: false)
+    if pretty
+      return JSON.pretty_generate(self.export_config)
+    else
+      return JSON.generate(self.export_config)
+    end
+  end
 
   if Rails.configuration.x.session_capture_enabled
     before_action do |controller|
@@ -151,16 +176,24 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
-  # define as instance method also
-  def with_external_db()
-    original_connection = ActiveRecord::Base.remove_connection
-    ActiveRecord::Base.establish_connection(:external)
-    yield ActiveRecord::Base.connection()
+  # bypass checking for pulsar, etc, during tests that aren't integration tests
+  # (a.k.a. "non-integration tests")
+  def with_offline_testing()
+    original_state = Rails.configuration.x.offline_testing
+    self.offline_testing(true)
+    yield
   ensure
-    ActiveRecord::Base.establish_connection(original_connection)
+    self.offline_testing(original_state)
   end
 
-  # also define as class method for AlertConditionsController
+  def offline_testing(enable: nil)
+    if not enable.nil?
+      Rails.configuration.x.offline_testing = enable.present? ? true : false
+    end
+    Rails.configuration.x.offline_testing
+  end
+
+  # define as both class method nd instance method
   def self.with_external_db()
     original_connection = ActiveRecord::Base.remove_connection
     ActiveRecord::Base.establish_connection(:external)
@@ -168,119 +201,51 @@ class ApplicationController < ActionController::Base
   ensure
     ActiveRecord::Base.establish_connection(original_connection)
   end
+  delegate :with_external_db, to: :class
 
-  def with_scaife_datahub_access(login_token)
-    server = "datahub"
-    begin
-      @registration_response = SCAIFE_get_access_token(server, login_token)
-      if @registration_response.blank?
-        raise ScaifeAccessError.new("Failed to connect to SCAIFE registration server")
-      end
-      @registration_response_code = @registration_response.code
-      body = JSON.parse(@registration_response.body)
-      if @registration_response_code == 200
-        access_token = body["x_access_token"]
-        random_number = rand 100..999
-        request_token = random_number.to_s
-        yield(access_token, request_token)
-      elsif @registration_response_code == 400
-        # Invalid Request
-        if @debug
-          raise ScaifeAccessError.new(body)
-        else
-          raise ScaifeAccessError.new("Problem with registration server")
-        end
-      elsif @registration_response_code == 405
-        # Server Access Unavailable
-        if @debug
-          raise ScaifeAccessError.new(body)
-        else
-          raise ScaifeAccessError.new("Problem with registration server")
-        end
-      else
-        if @debug
-          msg = "Registration server error: #{body}" + body
-          puts msg
-          raise ScaifeAccessError.new(msg)
-        else
-          raise ScaifeAccessError.new("Problem with registration server")
-        end
-      end
-    rescue Errno::ECONNREFUSED => e
-      if @debug
-        msg = e.message
-      else
-        msg = "Failed to connect to SCAIFE registration server"
-      end
-      raise ScaifeAccessError.new(msg)
-    end
-  end
 
   def with_scaife_access(login_token, server)
     begin
-      @registration_response = SCAIFE_get_access_token(server, login_token)
-      if @registration_response.blank?
-        raise ScaifeAccessError.new("Failed to connect to SCAIFE registration server")
-      end
-      @registration_response_code = @registration_response.code
-      body = JSON.parse(@registration_response.body)
-      if @registration_response_code == 200
-        access_token = body["x_access_token"]
-        random_number = rand 100..999
-        request_token = random_number.to_s
-        yield(access_token, request_token)
-      elsif @registration_response_code == 400
-        # Invalid Request
-        puts "registration: invalid request #{server} 400"
-        if @debug
-          raise ScaifeAccessError.new(body)
-        else
-          raise ScaifeAccessError.new("Problem with registration server")
-        end
-      elsif @registration_response_code == 405
-        # Server Access Unavailable
-        puts "registration: access unavailable #{server} 405"
-        if @debug
-          raise ScaifeAccessError.new(body)
-        else
-          raise ScaifeAccessError.new("Problem with registration server")
-        end
+      c = ScaifeRegistrationController.new
+      @registration_response, @registration_status_code = \
+        c.get_server_access(server, login_token)
+      if @registration_status_code == 200
+        yield(@registration_response.x_access_token)
       else
-        msg = "Registration server error #{@registration_response.code}: #{body}"
-        puts msg
-        raise ScaifeAccessError.new(msg)
-      end
-    rescue Errno::ECONNREFUSED => e
-      puts e.message
-      if @debug
-        raise ScaifeAccessError.new(e.message)
-      else
-        raise ScaifeAccessError.new("Failed to connect to server: Connection refused")
+        puts
+        raise ScaifeAccessError.new(@registration_response)
       end
     end
   end
 
   def with_scaife_datahub_access(login_token)
     server = "datahub"
-    with_scaife_access(login_token, server) do |access_token, request_token|
-      yield(access_token, request_token)
+    with_scaife_access(login_token, server) do |access_token|
+      yield(access_token)
     end
   end
 
-  def with_scaife_statistics_access(login_token)
+  def with_scaife_stats_access(login_token)
     server = "statistics"
-    with_scaife_access(login_token, server) do |access_token, request_token|
-      yield(access_token, request_token)
+    with_scaife_access(login_token, server) do |access_token|
+      yield(access_token)
+    end
+  end
+
+  def with_scaife_prioritization_access(login_token)
+    server = "prioritization"
+    with_scaife_access(login_token, server) do |access_token|
+      yield(access_token)
     end
   end
 
   def scaife_active()
     if session[:login_token].present?
       begin
-        with_scaife_datahub_access(session[:login_token]) do |_, _|
+        with_scaife_datahub_access(session[:login_token]) do |_|
           return scaife_connected()
         end
-      rescue ScaifeAccessError
+      rescue ScaifeAccessError => e
         self._clear_scaife_session()
         return false
       end
@@ -294,7 +259,7 @@ class ApplicationController < ActionController::Base
 
   def _clear_scaife_session()
     session.delete(:login_token)
-    session[:scaife_mode] = "Demo"
+    session.delete(:scaife_mode)
   end
 
   # some SCAIFE tools used by both projects and alerts controllers
@@ -305,14 +270,11 @@ class ApplicationController < ActionController::Base
       c = ScaifeDatahubController.new
       result = c.listLanguages(session[:login_token])
       if result.is_a?(String)
-        if @debug
-          puts c.response
-        end
-        puts "c.listLanguages() error: #{result}"
+        puts "#{__method__}() error listLanguages(): #{c.scaife_status_code}: #{result}"
         raise ScaifeError.new(result)
       else
         result.each do |scaife_lang|
-          scaife_langs_by_id[scaife_lang["code_language_id"]] = scaife_lang
+          scaife_langs_by_id[scaife_lang.code_language_id] = scaife_lang
         end
       end
     end
@@ -347,13 +309,11 @@ class ApplicationController < ActionController::Base
       c = ScaifeDatahubController.new
       result = c.listTaxonomies(session[:login_token])
       if result.is_a?(String)
-        if @debug
-          puts c.response
-        end
+        puts "#{__method__}() error listTaxonomies(): #{c.scaife_status_code}: #{result}"
         raise ScaifeError.new(result)
       else
         result.each do |scaife_taxo|
-          scaife_taxos_by_id[scaife_taxo["taxonomy_id"]] = scaife_taxo
+          scaife_taxos_by_id[scaife_taxo.taxonomy_id] = scaife_taxo
         end
       end
     end
@@ -382,29 +342,17 @@ class ApplicationController < ActionController::Base
     return taxos_in_scaife, taxos_not_in_scaife, scaife_taxos_by_id
   end
 
-  def scaife_tools_by_id(fetch_languages: false)
+  def scaife_tools_by_id()
     scaife_tools_by_id = {}
     if scaife_connected()
-      langs_by_id = fetch_languages ? self.scaife_languages_by_id() : {}
       c = ScaifeDatahubController.new
       result = c.listTools(session[:login_token])
       if result.is_a?(String)
-        if @debug
-          puts c.response
-        end
-        puts "c.listTools() error: #{result}"
+        puts "#{__method__}() error listTools(): #{c.scaife_status_code}: #{result}"
         raise ScaifeError.new(result)
       else
         result.each do |scaife_tool|
-          if langs_by_id.present?
-            langs = scaife_tool["languages"] = []
-            scaife_tool["code_language_ids"].each do |scaife_id|
-              if langs_by_id[scaife_id].present?
-                langs << langs_by_id[scaife_id]
-              end
-            end
-          end
-          scaife_tools_by_id[scaife_tool["tool_id"]] = scaife_tool
+          scaife_tools_by_id[scaife_tool.tool_id] = scaife_tool
         end
       end
     end
@@ -482,12 +430,12 @@ class ApplicationController < ActionController::Base
   delegate :archive_dir, to: :class
 
   def self.archive_backup_dir()
-    archive_dir().join("backup")
+    Rails.configuration.x.archive_backup_dir
   end
   delegate :archive_backup_dir, to: :class
 
   def self.archive_nobackup_dir()
-    archive_dir().join("nobackup")
+    Rails.configuration.x.archive_nobackup_dir
   end
   delegate :archive_nobackup_dir, to: :class
 
@@ -536,6 +484,11 @@ class ApplicationController < ActionController::Base
     Rails.configuration.x.db_dir
   end
   delegate :db_dir, to: :class
+
+  def self.internal_db()
+    Rails.configuration.x.db_path
+  end
+  delegate :internal_db, to: :class
 
   def self.external_db()
     Rails.configuration.x.external_db_path

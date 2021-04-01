@@ -6,9 +6,9 @@
 # The only argument indicates the file containing the input.
 #
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -30,9 +30,11 @@
 # </legal>
 
 import unittest
-# Messy stuff to relative import our script file.
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.realpath(__file__))+'/../../scripts/tool_output_parsers')
+
+import bootstrap
+sys.path.insert(0, os.path.join(bootstrap.scripts_dir, "tool_output_parsers"))
+
 import jshint_oss2tsv as t
 
 class Test_jshint2org(unittest.TestCase):

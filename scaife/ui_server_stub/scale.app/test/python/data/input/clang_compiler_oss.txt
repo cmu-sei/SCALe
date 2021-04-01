@@ -1,0 +1,163 @@
+02:46:47 9 host# make CC=clang CFLAGS="-std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic"
+
+If compilation produces errors, or a large number of warnings,
+please read README.COMPILATION.PROBLEMS -- you might be able to
+adjust the flags in this Makefile to improve matters.
+
+Also in README.COMPILATION.PROBLEMS are some hints that may help
+if your build produces an executable which is unable to correctly
+handle so-called 'large files' -- files of size 2GB or more.
+
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c blocksort.c
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c huffman.c
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c crctable.c
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c randtable.c
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c compress.c
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c decompress.c
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c bzlib.c
+bzlib.c:102:31: warning: unused parameter 'opaque' [-Wunused-parameter]
+void* default_bzalloc ( void* opaque, Int32 items, Int32 size )
+                              ^
+bzlib.c:109:29: warning: unused parameter 'opaque' [-Wunused-parameter]
+void default_bzfree ( void* opaque, void* addr )
+                            ^
+bzlib.c:1431:12: warning: implicit declaration of function 'fdopen' is invalid in C99 [-Wimplicit-function-declaration]
+      fp = fdopen(fd,mode2);
+           ^
+bzlib.c:1431:12: warning: this function declaration is not a prototype [-Wstrict-prototypes]
+bzlib.c:1431:10: warning: incompatible integer to pointer conversion assigning to 'FILE *' (aka 'struct _IO_FILE *') from 'int' [-Wint-conversion]
+      fp = fdopen(fd,mode2);
+         ^ ~~~~~~~~~~~~~~~~
+bzlib.c:1506:34: warning: unused parameter 'b' [-Wunused-parameter]
+int BZ_API(BZ2_bzflush) (BZFILE *b)
+                                 ^
+6 warnings generated.
+rm -f libbz2.a
+ar cq libbz2.a blocksort.o huffman.o crctable.o randtable.o compress.o decompress.o bzlib.o
+ranlib libbz2.a
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c bzip2.c
+bzip2.c:369:18: warning: implicit declaration of function 'fileno' is invalid in C99 [-Wimplicit-function-declaration]
+      Int32 fd = fileno ( zStream );
+                 ^
+bzip2.c:369:18: warning: this function declaration is not a prototype [-Wstrict-prototypes]
+bzip2.c:485:18: warning: implicit declaration of function 'fileno' is invalid in C99 [-Wimplicit-function-declaration]
+      Int32 fd = fileno ( stream );
+                 ^
+bzip2.c:805:34: warning: unused parameter 'n' [-Wunused-parameter]
+void mySignalCatcher ( IntNative n )
+                                 ^
+bzip2.c:816:43: warning: unused parameter 'n' [-Wunused-parameter]
+void mySIGSEGVorSIGBUScatcher ( IntNative n )
+                                          ^
+bzip2.c:967:9: warning: implicit declaration of function 'fdopen' is invalid in C99 [-Wimplicit-function-declaration]
+   fp = fdopen(fh, mode);
+        ^
+bzip2.c:967:9: warning: this function declaration is not a prototype [-Wstrict-prototypes]
+bzip2.c:967:7: warning: incompatible integer to pointer conversion assigning to 'FILE *' (aka 'struct _IO_FILE *') from 'int' [-Wint-conversion]
+   fp = fdopen(fh, mode);
+      ^ ~~~~~~~~~~~~~~~~
+bzip2.c:986:8: warning: implicit declaration of function 'lstat' is invalid in C99 [-Wimplicit-function-declaration]
+   i = MY_LSTAT ( name, &statBuf );
+       ^
+bzip2.c:78:24: note: expanded from macro 'MY_LSTAT'
+#   define MY_LSTAT    lstat
+                       ^
+bzip2.c:986:8: warning: this function declaration is not a prototype [-Wstrict-prototypes]
+bzip2.c:78:24: note: expanded from macro 'MY_LSTAT'
+#   define MY_LSTAT    lstat
+                       ^
+bzip2.c:1003:8: warning: implicit declaration of function 'lstat' is invalid in C99 [-Wimplicit-function-declaration]
+   i = MY_LSTAT ( name, &statBuf );
+       ^
+bzip2.c:78:24: note: expanded from macro 'MY_LSTAT'
+#   define MY_LSTAT    lstat
+                       ^
+bzip2.c:1070:13: warning: implicit declaration of function 'fchmod' is invalid in C99 [-Wimplicit-function-declaration]
+   retVal = fchmod ( fd, fileMetaInfo.st_mode );
+            ^
+bzip2.c:1070:13: warning: this function declaration is not a prototype [-Wstrict-prototypes]
+bzip2.c:1073:11: warning: implicit declaration of function 'fchown' is invalid in C99 [-Wimplicit-function-declaration]
+   (void) fchown ( fd, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
+          ^
+bzip2.c:1073:11: warning: this function declaration is not a prototype [-Wstrict-prototypes]
+bzip2.c:1083:35: warning: unused parameter 'name' [-Wunused-parameter]
+Bool containsDubiousChars ( Char* name )
+                                  ^
+bzip2.c:1230:24: warning: implicit declaration of function 'fileno' is invalid in C99 [-Wimplicit-function-declaration]
+         if ( isatty ( fileno ( stdout ) ) ) {
+                       ^
+bzip2.c:1416:24: warning: implicit declaration of function 'fileno' is invalid in C99 [-Wimplicit-function-declaration]
+         if ( isatty ( fileno ( stdin ) ) ) {
+                       ^
+bzip2.c:1557:24: warning: implicit declaration of function 'fileno' is invalid in C99 [-Wimplicit-function-declaration]
+         if ( isatty ( fileno ( stdin ) ) ) {
+                       ^
+19 warnings generated.
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic  -o bzip2 bzip2.o -L. -lbz2
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c bzip2recover.c
+clang -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic  -o bzip2recover bzip2recover.o
+
+Doing 6 tests (3 compress, 3 uncompress) ...
+If there's a problem, things might stop at this point.
+
+./bzip2 -1  < sample1.ref > sample1.rb2
+./bzip2 -2  < sample2.ref > sample2.rb2
+./bzip2 -3  < sample3.ref > sample3.rb2
+./bzip2 -d  < sample1.bz2 > sample1.tst
+./bzip2 -d  < sample2.bz2 > sample2.tst
+./bzip2 -ds < sample3.bz2 > sample3.tst
+cmp sample1.bz2 sample1.rb2
+cmp sample2.bz2 sample2.rb2
+cmp sample3.bz2 sample3.rb2
+cmp sample1.tst sample1.ref
+cmp sample2.tst sample2.ref
+cmp sample3.tst sample3.ref
+
+If you got this far and the 'cmp's didn't complain, it looks
+like you're in business.
+
+To install in /usr/local/bin, /usr/local/lib, /usr/local/man and
+/usr/local/include, type
+
+   make install
+
+To install somewhere else, eg, /xxx/yyy/{bin,lib,man,include}, type
+
+   make install PREFIX=/xxx/yyy
+
+If you are (justifiably) paranoid and want to see what 'make install'
+is going to do, you can first do
+
+   make -n install                      or
+   make -n install PREFIX=/xxx/yyy      respectively.
+
+The -n instructs make to show the commands it would execute, but
+not actually execute them.
+
+Instructions for use are in the preformatted manual page, in the file
+bzip2.txt.  For more detailed documentation, read the full manual.
+It is available in Postscript form (manual.ps), PDF form (manual.pdf),
+and HTML form (manual.html).
+
+You can also do "bzip2 --help" to see some helpful information.
+"bzip2 -L" displays the software license.
+
+02:47:01 10 host# clang --version
+clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+02:47:03 11 host# cat /etc/os-release
+NAME="Ubuntu"
+VERSION="18.04.5 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.5 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+02:47:08 12 host#

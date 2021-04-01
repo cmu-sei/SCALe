@@ -1,0 +1,595 @@
+02:44:21 4 host# make CFLAGS="-std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic"
+
+If compilation produces errors, or a large number of warnings,
+please read README.COMPILATION.PROBLEMS -- you might be able to
+adjust the flags in this Makefile to improve matters.
+
+Also in README.COMPILATION.PROBLEMS are some hints that may help
+if your build produces an executable which is unable to correctly
+handle so-called 'large files' -- files of size 2GB or more.
+
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c blocksort.c
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c huffman.c
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c crctable.c
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c randtable.c
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c compress.c
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c decompress.c
+decompress.c: In function 'BZ2_decompress':
+decompress.c:198:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != BZ_HDR_B) RETURN(BZ_DATA_ERROR_MAGIC);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:200:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_MAGIC_2, uc);
+       ^~~~~~~~~
+decompress.c:201:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != BZ_HDR_Z) RETURN(BZ_DATA_ERROR_MAGIC);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:203:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_MAGIC_3, uc)
+       ^~~~~~~~~
+decompress.c:204:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != BZ_HDR_h) RETURN(BZ_DATA_ERROR_MAGIC);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:206:7: note: in expansion of macro 'GET_BITS'
+       GET_BITS(BZ_X_MAGIC_4, s->blockSize100k, 8)
+       ^~~~~~~~
+decompress.c:211:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (s->smallDecompress) {
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:222:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BLKHDR_1, uc);
+       ^~~~~~~~~
+decompress.c:225:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x31) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:226:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BLKHDR_2, uc);
+       ^~~~~~~~~
+decompress.c:227:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x41) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:228:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BLKHDR_3, uc);
+       ^~~~~~~~~
+decompress.c:229:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x59) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:230:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BLKHDR_4, uc);
+       ^~~~~~~~~
+decompress.c:231:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x26) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:232:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BLKHDR_5, uc);
+       ^~~~~~~~~
+decompress.c:233:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x53) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:234:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BLKHDR_6, uc);
+       ^~~~~~~~~
+decompress.c:241:25: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedBlockCRC = 0;
+       ~~~~~~~~~~~~~~~~~~^~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:242:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BCRC_1, uc);
+       ^~~~~~~~~
+decompress.c:243:25: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedBlockCRC = (s->storedBlockCRC << 8) | ((UInt32)uc);
+       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:244:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BCRC_2, uc);
+       ^~~~~~~~~
+decompress.c:245:25: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedBlockCRC = (s->storedBlockCRC << 8) | ((UInt32)uc);
+       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:246:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BCRC_3, uc);
+       ^~~~~~~~~
+decompress.c:247:25: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedBlockCRC = (s->storedBlockCRC << 8) | ((UInt32)uc);
+       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:248:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_BCRC_4, uc);
+       ^~~~~~~~~
+decompress.c:249:25: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedBlockCRC = (s->storedBlockCRC << 8) | ((UInt32)uc);
+       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:251:7: note: in expansion of macro 'GET_BITS'
+       GET_BITS(BZ_X_RANDBIT, s->blockRandomised, 1);
+       ^~~~~~~~
+decompress.c:253:18: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->origPtr = 0;
+       ~~~~~~~~~~~^~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:254:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_ORIGPTR_1, uc);
+       ^~~~~~~~~
+decompress.c:255:18: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->origPtr = (s->origPtr << 8) | ((Int32)uc);
+       ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:256:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_ORIGPTR_2, uc);
+       ^~~~~~~~~
+decompress.c:257:18: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->origPtr = (s->origPtr << 8) | ((Int32)uc);
+       ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:258:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_ORIGPTR_3, uc);
+       ^~~~~~~~~
+decompress.c:284:17: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       alphaSize = s->nInUse+2;
+       ~~~~~~~~~~^~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:287:7: note: in expansion of macro 'GET_BITS'
+       GET_BITS(BZ_X_SELECTOR_1, nGroups, 3);
+       ^~~~~~~~
+decompress.c:288:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (nGroups < 2 || nGroups > BZ_N_GROUPS) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:289:7: note: in expansion of macro 'GET_BITS'
+       GET_BITS(BZ_X_SELECTOR_2, nSelectors, 15);
+       ^~~~~~~~
+decompress.c:292:12: warning: this statement may fall through [-Wimplicit-fallthrough=]
+          j = 0;
+          ~~^~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:71:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,1)
+    ^~~~~~~~
+decompress.c:294:13: note: in expansion of macro 'GET_BIT'
+             GET_BIT(BZ_X_SELECTOR_3, uc);
+             ^~~~~~~
+decompress.c:327:19: warning: this statement may fall through [-Wimplicit-fallthrough=]
+                if (curr < 1 || curr > 20) RETURN(BZ_DATA_ERROR);
+                   ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:71:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,1)
+    ^~~~~~~~
+decompress.c:328:16: note: in expansion of macro 'GET_BIT'
+                GET_BIT(BZ_X_CODING_2, uc);
+                ^~~~~~~
+decompress.c:329:19: warning: this statement may fall through [-Wimplicit-fallthrough=]
+                if (uc == 0) break;
+                   ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:71:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,1)
+    ^~~~~~~~
+decompress.c:330:16: note: in expansion of macro 'GET_BIT'
+                GET_BIT(BZ_X_CODING_3, uc);
+                ^~~~~~~
+decompress.c:88:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    zn = gMinlen;                                  \
+    ~~~^~~
+decompress.c:379:7: note: in expansion of macro 'GET_MTF_VAL'
+       GET_MTF_VAL(BZ_X_MTF_1, BZ_X_MTF_2, nextSym);
+       ^~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:89:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(label1, zvec, zn);                    \
+    ^~~~~~~~
+decompress.c:379:7: note: in expansion of macro 'GET_MTF_VAL'
+       GET_MTF_VAL(BZ_X_MTF_1, BZ_X_MTF_2, nextSym);
+       ^~~~~~~~~~~
+decompress.c:94:9: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       zn++;                                       \
+       ~~^
+decompress.c:379:7: note: in expansion of macro 'GET_MTF_VAL'
+       GET_MTF_VAL(BZ_X_MTF_1, BZ_X_MTF_2, nextSym);
+       ^~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:71:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,1)
+    ^~~~~~~~
+decompress.c:95:7: note: in expansion of macro 'GET_BIT'
+       GET_BIT(label2, zj);                        \
+       ^~~~~~~
+decompress.c:379:7: note: in expansion of macro 'GET_MTF_VAL'
+       GET_MTF_VAL(BZ_X_MTF_1, BZ_X_MTF_2, nextSym);
+       ^~~~~~~~~~~
+decompress.c:88:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    zn = gMinlen;                                  \
+    ~~~^~~
+decompress.c:489:13: note: in expansion of macro 'GET_MTF_VAL'
+             GET_MTF_VAL(BZ_X_MTF_5, BZ_X_MTF_6, nextSym);
+             ^~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:89:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(label1, zvec, zn);                    \
+    ^~~~~~~~
+decompress.c:489:13: note: in expansion of macro 'GET_MTF_VAL'
+             GET_MTF_VAL(BZ_X_MTF_5, BZ_X_MTF_6, nextSym);
+             ^~~~~~~~~~~
+decompress.c:94:9: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       zn++;                                       \
+       ~~^
+decompress.c:489:13: note: in expansion of macro 'GET_MTF_VAL'
+             GET_MTF_VAL(BZ_X_MTF_5, BZ_X_MTF_6, nextSym);
+             ^~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:71:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,1)
+    ^~~~~~~~
+decompress.c:95:7: note: in expansion of macro 'GET_BIT'
+       GET_BIT(label2, zj);                        \
+       ^~~~~~~
+decompress.c:489:13: note: in expansion of macro 'GET_MTF_VAL'
+             GET_MTF_VAL(BZ_X_MTF_5, BZ_X_MTF_6, nextSym);
+             ^~~~~~~~~~~
+decompress.c:591:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x72) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:592:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_ENDHDR_3, uc);
+       ^~~~~~~~~
+decompress.c:593:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x45) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:594:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_ENDHDR_4, uc);
+       ^~~~~~~~~
+decompress.c:595:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x38) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:596:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_ENDHDR_5, uc);
+       ^~~~~~~~~
+decompress.c:597:10: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       if (uc != 0x50) RETURN(BZ_DATA_ERROR);
+          ^
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:598:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_ENDHDR_6, uc);
+       ^~~~~~~~~
+decompress.c:601:28: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedCombinedCRC = 0;
+       ~~~~~~~~~~~~~~~~~~~~~^~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:602:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_CCRC_1, uc);
+       ^~~~~~~~~
+decompress.c:603:28: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedCombinedCRC = (s->storedCombinedCRC << 8) | ((UInt32)uc);
+       ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:604:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_CCRC_2, uc);
+       ^~~~~~~~~
+decompress.c:605:28: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedCombinedCRC = (s->storedCombinedCRC << 8) | ((UInt32)uc);
+       ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:606:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_CCRC_3, uc);
+       ^~~~~~~~~
+decompress.c:607:28: warning: this statement may fall through [-Wimplicit-fallthrough=]
+       s->storedCombinedCRC = (s->storedCombinedCRC << 8) | ((UInt32)uc);
+       ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+decompress.c:44:4: note: here
+    case lll: s->state = lll;                      \
+    ^
+decompress.c:68:4: note: in expansion of macro 'GET_BITS'
+    GET_BITS(lll,uuu,8)
+    ^~~~~~~~
+decompress.c:608:7: note: in expansion of macro 'GET_UCHAR'
+       GET_UCHAR(BZ_X_CCRC_4, uc);
+       ^~~~~~~~~
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c bzlib.c
+bzlib.c: In function 'default_bzalloc':
+bzlib.c:102:31: warning: unused parameter 'opaque' [-Wunused-parameter]
+ void* default_bzalloc ( void* opaque, Int32 items, Int32 size )
+                               ^~~~~~
+bzlib.c: In function 'default_bzfree':
+bzlib.c:109:29: warning: unused parameter 'opaque' [-Wunused-parameter]
+ void default_bzfree ( void* opaque, void* addr )
+                             ^~~~~~
+bzlib.c: In function 'bzopen_or_bzdopen':
+bzlib.c:1431:12: warning: implicit declaration of function 'fdopen'; did you mean 'fopen'? [-Wimplicit-function-declaration]
+       fp = fdopen(fd,mode2);
+            ^~~~~~
+            fopen
+bzlib.c:1431:10: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+       fp = fdopen(fd,mode2);
+          ^
+bzlib.c: In function 'BZ2_bzflush':
+bzlib.c:1506:34: warning: unused parameter 'b' [-Wunused-parameter]
+ int BZ_API(BZ2_bzflush) (BZFILE *b)
+                                  ^
+rm -f libbz2.a
+ar cq libbz2.a blocksort.o huffman.o crctable.o randtable.o compress.o decompress.o bzlib.o
+ranlib libbz2.a
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c bzip2.c
+bzip2.c: In function 'compressStream':
+bzip2.c:369:18: warning: implicit declaration of function 'fileno'; did you mean 'mblen'? [-Wimplicit-function-declaration]
+       Int32 fd = fileno ( zStream );
+                  ^~~~~~
+                  mblen
+bzip2.c: In function 'mySignalCatcher':
+bzip2.c:805:34: warning: unused parameter 'n' [-Wunused-parameter]
+ void mySignalCatcher ( IntNative n )
+                                  ^
+bzip2.c: In function 'mySIGSEGVorSIGBUScatcher':
+bzip2.c:816:43: warning: unused parameter 'n' [-Wunused-parameter]
+ void mySIGSEGVorSIGBUScatcher ( IntNative n )
+                                           ^
+bzip2.c: In function 'fopen_output_safely':
+bzip2.c:967:9: warning: implicit declaration of function 'fdopen'; did you mean 'fopen'? [-Wimplicit-function-declaration]
+    fp = fdopen(fh, mode);
+         ^~~~~~
+         fopen
+bzip2.c:967:7: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+    fp = fdopen(fh, mode);
+       ^
+bzip2.c: In function 'notAStandardFile':
+bzip2.c:78:24: warning: implicit declaration of function 'lstat'; did you mean 'fstat'? [-Wimplicit-function-declaration]
+ #   define MY_LSTAT    lstat
+                        ^
+bzip2.c:986:8: note: in expansion of macro 'MY_LSTAT'
+    i = MY_LSTAT ( name, &statBuf );
+        ^~~~~~~~
+bzip2.c: In function 'applySavedFileAttrToOutputFile':
+bzip2.c:1070:13: warning: implicit declaration of function 'fchmod'; did you mean 'chmod'? [-Wimplicit-function-declaration]
+    retVal = fchmod ( fd, fileMetaInfo.st_mode );
+             ^~~~~~
+             chmod
+bzip2.c:1073:11: warning: implicit declaration of function 'fchown'; did you mean 'chown'? [-Wimplicit-function-declaration]
+    (void) fchown ( fd, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
+           ^~~~~~
+           chown
+bzip2.c: In function 'containsDubiousChars':
+bzip2.c:1083:35: warning: unused parameter 'name' [-Wunused-parameter]
+ Bool containsDubiousChars ( Char* name )
+                                   ^~~~
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic  -o bzip2 bzip2.o -L. -lbz2
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic -c bzip2recover.c
+bzip2recover.c: In function 'main':
+bzip2recover.c:376:34: warning: ISO C does not support the '%Lu' gnu_printf format [-Wformat=]
+                fprintf ( stderr, "   block %d runs from " MaybeUInt64_FMT
+                                  ^~~~~~~~~~~~~~~~~~~~~~~~
+bzip2recover.c:40:30: note: format string is defined here
+ #  define MaybeUInt64_FMT "%Lu"
+                              ^
+bzip2recover.c:376:34: warning: ISO C does not support the '%Lu' gnu_printf format [-Wformat=]
+                fprintf ( stderr, "   block %d runs from " MaybeUInt64_FMT
+                                  ^~~~~~~~~~~~~~~~~~~~~~~~
+bzip2recover.c:40:30: note: format string is defined here
+ #  define MaybeUInt64_FMT "%Lu"
+                              ^
+bzip2recover.c:398:31: warning: ISO C does not support the '%Lu' gnu_printf format [-Wformat=]
+             fprintf ( stderr, "   block %d runs from " MaybeUInt64_FMT
+                               ^~~~~~~~~~~~~~~~~~~~~~~~
+bzip2recover.c:40:30: note: format string is defined here
+ #  define MaybeUInt64_FMT "%Lu"
+                              ^
+bzip2recover.c:398:31: warning: ISO C does not support the '%Lu' gnu_printf format [-Wformat=]
+             fprintf ( stderr, "   block %d runs from " MaybeUInt64_FMT
+                               ^~~~~~~~~~~~~~~~~~~~~~~~
+bzip2recover.c:40:30: note: format string is defined here
+ #  define MaybeUInt64_FMT "%Lu"
+                              ^
+gcc -std=c11 -O2 -fmessage-length=0 -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -Wformat-security -pedantic  -o bzip2recover bzip2recover.o
+
+Doing 6 tests (3 compress, 3 uncompress) ...
+If there's a problem, things might stop at this point.
+
+./bzip2 -1  < sample1.ref > sample1.rb2
+./bzip2 -2  < sample2.ref > sample2.rb2
+./bzip2 -3  < sample3.ref > sample3.rb2
+./bzip2 -d  < sample1.bz2 > sample1.tst
+./bzip2 -d  < sample2.bz2 > sample2.tst
+./bzip2 -ds < sample3.bz2 > sample3.tst
+cmp sample1.bz2 sample1.rb2
+cmp sample2.bz2 sample2.rb2
+cmp sample3.bz2 sample3.rb2
+cmp sample1.tst sample1.ref
+cmp sample2.tst sample2.ref
+cmp sample3.tst sample3.ref
+
+If you got this far and the 'cmp's didn't complain, it looks
+like you're in business.
+
+To install in /usr/local/bin, /usr/local/lib, /usr/local/man and
+/usr/local/include, type
+
+   make install
+
+To install somewhere else, eg, /xxx/yyy/{bin,lib,man,include}, type
+
+   make install PREFIX=/xxx/yyy
+
+If you are (justifiably) paranoid and want to see what 'make install'
+is going to do, you can first do
+
+   make -n install                      or
+   make -n install PREFIX=/xxx/yyy      respectively.
+
+The -n instructs make to show the commands it would execute, but
+not actually execute them.
+
+Instructions for use are in the preformatted manual page, in the file
+bzip2.txt.  For more detailed documentation, read the full manual.
+It is available in Postscript form (manual.ps), PDF form (manual.pdf),
+and HTML form (manual.html).
+
+You can also do "bzip2 --help" to see some helpful information.
+"bzip2 -L" displays the software license.
+
+02:44:47 5 host# gcc --version
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+02:44:55 6 host# uname -srm
+Linux 4.19.121-linuxkit x86_64
+02:45:29 7 host# cat /etc/os-release
+
+cat /etc/os-release
+NAME="Ubuntu"
+VERSION="18.04.5 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.5 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+02:45:41 8 host#

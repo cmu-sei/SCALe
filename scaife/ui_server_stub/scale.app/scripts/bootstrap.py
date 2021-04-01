@@ -2,9 +2,9 @@
 # that are generally useful for most of the scripts in this directory.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -29,7 +29,9 @@ from __future__ import print_function
 
 import os, sys, re, json, sqlite3, yaml, time
 import atexit, tempfile, shutil, itertools, subprocess
-import argparse
+import urllib2, requests, argparse
+from urllib2 import urlparse
+from requests.exceptions import ConnectionError
 from glob import glob
 from copy import copy
 from dateutil.parser import parse as date_parse
@@ -71,7 +73,7 @@ class Verbose(object):
     def __pos__(self):
         return self.value
     def __neg__(self):
-        return -self.value
+        return -(self.value)
     def __add__(self, val):
         return self.value + val
     def __sub__(self, val):
@@ -102,33 +104,67 @@ class Verbosity(argparse.Action):
         VERBOSE(self.verbosity)
         setattr(namespace, self.dest, self.verbosity)
 
-# Here are all of the script/module/data orientation settings; useful
-# since scripts rarely, if ever, need to hard code absolute paths for
-# anything.
+# All of the script/module/data orientation settings; no need to
+# hard-code absolute paths
 
 basename = __file__
 if basename.endswith(".pyc"):
     basename = basename[:-1]
+# bin_dir might not be scripts_dir
 bin_dir = os.path.dirname(os.path.abspath(basename))
+# find true basedir even if this is a soft link to bootstrap.py
 scripts_dir = os.path.dirname(os.path.abspath(os.path.realpath(basename)))
 properties_dir = os.path.join(scripts_dir, "data/properties")
 conditions_dir = os.path.join(scripts_dir, "data/conditions")
 base_dir = os.path.dirname(scripts_dir)
+automation_dir = os.path.join(scripts_dir, "automation")
+
+# let python scripts that aren't in the scripts dir load modules that
+# live in the scripts dir (but still let cwd have precedence)
+# for example: import automate
+if scripts_dir not in sys.path:
+    sys.path.insert(1, scripts_dir)
+
 test_dir = os.path.join(base_dir, "test")
 python_test_data_dir = os.path.join(test_dir, "python/data")
 junit_test_data_dir = os.path.join(test_dir, "junit/test/scale_input")
-automation_dir = os.path.join(scripts_dir, "automation")
-
 server_crt_dir = os.path.join(base_dir, "cert")
 server_crt_file = os.path.join(server_crt_dir, "cert/server.crt")
+tmp_dir = os.path.join(base_dir, "tmp")
 
-# Let python scripts that aren't in the scripts dir load modules that
-# live in the scripts dir (but still let cwd have precedence)
-# for example: import automate
-sys.path.insert(1, scripts_dir)
+if not os.path.exists(tmp_dir):
+    os.makedirs(tmp_dir)
 
-# We sneak some config information from a couple of the rails
-# config files for uniformity.
+# can manually set this here for development if desired -- will override
+# the environment variable and the default "development"
+
+RAILS_ENV = None
+ASK_RAILS = False
+
+default_env = "development"
+
+def get_rails_env(ask_rails=None):
+    if ask_rails is None:
+        ask_rails = ASK_RAILS
+    env = None
+    if RAILS_ENV is not None:
+        if ask_rails:
+            print("warning: overriding rail_env", file=sys.stderr) 
+        env = RAILS_ENV
+    else:
+        if ask_rails:
+            # slow (10 sec to initialize)
+            env = rails_config()["env"]
+        else:
+            # fast
+            env = os.getenv("RAILS_ENV") or default_env
+    return env
+
+rails_env = get_rails_env()
+
+# We sneak some information from a couple of the rails config files for
+# uniformity. (could also interrogate the rail app dynamically, but
+# that's slower)
 
 config_dir = os.path.join(base_dir, "config")
 db_config_file = os.path.join(config_dir, "database.yml")
@@ -144,51 +180,130 @@ def db_config(config_file=None):
         _configs[config_file] = yaml.safe_load(open(config_file))
     return _configs[config_file]
 
-def scaife_config(config_file=None):
+def scaife_config_all(config_file=None):
+    # all services by env
     if not config_file:
         config_file = scaife_config_file
     config_file = os.path.abspath(config_file)
     if config_file not in _configs:
         _configs[config_file] = yaml.safe_load(open(config_file))
-    return _configs[config_file]
+    config = _configs[config_file]
+    return config
 
-# Data directories might live somewhere else, based on the SCALE_HOME
-# environment variable
+def scaife_config(config_file=None, env=None):
+    # per-env services
+    if not env:
+        env = rails_env
+    config = scaife_config_all(config_file=config_file)
+    if env not in config:
+        raise ValueError(
+            "environment not found: %s in %s" % (env, config_file))
+    return config[env]
 
-if os.environ.get("SCALE_HOME"):
-    scale_dir = os.path.join(
-            os.path.abspath(os.environ.get("SCALE_HOME")), "scale.app")
-else:
-    scale_dir = base_dir
-tmp_dir = os.path.join(scale_dir, "tmp")
-db_dir = os.path.join(scale_dir, "db")
-db_archive_dir = os.path.join(scale_dir, "archive/backup")
-db_backup_dir = os.path.join(db_dir, "backup")
-gnu_dir = os.path.join(scale_dir, "public/GNU")
+# data directories might live somewhere else, based on the SCALE_HOME
+# environment variable. scale_dir defaults to base_dir but is maintained
+# separately
 
-def development_db(config_file=None):
-    # development.sqlite3
-    return os.path.join(
-            scale_dir, db_config(config_file)["development"]["database"])
+SCALE_HOME = None
+scale_dir = base_dir
 
-def external_db(config_file=None):
-    # external.sqlite3
-    return os.path.join(
-            scale_dir, db_config(config_file)["external"]["database"])
+def get_scale_home():
+    # defaults to relative to this file unless overridden above or
+    # by env var
+    return SCALE_HOME or os.environ.get("SCALE_HOME") \
+            or os.path.abspath(os.path.join(scale_dir, '..'))
 
-def project_archive_dir(project_id):
-    return os.path.join(db_archive_dir, str(project_id))
+scale_home = get_scale_home()
+
+internal_db = None
+db_dir = None
+external_db = None
+external_db_name = None
+db_backup_dir = None
+db_archive_dir = None
+gnu_dir = None
+
+def set_env(rails_env_val=None, scale_home_val=None, scale_dir_val=None):
+    # set all variables dependent on rails_env or scale_home
+    global RAILS_ENV
+    global rails_env
+    global SCALE_HOME
+    global scale_home
+    global scale_dir
+    global internal_db
+    global db_dir
+    global external_db
+    global external_db_name
+    global db_backup_dir
+    global db_archive_dir
+    global gnu_dir
+
+    # deal with rails env
+    if rails_env_val is not None:
+        if not rails_env_val:
+            # False, "", 0 unsets
+            RAILS_ENV = rails_env = os.environ["RAILS_ENV"] = None
+        else:
+            if rails_env_val not in db_config():
+                raise RuntimeError("unknown rails env: %s" % rails_env_val)
+            RAILS_ENV = rails_env = os.environ["RAILS_ENV"] = rails_env_val
+    if rails_env is None:
+        rails_env = get_rails_env()
+
+    # deal with scale env
+    if scale_home_val is not None:
+        if not scale_home_val:
+            # False, "", 0 unsets
+            SCALE_HOME = scale_home = os.environ["SCALE_HOME"] = None
+            scale_dir = base_dir
+        else:
+            scale_home_val = os.path.abspath(scale_home_val)
+            SCALE_HOME = scale_home = \
+                os.environ["SCALE_HOME"] = scale_home_val
+            scale_dir = os.path.join(scale_home, "scale.app")
+    elif scale_dir_val is not None:
+        # ignored if scale_home was provided
+        if not scale_dir_val:
+            # False, "", 0, resets
+            scale_dir = os.path.join(get_scale_home(), "scale.app")
+        else:
+            scale_dir = os.path.abspath(scale_dir_val)
+            scale_home = os.path.abspath(os.path.join(scale_dir, ".."))
+            SCALE_HOME = os.environ["SCALE_HOME"] = scale_home
+    else:
+        # don't alter SCALE_HOME or env var SCALE_HOME unless handed settings
+        scale_home = get_scale_home()
+        scale_dir = os.path.join(scale_home, "scale.app")
+
+    # set dependents
+    internal_db = os.path.join(scale_dir, db_config()[rails_env]["database"])
+    db_dir = os.path.dirname(internal_db)
+    external_db = os.path.join(scale_dir, db_config()["external"]["database"])
+    external_db_name = os.path.basename(external_db)
+    # e.g. scale.app/db/development/backup
+    db_backup_dir = os.path.join(db_dir, rails_env, "backup")
+    # e.g. scale.app/archive/development/backup
+    db_archive_dir = os.path.join(scale_dir, "archive", rails_env, "backup")
+    # no clean way to do this per-env (development, test) without
+    # exposing in the URLs
+    gnu_dir = os.path.join(scale_dir, "public/GNU")
+
+# first initialization of env and data vars
+set_env()
+
+### project specific paths
 
 def project_backup_dir(project_id):
     return os.path.join(db_backup_dir, str(project_id))
 
+def project_backup_db(project_id):
+    return os.path.join(project_backup_dir(project_id), external_db_name)
+
+def project_archive_dir(project_id):
+    return os.path.join(db_archive_dir, str(project_id))
+
 def project_archive_db(project_id):
     return os.path.join(project_archive_dir(project_id), "db.sqlite")
-
-def project_backup_db(project_id, config_file=None):
-    # external.sqlite3
-    return os.path.join(project_backup_dir(project_id),
-            db_config(config_file)["external"]["database"])
 
 def project_supplemental_dir(project_id):
     return os.path.join(project_archive_dir(project_id), "supplemental")
@@ -213,9 +328,6 @@ def rel2scale_path(path):
         path = os.path.relpath(path, base_dir)
     return path
 
-if not os.path.exists(tmp_dir):
-    os.makedirs(tmp_dir)
-
 # The data in these JSON files is destined to initialize both the
 # internal and external databases.
 
@@ -234,29 +346,118 @@ taxonomies_table = "Taxonomies"
 
 _tmp_dir = None
 
-def get_tmp_dir():
+def get_tmp_dir(ephemeral=True, suffix=None, purge=True, uniq=True):
     global _tmp_dir
-    if not _tmp_dir:
-        _tmp_dir = tempfile.mkdtemp()
-        def _tmp_cleanup():
-            shutil.rmtree(_tmp_dir, True)
-            pass
-        atexit.register(_tmp_cleanup)
-    return _tmp_dir
+    tdir = None
+    if ephemeral:
+        if not _tmp_dir:
+            _tmp_dir = tempfile.mkdtemp()
+            def _tmp_cleanup():
+                shutil.rmtree(_tmp_dir, True)
+            atexit.register(_tmp_cleanup)
+        tdir = _tmp_dir
+    else:
+        # use scale.app/tmp
+        tdir = tmp_dir
+    if suffix:
+        tdir = os.path.join(tdir, suffix)
+        # only purge if keeping results and suffix subdir is provided
+        if purge:
+            if not ephemeral and suffix and os.path.exists(tdir):
+                shutil.rmtree(tdir)
+        elif uniq:
+            cnt = len(glob("%s*" % tdir))
+            while os.path.exists("%s.%03d" % (tdir, cnt)):
+                cnt += 1
+            tdir = "%s.%03d" % (tdir, cnt)
+        if not os.path.exists(tdir):
+            os.makedirs(tdir)
+    return tdir
 
 def get_tmp_file(basename=None, ephemeral=True):
-    if ephemeral:
-        tmp_dir_name = get_tmp_dir()
-    else:
-        tmp_dir_name = tmp_dir
+    suffix = None
     if basename:
-        tmp_file = os.path.join(tmp_dir_name, basename)
+        basename = os.path.basename(basename)
+        suffix = os.path.dirname(basename)
+        if suffix == "/" or not suffix:
+            suffix = None
+    tmp_dir = get_tmp_dir(ephemeral=ephemeral, suffix=suffix)
+    if basename:
+        tmp_file = os.path.join(tmp_dir, basename)
     else:
-        tmp_file = tempfile.mkstemp(dir=tmp_dir_name)[-1]
+        tmp_file = tempfile.mkstemp(dir=tmp_dir)[-1]
     return tmp_file
 
-### Get rails to do our bidding and export a project by invoking
-### archiveDB()
+### Utility for unpacking various archive formats
+
+unpack_formats = {
+        "zip": dict(
+            cmd     = "unzip",
+            verbose = "--",
+            quiet   = "-q",
+        ),
+        "tar.gz": dict(
+            cmd     = "tar",
+            verbose = "xvf",
+            quiet   = "xf",
+        ),
+        "tar.bz2": dict(
+            cmd     = "tar",
+            verbose = "xjfv",
+            quiet   = "xjf",
+        ),
+    }
+unpack_formats["tgz"] = unpack_formats["tar.gz"]
+unpack_ext_pat = re.compile(r"(%s)$" % '|'.join(unpack_formats.keys()), re.I)
+
+def unpack(fname, tgt_dir=None, verbose=None):
+    loud = VERBOSE if verbose is None else verbose
+    m = unpack_ext_pat.search(fname)
+    if not m:
+        raise ValueError("unknown archive type: %s" % fname)
+    ext = m.group(1)
+    spec = unpack_formats[ext]
+    cmd = [spec["cmd"], spec["verbose"] if loud else spec["quiet"], fname]
+    pwd = os.getcwd()
+    res = None
+    try:
+        if tgt_dir:
+            os.chdir(tgt_dir)
+        try:
+            res = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        except CalledProcessError as e:
+            msg = str(e)
+            if e.output:
+                msg += "\nOUTPUT:\n%s" % e.output
+            raise Exception(msg)
+    finally:
+        os.chdir(pwd)
+    return res
+
+### handy pythonisms
+
+def is_stringish(item):
+    try:
+        # python 2
+        return isinstance(item, basestring)
+    except NameError:
+        # python 3
+        return isinstance(item, str)
+
+def is_listish(item):
+    try:
+        () + item
+        return True
+    except TypeError:
+        pass
+    try:
+        [] + item
+        return True
+    except TypeError:
+        pass
+    return False
+
+### Make rails itself do things for us when needed
 
 def export_project(project_id, output_file=None):
     cwd = os.getcwd()
@@ -266,7 +467,8 @@ def export_project(project_id, output_file=None):
         cmd = ["bin/rails",
             "-r", "./config/environment",
             "-r", "alert_conditions_controller",
-           "-e", "print AlertConditionsController.archiveDB(%d)" % project_id]
+            "-e",
+            "print AlertConditionsController.archiveDB(%d)" % project_id]
         dbf = subprocess.check_output(cmd).strip()
         if dbf and not os.path.exists(dbf):
             print("errant ruby result: [%s]" % dbf)
@@ -283,6 +485,30 @@ def export_project(project_id, output_file=None):
         shutil.copy(dbf, output_file)
         dbf = output_file
     return dbf
+
+_rails_config = None
+
+def rails_config():
+    # This is handy if you really need it, but it will take about 10
+    # seconds to initialize -- better to make assumtions with the
+    # RAILS_ENV environment variable if it is present.
+    global _rails_config
+    if _rails_config is None:
+        cwd = os.getcwd()
+        try:
+            os.chdir(base_dir)
+            cmd = ["bin/rails",
+                "-r", "./config/environment",
+                "-r", "application_controller",
+                "-e", "print ApplicationController.export_config.to_json"]
+            res = subprocess.check_output(cmd).strip()
+            _rails_config = json.loads(res)
+        except CalledProcessError as e:
+            msg = "ruby command failed:\n%s" % e.output
+            raise RuntimeError(msg)
+        finally:
+            os.chdir(cwd)
+    return _rails_config
 
 ### Process and normalize the JSON files for populating newly
 ### created DBs
@@ -405,7 +631,7 @@ def load_languages(db, table=languages_table):
     cur = con.cursor()
     cur.execute("SELECT * FROM %s" % table)
     for id_, name, platform, version, _scaife_id in cur:
-        yield Langueage(name, platform, version=version, id_=id_)
+        yield Language(name, platform, version=version, id_=id_)
 
 ###
 
@@ -487,7 +713,7 @@ class Tool(object):
     @property
     def tool_group_key(self):
         # this is the form parameter used in SCALe web queries
-        return '-'.join(self.name, '-'.join(self.platforms))
+        return '-'.join([self.name, '-'.join(self.platforms)])
 
 
 def tool_by_name(db, name, platforms, version=None, table=tools_table):
@@ -495,7 +721,7 @@ def tool_by_name(db, name, platforms, version=None, table=tools_table):
         try:
             platforms = json.loads(platforms)
         except ValueError:
-            platforms = split('/')
+            platforms = platforms.split('/')
     platform_json = json.dumps(platforms)
     con = sqlite3.connect(db)
     cur = con.cursor()
@@ -565,7 +791,7 @@ def taxonomies_info():
                     version_brief = vi.get("version_brief")
                     if not version_brief and version:
                         version_brief = version.lower()
-                        version_brief = re.sub(r"\s+", "_", vb)
+                        version_brief = re.sub(r"\s+", "_", version_brief)
                     elif version_brief.lower() in ("default", "none"):
                         version_brief = None
                     tti["version_brief"] = version_brief
@@ -650,7 +876,13 @@ def version_split(vstr):
 
 ###
 
-class ServiceTimeoutError(Exception):
+class ServiceException(Exception):
+    pass
+
+class ServiceTimeout(ServiceException):
+    pass
+
+class ServiceUnknown(ServiceException):
     pass
 
 default_svc_timeout = 30
@@ -667,71 +899,200 @@ def service_is_up(host, port=None):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         res = sock.connect_ex((host, int(port)))
         return True if res == 0 else False
+    except socket.error:
+        return None
     finally:
         sock.close()
 
-def wait_for_service(host, port=None, timeout=None):
+def wait_for_service(host, port=None, timeout=None, label=None):
     if timeout is None:
         timeout = default_svc_timeout
-    timeout = int(timeout)
+    timeout = abs(int(timeout))
     mark = time.time()
-    while (time.time() - mark) < timeout:
-        if service_is_up(host, port=port):
+    while (time.time() - mark) < timeout or not timeout:
+        status = service_is_up(host, port=port)
+        if status:
             if VERBOSE:
-                print("service is up: %s:%s" % (host, port))
+                if label:
+                    print("service is up for %s: %s:%s" % (label, host, port))
+                else:
+                    print("service is up: %s:%s" % (host, port))
             return True
+        if status is None:
+            if label:
+                msg = "service does not exist for %s: %s %s" \
+                        % (label, host, port)
+            else:
+                msg = "service does not exist: %s %s" % (host, port)
+            raise ServiceTimeout(msg)
+        if not timeout:
+            # just looking for immediate status
+            break
         time.sleep(1)
-    raise ServiceTimeoutError(
-        "service timed out: %s:%s after %d secs" % (host, port, timeout))
+    if status is not None:
+        if label:
+            msg = "service timed out for %s: %s:%s after %d secs" \
+                    % (label, host, port, timeout)
+        else:
+            msg = "service timed out: %s:%s after %d secs" \
+                    % (host, port, timeout)
+    raise ServiceTimeout(msg)
 
 class Service(object):
 
-    default_env = "test"
-
-    def __init__(self, name=None, host=None, port=None,
-            config_file=None, env=None, localhost=False):
-        # can be a named service in a config file, but doesn't have to
-        # be, can just be host:port
-        if not host and not name:
-            raise ValueError("service name or host name required")
-        self.name = name
-        if name:
-            # pull host:port from config file
-            if not env:
-                env = self.default_env
-            configs = scaife_config(config_file=config_file)
-            if env not in configs:
-                raise ValueError(
-                    "environment not found: %s in %s" % (env, config_file))
-            config = configs[env]
-            m = re.search(r"^([^:]+):(\d+)", config[name])
-            self.host = "localhost" if localhost else m.group(1)
-            self.port = int(m.group(2))
-        else:
-            # insist on host:port
-            if not host:
-                raise ValueError("service name or host name required")
-            if not port:
-                if ':' in host:
-                    m = re.search(r"^([^:]+):(\d+)", host)
-                    host, port = m.group(1), int(m.group(2))
-                else:
-                    raise ValueError("port required")
-            self.host, self.port = host, port
+    def __init__(self, name=None, host=None, port=None, url=None,
+            expected_response=None, check_json=True, label=None):
+        # can be a named service, but doesn't have to be, can
+        # just be host:port or a url
+        if not host and not name and not url:
+            raise ValueError("service name or host name required, " \
+                    "either directly or via url")
+        self._name = name
+        if not host and name:
+            host = name
+        if url and host is None:
+            # possibly pull host out of url if host not provided
+            u = urlparse.urlparse(url)
+            if u.netloc:
+                host, p = urllib2.splitport(u.netloc)
+        if not host:
+            host = "localhost"
+        if port is None:
+            # this might only happen if no url was provided but
+            # "host:port" was
+            host, port = urllib2.splitport(host)
+        if port is None and url:
+            u = urlparse.urlparse(url)
+            h, port = urllib2.splitport(u.netloc)
+            if port is None:
+                if u.scheme == "http":
+                    port = 80
+                elif u.scheme == "https":
+                    port = 443
+        if port is None:
+            raise ValueError("port must be provided directly or via url")
+        self.expected_response = expected_response
+        self.check_json = check_json
+        self.host = host
+        self.port = int(port)
+        self.url = url
+        self._label = label
         self._status = None
 
-    def status(self):
+    @property
+    def name(self):
+        return self._name if self._name else str(self)
+
+    def port_status(self):
         return service_is_up(self.host, self.port)
+
+    def status(self):
+        # immediately report status
+        try:
+            self.wait_until_up(timeout=0)
+            return True
+        except ServiceTimeout:
+            return False
 
     def cached_status(self):
         if self._status is None:
             self._status = self.status()
         return self._status
 
+    @property
+    def label(self):
+        # for labeling test messages with module name or other info
+        label = None
+        if self._label:
+            if self.name:
+                if self.name not in self._label:
+                    label = "%s/%s" % (self._label, self.name)
+                else:
+                    label = self.name
+            else:
+                label = self._label
+        else:
+            label = self.name
+        return label
+
     def wait_until_up(self, timeout=None):
-        wait_for_service(self.host, port=self.port, timeout=timeout)
-        self._status = True
+        # wait for port to be active, then also wait for valid response
+        # if service url has been defined
+        try:
+            if self.wait_until_port_active(timeout=timeout):
+                if self.url:
+                    self.wait_until_valid_response(timeout=timeout)
+                    self._status = True
+                else:
+                    self._status = True
+            else:
+                self._status = False
+        except ServiceTimeout as e:
+            self._status = False
+            raise e
         return self._status
+
+    def wait_until_port_active(self, timeout=None):
+        return wait_for_service(self.host, port=self.port,
+                    timeout=timeout, label=self.label)
+
+    def wait_until_valid_response(self, timeout=None):
+        if not self.url:
+            return True
+        if timeout is None:
+            timeout = default_svc_timeout
+        sleep_interval = 2
+        timeout = abs(int(timeout))
+        if self.check_json:
+            headers = {'Content-Type': 'application/json'}
+        else:
+            headers = None
+        mark = time.time()
+        while (time.time() - mark) < timeout or not timeout:
+            try:
+                response = requests.get(self.url, headers=headers,
+                        timeout=sleep_interval)
+            except ConnectionError as e:
+                if not timeout:
+                    break
+                time.sleep(sleep_interval)
+                continue
+            if response.status_code != 200:
+                if not timeout:
+                    break
+                time.sleep(sleep_interval)
+                continue
+            if self.expected_response:
+                content = response.json() \
+                        if self.check_json else response.text
+                if callable(self.expected_response):
+                    # outsource the check to the caller
+                    valid = self.expected_response(content)
+                else:
+                    valid = (content == self.expected_response)
+                if valid:
+                    if VERBOSE:
+                        if self.label:
+                            print("service is responding for %s: %s" \
+                                    % (self.label, self.url))
+                        else:
+                            print("service is responding: %s" \
+                                    % self.url)
+                    # response is valid
+                    return content
+                elif not timeout:
+                    return False
+            else:
+                # not comparing content, just http 200
+                return True
+            time.sleep(sleep_interval)
+        if self.label:
+            msg = "service response timed out for %s after %d secs: %s" \
+                    % (self.label, timeout, self.url)
+        else:
+            msg = "service response timed out after %d secs: %s" \
+                    % (timeout, self.url)
+        raise ServiceTimeout(msg)
 
     @property
     def up(self):
@@ -742,8 +1103,13 @@ class Service(object):
 
     @property
     def message(self):
-        return "service(%s) is: %s" % \
-                (self.name, "up" if self.cached_status() else "down")
+        status = "up" if self.cached_status() else "down"
+        if self.label:
+            msg = "service is %s for %s: %s:%s" \
+                    % (status, self.label, self.host, self.port)
+        else:
+            msg = "service is %s : %s:%s" % (status, self.host, self.port)
+        return msg
 
     def __str__(self):
         return "%s:%s" % (self.host, self.port)
@@ -756,43 +1122,60 @@ class Service(object):
     __bool__ = cached_status
 
 
-standard_svcs = (
-    "scale",
-    "datahub",
-    "stats",
-    "priority",
-    "registration",
-    "pulsar",
-)
+def load_services_from_config(config_file=None, env=None,
+        localhost=False, label=None):
+    services = {}
+    config = scaife_config(config_file=config_file, env=env)
+    for svc, host in config.items():
+        if svc == "automation":
+            continue
+        url = expected = None
+        host, port = urllib2.splitport(host)
+        if localhost:
+            host = "localhost"
+        if svc == "pulsar":
+            # need a better way to handle fancy services than making
+            # exceptions here by name
+            url = "http://%s:%s/admin/v2/worker/cluster" % (host, 8080)
+            def _expected(data):
+                data = data[0]
+                keys = ("workerId", "workerHostname", "port")
+                return all(x in data for x in keys)
+            expected = _expected
+        services[svc] = Service(name=svc, host=host, port=port,
+                url=url, expected_response=expected, label=label)
+    return services
 
-def _filter_svcs(include=None, exclude=None):
+def _filter_services(include=None, exclude=None, localhost=False):
+    services = load_services_from_config(localhost=localhost)
+    svcs_present = services
+    if not svcs_present:
+        raise ValueError("no services present in config")
     if not include:
-        include = set(standard_svcs)
-    if include:
-        include = set(include)
-        inc_unknown = include.difference(standard_svcs)
-        if inc_unknown:
-            raise ValueError("cannot include unknown services: %s" \
-                % ', '.join(sorted(inc_unknown)))
+        include = svcs_present
+    include = set(include or [])
+    inc_unknown = include.difference(svcs_present)
+    if inc_unknown:
+        raise ServiceUnknown("cannot include unknown services: %s" \
+            % ', '.join(sorted(inc_unknown)))
+    exclude = set(exclude or [])
     if exclude:
-        exc_unknown = set(exclude).difference(standard_svcs)
+        exc_unknown = exclude.difference(svcs_present)
         if exc_unknown:
-            raise ValueError("cannot exclude unknown services: %s" \
+            raise ServiceUnknown("cannot exclude unknown services: %s" \
                 % ', '.join(sorted(exc_unknown)))
-    if exclude:
         include.difference_update(exclude)
     if not include:
-        raise ValueError("no services selected from: %s" \
-            % ', '.join(sorted(standard_svcs)))
-    return include
+        raise ServiceUnknown("no services selected from: %s" \
+            % ', '.join(svcs_present))
+    return [svcs_present[x] for x in sorted(include)]
 
-def assert_services_are_up(config_file=None, env=None,
-        include=None, exclude=None):
-    services = _filter_svcs(include=include, exclude=exclude)
+def assert_services_are_up(include=None, exclude=None, localhost=False):
+    services = _filter_services(include=include, exclude=exclude,
+            localhost=localhost)
     services_up = []
     services_down = []
-    for svc_name in services:
-        svc = Service(name=svc_name, config_file=config_file, env=env)
+    for svc in services:
         if svc:
             services_up.append(svc)
         else:
@@ -802,12 +1185,11 @@ def assert_services_are_up(config_file=None, env=None,
     assert not services_down, message
     return services_up
 
-def wait_for_services(config_file=None, env=None, timeout=None,
-        include=None, exclude=None, localhost=False):
-    services = _filter_svcs(include=include, exclude=exclude)
-    for svc_name in services:
-        svc = Service(name=svc_name, config_file=config_file,
-                env=env, localhost=localhost)
+def wait_for_services(timeout=None, include=None, exclude=None,
+        localhost=False):
+    services = _filter_services(include=include, exclude=exclude,
+            localhost=localhost)
+    for svc in services:
         if VERBOSE:
             print("waiting for service: %s" % svc.name)
         svc.wait_until_up(timeout=timeout)
@@ -816,7 +1198,7 @@ def wait_for_services(config_file=None, env=None, timeout=None,
 ### Some useful database integrations and utilities
 
 def get_project_ids():
-    con = sqlite3.connect(development_db())
+    con = sqlite3.connect(internal_db)
     cur = con.cursor()
     cur.execute("SELECT id FROM projects")
     ids = sorted(int(row[0]) for row in cur)
@@ -834,7 +1216,7 @@ def get_project_id_and_name(project_name_or_id):
         project_name = project_name_or_id
     if project_id == 0:
         return 0, ""
-    with sqlite3.connect(development_db()) as con:
+    with sqlite3.connect(internal_db) as con:
         cur = con.cursor()
         for pid, name in cur.execute("SELECT id, name FROM projects"):
             pid = int(pid)
@@ -858,7 +1240,7 @@ class DBObject(object):
     def __init__(self, obj_id, table, db=None):
         self.id_ = int(obj_id)
         self.table = table
-        self.db = db or development_db()
+        self.db = db or internal_db
         self._con = None
         self._columns = None
         self._values = None
@@ -927,7 +1309,7 @@ class Project(DBObject):
                         self.db = db
                         break
             else:
-                db = development_db()
+                db = internal_db
         table = "Projects" if external else "projects"
         if external:
             DBObject.__init__(self, 0, table, db=db)

@@ -4,9 +4,9 @@ title: 'SCALe : DB Design for development.sqlite3'
 
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -56,16 +56,18 @@ alert *with* information about only one of the conditions its checker
 maps to.
 
 Each `displays.id` entry is for a unique combination of a single alert
-(d`isplays.alert_id`) and one of the conditions its checker maps to
+(`displays.alert_id`) and one of the conditions its checker maps to
 (that condition ID can be looked up using the
 `displays.meta_alert_id `field). If that alert's checker maps to
-multiple conditions, there will be a separate entry (d`isplays.id`) for
+multiple conditions, there will be a separate entry (`displays.id`) for
 each of the conditions it maps to.
 
 There can be multiple `displays` table entries with the same
-`displays.meta_alert_id`, because each alert within a meta-alert's fused
-alert has a separate `displays.id` table entry). A meta-alert is
-identified by a 3-tuple: filepath, line number, code flaw condition.
+`displays.meta_alert_id`, because each alertCondition within a meta-alert's fused
+alertConditions has a separate `displays.id` table entry). A meta-alert is
+identified by at minimum a 3-tuple: filepath, line number, code flaw condition but
+we are moving to identifying it with a 4-tuple: filepath, line number, code flaw condition, and unique message and/or
+unique set of secondary messages.
 
 | column_name | type | notes |
 |---|:---:|---------------------------|
@@ -92,7 +94,8 @@ identified by a 3-tuple: filepath, line number, code flaw condition.
 | dead | BOOLEAN | This contains the latest value (from the Determinations table) |
 | inapplicable_environment | BOOLEAN | This contains the latest value (from the Determinations table) |
 | dangerous_construct | INTEGER | This contains the latest value (from the Determinations table) |
-| confidence | DECIMAL | This is really the **meta-alert confidence (which comes from aclassifier (or an emulator of a classifier)),** not a per-alert confidence. |
+| class_label | VARCHAR(255) | This is really the **meta-alert label (which comes from a classifier (or an emulator of a classifier)),** not a per-alert label. |
+| confidence | DECIMAL | This is really the **meta-alert confidence (which comes from a classifier (or an emulator of a classifier)),** not a per-alert confidence. |
 | meta_alert_priority | INTEGER | This is really the **meta-alert priority,** not a per-alert priority. |
 | project_id | INTEGER | |
 | meta_alert_id | INTEGER | Meta-alert id (in the external.sqlite3 DB). |
@@ -200,12 +203,16 @@ changes in the rc_317 branch of SCALe:
 | classifier_instance_name | VARCHAR(255) | |
 | classifier_type | VARCHAR(255) | Type of classifier being trained (Logistic Regression, XGBoost, etc.) |
 | source_domain | TEXT | This is the list of projects used to create the classifier. |
+| feature_category | TEXT | Determines whether to (a) select classifier features only if they are available in all projects' data (intersection), or (b) select all available features (union).  Note that Option (b) may degrade classifier peformance. |
+| semantic_features | BOOLEAN | Determines whether to consider semantic features when training the classifier. |
+| use_pca | BOOLEAN | Determines whether to apply principal component analysis (PCA) when training and running the classifier. |
 | created_at | DATETIME | |
 | updated_at | DATETIME | |
 | adaptive_heuristic_name | TEXT | name field of the adaptive_heuristic represented by the title of tabs in the classifier schemes modal in the adaptive heuristics section. |
 |  adaptive_heuristic_parameters** | TEXT |  **Field names vary and are dynamically updated based on user input. These are the parameters for the adaptive_heuristic (They vary depending on the type of adaptive_heuristic). |
 | ahpo_name | TEXT  | Automated Hyper-Parameter Optimization. name field represented by the AHPO selected from the dropdown in the classifier schemes model in the AHPO section. There will be options, but none implemented yet. |
 |  ahpo_parameters** | TEXT |  **Field names vary and are dynamically updated based on user input. These are the parameters for the ahpo (They vary depending on the type of ahpo). |
+| num_meta_alert_threshold | INTEGER | Specifies the number of new meta-alerts received before retraining the classifier. |
 | scaife_classifier_instance_id | VARCHAR(255) | classifier scheme instance id from SCAIFE |
 
 ### user_uploads
@@ -318,10 +325,21 @@ NOTE: data only populated if user uploads CSV with appropriate data
 | scaife_classifier_instance_id | VARCHAR(255) | classifier scheme instance id from SCAIFE |
 | transaction_timestamp | DATETIME | When the metric was collected |
 | num_labeled_meta_alerts_used_for_classifier_evaluation | INTEGER  | For example, with a total labeled dataset of 100 meta-alerts, if 70 of them were used to train the classifier, then there would be 30 labeled meta-alerts used for classifier evaluation. These labeled meta-alerts come from the dataset the classifier is run on, which may or may not be the dataset used to create the classifier.  This dataset typically does not include any labeled data received since classifier creation. |
-| accuracy | DECIMAL | The fraction of correct predictions made by the classifier |
-| precision | DECIMAL | The proportion of positive identifications that were actually correct |
-| recall | DECIMAL | The proportion of true positives that were correctly identified  |
-| f1 | DECIMAL | An overall measure of a classifier’s accuracy that combines precision and recall |
+| train_accuracy | DECIMAL | The fraction of correct predictions made by the classifier on the training data set |
+| train_precision | DECIMAL | The proportion of positive identifications that were actually correct on the training data set |
+| train_recall | DECIMAL | The proportion of true positives that were correctly identified  in the training data set |
+| train_f1 | DECIMAL | An overall measure of a classifier’s accuracy on the training data set that combines precision and recall |
+| test_accuracy | DECIMAL | The fraction of correct predictions made by the classifier on the test data set |
+| test_precision | DECIMAL | The proportion of positive identifications that were actually correct on the test data set |
+| test_recall | DECIMAL | The proportion of true positives that were correctly identified in the test data set |
+| test_f1 | DECIMAL | An overall measure of a classifier’s accuracy on the test data set that combines precision and recall |
+| num_labeled_meta_alerts_used_for_classifier_training | INTEGER | |
+| num_labeled_T_test_suite_used_for_classifier_training | INTEGER | |
+| num_labeled_F_test_suite_used_for_classifier_training | INTEGER | |
+| num_labeled_T_manual_verdicts_used_for_classifier_training | INTEGER | |
+| num_labeled_F_manual_verdicts_used_for_classifier_training | INTEGER | |
+| num_code_metrics_tools_used_for_classifier_training | INTEGER | |
+| top_features_impacting_classifier | TEXT | |
 
 ------------------------------------------------------------------------
 

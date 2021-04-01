@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -37,17 +37,39 @@ class ClassifierMetricsTest < ActiveSupport::TestCase
 		project_id = 1000
 		scaife_classifier_instance_id = "5da60a91649f74df25cc9daf"
                 num_labeled_meta_alerts = 5000
-                acc = 1.0
-                precision = 1.0
-                recall = 1.0
-                f1 = 1.0
+                train_acc = 1.0
+                train_precision = 1.0
+                train_recall = 1.0
+                train_f1 = 1.0
+                test_acc = 0.8
+                test_precision = 0.8
+                test_recall = 0.8
+                test_f1 = 0.8
+                num_labeled_meta_alerts_used_for_classifier_training = 1950
+                num_labeled_T_test_suite_used_for_classifier_training = 720
+                num_labeled_F_test_suite_used_for_classifier_training = 830
+                num_labeled_T_manual_verdicts_used_for_classifier_training = 175
+                num_labeled_F_manual_verdicts_used_for_classifier_training = 225
+                num_code_metrics_tools_used_for_classifier_training = 3
+                top_features_impacting_classifier = "num_alerts_per_source_file: 1.5;code_language__C++: 0.125"
 
                 classifier_analysis = Hash.new
                 classifier_analysis["num_labeled_meta_alerts_used_for_classifier_evaluation"] = num_labeled_meta_alerts
-                classifier_analysis["accuracy"] = acc
-                classifier_analysis["precision"] = precision
-                classifier_analysis["recall"] = recall
-                classifier_analysis["f1"] = f1
+                classifier_analysis["train_accuracy"] = train_acc
+                classifier_analysis["train_precision"] = train_precision
+                classifier_analysis["train_recall"] = train_recall
+                classifier_analysis["train_f1"] = train_f1
+                classifier_analysis["test_accuracy"] = test_acc
+                classifier_analysis["test_precision"] = test_precision
+                classifier_analysis["test_recall"] = test_recall
+                classifier_analysis["test_f1"] = test_f1
+                classifier_analysis["num_labeled_meta_alerts_used_for_classifier_training"] = num_labeled_meta_alerts_used_for_classifier_training
+                classifier_analysis["num_labeled_T_test_suite_used_for_classifier_training"] = num_labeled_T_test_suite_used_for_classifier_training
+                classifier_analysis["num_labeled_F_test_suite_used_for_classifier_training"] = num_labeled_F_test_suite_used_for_classifier_training
+                classifier_analysis["num_labeled_T_manual_verdicts_used_for_classifier_training"] = num_labeled_T_manual_verdicts_used_for_classifier_training
+                classifier_analysis["num_labeled_F_manual_verdicts_used_for_classifier_training"] = num_labeled_F_manual_verdicts_used_for_classifier_training
+                classifier_analysis["num_code_metrics_tools_used_for_classifier_training"] = num_code_metrics_tools_used_for_classifier_training
+                classifier_analysis["top_features_impacting_classifier"] = top_features_impacting_classifier
 
 		count = ClassifierMetrics.count
 		success = ClassifierMetrics.addRecord(
@@ -62,10 +84,21 @@ class ClassifierMetricsTest < ActiveSupport::TestCase
                     project_id: project_id,
                     scaife_classifier_instance_id: scaife_classifier_instance_id,
                     num_labeled_meta_alerts_used_for_classifier_evaluation: num_labeled_meta_alerts,
-                    accuracy: acc,
-                    precision: precision,
-                    recall: recall,
-                    f1: f1
+                    test_accuracy: test_acc,
+                    test_precision: test_precision,
+                    test_recall: test_recall,
+                    test_f1: test_f1,
+                    num_labeled_meta_alerts_used_for_classifier_training: num_labeled_meta_alerts_used_for_classifier_training,
+                    num_labeled_T_test_suite_used_for_classifier_training: num_labeled_T_test_suite_used_for_classifier_training,
+                    num_labeled_F_test_suite_used_for_classifier_training: num_labeled_F_test_suite_used_for_classifier_training,
+                    num_labeled_T_manual_verdicts_used_for_classifier_training: num_labeled_T_manual_verdicts_used_for_classifier_training,
+                    num_labeled_F_manual_verdicts_used_for_classifier_training: num_labeled_F_manual_verdicts_used_for_classifier_training,
+                    num_code_metrics_tools_used_for_classifier_training: num_code_metrics_tools_used_for_classifier_training,
+                    top_features_impacting_classifier: top_features_impacting_classifier,
+                    train_accuracy: train_acc,
+                    train_precision: train_precision,
+                    train_recall: train_recall,
+                    train_f1: train_f1
 		)
 
 	end

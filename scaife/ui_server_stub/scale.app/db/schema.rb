@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_15_175353) do
+ActiveRecord::Schema.define(version: 2021_01_29_183901) do
 
   create_table "checkers", force: :cascade do |t|
     t.string "name"
@@ -24,10 +24,21 @@ ActiveRecord::Schema.define(version: 2020_09_15_175353) do
     t.string "scaife_classifier_instance_id"
     t.datetime "transaction_timestamp"
     t.integer "num_labeled_meta_alerts_used_for_classifier_evaluation"
-    t.float "accuracy"
-    t.float "precision"
-    t.float "recall"
-    t.float "f1"
+    t.float "test_accuracy"
+    t.float "test_precision"
+    t.float "test_recall"
+    t.float "test_f1"
+    t.integer "num_labeled_meta_alerts_used_for_classifier_training"
+    t.integer "num_labeled_T_test_suite_used_for_classifier_training"
+    t.integer "num_labeled_F_test_suite_used_for_classifier_training"
+    t.integer "num_labeled_T_manual_verdicts_used_for_classifier_training"
+    t.integer "num_labeled_F_manual_verdicts_used_for_classifier_training"
+    t.integer "num_code_metrics_tools_used_for_classifier_training"
+    t.text "top_features_impacting_classifier"
+    t.float "train_accuracy"
+    t.float "train_precision"
+    t.float "train_recall"
+    t.float "train_f1"
   end
 
   create_table "classifier_schemes", force: :cascade do |t|
@@ -42,6 +53,10 @@ ActiveRecord::Schema.define(version: 2020_09_15_175353) do
     t.text "ahpo_parameters"
     t.string "scaife_classifier_id"
     t.string "scaife_classifier_instance_id"
+    t.string "feature_category"
+    t.boolean "semantic_features"
+    t.boolean "use_pca"
+    t.integer "num_meta_alert_threshold"
     t.index ["classifier_instance_name"], name: "index_classifier_schemes_on_classifier_instance_name", unique: true
   end
 
@@ -112,6 +127,7 @@ ActiveRecord::Schema.define(version: 2020_09_15_175353) do
     t.string "tool_version"
     t.string "code_language"
     t.decimal "next_confidence"
+    t.string "class_label"
   end
 
   create_table "languages", force: :cascade do |t|

@@ -1,9 +1,9 @@
 #!/bin/env python
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -29,9 +29,8 @@ from __future__ import print_function
 import pytest
 
 import os, sys, re
-import itertools, subprocess, shutil, sqlite3
+import itertools, shutil, sqlite3
 from datetime import datetime
-from subprocess import CalledProcessError
 
 import bootstrap
 from bootstrap import rel2scale_path
@@ -44,10 +43,7 @@ from bootstrap import rel2scale_path
 #   c) the default unsanitized db file in this test directory is sanitized
 #   d) or sanitization is disabled and unsanitized DBs are compared
 
-test_dir = os.path.dirname(os.path.abspath(__file__))
-dat_dir = os.path.join(test_dir, 'data/sanitizer')
-scale_dir = os.path.dirname(os.path.dirname(test_dir))
-scripts_dir = os.path.join(scale_dir, 'scripts')
+dat_dir = os.path.join(bootstrap.python_test_data_dir, 'sanitizer')
 
 def archive_project_db(project_id, project_name):
     cwd = os.getcwd()
@@ -64,14 +60,17 @@ def _gen_db_names(keep_tmp=False):
     return sanit_db, copy_db
 
 def sanitize_db(db, salt_file, keep_tmp=False):
-    if scripts_dir not in sys.path:
-        sys.path.insert(0, scripts_dir)
     import sanitize_db as sdb
-    sdb.VERBOSE = False
-    new_db_sanit, new_db_copy, = \
+    old_verbose = bool(sdb.VERBOSE)
+    new_db_sanit = None
+    try:
+        sdb.VERBOSE(False)
+        new_db_sanit, new_db_copy = \
             _gen_db_names(keep_tmp=keep_tmp)
-    sdb.sanitize_db(db, copy_db_path=new_db_copy,
+        sdb.sanitize_db(db, copy_db_path=new_db_copy,
             sanit_db_path=new_db_sanit, salt_file=salt_file)
+    finally:
+        sdb.VERBOSE(old_verbose)
     return new_db_sanit
 
 class TestSanitizer(object):

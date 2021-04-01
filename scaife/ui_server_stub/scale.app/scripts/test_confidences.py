@@ -5,9 +5,9 @@
 # inside the test/python directory
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -34,7 +34,7 @@ import bootstrap
 
 class TestConfidence:
     def test_confidence(self):
-        with sqlite3.connect(bootstrap.development_db()) as con:
+        with sqlite3.connect(bootstrap.internal_db) as con:
             self.inspect_db(con)
 
     def inspect_db(self, con):

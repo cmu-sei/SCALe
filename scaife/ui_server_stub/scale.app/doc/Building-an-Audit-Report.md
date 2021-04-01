@@ -3,9 +3,9 @@ title: 'SCALe : Building an Audit Report'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Audit Instructions](Audit-Instructions.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -39,13 +39,11 @@ its purpose is to provide credibility.
 The audit report is accompanied by two tables, packaged as Excel
 spreadsheets. The first table identifies all the confirmed violations
 (true positives) found in the audit, and (for auditors using [what we
-call 'method \#2 for alert
-validation](Validating-SCALe-Alerts.md)')
+call 'method \#2 for alertCondition validation](Validating-SCALe-AlertConditions.md)')
 the second table identifies all the suspicious alertConditions (assumed
 true, but not inspected by a human). The format of these spreadsheets is
 documented in Section 4 of the report. Alternatively (for auditors using
-[what we call 'method \#1 for alert
-validation](Validating-SCALe-Alerts.md)')
+[what we call 'method \#1 for alertCondition validation](Validating-SCALe-AlertConditions.md)')
 , the second table could include all alertConditions defined as
 expected-true-positive according to the classifier.
 
@@ -89,7 +87,7 @@ statistic means and how to obtain it.
     -   [Violations by CERT Rule](#violations-by-cert-rule)
     -   [Audit Summary Statistics](#audit-summary-statistics)
 -   [3. Analysis of Findings](#analysis-of-findings)
--   [4. Alert Findings](#alert-findings)
+-   [4. AlertCondition Findings](#alert-findings)
 -   [5. Procedure](#procedure)
 
 The ideal SCALe audit report is like the ideal hamburger; it consists of
@@ -179,12 +177,10 @@ have audited. The columns are:
 -   ksigLoC
 -   Rules
 -   True
--   Suspicious  (for auditors using [what we call 'method \#2 for alert
-    validation](Validating-SCALe-Alerts.md)')
+-   Suspicious  (for auditors using [what we call 'method \#2 for alertCondition validation](Validating-SCALe-AlertConditions.md)')
 -   The additional basic, supplemental, and any other (e.g.,
     organization-defined and using Flag) determinations  (for auditors
-    using [what we call 'method \#1 for alert
-    validation](Validating-SCALe-Alerts.md)')
+    using [what we call 'method \#1 for alertCondition validation](Validating-SCALe-AlertConditions.md)')
 -   File Density
 -   Line Density
 
@@ -195,7 +191,7 @@ flavor.
 
 This section consists of blurbs. The number of blurbs averages 5, but
 can be more or less if desired. Each blurb should examine a single
-alert and justify why the auditor considered it to be a violation.
+alertCondition and justify why the auditor considered it to be a true positive.
 The purpose of this section is to convince the codebase owners that the
 report is credible; it showcases real vulnerabilities. Ideally, the
 alerts examined should be the most severe ones found. Each blurb
@@ -216,17 +212,17 @@ Each blurb should contain the following information:
     be exploited
 -   Remediation; that is, how to fix the code
 
-We recommend that every auditor who marks a alert as true produce a
-blurb about the alert. Thus the job of writing this chapter simply
+We recommend that every auditor who marks an alertCondition as true produce a
+blurb about the alertCondition. Thus the job of writing this chapter simply
 consists of assembling significant blurbs. The blurbs also have a
-beneficial side effect; they allow auditors to re-examine the alert
+beneficial side effect; they allow auditors to re-examine the alertCondition
 and ensure they made no mistakes in their evaluation. Auditors will
 often want to share alertConditions with each other to verify their
-accuracy, and producing a blurb makes a alert easy to share and
+accuracy, and producing a blurb makes an alertCondition easy to share and
 review. Blurbs produced by junior auditors make it easy for senior
 auditors to guide them in auditing code correctly.
 
-### 4. Alert Findings
+### 4. AlertCondition Findings
 
 This is the other bun in the burger. A necessary component to hold the
 report together, but not much flavor.
@@ -247,7 +243,7 @@ provides texture, but it has little flavor and you keep it in for good
 health.
 
 This chapter describes the background of SCALe and code flaw taxonomies
-used in the audit, e.g., the CERT Coding standards and CWEs. It also
+used in the audit, e.g., CWEs and the CERT Coding standards. It also
 includes a summary of details for each static analysis tool.
 
 This chapter can be written before the audit begins. In fact, it can
@@ -258,7 +254,7 @@ any material has become outdated.
 
 ------------------------------------------------------------------------
 
-[![](attachments/arrow_left.png)](Validating-SCALe-Alerts.md)
+[![](attachments/arrow_left.png)](Validating-SCALe-AlertConditions.md)
 [![](attachments/arrow_up.png)](Audit-Instructions.md)
 [![](attachments/arrow_right.png)](Web-App-Design.md)
 
@@ -266,9 +262,9 @@ Attachments:
 ------------
 
 ![](images/icons/bullet_blue.gif) [TEMPLATE\_SCALe Audit Report.docx](attachments/SCALe_Audit_Report.docx)
-(application/vnd.openxmlformats-officedocument.wordprocessingml.document)
-![](images/icons/bullet_blue.gif) [SCALe chart open source.xlsx](attachments/SCALe_chart_open_source.xlsx)(application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)
+(application/vnd.openxmlformats-officedocument.wordprocessingml.document)\
+![](images/icons/bullet_blue.gif) [SCALe chart open source.xlsx](attachments/SCALe_chart_open_source.xlsx)(application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)\
 ![](images/icons/bullet_blue.gif) [Jasper SCALe Audit Report.docx](attachments/Jasper_SCALe_Audit_Report.docx)
-(application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+(application/vnd.openxmlformats-officedocument.wordprocessingml.document)\
 ![](images/icons/bullet_blue.gif) [SCALe chart open source.xlsx](attachments/SCALe_Audit_Report_Template.xlsx)
-(application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)
+(application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)\

@@ -1,8 +1,8 @@
 # coding: utf-8
 # <legal>
-# SCAIFE System version 1.2.2
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -27,7 +27,7 @@ import sys
 from setuptools import setup, find_packages
 
 NAME = "swagger_server"
-VERSION = "1.0.1"
+VERSION = "2.0.0"
 
 # To install the library, run the following
 #
@@ -41,10 +41,10 @@ REQUIRES = ["connexion"]
 setup(
     name=NAME,
     version=VERSION,
-    description="Rapid Models Registration and Login Module API Definition",
+    description="SCAIFE Registration and Login Module",
     author_email="lflynn@cert.org",
     url="",
-    keywords=["Swagger", "Rapid Models Registration and Login Module API Definition"],
+    keywords=["Swagger", "SCAIFE Registration and Login Module"],
     install_requires=REQUIRES,
     packages=find_packages(),
     package_data={'': ['swagger/swagger.yaml']},
@@ -52,6 +52,6 @@ setup(
     entry_points={
         'console_scripts': ['swagger_server=swagger_server.__main__:main']},
     long_description="""\
-    API to facilitate auditing static analysis alerts using classifiers, optional adaptive heuristics, and alert prioritization. The API enables jump-starting labeled datasets using test suites. It is intended to enable a wide range of users (with widely varying datasets, static analysis tools, ranging from having no labeled data to having a lot of labeled data, and regardless of if they have their own statistical experts) to benefit from using classifiers and sophisticated prioritization to automatically triage handling their static analysis alerts.
+    Module to facilitate auditing static analysis alerts using classifiers, optional adaptive heuristics, and alert prioritization. The module enables jump-starting labeled datasets using test suites. It is intended to enable a wide range of users (with widely varying datasets, static analysis tools, ranging from having no labeled data to having a lot of labeled data, and regardless of if they have their own statistical experts) to benefit from using classifiers and sophisticated prioritization to automatically triage handling their static analysis alerts.
     """
 )

@@ -1,3 +1,27 @@
+# <legal>
+# SCALe version r.6.5.5.1.A
+# 
+# Copyright 2021 Carnegie Mellon University.
+# 
+# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+# INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
+# UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
+# IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
+# FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
+# OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
+# TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+# 
+# Released under a MIT (SEI)-style license, please see COPYRIGHT file or
+# contact permission@sei.cmu.edu for full terms.
+# 
+# [DISTRIBUTION STATEMENT A] This material has been approved for public
+# release and unlimited distribution.  Please see Copyright notice for
+# non-US Government use and distribution.
+# 
+# DM19-1274
+# </legal>
+
 version: '3.5'
 
 services:
@@ -8,9 +32,6 @@ services:
     # user: scale
     ports:
       - "8083:8083"
-    environment:
-      - MODE
-
 
   datahub:
     image: scaife_research_lsi/scaife.datahub:scaife
@@ -22,8 +43,6 @@ services:
       - mongodb_datahub
       - redis_datahub
       - pulsar
-    environment:
-      - MODE
 
   mongodb_datahub:
     image: mongo
@@ -50,8 +69,6 @@ services:
       - "8085:8085"
     depends_on:
       - mongodb_priority
-    environment:
-      - MODE
 
   mongodb_priority:
     image: mongo
@@ -60,7 +77,6 @@ services:
     restart: always
     ports:
       - "28085:28085"
-
 
   stats:
     image: scaife_research_lsi/scaife.stats:scaife
@@ -71,8 +87,6 @@ services:
     depends_on:
       - mongodb_stats
       - pulsar
-    environment:
-      - MODE
 
   mongodb_stats:
     image: mongo
@@ -82,7 +96,6 @@ services:
     ports:
       - "28086:28086"
 
-
   registration:
     image: scaife_research_lsi/scaife.registration:scaife
     container_name: registration
@@ -91,8 +104,6 @@ services:
       - "8087:8087"
     depends_on:
       - mongodb_registration
-    environment:
-      - MODE
 
   mongodb_registration:
     image: mongo
@@ -101,7 +112,6 @@ services:
     restart: always
     ports:
       - "28087:28087"
-
 
   pulsar:
     image: apachepulsar/pulsar:2.5.0

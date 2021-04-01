@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -31,52 +31,66 @@ class ClassifierSchemeTest < ActiveSupport::TestCase
    Test createClassifierScheme
 
 =end
-	test "insertClassifier inserts a row in the table and validate the column
-	values" do
-		classifier_instance_name = "classifier_instance_name"
-		classifier_type = "classifier_type"
-		source_domain = "source_domain"
-		adaptive_heuristic_name = "adaptive_heuristic_name"
-		adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
-		ahpo_name = "ahpo_name"
-		ahpo_parameters = "ahpo_parameters"
-                scaife_classifier_id = "scaife_classifier_id"
-                scaife_classifier_instance_id = "scaife_classifier_instance_id"
-		count = ClassifierScheme.count
-		rec = ClassifierScheme.insertClassifier(
-			classifier_instance_name,
-			classifier_type,
-			source_domain,
-			adaptive_heuristic_name,
-			adaptive_heuristic_parameters,
-			ahpo_name,
-                        ahpo_parameters,
-                        scaife_classifier_id,
-                        scaife_classifier_instance_id
-		)
+  test "insertClassifier inserts a row in the table and validate the column
+  values" do
+    classifier_instance_name = "classifier_instance_name"
+    classifier_type = "classifier_type"
+    source_domain = "source_domain"
+    adaptive_heuristic_name = "adaptive_heuristic_name"
+    adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    ahpo_name = "ahpo_name"
+    ahpo_parameters = "ahpo_parameters"
+    use_pca = false
+    feature_category = "intersection"
+    semantic_features = false
+    num_meta_alert_threshold = 100
+    scaife_classifier_id = "scaife_classifier_id"
+    scaife_classifier_instance_id = "scaife_classifier_instance_id"
+
+    count = ClassifierScheme.count
+
+    rec = ClassifierScheme.insertClassifier(
+      classifier_instance_name,
+      classifier_type,
+      source_domain,
+      adaptive_heuristic_name,
+      adaptive_heuristic_parameters,
+      ahpo_name,
+      ahpo_parameters,
+      use_pca,
+      feature_category,
+      semantic_features,
+      num_meta_alert_threshold,
+      scaife_classifier_id,
+      scaife_classifier_instance_id
+    )
 
     assert_instance_of(ClassifierScheme, rec)
-		assert_equal(count + 1, ClassifierScheme.count)
-		assert ClassifierScheme.exists?(
-			classifier_instance_name: classifier_instance_name,
-			classifier_type: classifier_type,
-			source_domain: source_domain,
-			adaptive_heuristic_name: adaptive_heuristic_name,
-			adaptive_heuristic_parameters: adaptive_heuristic_parameters,
-			ahpo_name: ahpo_name,
-			ahpo_parameters: ahpo_parameters,
-                        scaife_classifier_id: scaife_classifier_id,
-                        scaife_classifier_instance_id: scaife_classifier_instance_id
-		)
+    assert_equal(count + 1, ClassifierScheme.count)
+    assert ClassifierScheme.exists?(
+      classifier_instance_name: classifier_instance_name,
+      classifier_type: classifier_type,
+      source_domain: source_domain,
+      adaptive_heuristic_name: adaptive_heuristic_name,
+      adaptive_heuristic_parameters: adaptive_heuristic_parameters,
+      ahpo_name: ahpo_name,
+      ahpo_parameters: ahpo_parameters,
+      use_pca: use_pca,
+      feature_category: feature_category,
+      semantic_features: semantic_features,
+      num_meta_alert_threshold: num_meta_alert_threshold,
+      scaife_classifier_id: scaife_classifier_id,
+      scaife_classifier_instance_id: scaife_classifier_instance_id
+    )
 
-	end
+  end
 
-	test "should have necessary required validators" do
-		cs = ClassifierScheme.new
-		assert_not cs.valid?
-		assert_equal [:classifier_instance_name, :classifier_type, :source_domain, :created_at, :updated_at,
-			:adaptive_heuristic_name, :ahpo_name], cs.errors.keys
-	end
+  test "should have necessary required validators" do
+    cs = ClassifierScheme.new
+    assert_not cs.valid?
+    assert_equal [:classifier_instance_name, :classifier_type, :source_domain, :created_at, :updated_at,
+      :adaptive_heuristic_name, :ahpo_name], cs.errors.keys
+  end
 
 =begin
 
@@ -86,66 +100,66 @@ class ClassifierSchemeTest < ActiveSupport::TestCase
 
 =begin
 
-	Test deleteClassifier
+  Test deleteClassifier
 
 =end
-	test "deleteClassifier deletes classifier scheme and references" do
-		classifier_instance_name = "delete"
-		classifier_type = "classifier_type"
-		source_domain = "source_domain"
-		adaptive_heuristic_name = "adaptive_heuristic_name"
-		adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
-		ahpo_name = "ahpo_name"
-		ahpo_parameters = "ahpo_parameters"
+  test "deleteClassifier deletes classifier scheme and references" do
+    classifier_instance_name = "delete"
+    classifier_type = "classifier_type"
+    source_domain = "source_domain"
+    adaptive_heuristic_name = "adaptive_heuristic_name"
+    adaptive_heuristic_parameters = "adaptive_heuristic_parameters"
+    ahpo_name = "ahpo_name"
+    ahpo_parameters = "ahpo_parameters"
 
-		c_id = ClassifierScheme.where(classifier_instance_name: classifier_instance_name).pluck(:id)
-		projects = Project.where(last_used_confidence_scheme: c_id)
+    c_id = ClassifierScheme.where(classifier_instance_name: classifier_instance_name).pluck(:id)
+    projects = Project.where(last_used_confidence_scheme: c_id)
     project_ids = projects.pluck(:id)
     displays = Display.where(project_id: project_ids)
-		count = ClassifierScheme.count
-		assert ClassifierScheme.exists?(
-			classifier_instance_name: classifier_instance_name,
-			classifier_type: classifier_type,
-			source_domain: source_domain,
-			adaptive_heuristic_name: adaptive_heuristic_name,
-			adaptive_heuristic_parameters: adaptive_heuristic_parameters,
-			ahpo_name: ahpo_name,
+    count = ClassifierScheme.count
+    assert ClassifierScheme.exists?(
+      classifier_instance_name: classifier_instance_name,
+      classifier_type: classifier_type,
+      source_domain: source_domain,
+      adaptive_heuristic_name: adaptive_heuristic_name,
+      adaptive_heuristic_parameters: adaptive_heuristic_parameters,
+      ahpo_name: ahpo_name,
                         ahpo_parameters: ahpo_parameters
-		)
+    )
 
-		assert ClassifierScheme.deleteClassifier(classifier_instance_name)
+    assert ClassifierScheme.deleteClassifier(classifier_instance_name)
 
-		# classifier scheme object deleted
-		assert_not ClassifierScheme.exists?(
-			classifier_instance_name: classifier_instance_name,
-			classifier_type: classifier_type,
-			source_domain: source_domain,
-			adaptive_heuristic_name: adaptive_heuristic_name,
-			adaptive_heuristic_parameters: adaptive_heuristic_parameters,
-			ahpo_name: ahpo_name,
+    # classifier scheme object deleted
+    assert_not ClassifierScheme.exists?(
+      classifier_instance_name: classifier_instance_name,
+      classifier_type: classifier_type,
+      source_domain: source_domain,
+      adaptive_heuristic_name: adaptive_heuristic_name,
+      adaptive_heuristic_parameters: adaptive_heuristic_parameters,
+      ahpo_name: ahpo_name,
                         ahpo_parameters: ahpo_parameters
-		)
+    )
 
-		# correct number of classifier schemes
-		assert_equal(count - 1, ClassifierScheme.count)
+    # correct number of classifier schemes
+    assert_equal(count - 1, ClassifierScheme.count)
 
-		# Project.last_used_confidence references cleared
-		projects.each do |p|
-			assert_nil p.last_used_confidence_scheme
-		end
+    # Project.last_used_confidence references cleared
+    projects.each do |p|
+      assert_nil p.last_used_confidence_scheme
+    end
 
-		# last_used_confidence_scheme in a different project that didn't use this cs
-		# is still there
-		assert_not_nil projects(:project_5).last_used_confidence_scheme
+    # last_used_confidence_scheme in a different project that didn't use this cs
+    # is still there
+    assert_not_nil projects(:project_5).last_used_confidence_scheme
 
-		# Display.confidence references cleared
-		displays.each do |d|
-			assert_nil d.confidence
-		end
+    # Display.confidence references cleared
+    displays.each do |d|
+      assert_nil d.confidence
+    end
 
-		# confidence in displays for project that didn't use this cs still there
-		assert_not_nil displays(:display_4).confidence
+    # confidence in displays for project that didn't use this cs still there
+    assert_not_nil displays(:display_4).confidence
 
-	end
+  end
 
 end

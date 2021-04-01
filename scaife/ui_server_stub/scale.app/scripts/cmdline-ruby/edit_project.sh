@@ -1,13 +1,13 @@
-#!/bin/sh -f
-# Edits a project attribute, given a project number, attribute name,
-# and attribute value as arguments. The value should be a string or integer.
+#!/bin/bash -f
+#
+# Edits a project attribute, given a project number, attribute name, and
+# attribute value as arguments. The value should be a string or integer.
 # If it is a string it must be quoted.
 
-# Should be called within SCALe folder hierarchy.
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -28,9 +28,16 @@
 # DM19-1274
 # </legal>
 
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BIN_DIR=$(dirname "$BIN_LOC")
+. $BIN_DIR/../env.sh
+
 project_id=$1
 attribute=$2
 value=$3
+
+# required for rails homing
+cd $SCALE_DIR
 
 echo "
   project = Project.find($project_id)

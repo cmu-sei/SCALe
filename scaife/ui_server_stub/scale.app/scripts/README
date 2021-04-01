@@ -1,9 +1,9 @@
 SCALe scripts
 =============
 <legal>
-SCALe version r.6.2.2.2.A
+SCALe version r.6.5.5.1.A
 
-Copyright 2020 Carnegie Mellon University.
+Copyright 2021 Carnegie Mellon University.
 
 NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -28,14 +28,14 @@ For licensing info, see the COPYRIGHT file
 
 Information on how to use many of these scripts is available in the SCALe manual (view in your browser):
         scale.app/public/doc/scale2/Back-End-Script-Design.html
-        scale.app/public/doc/scale2/Manual-Project-Creation.html
+        scale.app/public/doc/scale2/Command-Line-Project-Creation.html
         scale.app/public/doc/scale2/Sanitizer.html
         scale.app/public/doc/scale2/CSV-file.html
         scale.app/public/doc/scale2/Updating-the-SCALe-Documentation.html
         scale.app/public/doc/scale2/index.html
 
 Information on how to manually (from command-line) create a SCALe project can be found here:
-        scale.app/public/doc/scale2/Manual-Project-Creation.html
+        scale.app/public/doc/scale2/Command-Line-Project-Creation.html
 The main script to run for adding a flaw-finding static analysis tool's output (alerts) to the database is the digest_alerts.py script.
 
 The script named ```convert_lizard_metrics.py``` can be used to convert an old type of Lizard code metrics tool output into a format that the current version of SCALe can use as input.

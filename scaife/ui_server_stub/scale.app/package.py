@@ -2,7 +2,16 @@
 
 # In general, this script should be used to make any changes to the
 # filesystem that do NOT go into git.  This script should be run using
-# python version 2.
+# python version 2.  Mostly, this script makes changes required for
+# releasing code (substitutes copyright text for legal placeholder
+# markings, adjusts the initial copyright text for particular files
+# like SCAIFE manual HTML pages, removes proprietary files that should
+# not be released, adds a PDF download of the CWEs used by SCALe,
+# builds the SCAIFE/SCALe HTML manual from the markdown files, and
+# creates one or more tarballs of release code).  In one way, the
+# script should be used to *identify* changes that need to be made to
+# the filesystem that SHOULD go into git. The script can be used to
+# identify files that do not have legal markings but should have them.
 
 # See the following example command run, for full SCAIFE tarball build
 # for an online deployment. Note you would need to substitute your own
@@ -11,20 +20,10 @@
 # Example command, run from the scaife directory:
 # python ui_server_stub/scale.app/package.py --target=scaife-online --top-dir=/home/lflynn/temp/code-release-for-containers/scaife
 
-# In general, this script should be used to make any changes to the filesystem that do NOT go into git.
-# This script should be run using python version 2.
-# Mostly, this script makes changes required for releasing code (substitutes copyright text for legal
-# placeholder markings, adjusts the initial copyright text for particular files like SCAIFE manual HTML pages,
-# removes proprietary files that should not be released, adds a PDF download of the CWEs used by SCALe,
-# builds the SCAIFE/SCALe HTML manual from the markdown files, and creates one or more tarballs of release code).
-# In one way, the script should be used to *identify* changes that need to be made to the filesystem that SHOULD
-# go into git. The script can be used to identify files that do not have legal markings but should have them.
-
-
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -44,6 +43,7 @@
 # 
 # DM19-1274
 # </legal>
+
 
 import fnmatch
 import json
@@ -82,6 +82,11 @@ TAR_CONFIGS = {
         {
             "name": "Online Tarball",
             "format": "scaife.online.%s.tar.gz",
+        },
+    "scaife-scale-online":
+        {
+            "name": "SCALe-only online Tarball",
+            "format": "scaife-scale.%s.tar.gz",
         }
 }
 # Functions may add to this list of files before it gets consulted
@@ -107,15 +112,30 @@ IGNORED_FILES = [
     "tmp/*",
     "vendor/bundle/*",
 ]
-ADDITIONAL_IGNORED_FILES = [
+SCAIFE_IGNORED_FILES = [
     ".DS_Store",
     ".git/*",
     ".vagrant/*",
     "packages/*",
     "tmp/*",
 ]
+IGNORED_SCAIFE_SCALE_FILES = [
+    "public/doc/android/*",
+    "public/doc/c/*",
+    "public/doc/cplusplus/*",
+    "public/doc/java/*",
+    "public/doc/perl/*",
+]
+SCAIFE_IGNORED_SCAIFE_SCALE_FILES = [
+    "datahub_server_stub/*",
+    "priority_server_stub/*",
+    "registration_server_stub/*",
+    "stats_server_stub/*",
+    "scaife.copyright.html",
+]
 PROPRIETARY_CODE_DIRS = [
     "demo/dos2unix/analysis",
+    "demo/codesonar_test/analysis",
     "scripts/data",
     "scripts/data/properties/cert_rules",
     "scripts/data/properties/cwes",
@@ -123,15 +143,13 @@ PROPRIETARY_CODE_DIRS = [
     "scripts/deprecated",
     "scripts/deprecated/deprecated_tests",
     "test/junit/test/scale_input/dos2unix/analysis",
-    "test/junit/test/scale_input/misc",
+    "test/junit/test/scale_input/misc/proprietary",
     "test/junit/test/scale_input/src100/analysis",
-    "test/python/data",
     "test/python/data/digestalerts/analysis/",
     "test/python/data/good",
     "test/python/data/input",
-    "test/temp",
 ]
-ADDITIONAL_PROPRIETARY_CODE_DIRS = [
+SCAIFE_PROPRIETARY_CODE_DIRS = [
     "datahub_server_stub/swagger_server/rapidclass_scripts/archived",
     "datahub_server_stub/swagger_server/rapidclass_scripts/statswork",
     "stats_server_stub/swagger_server/rapidclass_scripts/archived",
@@ -141,6 +159,13 @@ PROPRIETARY_IGNORABLE_FILES = [
     "scripts/deprecated/deprecated_tests/fortify_input.py",
     "scripts/deprecated/deprecated_tests/coverity_input.py",
 ]
+SCAIFE_SCALE_FILES_TO_CLOBBER = [
+    "datahub_server_stub/.gitignore",
+    "priority_server_stub/.gitignore",
+    "registration_server_stub/.gitignore",
+    "stats_server_stub/.gitignore"
+]
+
 COPYRIGHT_DENYLIST = [
     ".git",
     ".pytest_cache",
@@ -236,11 +261,14 @@ def is_scaife():
     return os.path.exists(SCAIFE_SCALE_PATH)
 
 
-def path_is_scaife(path):
-    return is_scaife() and \
-        ((not path.startswith("./" + SCAIFE_SCALE_PATH)) or
-         (os.path.basename(path).startswith("SCAIFE") and
-          path.endswith(".md")))
+def gets_scaife_copyright(cfg, path):
+    return ("scaife-scale-online" not in cfg['target'] and
+            is_scaife() and
+            (not path.startswith("./ui_server_stub")))
+
+def gets_manual_copyright(cfg, path):
+    return (os.path.basename(path).startswith("SCAIFE") and
+            path.endswith(".md"))
 
 
 def console_status(name, width=80):
@@ -285,6 +313,23 @@ def update_copyright(cfg):
     '''
         Updating copyright info in each file that contains it
     '''
+
+    # Update README for scaife-scale-online distro (b/f other copyrights)
+    if "scaife-scale-online" in cfg['target']:
+        with io.open("./README.md", 'r+', encoding="utf-8") as fp:
+            contents = fp.read()
+            match = re.search(r'</legal>', contents)
+            if not match:
+                print("WARNING: No legal tag for README")
+            else:
+                with io.open("helpers/gitHubReleaseReadme.md") as extra_readme:
+                    new_contents = (contents[:match.start(0)] + "</legal>\n" +
+                                    extra_readme.read() +
+                                    contents[match.end(0):])
+                    fp.seek(0)
+                    fp.write(new_contents)
+
+    global WARNINGS
     scaife_flag = is_scaife()
     if scaife_flag:
         new_legal_scale = "<legal>"+"\n".join(cfg['legal-scale'])+"</legal>"
@@ -292,6 +337,7 @@ def update_copyright(cfg):
     else:
         new_legal_scale = "<legal>" + "\n".join(cfg['legal']) + "</legal>"
         new_legal_scaife = ""
+    new_legal_manual = "<legal>" + "\n".join(cfg['legal-manual']) + "</legal>"
 
     for dirpath, _, files in os.walk('.'):
         if any([dirpath.startswith(x) for x in COPYRIGHT_DENYLIST]):
@@ -314,7 +360,10 @@ def update_copyright(cfg):
             if not regex:
                 continue
 
-            prot_new_legal_scale = re.sub(r'(?m)(.*)', regex, new_legal_scale)
+            prot_new_legal_scale = re.sub(r'(?m)(.*)', regex,
+                                          new_legal_scale)
+            prot_new_legal_manual = re.sub(r'(?m)(.*)', regex,
+                                           new_legal_manual)
             prot_new_legal_scaife = re.sub(r'(?m)(.*)', regex,
                                            new_legal_scaife)
 
@@ -327,8 +376,10 @@ def update_copyright(cfg):
                         print("WARNING: No copyright for " + full_path)
                     continue
                 if not WARNINGS:
-                    legal = (prot_new_legal_scaife
-                             if path_is_scaife(full_path)
+                    legal = (prot_new_legal_manual
+                             if gets_manual_copyright(cfg, full_path)
+                             else prot_new_legal_scaife
+                             if gets_scaife_copyright(cfg, full_path)
                              else prot_new_legal_scale)
                     new_contents = (contents[:match.start(0)] +
                                     legal +
@@ -378,8 +429,8 @@ def fetch_manual(cfg):
     os.chdir(prefix+"scripts")
     # !!!
     proc = subprocess.Popen(['bash', 'builddocs.sh'],
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
+                            stdout=sys.stdout,
+                            stderr=sys.stderr)
     proc.wait()
     os.chdir("..")
     return 'DONE'
@@ -398,8 +449,8 @@ def fetch_vendor_bundle(cfg):
     proc = subprocess.Popen(['bundle', 'package',
                              '--path', 'vendor/bundle',
                              '--no-install'],
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
+                            stdout=sys.stdout,
+                            stderr=sys.stderr)
     proc.wait()
     return 'DONE'
 
@@ -418,13 +469,16 @@ def ignore_proprietary_code(keep_list, targets):
                 ".properties", ".sqlite", ".sqlite3", ".sql", ".org", ".txt",
                 ".rpf", ".rps"}
     for dir in PROPRIETARY_CODE_DIRS:
-        for filename in os.listdir(dir):
-            if os.path.isfile(os.path.join(dir, filename)) and \
-                os.path.splitext(filename)[1] in suffixes and \
-                "_oss" not in filename and \
-                len(filter(lambda keep: keep in filename, keep_list)) == 0:
-                for tarcfg in (TAR_CONFIGS[k] for k in targets):
-                    IGNORED_FILES.append(os.path.join(dir, filename))
+        if os.path.exists(dir):
+            for filename in os.listdir(dir):
+                if os.path.isfile(os.path.join(dir, filename)) and \
+                   os.path.splitext(filename)[1] in suffixes and \
+                   "_oss" not in filename and \
+                   len(filter(lambda keep: keep in filename, keep_list)) == 0:
+                    for tarcfg in (TAR_CONFIGS[k] for k in targets):
+                        IGNORED_FILES.append(os.path.join(dir, filename))
+        else:
+            print("WARNING: expected PROPRIETARY_CODE_DIRS directory ", dir, " does not exist.")
 
     for file in PROPRIETARY_IGNORABLE_FILES:
         if len(filter(lambda keep: keep in file, keep_list)) == 0:
@@ -437,6 +491,16 @@ def _remove_user_info(tarinfo):
     tarinfo.uname = tarinfo.gname = "root"
     return tarinfo
 
+def _walk_with_dir_links(rootpath):
+    def _dir_links(dpath):
+        dir_links = []
+        for entry in os.listdir(dpath):
+            fullpath = os.path.join(dpath, entry)
+            if os.path.islink(fullpath) and os.path.isdir(fullpath):
+                dir_links.append(entry)
+        return dir_links
+    for dirpath, _, files in os.walk(rootpath):
+        yield dirpath, files + _dir_links(dirpath)
 
 def create_tar_package(cfg, outputdir, tarcfg):
     prefix = "scaife" if is_scaife() else "scale.app"
@@ -444,7 +508,7 @@ def create_tar_package(cfg, outputdir, tarcfg):
     tarfile_path = os.path.join(outputdir, tarcfg['format'] % cfg['version'])
     with tarfile.open(tarfile_path, mode='w|gz') as tar:
         current_dir = None
-        for dirpath, _, files in os.walk('.'):
+        for dirpath, files in _walk_with_dir_links('.'):
             for file in files:
                 full_path = os.path.join(dirpath, file)
                 if not any((fnmatch.fnmatch(full_path, x)
@@ -454,6 +518,14 @@ def create_tar_package(cfg, outputdir, tarcfg):
                         print("    %s/ ..." % current_dir)
                     tar.add(full_path, arcname=prefix+"/"+full_path,
                             filter=_remove_user_info)
+
+        if "scaife-scale-online" in cfg['target']:
+            tar.add("./README.md", arcname="./README.md")
+            tar.add("./ABOUT", arcname="./ABOUT")
+
+            for filepath in SCAIFE_SCALE_FILES_TO_CLOBBER:
+                tar.add(filepath, arcname=prefix+"/"+filepath,
+                        filter=_remove_user_info)
 
 
 def adjust_scale_scaife_files(scale_files, scaife_files):
@@ -490,7 +562,7 @@ not have legal markings but should have them.
                    help="Don't change info, just print warnings")
     p.add_argument('-d', '--dependent', dest='dependent', action='store_true',
                    help="Have SCAIFE build dependent containers (default is independent)")
-    p.add_argument('--top-dir', dest='topdir', default='.', help='''
+    p.add_argument('--top-dir', dest='topdir', default=os.getcwd(), help='''
 Directory the tarball starts from. Should be the scaife directory
 if you are creating a full SCAIFE tarball, or should the the scale.app
 directory if you are creating a SCALe-only tarball.  Defaults to
@@ -501,9 +573,9 @@ current directory.
     p.add_argument('--target', default=','.join(TAR_CONFIGS.iterkeys()),
                    help='''
 Comma-separated list of targets to build, options include offline,
-online, scaife-offline, and scaife-online.. You can't mix SCALe-only
-and SCAIFE (meaning full SCAIFE) targets in a single build with this
-script.
+online, scaife-offline, scaife-online, and scaife-scale-online.. You
+can't mix SCALe-only and SCAIFE (meaning full SCAIFE) targets in a
+single build with this script.
 ''')
     p.add_argument('--keep', dest='keep', default='',
                    help="Comma-separated list of proprietary tools to keep")
@@ -512,30 +584,39 @@ script.
 
 def main():
     args = parse_args()
+    global WARNINGS
     WARNINGS = args.warnings
     os.chdir(args.topdir)
     cfg = read_configuration('ABOUT')
+    cfg['target'] = args.target.split(',')
     if is_scaife():
         cfg['scale'] = read_configuration(SCAIFE_SCALE_PATH + "/ABOUT")
 
     global IGNORED_FILES
     IGNORED_FILES = adjust_scale_scaife_files(
-        IGNORED_FILES, ADDITIONAL_IGNORED_FILES)
+        IGNORED_FILES, SCAIFE_IGNORED_FILES)
+    if "scaife-scale-online" in cfg['target']:
+        IGNORED_FILES = IGNORED_FILES + adjust_scale_scaife_files(
+            IGNORED_SCAIFE_SCALE_FILES, SCAIFE_IGNORED_SCAIFE_SCALE_FILES)
     global COPYRIGHT_DENYLIST
     COPYRIGHT_DENYLIST = adjust_scale_scaife_files(
         COPYRIGHT_DENYLIST, ADDITIONAL_COPYRIGHT_DENYLIST)
     global PROPRIETARY_CODE_DIRS
     PROPRIETARY_CODE_DIRS = adjust_scale_scaife_files(
-        PROPRIETARY_CODE_DIRS, ADDITIONAL_PROPRIETARY_CODE_DIRS)
+        PROPRIETARY_CODE_DIRS, SCAIFE_PROPRIETARY_CODE_DIRS)
     global PROPRIETARY_IGNORABLE_FILES
     PROPRIETARY_IGNORABLE_FILES = adjust_scale_scaife_files(
         PROPRIETARY_IGNORABLE_FILES, list())
 
     # Setup the local directory for packaging
+    if "scaife-scale-online" in cfg['target']:
+        for filepath in SCAIFE_SCALE_FILES_TO_CLOBBER:
+            with open(filepath, "w") as f:
+                f.write("# <legal></legal>") # it's clobberin' time!
     update_copyright(cfg)
     adjust_version_numbers(cfg)
     ignore_proprietary_code(args.keep.split(",") if args.keep != '' else [],
-                            args.target.split(','))
+                            cfg['target'])
 
     if args.copyright:
         sys.exit()
@@ -557,7 +638,7 @@ def main():
     if not args.dependent:
         IGNORED_FILES.append("./docker-compose.override.yml")
 
-    for tarcfg in (TAR_CONFIGS[k] for k in args.target.split(',')):
+    for tarcfg in (TAR_CONFIGS[k] for k in cfg['target']):
         print("Creating %s ..." % tarcfg['name'])
         create_tar_package(cfg, args.outputdir, tarcfg)
 

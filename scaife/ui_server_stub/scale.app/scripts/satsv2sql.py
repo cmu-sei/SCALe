@@ -11,9 +11,9 @@
 # 7th arg is the SCALe database
 #
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -71,7 +71,7 @@ def get_special_checkers(tool):
 
     for platform in tool.platforms:
         property_files = bootstrap.properties_files(tool)
-    
+
         if not property_files:
             print("No checkers exist for " + platform + "." + tool.name + " v." + tool.version)
 
@@ -79,8 +79,8 @@ def get_special_checkers(tool):
             if "regex" in file_path:
                 is_regex = True
             else:
-                is_regex = False 
-           
+                is_regex = False
+
             input_file = open(file_path, "r")
 
             for line in input_file:
@@ -93,10 +93,10 @@ def get_special_checkers(tool):
                 checker = temp[0].strip()
                 condition = temp[1].split(",")
                 first_entry = condition[0].strip()
- 
+
                 if(first_entry == "SPECIAL"):
                     special_checkers[checker] = is_regex
-        
+
     return special_checkers
 
 
@@ -128,10 +128,10 @@ def insert_new_checker(con, name, tool_id, regex, scaife_checker_id):
     checker_id = con.execute(sql, (name, tool_id)).fetchone()
     if checker_id is not None:
         return checker_id[0]
-    
+
     con.execute("INSERT INTO Checkers VALUES(?,?,?,?,?);",
                   [checker_id, name, tool_id, regex, scaife_checker_id]
-               ) 
+               )
     sql = "SELECT id FROM Checkers WHERE name=? AND tool_id=?"
     checker_id = con.execute(sql, (name, tool_id)).fetchone()
     return checker_id[0]
@@ -145,7 +145,7 @@ def insert_alerts(tool, src_dirs, input_file, database):
     new_checker_id = initial_id_value
     alert_id = initial_id_value
     incr = 1000
-    
+
     path_map, unix_path_map = match_paths.fill_path_map(src_dirs)
 
     # Get mapping of checker names to checker ids
@@ -157,7 +157,7 @@ def insert_alerts(tool, src_dirs, input_file, database):
     def _partition(arr, n):
         for i in range(0, len(arr), n):
             yield arr[i:i + n]
-    
+
     with sqlite3.connect(database) as con:
         con.text_factory = str
         cur = con.cursor()
@@ -182,19 +182,19 @@ def insert_alerts(tool, src_dirs, input_file, database):
             scaife_alert_id = None
             cur.execute("INSERT INTO Alerts VALUES(?,?,?,?);",
                          [alert_id, checker_id, primary_message_id, scaife_alert_id]
-                        ) 
+                        )
 
             msg_index = 1
             while msg_index < len(fields) - 1:
                 path = fields[msg_index].strip()
 
                 path_found = match_paths.find_filepath(path, path_map, unix_path_map)
-                
+
                 if (not path_found):
                     unmapped_paths.add(path)
                 else:
                     path = path_found
-                    
+
 
                 line_number = fields[msg_index + 1]
                 message = fields[msg_index + 2]
@@ -212,7 +212,7 @@ def insert_alerts(tool, src_dirs, input_file, database):
                               0,      # external project constant
                               alert_id,
                               path,
-                              line_number,    
+                              line_number,
                               "",     # link
                               message]
                 try:
@@ -226,7 +226,7 @@ def insert_alerts(tool, src_dirs, input_file, database):
 
     input_file.close()
 
-    if unmapped_paths:
+    if len(unmapped_paths) > 0:
         print("[Warning] %d path(s) not found in the provided source:" \
                 % len(unmapped_paths))
         for path in unmapped_paths:
@@ -260,5 +260,5 @@ if __name__ == "__main__":
     src_dirs = args.src_dirs
     input_file = args.tsv_file
     database = args.database
-    
+
     insert_alerts(tool, src_dirs, input_file, database)

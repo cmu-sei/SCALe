@@ -91,8 +91,8 @@
 				</td>
 			<% end %>  <!--end do-->
 
-			<!--condition, title, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
-			<% [:condition, :title, :confidence,
+			<!--condition, title, class_label, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
+			<% [:condition, :title, :class_label, :confidence,
 			    :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
 			    :level, :cwe_likelihood].each do |col| %>
 				<td class="<%= col %>_cell">
@@ -196,8 +196,8 @@
 					</td>
 				<% end %>  <!--end do-->
 
-				<!--condition, title, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
-				<% [:condition, :title, :confidence,
+				<!--condition, title, class_label, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
+				<% [:condition, :title, :class_label, :confidence,
 				    :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
 				    :level, :cwe_likelihood].each do |col| %>
 					<td class="<%= col %>_cell">
@@ -300,8 +300,8 @@
 				</td>
 			<% end %>  <!--end do-->
 
-			<!--condition, title, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
-			<% [:condition, :title, :confidence,
+			<!--condition, title, class_label, confidence, meta_alert_priority, severity, likelihood, remediation, priority, level, and cwe_likelihood-->
+			<% [:condition, :title, :class_label, :confidence,
 			    :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
 			    :level, :cwe_likelihood].each do |col| %>
 				<td class="<%= col %>_cell">

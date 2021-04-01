@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -110,7 +110,7 @@ class ScaleSession(object):
         self.scaife_passwd = None
         self.auth_token = None
         self.last_url = None
-        self.db_file = bootstrap.development_db()
+        self.db_file = bootstrap.internal_db
         self.db_con = None
         self.cookie_file = bootstrap.get_tmp_file(
                 basename="auto.cookies.txt", ephemeral=EPHEMERAL_TMP)
@@ -268,7 +268,7 @@ class ScaleSession(object):
     def query_index(self):
         # splash page
         if VERBOSE:
-            print "query_index()"
+            print("query_index()")
         return self.get(self.route())
 
     def query_project(self, fused=None):
@@ -276,7 +276,7 @@ class ScaleSession(object):
         # note: in order to change fused vs unfused, this is the place
         #       if it hasn't been set yet it will default to 'fused'
         if VERBOSE:
-            print "query_project()"
+            print("query_project()")
         path = "projects/%s" % self.project_id
         if fused is not None:
             if not fused or str(fused).lower() == "unfused":
@@ -288,14 +288,14 @@ class ScaleSession(object):
     def query_project_new_form(self):
         # pulls up the create project form
         if VERBOSE:
-            print "query_project_new_form()"
+            print("query_project_new_form()")
         path = "projects/new"
         return self.get(self.route(path))
 
     def query_project_database_form(self):
         # pulls up the database page (select tools, etc)
         if VERBOSE:
-            print "query_project_database_form()"
+            print("query_project_database_form()")
         path = "projects/%s/database" % self.project_id
         return self.get(self.route(path))
 
@@ -305,7 +305,7 @@ class ScaleSession(object):
             description=None, primed=False):
         # create project with name and description
         if VERBOSE:
-            print "query_project_create_submit()"
+            print("query_project_create_submit()")
         path = "projects"
         params = self.default_params()
         params.update({
@@ -326,7 +326,7 @@ class ScaleSession(object):
 
     def query_project_destroy(self, primed=True):
         if VERBOSE:
-            print "query_project_destroy()"
+            print("query_project_destroy()")
         path = "projects/%s" % self.project_id
         if not primed:
             self.query_index()
@@ -354,7 +354,7 @@ class ScaleSession(object):
         #   tools = { "tool1": ["version_str", "filename"] }
         #   languages = [1, 2, 3]
         if VERBOSE:
-            print "query_project_database_submit()"
+            print("query_project_database_submit()")
         path = "projects/%s/database" % self.project_id
         if not src_file:
             raise ValueError("src file required")
@@ -429,7 +429,7 @@ class ScaleSession(object):
     def query_project_from_database(self, primed=True):
         # this normally should happen after query_project_database_submit()
         if VERBOSE:
-            print "query_project_from_database()"
+            print("query_project_from_database()")
         path = "projects/%s/database/fromdatabase" % self.project_id
         params = self.default_params()
         if not primed:
@@ -455,7 +455,7 @@ class ScaleSession(object):
             file_info_file     = None,
             func_info_file     = None ):
         if VERBOSE:
-            print "event_project_create()"
+            print("event_project_create()")
         if not name and not project_id:
             raise ValueError("no project name/description or existing project id provided")
         if not primed:
@@ -502,7 +502,7 @@ class ScaleSession(object):
             ie      = -1,
             dc      = -1 ):
         if VERBOSE:
-            print "query_mass_update()"
+            print("query_mass_update()")
         # routes to alert_conditions#massUpdate
         path = "alertConditions/update"
         params = self.default_params()
@@ -544,7 +544,7 @@ class ScaleSession(object):
             dc      = None ):
         # part 1 of event_update_alert_determinations()
         if VERBOSE:
-            print "query_update_display()"
+            print("query_update_display()")
         path = "displays/%s" % display_id
         display_params = {}
         flag = self._normalize_bool_param(flag)
@@ -582,7 +582,7 @@ class ScaleSession(object):
             supplemental = None ):
         # part 2 of event_update_alert_determinations()
         if VERBOSE:
-            print "query_update_alert_condition()"
+            print("query_update_alert_condition()")
         path = "alertConditions/update-alerts"
         for v in (flag, verdict, notes, supplemental):
             if v is not None:
@@ -635,7 +635,7 @@ FROM displays WHERE meta_alert_id = ?
         # this is updating a single alert row, the non-mass-update way
         # it triggers two queries/actions
         if VERBOSE:
-            print "event_update_alert_determinations()"
+            print("event_update_alert_determinations()")
         vals_present = False
         for v in (flag, verdict, supplemental, notes,
                 ignored, dead, ie, dc):
@@ -673,7 +673,7 @@ FROM displays WHERE meta_alert_id = ?
     def query_langs_select_submit(self, primed=False,
             select_lang_ids=None, deselect_lang_ids=None):
         if VERBOSE:
-            print "query_langs_select_submit()"
+            print("query_langs_select_submit()")
         path = "language_select_submit"
         if select_lang_ids:
             self.assert_lang_ids_exist(select_lang_ids)
@@ -697,7 +697,7 @@ FROM displays WHERE meta_alert_id = ?
     def query_taxos_select_submit(self, select_taxo_ids=None,
             deselect_taxo_ids=None, primed=False):
         if VERBOSE:
-            print "query_taxos_select_submit()"
+            print("query_taxos_select_submit()")
         path = "taxonomy_select_submit"
         if select_taxo_ids:
             self.assert_taxo_ids_exist(select_taxo_ids)
@@ -722,13 +722,13 @@ FROM displays WHERE meta_alert_id = ?
 
     def query_scaife_register_submit(self, account=None, primed=False):
         if VERBOSE:
-            print "query_scaife_register_submit()"
+            print("query_scaife_register_submit()")
         if account is None:
             account = default_account_scaife()
         path = "scaife-registration/register-submit"
         if not primed:
             self.query_index()
-        if not self.scaife_active:
+        if self.scaife_active:
             self.query_scaife_logout(primed=True)
         params = self.default_params()
         params.update({
@@ -748,13 +748,13 @@ FROM displays WHERE meta_alert_id = ?
 
     def query_scaife_login_submit(self, account=None, primed=False):
         if VERBOSE:
-            print "query_scaife_login_submit()"
+            print("query_scaife_login_submit()")
         if account is None:
             account = default_account_scaife()
         path = "scaife-registration/login-submit"
         if not primed:
             self.query_index()
-        if not self.scaife_active:
+        if self.scaife_active:
             self.query_scaife_logout(primed=True)
         params = self.default_params()
         params.update({
@@ -770,7 +770,7 @@ FROM displays WHERE meta_alert_id = ?
 
     def query_scaife_logout(self, primed=False):
         if VERBOSE:
-            print "query_scaife_logout()"
+            print("query_scaife_logout()")
         path = "scaife-registration/logout"
         if not primed:
             self.query_index()
@@ -781,7 +781,7 @@ FROM displays WHERE meta_alert_id = ?
     def event_scaife_session_establish(self, renew=False,
             account=None, primed=False):
         if VERBOSE:
-            print "event_scaife_session_establish()"
+            print("event_scaife_session_establish()")
         if renew or not self.scaife_active:
             if not primed:
                self.query_index()
@@ -795,7 +795,7 @@ FROM displays WHERE meta_alert_id = ?
                             account=account, primed=True)
                 except ScaifeError:
                     if VERBOSE:
-                        print "scaife account already registered"
+                        print("scaife account already registered")
                     pass
             if not self.scaife_active:
                 self.query_scaife_login_submit(account=account, primed=True)
@@ -803,7 +803,7 @@ FROM displays WHERE meta_alert_id = ?
     def query_scaife_langs_upload_submit(self, lang_ids, primed=False):
         # upload languages to scaife
         if VERBOSE:
-            print "query_scaife_langs_upload_submit()"
+           print("query_scaife_langs_upload_submit()")
         if not self.scaife_active:
             raise RuntimeError("scaife session not active")
         lang_ids = self.assert_lang_ids_exist(lang_ids)
@@ -822,7 +822,7 @@ FROM displays WHERE meta_alert_id = ?
     def query_scaife_taxos_upload_submit(self, taxo_ids, primed=False):
         # upload taxonomies to scaife
         if VERBOSE:
-            print "query_scaife_taxos_upload_submit()"
+            print("query_scaife_taxos_upload_submit()")
         if not self.scaife_active:
             raise RuntimeError("scaife session not active")
         taxo_ids = self.assert_taxo_ids_exist(taxo_ids)
@@ -840,7 +840,7 @@ FROM displays WHERE meta_alert_id = ?
 
     def query_scaife_tools_upload_submit(self, tool_ids, primed=False):
         if VERBOSE:
-            print "query_scaife_tools_upload_submit()"
+            print("query_scaife_tools_upload_submit()")
         if not self.scaife_active:
             raise RuntimeError("scaife session not active")
         tool_ids = self.assert_tool_ids_exist(tool_ids)
@@ -855,7 +855,7 @@ FROM displays WHERE meta_alert_id = ?
         })
         try:
             res = self.post(self.route(path), params)
-        except FetchError, e:
+        except FetchError as e:
             if e.code == 500:
                 raise ScaifeError(
                     "probable language selection/upload requirement unmet")
@@ -870,7 +870,7 @@ FROM displays WHERE meta_alert_id = ?
 
     def query_scaife_project_upload(self, primed=False):
         if VERBOSE:
-            print "query_scaife_project_upload()"
+            print("query_scaife_project_upload()")
         if not self.scaife_active:
             raise RuntimeError("scaife session not active")
         path = "projects/%s/upload_project" % self.project_id
@@ -883,7 +883,7 @@ FROM displays WHERE meta_alert_id = ?
         # this one doesn't return html, it extracts the scaife
         # classifier_id and returns that
         if VERBOSE:
-            print "query_scaife_classifier_create_form()"
+            print("query_scaife_classifier_create_form()")
         if not self.scaife_active:
             raise RuntimeError("scaife session not active")
         path = "modals/open"
@@ -914,9 +914,13 @@ FROM displays WHERE meta_alert_id = ?
             ahpo_name       = "None",
             ahpo_parameters = "",
             adaptive_heur_name = "None",
-            adaptive_heur_parameters = "" ):
+            adaptive_heur_parameters = "",
+            semantic_features = 'false',
+            use_pca = 'false',
+            feature_category = "intersection",
+            num_meta_alert_threshold = 100 ):
         if VERBOSE:
-            print "query_scaife_classifier_create()"
+            print("query_scaife_classifier_create()")
         if not self.scaife_active:
             raise RuntimeError("scaife session not active")
         path = "modals/classifier/create"
@@ -939,7 +943,7 @@ FROM displays WHERE meta_alert_id = ?
             source_domain = self.project_name()
         # don't need self.default_params() for this
         if VERBOSE:
-            print "creating classifier: %s" % classifier_name
+            print("creating classifier: %s" % classifier_name)
         params = {
           "project_id": self.project_id,
           "classifier_instance_name": classifier_name,
@@ -947,8 +951,12 @@ FROM displays WHERE meta_alert_id = ?
           "source_domain": source_domain,
           "adaptive_heuristic_name": adaptive_heur_name,
           "adaptive_heuristic_parameters": adaptive_heur_parameters,
+          "use_pca": self._normalize_bool_param(use_pca, short=True),
+          "feature_category": feature_category,
+          "semantic_features": self._normalize_bool_param(semantic_features, short=True),
           "ahpo_name": ahpo_name,
           "ahpo_parameters": ahpo_parameters,
+          "num_meta_alert_threshold": num_meta_alert_threshold,
           "scaife_classifier_id": scaife_class_id,
         }
         res = self.post(self.route(path), params)
@@ -956,7 +964,7 @@ FROM displays WHERE meta_alert_id = ?
 
     def query_scaife_classifier_run(self, classifier_name, primed=False):
         if VERBOSE:
-            print "query_scaife_classifier_run()"
+            print("query_scaife_classifier_run()")
         if not self.scaife_active:
             raise RuntimeError("scaife session not active")
         path = "alertConditions/%s/classifier/run" % self.project_id
@@ -1041,7 +1049,7 @@ FROM displays WHERE meta_alert_id = ?
         if tool_ids:
             lang_ids.update(self.tool_lang_ids(tool_ids))
         else:
-            print "warning: no tool_ids for project_id: %s" % project_id
+            print("warning: no tool_ids for project_id: %s" % project_id)
         return sorted(lang_ids)
 
     def assert_project_ids_exist(self, proj_ids):
@@ -1278,7 +1286,7 @@ def curl_engine(url, params=None, files=None, cookie_file=None,
         print("\n%s\n" % ' '.join(cmd_str))
     try:
         stuff = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
-    except CalledProcessError, e:
+    except CalledProcessError as e:
         output = re.sub(r"curl:\s+\(\d+\)\s+", "curl: ", e.output.strip())
         raise FetchError((e.returncode, output, method, url))
     res = open(output_file).read()
@@ -1357,7 +1365,7 @@ def default_account_scaife(config_file=None):
     # piggyback on the SCAIFE-style configuration file here
     global scaife_account
     if not scaife_account:
-        config = bootstrap.scaife_config(config_file)
+        config = bootstrap.scaife_config_all(config_file)
         try:
             config_account = config["test"]["automation"]["account"]
         except KeyError:

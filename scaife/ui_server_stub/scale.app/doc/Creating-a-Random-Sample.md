@@ -1,11 +1,11 @@
 ---
 title: 'SCALe : Creating a Random Sample'
 ---
- [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Audit Instructions](Audit-Instructions.md) / [Validating SCALe Alerts](Validating-SCALe-Alerts.md)
+ [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Audit Instructions](Audit-Instructions.md) / [Validating SCALe AlertConditions](Validating-SCALe-AlertConditions.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -34,12 +34,14 @@ technical
 note [Improving the Automated Detection and Analysis of Secure Coding Violations](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=295724){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png).
 (There is an older process that is precisely described on page 4 of the
 same note, but we do not address that here.)  This paper addresses how
-to audit a set of alert alerts. It predates alert fusion, and thus,
-does not address meta-alerts.  NOTE: Should update this process to
-handle meta-alerts.
+to audit a set of alerts. See [Terms and Definitions](Terms-and-Definitions.md) for definitions of alert, alertCondition,
+fusion, and meta-alert. That paper predates alertCondition fusion, and thus,
+does not address meta-alerts.  NOTE: Should update this process described below to
+use meta-alerts as well as the precise definition of alertCondition, whereas the description below conflates it with
+alerts in some cases.
 
 Every analysis tool contains a set of checkers. These checkers produce
-alert alerts, some of which will be false positives. The False
+alerts, some of which will be false positives. The False
 Positive Rate (FPR) is the ratio of false positives to total alerts
 produced by any checker.
 

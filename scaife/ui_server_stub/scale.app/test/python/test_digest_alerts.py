@@ -1,9 +1,9 @@
 #!/bin/env python
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -24,38 +24,37 @@
 # DM19-1274
 # </legal>
 
+from __future__ import print_function
+
 import pytest
 
-import os, sys, json, subprocess
+import os, sys, json
 import atexit, shutil, tempfile, zipfile
 import sqlite3
 
-from subprocess import CalledProcessError
+import bootstrap, util
+from bootstrap import VERBOSE
 
-VERBOSE = (os.environ.get("VERBOSE") or "").lower()
-if VERBOSE in ("", "no", "false", "0", "none"):
-    VERBOSE = False
-else:
-    VERBOSE = True
+KEEP_OUTPUT = False
 
-test_dir = os.path.dirname(os.path.abspath(__file__))
-dat_dir = os.path.join(test_dir, "data/digestalerts")
+dat_dir = os.path.join(bootstrap.python_test_data_dir, "digestalerts")
 analysis_dir = os.path.join(dat_dir, "analysis")
-scale_dir = os.path.dirname(os.path.dirname(test_dir))
-scripts_dir = os.path.join(scale_dir, "scripts")
-da_script = os.path.join(scripts_dir, "digest_alerts.py")
+da_script = os.path.join(bootstrap.scripts_dir, "digest_alerts.py")
 
 class TestDigestAlerts(object):
 
     def test_fortify(self, capsys):
-        tmp_dir = make_tmp_dir()
         tool_name = "fortify"
+        tmp_dir = bootstrap.get_tmp_dir(ephemeral = not KEEP_OUTPUT,
+                suffix="test_digest_alerts/%s" % tool_name)
         tool_output = os.path.join(analysis_dir, "%s.xml" % tool_name)
+        if not os.path.exists(tool_output):
+            return
         src_dir = os.path.join(tmp_dir, "src")
         src_archive = os.path.join(dat_dir, "jasper-1.900.zip")
         unzip_to_dir(src_archive, src_dir)
         db = os.path.join(tmp_dir, "db.sqlite")
-        db = os.path.join(scale_dir, 'tmp/x.sqlite3')
+        db = os.path.join(tmp_dir, 'x.sqlite3')
         if os.path.exists(db):
             os.unlink(db)
         platform = "c/cpp"
@@ -66,10 +65,10 @@ class TestDigestAlerts(object):
                 "--tool-version", version,
                '--src-dirs', src_dir]
         with capsys.disabled():
-            res = subprocess.check_output(cmd)
-            if VERBOSE and len(res):
-                print(' '.join(cmd))
-                print(res)
+            res = util.callproc(cmd)
+            if VERBOSE and res:
+                print(' '.join(cmd), file=sys.stderr)
+                print(res, file=sys.stderr)
         with sqlite3.connect(db) as con:
             cur = con.cursor()
             tool_id = self._tool_id(cur, tool_name, platform, version=version)
@@ -92,10 +91,10 @@ class TestDigestAlerts(object):
                 "--tool-version", version,
                '--src-dirs', src_dir]
         with capsys.disabled():
-            res = subprocess.check_output(cmd)
+            res = util.callproc(cmd)
             if VERBOSE and len(res):
-                print(' '.join(cmd))
-                print(res)
+                print(' '.join(cmd), file=sys.stderr)
+                print(res, file=sys.stderr)
         with sqlite3.connect(db) as con:
             cur = con.cursor()
             tool_id = self._tool_id(cur, tool_name, platform, version=version)
@@ -111,25 +110,27 @@ class TestDigestAlerts(object):
             assert cnt == 48, "48 Conditions"
 
     def test_cppcheck(self, capsys):
-        tmp_dir = make_tmp_dir()
         tool_name = "cppcheck_oss"
+        tmp_dir = bootstrap.get_tmp_dir(ephemeral = not KEEP_OUTPUT,
+                suffix="test_digest_alerts/%s" % tool_name)
         tool_output = os.path.join(analysis_dir, "%s_v100.xml" % tool_name)
         src_dir = os.path.join(tmp_dir, "src")
         src_archive = os.path.join(dat_dir, "dos2unix-7.2.2.zip")
         unzip_to_dir(src_archive, src_dir)
-        db = os.path.join(tmp_dir, "db.sqlite")
         platform = "c/cpp"
         version = "1.00"
+        db = os.path.join(tmp_dir,
+                "db.%s.%s.dos2unix.sqlite3" % (tool_name, version))
         cmd = [da_script, db, tool_output,
                 "--tool-name", tool_name,
                 "--tool-platform", platform,
                 "--tool-version", version,
                '--src-dirs', src_dir]
         with capsys.disabled():
-            res = subprocess.check_output(cmd)
+            res = util.callproc(cmd)
             if VERBOSE and len(res):
-                print(' '.join(cmd))
-                print(res)
+                print(' '.join(cmd), file=sys.stderr)
+                print(res, file=sys.stderr)
         with sqlite3.connect(db) as con:
             cur = con.cursor()
             tool_id = self._tool_id(cur, tool_name, platform, version=version)
@@ -143,19 +144,20 @@ class TestDigestAlerts(object):
             assert cnt == 314, "314 Checkers"
             cnt = self._count_conditions(cur, tool_id)
             assert cnt == 432, "432 Conditions"
-        os.unlink(db)
         tool_output = os.path.join(analysis_dir, "%s_v183.xml" % tool_name)
         version = "1.86"
+        db = os.path.join(tmp_dir,
+                "db.%s.%s..dos2unix.sqlite3" % (tool_name, version))
         cmd = [da_script, db, tool_output,
                 "--tool-name", tool_name,
                 "--tool-platform", platform,
                 "--tool-version", version,
                 "--src-dirs", src_dir]
         with capsys.disabled():
-            res = subprocess.check_output(cmd)
+            res = util.callproc(cmd)
             if VERBOSE and len(res):
-                print(' '.join(cmd))
-                print(res)
+                print(' '.join(cmd), file=sys.stderr)
+                print(res, file=sys.stderr)
         with sqlite3.connect(db) as con:
             cur = con.cursor()
             tool_id = self._tool_id(cur, tool_name, platform, version=version)
@@ -172,23 +174,24 @@ class TestDigestAlerts(object):
 
     def test_gcc(self, capsys):
         # this is primarily to test regex digestion
-        tmp_dir = make_tmp_dir()
         tool_name = "gcc_oss"
+        tmp_dir = bootstrap.get_tmp_dir(ephemeral = not KEEP_OUTPUT,
+                suffix="test_digest_alerts/%s" % tool_name)
         tool_output = os.path.join(analysis_dir, "%s_jasper.txt" % tool_name)
         src_dir = os.path.join(tmp_dir, "src")
         src_archive = os.path.join(dat_dir, "jasper-1.900.zip")
         unzip_to_dir(src_archive, src_dir)
-        db = os.path.join(tmp_dir, "db.sqlite")
         platform = "c/cpp"
+        db = os.path.join(tmp_dir, "db.%s.jasper.sqlite3" % tool_name)
         cmd = [da_script, db, tool_output,
                 "--tool-name", tool_name,
                 "--tool-platform", platform,
                '--src-dirs', src_dir]
         with capsys.disabled():
-            res = subprocess.check_output(cmd)
+            res = util.callproc(cmd)
             if VERBOSE and len(res):
-                print(' '.join(cmd))
-                print(res)
+                print(' '.join(cmd), file=sys.stderr)
+                print(res, file=sys.stderr)
         with sqlite3.connect(db) as con:
             cur = con.cursor()
             tool_id = self._tool_id(cur, tool_name, platform)
@@ -199,10 +202,9 @@ class TestDigestAlerts(object):
             cnt = cur.fetchone()[0]
             assert cnt == 45, "45 MetaAlerts"
             cnt = self._count_checkers(cur, tool_id)
-            assert cnt == 85, "85 Checkers"
+            assert cnt == 112, "112 Checkers"
             cnt = self._count_conditions(cur, tool_id)
-            assert cnt == 76, "76 Conditions"
-        os.unlink(db)
+            assert cnt == 106, "106 Conditions"
 
     def _count_checkers(self, cur, tool_id):
         cur.execute(
@@ -237,13 +239,6 @@ def unzip_to_dir(archive, tgt_dir):
         os.makedirs(tgt_dir)
     zippy.extractall(tgt_dir)
     zippy.close()
-
-def make_tmp_dir():
-    tmp_dir = tempfile.mkdtemp()
-    def _temp_cleanup():
-        shutil.rmtree(tmp_dir, True)
-    atexit.register(_temp_cleanup)
-    return tmp_dir
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 # <legal>
-# SCAIFE System version 1.2.2
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -21,6 +21,7 @@
 # 
 # DM19-1274
 # </legal>
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -68,9 +69,12 @@ coverage.xml
 venv/
 .python-version
 
+# test input zip file unpacks here
+swagger_server/test/data/packages/output
+
 # Translations
-*.mo
-*.pot
+#*.mo
+#*.pot
 
 # Django stuff:
 *.log
@@ -83,3 +87,7 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# Ignore commonly used files for development notes
+/notes.org
+/*.notes

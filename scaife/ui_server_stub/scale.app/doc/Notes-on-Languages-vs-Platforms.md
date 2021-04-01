@@ -3,9 +3,9 @@ title: 'SCALe : Notes on Languages vs Platforms'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -66,6 +66,11 @@ The primary definition of a "platform" is specified in the
 has a name, platform, and known versions. 'C' is 'c', 'C++' is 'cpp',
 'JavaScript' is 'js', and so on. The platform is present in the SCALe
 database `Languages` table for each version of a language.
+
+In SCALe, tool.platform is currently an overloaded variable that 
+can either contain language varieties (e.g., "c/c++") or 
+the tool category (i.e., "metric").  SCALe also uses 
+tool.platform to derive the tool category.
 
 ## Tools
 

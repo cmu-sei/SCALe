@@ -3,9 +3,9 @@ title: 'SCALe : Audit Instructions'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -61,9 +61,10 @@ analysis tools over the code anyway.
 
 ### 2. Run the [Static Analysis Tools](Static-Analysis-Tools.md) associated with your source codebase's platform.
 
-### 3. [Upload your codebase and analysis tool output to the SCALe web app.](The-SCALe-Web-App.md#uploading-alerts-from-Static-Analyzers-(both-general-flaw-finder-tools-and-code-metrics-tools))
+### 3. Upload your codebase and analysis tool output to the SCALe web app.
+Useful howto info in [Upload Source Code and Analysis Outputs (part of quick-start demo)](Upload-Source-Code-and-Analysis-Outputs.md) and [Upload output from Static Analyzers (both alerts from general flaw-finder tools and metrics from code metrics tools)](#uploading-output-from-static-analyzers-both-alerts-from-general-flaw-finder-tools-and-metrics-from-code-metrics-tools).
 
-You can do this once you have useful text output from all of your
+You can do the uploading once you have useful text output from your
 analysis tools. The web app can build the database internally, given the
 source code and alert tool output.
 
@@ -84,7 +85,7 @@ for how to do this.
 If your codebase has never gone through a SCALe audit before, you may
 skip this step.
 
-### 5.  [Validate the SCALe Alerts](Validating-SCALe-Alerts.md)
+### 5.  [Validate the SCALe AlertConditions](Validating-SCALe-AlertConditions.md)
 
 ### 6. [Construct the SCALe Audit Report](Building-an-Audit-Report.md)
 

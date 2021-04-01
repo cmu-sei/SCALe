@@ -4,9 +4,9 @@ title: 'SCALe : Source Code Analysis Lab (SCALe)'
 
 [SCALe](index.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -55,9 +55,9 @@ Welcome to the SCALe documentation!
 1. Maintenance Instructions
     a.  [Adding a Tool to SCALe](Adding-a-Tool-to-SCALe.md)
     a.  [Manual Project
-        Creation](Manual-Project-Creation.md)
+        Creation](Command-Line-Project-Creation.md)
     a.  [Updating the SCALe Documentation](Updating-the-SCALe-Documentation.md)
-    a.  [SCALe Coding Conventions](SCALe-Coding-Conventions.md)
+    a.  [SCAIFE and SCALe Coding Conventions](SCAIFE-and-SCALe-Coding-Conventions.md)
 1. [Terms and Definitions](Terms-and-Definitions.md)
 
 ------------------------------------------------------------------------

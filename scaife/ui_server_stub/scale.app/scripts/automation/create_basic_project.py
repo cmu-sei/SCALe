@@ -4,9 +4,9 @@
 # the automation suite.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -58,6 +58,7 @@ def main():
             tools=tools,
             languages=[1, 2, 3]
         )
+        sess.query_scaife_logout()
     except FetchError, e:
         print("error: %d %s" % (e.message[0:2]))
 

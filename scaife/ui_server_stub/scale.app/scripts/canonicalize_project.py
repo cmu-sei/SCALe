@@ -38,9 +38,9 @@
 # could also compare files using hashes, to also compare contents of the files.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -124,9 +124,11 @@ def output_canonicalized_db(db_path, project_id, internal_db=True,
         variable_wildcard_cols = {}
         variable_wildcard_cols["displays"] = [
             "confidence",
+            "class_label",
         ]
         variable_wildcard_cols["MetaAlerts"] = [
             "confidence_score",
+            "class_label",
         ]
 
         variable_timestamp_cols = {}
@@ -283,7 +285,7 @@ def output_canonicalized_project(project_id, out=sys.stdout):
 
     # Produce canonical info for project in internal database
     out.write("Internal Database Contents:\n")
-    output_canonicalized_db(bootstrap.development_db(), project_id, out=out)
+    output_canonicalized_db(bootstrap.internal_db, project_id, out=out)
     out.write("\n")
 
     # Produce directory listing of project's 'supplemental' directory.

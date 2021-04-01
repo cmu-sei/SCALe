@@ -3,9 +3,9 @@ title: 'SCALe : SQL Dump'
 ---
  [SCALe](index.md) / [Source Code Analysis (SCALe)](Welcome.md) / [Audit Instructions](Audit-Instructions.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -48,4 +48,4 @@ sqlite3 <db> < <sql-file>
 
 [![](attachments/arrow_left.png)](Emacs-ORG-files.md)
 [![](attachments/arrow_up.png)](Audit-Instructions.md)
-[![](attachments/arrow_right.png)](Validating-SCALe-Alerts.md)
+[![](attachments/arrow_right.png)](Validating-SCALe-AlertConditions.md)

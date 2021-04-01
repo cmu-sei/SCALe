@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -23,24 +23,28 @@
 # </legal>
 FROM ubuntu:bionic
 
+ARG SCAIFE_MODE
+ARG RAILS_ENV
+
 ## First install packages that don't depend on SCALe
 
 # Apt packages
-RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
+RUN apt-get -q update \
+    && DEBIAN_FRONTEND=noninteractive apt-get -q -y install --no-install-recommends \
            autoconf build-essential sqlite3 sqlite3-pcre wget zip \
            unzip python python-pip python-dev tzdata libncurses5-dev \
            libssl-dev libsqlite3-dev ruby ruby-dev ca-certificates \
            libffi-dev libssl-dev libyaml-dev procps zlib1g-dev curl \
-    && apt-get --purge -y autoremove \
-    && apt-get clean
+    && apt-get -q --purge -y autoremove \
+    && apt-get -q clean
 
-RUN pip install --no-cache-dir --upgrade pip
+# note: pip upgrade required for optimal grpcio install
+RUN pip install -q --no-cache-dir --upgrade pip
 
 # GNU Global
 RUN mkdir -p /opt/global \
     && cd /opt/global \
-    && wget https://ftp.gnu.org/pub/gnu/global/global-6.5.1.tar.gz \
+    && wget --no-verbose https://ftp.gnu.org/pub/gnu/global/global-6.5.1.tar.gz \
     && tar -xzf global-6.5.1.tar.gz \
     && rm global-6.5.1.tar.gz \
     && cd global-6.5.1 \
@@ -50,27 +54,27 @@ RUN mkdir -p /opt/global \
     && make install \
     && cd .. \
     && rm -rf global-6.5.1 \
-    && apt-get --purge -y autoremove autoconf \
-    && apt-get clean
+    && apt-get -q --purge -y autoremove autoconf \
+    && apt-get -q clean
 
 # Pandoc
-RUN wget https://github.com/jgm/pandoc/releases/download/2.6/pandoc-2.6-1-amd64.deb \
+RUN wget --no-verbose https://github.com/jgm/pandoc/releases/download/2.6/pandoc-2.6-1-amd64.deb \
     && dpkg -i pandoc-2.6-1-amd64.deb \
     && rm pandoc-2.6-1-amd64.deb
 
 # Bundler
-RUN gem update --system \
-    && gem install json_pure bundler
+RUN gem update -q --system \
+    && gem install -q json_pure bundler:2.1.4
 
 ARG PRODUCTION=0
 # Loads all testing, unless production version
 RUN if [ "$PRODUCTION" -eq "0" ]; then \
-        apt-get update \
-        && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
+        apt-get -q update \
+        && DEBIAN_FRONTEND=noninteractive apt-get -q -y install --no-install-recommends \
                pylint python-pytest python-pytest-cov linkchecker \
                firefox openjdk-8-jdk-headless maven \
-        && apt-get clean \
-        && wget https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz \
+        && apt-get -q clean \
+        && wget --no-verbose https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz \
         && tar -zxvf geckodriver-v0.27.0-linux64.tar.gz -C /usr/local/bin/ \
         && rm -rf geckodriver-v0.27.0-linux64.tar.gz; \
     fi
@@ -82,10 +86,22 @@ ENV SCALE_APP_DIR=/scale
 WORKDIR $SCALE_APP_DIR
 RUN ln -s $SCALE_APP_DIR /scale.app
 
+# propagate test mode from ARG
+ENV SCAIFE_MODE=${SCAIFE_MODE}
+ENV RAILS_ENV=${RAILS_ENV}
+
 # grab external python requirements
 COPY requirements.txt $SCALE_APP_DIR
-RUN pip install -r requirements.txt
+RUN pip install -q -r requirements.txt
 
+# Loads up Maven test infrastructure (without running actual tests)
+COPY test/junit/test/pom.xml ./test/junit/test/pom.xml
+RUN if [ "$PRODUCTION" -eq "0" ]; then \
+        cd ./test/junit/test && \
+        #mvn --batch-mode dependency:go-offline || \
+        mvn -q --batch-mode "-Dtest=TestWebAppCoreScenariosLocal#testNone" test || \
+        echo yes ; \
+    fi
 
 ## Now do builds that depend on bits of SCALe.
 
@@ -95,17 +111,20 @@ RUN bundle config set path ./vendor/bundle \
     && bundle install --jobs 8
 
 # Initialize database
-COPY Rakefile   ./
-COPY config   ./config/
+COPY Rakefile ./
+COPY config ./config/
 COPY scripts/init_shared_tables.py scripts/bootstrap.py \
-     scripts/languages.json  scripts/tools.json scripts/taxonomies.json \
+     scripts/languages.json scripts/tools.json scripts/taxonomies.json \
      ./scripts/
-COPY scripts/data/conditions   scripts/data/conditions/
-COPY scripts/data/properties   scripts/data/properties/
-COPY db   ./db/
-RUN    bundle exec rake db:migrate \
-    && bundle exec rake db:schema:load \
-    && bundle exec rake db:seed
+COPY scripts/data/conditions scripts/data/conditions/
+COPY scripts/data/properties scripts/data/properties/
+COPY db ./db/
+
+# db:schema:load will destroy pre-existing data if present,
+# so just use migrate
+# needs ARG RAILS_ENV
+RUN bundle exec rake db:migrate && \
+    bundle exec rake db:seed
 
 # Add manual & store outside scale.app
 COPY doc ./doc
@@ -118,11 +137,12 @@ RUN ./scripts/builddocs.sh
 
 ## Add everything else
 
-COPY .  $SCALE_APP_DIR
+COPY . $SCALE_APP_DIR
 
 # This volume should link to the host's ~/.m2 settings
 # VOLUME /home/scale/.m2
 
 EXPOSE 8083
 
+# needs ENV RAILS_ENV
 CMD ["/scale/start.sh"]

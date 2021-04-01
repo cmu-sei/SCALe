@@ -6,11 +6,11 @@ title: 'SCAIFE : System Copyright'
 SCAIFE : System Copyright
 =========================
 
-SCAIFE System version 1.2.2
+SCAIFE System version 1.5.5
 
-Copyright 2020 Carnegie Mellon University.
+Copyright 2021 Carnegie Mellon University.
 
-SCAIFE System version 1.2.2  includes and/or can make use of certain third party software ("Third Party Software"). The Third Party Software that is used by SCAIFE System version 1.2.2  is dependent upon your system configuration, but typically includes the software identified in the software documentation. By using SCAIFE System version 1.2.2 , You agree to comply with any and all relevant Third Party Software terms and conditions contained in any such Third Party Software or separate license file distributed with such Third Party Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries to this License with respect to the terms applicable to their Third Party Software. Third Party Software licenses only apply to the Third Party Software and not any other portion of SCAIFE System version 1.2.2  or SCAIFE System version 1.2.2  as a whole.
+SCAIFE System version 1.5.5  includes and/or can make use of certain third party software ("Third Party Software"). The Third Party Software that is used by SCAIFE System version 1.5.5  is dependent upon your system configuration, but typically includes the software identified in the software documentation. By using SCAIFE System version 1.5.5 , You agree to comply with any and all relevant Third Party Software terms and conditions contained in any such Third Party Software or separate license file distributed with such Third Party Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries to this License with respect to the terms applicable to their Third Party Software. Third Party Software licenses only apply to the Third Party Software and not any other portion of SCAIFE System version 1.5.5  or SCAIFE System version 1.5.5  as a whole.
 
 This material is based upon work funded and supported by the Department of Defense under Contract No. FA8702-15-D-0002 with Carnegie Mellon University for the operation of the Software Engineering Institute, a federally funded research and development center.
 
@@ -24,7 +24,7 @@ NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE 
 
 Notice to DoD Subcontractors:  This document may contain Covered Defense Information (CDI).  Handling of this information is subject to the controls identified in DFARS 252.204-7012 – SAFEGUARDING COVERED DEFENSE INFORMATION AND CYBER INCIDENT REPORTING
 
-This material includes field names used in the Software Assurance Marketplace (SWAMP), a service that provides continuous software assurance capabilities to developers and researchers at https://www.mir-swamp.org/#.  Copyright © 2012-2020 The Morgridge Institute for Research, Inc. All rights reserved.”
+This material includes field names used in the Software Assurance Marketplace (SWAMP), a service that provides continuous software assurance capabilities to developers and researchers at https://www.mir-swamp.org/#.  Copyright © 2012-2021 The Morgridge Institute for Research, Inc. All rights reserved.”
 
 This material includes field names used in the Software Assurance Tool (SwAT), a tool that is used by analysts to analyze static analysis alerts from multiple static analysis tools. https://www.cerdec.army.mil/ Combat Capabilities Development Command (CCDC) C5ISR Center. All rights reserved.
 

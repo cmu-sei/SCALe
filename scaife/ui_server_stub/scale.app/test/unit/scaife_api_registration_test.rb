@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -31,7 +31,7 @@ class ScaifeApiRegistrationTest < ActiveSupport::TestCase
 		org = "SEI"
 		user = "test_user"
 		pass = "Test!abc123"
-		body = "User Created"
+    body = "User Created"
 		code = 201
 
 		stub_and_test_register(first, last, org, user, pass, body, code)

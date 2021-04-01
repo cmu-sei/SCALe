@@ -1,0 +1,101 @@
+ rosecheckers -c -I/src100/csmith/runtime 6ac6235f-601d-4a7a-a45a-f53e976004bf.c
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:180:5: warning: DCL00-C: Const-qualify immutable objects: l_1924
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:181:5: warning: DCL00-C: Const-qualify immutable objects: l_1942
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:182:5: warning: DCL00-C: Const-qualify immutable objects: l_1949
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:184:5: warning: DCL00-C: Const-qualify immutable objects: l_1961
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:191:9: warning: DCL00-C: Const-qualify immutable objects: l_1945
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:193:9: warning: DCL00-C: Const-qualify immutable objects: l_1960
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:196:9: warning: DCL01-C: Do not reuse variable names in subscopes: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:203:13: warning: DCL00-C: Const-qualify immutable objects: l_1943
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:204:13: warning: DCL00-C: Const-qualify immutable objects: l_1951
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:205:13: warning: DCL00-C: Const-qualify immutable objects: l_1952
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:206:13: warning: DCL00-C: Const-qualify immutable objects: l_1953
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:207:13: warning: DCL00-C: Const-qualify immutable objects: l_1954
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:208:13: warning: DCL00-C: Const-qualify immutable objects: l_1955
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:209:13: warning: DCL00-C: Const-qualify immutable objects: l_1956
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:210:13: warning: DCL00-C: Const-qualify immutable objects: l_1957
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:211:13: warning: DCL00-C: Const-qualify immutable objects: l_1958
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:212:13: warning: DCL00-C: Const-qualify immutable objects: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:212:13: warning: DCL01-C: Do not reuse variable names in subscopes: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:212:13: warning: DCL00-C: Const-qualify immutable objects: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:212:13: warning: DCL00-C: Const-qualify immutable objects: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:213:21: warning: INT13-C: Use bitwise operators only on unsigned operands
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:216:17: warning: DCL00-C: Const-qualify immutable objects: l_1937
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:217:17: warning: DCL00-C: Const-qualify immutable objects: l_1944
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:220:21: warning: DCL00-C: Const-qualify immutable objects: l_1925
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:221:21: warning: DCL00-C: Const-qualify immutable objects: l_1946
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:223:21: warning: DCL00-C: Const-qualify immutable objects: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:223:21: warning: DCL01-C: Do not reuse variable names in subscopes: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:226:25: warning: DCL00-C: Const-qualify immutable objects: l_1922
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:228:25: warning: DCL00-C: Const-qualify immutable objects: l_1934
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:229:25: warning: DCL00-C: Const-qualify immutable objects: l_1941
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:230:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:230:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:230:25: warning: DCL01-C: Do not reuse variable names in subscopes: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: k
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:240:31: warning: INT13-C: Use bitwise operators only on unsigned operands
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:263:5: warning: DCL00-C: Const-qualify immutable objects: l_1765
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:266:5: warning: DCL00-C: Const-qualify immutable objects: l_1863
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:267:5: warning: DCL00-C: Const-qualify immutable objects: l_1864
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:269:5: warning: DCL00-C: Const-qualify immutable objects: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:275:9: warning: DCL00-C: Const-qualify immutable objects: l_86
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:278:9: warning: DCL00-C: Const-qualify immutable objects: l_1768
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:279:9: warning: DCL00-C: Const-qualify immutable objects: l_1796
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:282:9: warning: DCL00-C: Const-qualify immutable objects: l_1858
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:283:9: warning: DCL00-C: Const-qualify immutable objects: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:283:9: warning: DCL00-C: Const-qualify immutable objects: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: i
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:1032:5: warning: DCL02-C: Use visually distinct identifiers: j
+6ac6235f-601d-4a7a-a45a-f53e976004bf.c:287:13: warning: DCL00-C: Const-qualify immutable objects: l_1776

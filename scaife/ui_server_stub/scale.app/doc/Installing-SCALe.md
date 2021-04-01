@@ -3,9 +3,9 @@ title: 'SCALe : Installing SCALe'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -126,11 +126,11 @@ Internet access should be disabled.
 SCALe Web App Server
 --------------------
 
-The **SCALe web app server **hosts the SCALe web app. Static analysis
+The **SCALe web app server** hosts the SCALe web app. Static analysis
 outputs and source code are uploaded to this application. The outputs
 are consolidated into a standard format and presented to auditors for
 evaluation. The source code is uploaded so that auditors can view the
-code associated with a particular alert in the browser.
+code associated with a particular alertCondition in the browser.
 
 [Tips for SCALe performance improvement](Tips-for-SCALe-performance-improvement.md)
 
@@ -139,11 +139,33 @@ An online installation requires that the host machine have access to the
 internet.  An offline installation does not require internet access.
 
 The SCALe web app is distributed by CERT in various ways, including:
-1. pre-installed on a virtual machine;
-2. clone-able (and updatable)
-from an SEI-internal git repository; and
-3. as a separate code
-distribution snapshot (not a git clone).
+
+1. as a separate code distribution snapshot (not a git clone);
+2. clone-able (and updatable) from an SEI-internal git repository; and
+3. pre-installed on a virtual machine (VM).
+
+## SCALe installation as a Docker container
+
+We currently recommend installing SCALe as a Docker container.
+Code obtained via distribution methods 1 and 2 can be used to start SCALe as 
+a Docker container. SCALe VMs (distribution method 3) 
+are currently distributed with SCALe installed as a Docker container on the VM.
+
+### Using the `docker-compose` method
+
+Our [GitHub SCALe public release scaife-scale branch](https://github.com/cmu-sei/SCALe/tree/scaife-scale) has been recently tested and works with the `scaife/docker-compose.yml` file being used successfully to start a standalone SCALe Docker container, using the following command in the `scaife` directory:
+```
+docker-compose -f docker-compose.yml init --build scale
+```
+
+### Using the separate `Dockerfile` method
+
+There is a `Dockerfile` for automated container deployment (The `$SCALE_HOME/scale.app/Dockerfile` file has not been tested recently, as of January 2021, so it's not certain it works.) It can run SCALe as a standalone container. Alternatively, it can run SCALe as a dependent container, sharing the `scale.app` directory tree with the container's host.
+
+* `$SCALE_HOME/scale.app/Dockerfile`
+
+
+## Update patches
 
 For distribution methods #1
 and #3, update patches may be provided with bugfixes and feature
@@ -151,73 +173,40 @@ enhancements, while those with access to the git repository can simply
 do a git pull or checkout the git branch with the feature/fix of
 interest.
 
-We generally automatically deploy to virtual machines and containers, in 2019.
 Additional information about our automated deployment process and the explicitly-added third-party code
 is available in these code locations that are part of the released code:
 
-* $SCALE_HOME/scale.app/cookbooks
-* $SCALE_HOME/scale.app/Vagrantfile
-* $SCALE_HOME/scale.app/Gemfile
-* For creating a VirtualBox base box that is used with the auto-deployment process with the Vagrantfile, we install VirtualBox Guest Additions [per these instructions](https://www.engineyard.com/blog/building-a-vagrant-box-from-start-to-finish){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)
-* The file $SCALE_HOME/scale.app/package.py is used in the automated VM creation process
+* `$SCALE_HOME/scale.app/cookbooks`
+* `$SCALE_HOME/scale.app/Vagrantfile`
+* `$SCALE_HOME/scale.app/Gemfile`
+* For creating a VirtualBox base box that is used with the auto-deployment process with the `Vagrantfile`, we install `VirtualBox Guest Additions` [per these instructions](https://www.engineyard.com/blog/building-a-vagrant-box-from-start-to-finish){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)
+* The file `$SCALE_HOME/scale.app/package.py` is used in the automated VM creation process
 
-
-There is a Dockerfile for automated container deployment. It can run SCALe as a standalone container. Alternatively, it can run SCALe as a dependent container, sharing the scale.app directory tree with the container's host.
-
-* $SCALE_HOME/scale.app/Dockerfile
-
-
-You can **try** following the links below to find installation instructions (primarily
-written for distribution methods #2 and #3) for your specific
-platform. They worked at one time.
-
-**However, we have not maintained the following OS-specific install information
-for quite some time, and the instructions may no longer work.**
-
-#### Ubuntu 14.04, Trusty Tahr, x86-64
-
--   [Installing the SCALe Web App on 64-bit Ubuntu 14.04 - Online](Installing-the-SCALe-Web-App-on-64-bit-Ubuntu-14.04---Online.md)
-
-#### XUbuntu 16.04, Xenial Xerus, x86-64
-
--   [Installing the SCALe Web App on 64-bit XUbuntu 16.04 - Online](Installing-the-SCALe-Web-App-on-64-bit-XUbuntu-16.04---Online.md)
-
-#### Red Hat Enterprise Linux (RHEL), Server Edition, release 7.1, x86-64
-
--   [Installing the SCALe Web App on 64-bit Red Hat Enterprise Linux 7.1 Server - Online](Installing-the-SCALe-Web-App-on-64-bit-Red-Hat-Enterprise-Linux-7.1-Server---Online.md)
--   [Installing the SCALe Web App on 64-bit Red Hat Enterprise Linux 7.1 Server - Offline](Installing-the-SCALe-Web-App-on-64-bit-Red-Hat-Enterprise-Linux-7.1-Server---Offline.md)
-
-#### Red Hat Enterprise Linux (RHEL), Server Edition, release 6.4, x86-64 (works on workstation, too!)
-
--   [Installing the SCALe Web App on 64-bit Red Hat Enterprise Linux 6.4 Server - Offline](Installing-the-SCALe-Web-App-on-64-bit-Red-Hat-Enterprise-Linux-6.4-Server---Offline.md)
-
-#### CentOS 6.6, x86-64 ([minimal version](http://vault.centos.org/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png),with gnome user interface and a browser added)
-
--   [Installing the SCALe Web App on 64-bit CentOS Linux 6.6  (minimal version, with gnome and browser added) -  Offline](Installing-on-64-bit-CentOS-Offline.md)
-
-### Note on Web Servers
+## Note on Web Servers
 
 The web app runs within a web server. Of the various options for this
-web server, we recommend using the Thin web server, which comes packaged
+web server, we recommend using the `Thin` web server, which comes packaged
 with Ruby. You may also use other web server platforms, such as
-Apache. However, this documentation does not cover the installation and
+`Apache`. However, this documentation does not cover the installation and
 configuration of other platforms. After running the preceding commands,
 refer to [The SCALe Web App](The-SCALe-Web-App.md) page for
 information on how to configure and launch the application.
+
+## VM Releases
 
 ### Notes on Installing/Configuring VMs on Ubuntu based Linux Distributions
 
 On Ubuntu based distributions (including Mint) that use the Gnome
 desktop, the VMware Workstation  will not display VM instances that have
 been newly created or imported. (The VMs can still be launched directly
-by clicking on the .vmx file). Without them being listed in the vmplayer
+by clicking on the `.vmx` file). Without them being listed in the vmplayer
 launcher, however, they cannot be configured and customized. The
 following steps will fix the problem:
 
-1.   Go to Preferences/Privacy and enable "Never forget old files"
+1.   Go to `Preferences/Privacy` and enable `"Never forget old files"`
 2.   Launch the VMWare Workstation
-3.   Go to File/Open a Virtual Machine; browse  to the machine in
-    question (in \~/.vmware) and open the machine.
+3.   Go to `File/Open a Virtual Machine`; browse  to the machine in
+    question (in `\~/.vmware`) and open the machine.
 
 After opening the machine (or importing a new one) they will now be
 listed in the launcher.
@@ -232,9 +221,43 @@ size. Instead:
 1.  Boot the VM normally
 2.  `sudo wget install gparted`
 3.  launch `gparted`
-4.  delete the swap partition (and remember it's size)
-5.  expand the root partition to the desired size (minus the size of the swap partition)
-6.  recreate the swap partition
+4.  CAUTION: Before doing the next step, separately record the swap partition's size
+5.  delete the swap partition
+6.  expand the root partition to the desired size (minus the size of the swap partition)
+7.  recreate the swap partition
+
+
+## Likely-outdated methods for installation that do not use containers
+
+We retain the following list of specific-OS-installs on our installation page, because some people not want to use containers and may find these instructions helpful to perform a non-container installation. We expect that updates would be needed to the existing instructions.
+You can **try** following the links below to find installation instructions (primarily
+written for distribution methods #1 and #2) for your specific
+platform. They worked at one time.
+
+**However, we have not maintained the following OS-specific install information
+for quite some time, and the instructions may no longer work.**
+
+#### Ubuntu 14.04, Trusty Tahr, x86-64
+
+  * [Installing the SCALe Web App on 64-bit Ubuntu 14.04 - Online](Installing-the-SCALe-Web-App-on-64-bit-Ubuntu-14.04---Online.md)
+
+#### XUbuntu 16.04, Xenial Xerus, x86-64
+
+  *  [Installing the SCALe Web App on 64-bit XUbuntu 16.04 - Online](Installing-the-SCALe-Web-App-on-64-bit-XUbuntu-16.04---Online.md)
+
+#### Red Hat Enterprise Linux (RHEL), Server Edition, release 7.1, x86-64
+
+  * [Installing the SCALe Web App on 64-bit Red Hat Enterprise Linux 7.1 Server - Online](Installing-the-SCALe-Web-App-on-64-bit-Red-Hat-Enterprise-Linux-7.1-Server---Online.md)
+  * [Installing the SCALe Web App on 64-bit Red Hat Enterprise Linux 7.1 Server - Offline](Installing-the-SCALe-Web-App-on-64-bit-Red-Hat-Enterprise-Linux-7.1-Server---Offline.md)
+
+#### Red Hat Enterprise Linux (RHEL), Server Edition, release 6.4, x86-64 (works on workstation, too!)
+
+  * [Installing the SCALe Web App on 64-bit Red Hat Enterprise Linux 6.4 Server - Offline](Installing-the-SCALe-Web-App-on-64-bit-Red-Hat-Enterprise-Linux-6.4-Server---Offline.md)
+
+#### CentOS 6.6, x86-64 ([minimal version](http://vault.centos.org/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png),with gnome user interface and a browser added)
+
+  * [Installing the SCALe Web App on 64-bit CentOS Linux 6.6  (minimal version, with gnome and browser added) -  Offline](Installing-on-64-bit-CentOS-Offline.md)
+
 
 ------------------------------------------------------------------------
 

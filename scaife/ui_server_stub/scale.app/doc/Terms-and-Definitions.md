@@ -3,9 +3,9 @@ title: 'SCALe : Terms and Definitions'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -42,9 +42,9 @@ Switzerland: ISO, 2011.
 A warning from a flaw-finding static analysis tool, specific to 1. a particular code
 location (line number and filepath); 2. a checker ID (a type of flaw that
 the tool looks for, where the combination of all checker IDs in a tool define
-the tool's internal taxonomy for code flaws); and 3. a unique message and/or unique set of 
-secondary messages. Secondary messages are information provided by some tools about control-flow, 
-data-flow, and/or type-flow that can lead to the code flaw at the alert's line number that 
+the tool's internal taxonomy for code flaws); and 3. a unique message and/or unique set of
+secondary messages. Secondary messages are information provided by some tools about control-flow,
+data-flow, and/or type-flow that can lead to the code flaw at the alert's line number that
 the alert's primary message and checker ID warn about.
 
 ## Condition
@@ -119,5 +119,5 @@ implicit security policy. [ISO/IEC TS 17961:2013]
 
 ------------------------------------------------------------------------
 
-[![](attachments/arrow_left.png)](Manual-Project-Creation.md)
+[![](attachments/arrow_left.png)](Command-Line-Project-Creation.md)
  [![](attachments/arrow_up.png)](Welcome.md)

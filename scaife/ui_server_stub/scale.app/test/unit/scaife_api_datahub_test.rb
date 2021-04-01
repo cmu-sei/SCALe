@@ -1,7 +1,7 @@
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -30,141 +30,127 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   test "SCAIFE_list_projects returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     code = 200
-    stub_and_test_list_projects(x_access_token, x_request_token, code)
+    stub_and_test_list_projects(x_access_token, code)
   end
 
   test "SCAIFE_list_projects returns 404" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     code = 404
-    stub_and_test_list_projects(x_access_token, x_request_token, code)
+    stub_and_test_list_projects(x_access_token, code)
   end
 
   test "SCAIFE_list_projects returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     code = 400
-    stub_and_test_list_projects(x_access_token, x_request_token, code)
+    stub_and_test_list_projects(x_access_token, code)
   end
 
   # list_packages
 
   test "SCAIFE_list_packages returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     code = 200
-    stub_and_test_list_packages(x_access_token, x_request_token, code)
+    stub_and_test_list_packages(x_access_token, code)
   end
 
   test "SCAIFE_list_packages returns 404" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     code = 404
-    stub_and_test_list_packages(x_access_token, x_request_token, code)
+    stub_and_test_list_packages(x_access_token, code)
   end
 
   test "SCAIFE_list_packages returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     code = 400
-    stub_and_test_list_packages(x_access_token, x_request_token, code)
+    stub_and_test_list_packages(x_access_token, code)
   end
 
   # list_languages
 
   test "SCAIFE_list_languages returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
-    body = { request_id: x_request_token }.to_json
+
+    body = [].to_json
     code = 200
-    stub_and_test_list_languages(x_access_token, x_request_token, body, code)
+    stub_and_test_list_languages(x_access_token, body, code)
   end
 
   test "SCAIFE_list_languages returns 404" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
-    body = "Languages Unavailable, request_id: #{x_request_token}"
+    body = "Languages Unavailable"
     code = 404
-    stub_and_test_list_languages(x_access_token, x_request_token, body, code)
+    stub_and_test_list_languages(x_access_token, body, code)
   end
 
   test "SCAIFE_list_languages returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
-    body = "Invalid Request, request_id: #{x_request_token}"
+    body = "Invalid Request"
     code = 400
-    stub_and_test_list_languages(x_access_token, x_request_token, body, code)
+    stub_and_test_list_languages(x_access_token, body, code)
   end
 
   # create_language
 
   test "SCAIFE_create_language returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     language_name = "language name"
     language_version = "languager.version"
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 200
-    stub_and_test_create_language(x_access_token, x_request_token,
+    stub_and_test_create_language(x_access_token,
       language_name, language_version, body, code)
   end
 
   test "SCAIFE_create_language returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     language_name = "language name"
     language_version = "languager.version"
-    body = "Invalid Request, request_id: #{x_request_token}"
+    body = "Invalid Request"
     code = 400
-    stub_and_test_create_language(x_access_token, x_request_token,
+    stub_and_test_create_language(x_access_token,
       language_name, language_version, body, code)
   end
 
-  # get_tool_list
+  # list_tools
 
-  test "SCAIFE_get_tool_list returns 200" do
+  test "SCAIFE_list_tools returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
-    body = { request_id: x_request_token }.to_json
+    body = [].to_json
     code = 200
-    stub_and_test_get_tool_list(x_access_token, x_request_token, body, code)
+    stub_and_test_list_tools(x_access_token, body, code)
   end
 
-  test "SCAIFE_get_tool_list returns 404" do
+  test "SCAIFE_list_tools returns 404" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
-    body = "Tools Unavailable, request_id: #{x_request_token}"
+    body = "Tools Unavailable"
     code = 404
-    stub_and_test_get_tool_list(x_access_token, x_request_token, body, code)
+    stub_and_test_list_tools(x_access_token, body, code)
   end
 
-  test "SCAIFE_get_tool_list returns 400" do
+  test "SCAIFE_list_tools returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
-    body = "Invalid Request, request_id: #{x_request_token}"
+    body = "Invalid Request"
     code = 400
-    stub_and_test_get_tool_list(x_access_token, x_request_token, body, code)
+    stub_and_test_list_tools(x_access_token, body, code)
   end
 
   # upload_tool
 
   test "SCAIFE_upload_tool returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     tool_name = "tool name"
     tool_version = "tool.version"
     author_source = "SCALe_user"
-    category = "FFSA"
+    category = "METRICS"
     platforms = ["c", "cpp"]
     code_language_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
     checker_mappings = []
     checker_names = ["checker_one", "checker_two", "checker_three", "checker_four"]
-    code_metrics_headers = {"column1": "1", "column2": "2", "column3": "3"}
-    body = { request_id: x_request_token }.to_json
+    code_metrics_headers = ["column1", "column2", "column3"]
+    body = { }.to_json
     code = 200
-    stub_and_test_upload_tool(x_access_token, x_request_token,
+    stub_and_test_upload_tool(x_access_token,
       tool_name, tool_version, category, platforms, code_language_ids,
       checker_mappings, checker_names, code_metrics_headers, author_source,
       body, code)
@@ -172,77 +158,74 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   test "SCAIFE_upload_tool returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     tool_name = "tool name"
     tool_version = "tool.version"
     author_source = "SCALe_user"
-    category = "FFSA"
+    category = "METRICS"
     platforms = ["c", "cpp"]
     code_language_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
     checker_mappings = []
     checker_names = ["checker_one", "checker_two", "checker_three", "checker_four"]
-    code_metrics_headers ={"column1": "1", "column2": "2", "column3": "3"}
-    body = "Unable to Upload Tool Information, request_id: #{x_request_token}"
+    code_metrics_headers = ["column1", "column2", "column3"]
+    body = "Unable to Upload Tool Information"
     code = 400
-    stub_and_test_upload_tool(x_access_token, x_request_token,
+    stub_and_test_upload_tool(x_access_token,
       tool_name, tool_version, category, platforms, code_language_ids,
       checker_mappings, checker_names, code_metrics_headers, author_source,
       body, code)
   end
 
-  # get_taxonomy_list
+  # list_taxonomies
 
-  test "SCAIFE_get_taxonomy_list returns 200" do
+  test "SCAIFE_list_taxonomies returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
+    body = [].to_json
     code = 200
-    stub_and_test_get_taxonomy_list(x_access_token, x_request_token, code)
+    stub_and_test_list_taxonomies(x_access_token, body, code)
   end
 
-  test "SCAIFE_get_taxonomy_list returns 404" do
+  test "SCAIFE_list_taxonomies returns 404" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
+    body = "Taxonomies Unavailable"
     code = 404
-    stub_and_test_get_taxonomy_list(x_access_token, x_request_token, code)
+    stub_and_test_list_taxonomies(x_access_token, body, code)
   end
 
-  test "SCAIFE_get_taxonomy_list returns 400" do
+  test "SCAIFE_list_taxonomies returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     code = 400
-    stub_and_test_get_taxonomy_list(x_access_token, x_request_token, code)
+    body = "Invalid Request"
+    stub_and_test_list_taxonomies(x_access_token, body, code)
   end
 
   # create_taxonomy
 
   test "SCAIFE_create_taxonomy returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     taxonomy_name = "taxonomy name"
     taxonomy_version = "taxonomy version"
     description = "SCAIFE Taxonomy"
     author_source = "SCALe_user"
     code_language_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
     conditions = [{"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}, {"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}]
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 200
-    stub_and_test_create_taxonomy(x_access_token, x_request_token,
+    stub_and_test_create_taxonomy(x_access_token,
       taxonomy_name, taxonomy_version, description, conditions, author_source,
       body, code)
   end
 
   test "SCAIFE_create_taxonomy returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     taxonomy_name = "taxonomy name"
     taxonomy_version = "taxonomy version"
     description = "SCAIFE Taxonomy"
     author_source = "SCALe_user"
     code_language_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
     conditions = [{"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}, {"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}]
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 400
-    stub_and_test_create_taxonomy(x_access_token, x_request_token,
+    stub_and_test_create_taxonomy(x_access_token,
       taxonomy_name, taxonomy_version, description, conditions, author_source,
       body, code)
   end
@@ -251,25 +234,23 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
   
   test "SCAIFE_edit_taxonomy returns 200" do
       x_access_token = "valid_access_token"
-      x_request_token = "valid_req_token"
       taxonomy_id = "5e7819ba6b61dbf75b878ec2"
       code_language_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
       conditions = [{"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}, {"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}]
-      body = { request_id: x_request_token }.to_json
+      body = [].to_json
       code = 200
-      stub_and_test_edit_taxonomy(x_access_token, x_request_token,
+      stub_and_test_edit_taxonomy(x_access_token,
         taxonomy_id, conditions, body, code)
   end
   
   test "SCAIFE_edit_taxonomy returns 404" do
       x_access_token = "valid_access_token"
-      x_request_token = "valid_req_token"
       taxonomy_id = "000000000000000000000000"
       code_language_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
       conditions = [{"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}, {"code_language_ids": code_language_ids, "condition_name": "Condition 1 Name", "title": "Condition 1 Title"}]
-      body = "Taxonomy Information Unavailable, request_id: #{x_request_token}"
+      body = "Taxonomy Information Unavailable"
       code = 404
-      stub_and_test_edit_taxonomy(x_access_token, x_request_token,
+      stub_and_test_edit_taxonomy(x_access_token,
         taxonomy_id, conditions, body, code)
   end
 
@@ -277,26 +258,23 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   test "SCAIFE_get_tool_data returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     tool_id = "5da60a91649f74df25cc9daf"
     code = 200
-    stub_and_test_get_tool_data(x_access_token, x_request_token, tool_id, code)
+    stub_and_test_get_tool_data(x_access_token, tool_id, code)
   end
 
   test "SCAIFE_get_tool_data returns 404" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     tool_id = "6da60a91649f74df25cc9daf"
     code = 404
-    stub_and_test_get_tool_data(x_access_token, x_request_token, tool_id, code)
+    stub_and_test_get_tool_data(x_access_token, tool_id, code)
   end
 
   test "SCAIFE_get_tool_data returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     tool_id = "6da60a91649f74df25cc9daf"
     code = 400
-    stub_and_test_get_tool_data(x_access_token, x_request_token, tool_id, code)
+    stub_and_test_get_tool_data(x_access_token, tool_id, code)
   end
 
 
@@ -306,24 +284,22 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   #test "SCAIFE_edit_tool returns 200" do
   #  x_access_token = "valid_access_token"
-  #  x_request_token = "valid_req_token"
   #  tool_id = "5da60a91649f74df25cc9daf"
   #  checker_mappings_file_path = File.join(Dir.pwd, "/test-input/sample_scale_checker_mappings.csv")
-  #  body = { request_id: x_request_token }.to_json
+  #  body = { }.to_json
   #  code = 200
-  #  stub_and_test_edit_tool(x_access_token, x_request_token,
+  #  stub_and_test_edit_tool(x_access_token,
   #    tool_id, checker_mappings_file_path,
   #    body, code)
   #end
 
   # test "SCAIFE_edit_tool returns 400" do
   #  x_access_token = "valid_access_token"
-  #  x_request_token = "valid_req_token"
   #  tool_id = "6da60a91649f74df25cc9daf"
   #  checker_mappings_file_path = File.join(Dir.pwd, "/test-input/sample_scale_checker_mappings.csv")
-  #  body = { request_id: x_request_token }.to_json
+  #  body = { }.to_json
   #  code = 400
-  #  stub_and_test_edit_tool(x_access_token, x_request_token,
+  #  stub_and_test_edit_tool(x_access_token,
   #    tool_id, checker_mappings_file_path,
   #    body, code)
   #end
@@ -332,32 +308,30 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   test "SCAIFE_create_project returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     project_name = "project name"
     project_description = "SCAIFE project"
     author_source = "author"
     package_id = "6da60a91649f74df25cc9fba"
     meta_alerts = {}
     taxonomy_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 200
-    stub_and_test_create_project(x_access_token, x_request_token,
+    stub_and_test_create_project(x_access_token,
       project_name, project_description, author_source, package_id, meta_alerts, taxonomy_ids,
       body, code)
   end
 
   test "SCAIFE_create_project returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     project_name = "project name"
     project_description = "SCAIFE project"
     author_source = "author"
     package_id = "6da60a91649f74df25cc9fba"
     meta_alerts = {}
     taxonomy_ids = ["5da60a91649f74df25cc9daf", "6da60a91649f74df25cc9daf"]
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 400
-    stub_and_test_create_project(x_access_token, x_request_token,
+    stub_and_test_create_project(x_access_token,
       project_name, project_description, author_source, package_id, meta_alerts, taxonomy_ids,
       body, code)
   end
@@ -366,7 +340,6 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   test "SCAIFE_create_package returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     package_name = "package name"
     package_description = "SCAIFE package"
     author_source = "author"
@@ -383,9 +356,9 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
     secondary_message = {"line_start": "100", "line_end": "110", "filepath": "/sample/file/path", "message_text": "secondary message"}
     alert1 = {"code_language": code_language_ids[0], "tool_id": tool_id, "checker_id": checker_id, "primary_message": message, "secondary_messages": [secondary_message]}
 
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 200
-    stub_and_test_create_package(x_access_token, x_request_token,
+    stub_and_test_create_package(x_access_token,
       package_name, package_description, author_source, code_language_ids,
       code_source_url, source_file_url, source_function_url, test_suite_id, [alert1], tool_ids,
       body, code)
@@ -393,7 +366,6 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   test "SCAIFE_create_package returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     package_name = "package name"
     package_description = "SCAIFE package"
     author_source = "author"
@@ -410,9 +382,9 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
     secondary_message = {"line_start": "100", "line_end": "110", "filepath": "/sample/file/path", "message_text": "secondary message"}
     alert1 = {"code_language": code_language_ids[0], "tool_id": tool_id, "checker_id": checker_id, "primary_message": message, "secondary_messages": [secondary_message]}
 
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 400
-    stub_and_test_create_package(x_access_token, x_request_token,
+    stub_and_test_create_package(x_access_token,
       package_name, package_description, author_source, code_language_ids,
       code_source_url, source_file_url, source_function_url, test_suite_id, [alert1], tool_ids,
       body, code)
@@ -422,7 +394,6 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
 
   test "SCAIFE_create_test_suite returns 200" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     test_suite_name = "test suite name"
     test_suite_type = "juliet"
     test_suite_version = "1.0"
@@ -431,16 +402,15 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
     use_license_file_url = "https://www.cert.org"
     author_source = "author"
     code_languages = [{"language": "C++", "version": "14"}, {"language": "Java", "version": "8"}]
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 200
 
-    stub_and_test_create_test_suite(x_access_token, x_request_token, test_suite_name, test_suite_version, test_suite_type, manifest_urls, use_license_file_url, author_source, code_languages, body, code)
+    stub_and_test_create_test_suite(x_access_token, test_suite_name, test_suite_version, test_suite_type, manifest_urls, use_license_file_url, author_source, code_languages, body, code)
 
   end
 
   test "SCAIFE_create_test_suite returns 400" do
     x_access_token = "valid_access_token"
-    x_request_token = "valid_req_token"
     test_suite_name = "test suite name"
     test_suite_type = "juliet"
     test_suite_version = "1.0"
@@ -449,10 +419,9 @@ class ScaifeApiDatahubTest < ActiveSupport::TestCase
     use_license_file_url = "https://www.cert.org"
     author_source = "author"
     code_languages = [{"language": "C++", "version": "14"}, {"language": "Java", "version": "8"}]
-    body = { request_id: x_request_token }.to_json
+    body = { }.to_json
     code = 400
-    stub_and_test_create_test_suite(x_access_token, x_request_token, test_suite_name, test_suite_version, test_suite_type, manifest_urls, use_license_file_url, author_source, code_languages, body, code)
+    stub_and_test_create_test_suite(x_access_token, test_suite_name, test_suite_version, test_suite_type, manifest_urls, use_license_file_url, author_source, code_languages, body, code)
     end
-
 
 end

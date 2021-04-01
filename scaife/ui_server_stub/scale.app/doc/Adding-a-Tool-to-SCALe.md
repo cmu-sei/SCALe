@@ -3,9 +3,9 @@ title: 'SCALe : Adding a Tool to SCALe'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -94,7 +94,7 @@ suitable output that your tool produced while analyzing the codebase:
     parser.
 -   Give `digest_alerts.py` the outputs from running your tool as
     well as your tool's numeric ID. You can find more information here:
-    [Manual Project Creation](Manual-Project-Creation.md).
+    [Manual Project Creation](Command-Line-Project-Creation.md).
 
 Static Analysis Metric Tools
 ----------------------------
@@ -139,11 +139,11 @@ suitable output that your tool produced while analyzing the codebase:
     parser.
 -   Give `digest_alerts.py` the outputs from running your tool as
     well as your tool's numeric ID. You can find more information here:
-    [Manual Project Creation](Manual-Project-Creation.md).
+    [Manual Project Creation](Command-Line-Project-Creation.md).
 
 ------------------------------------------------------------------------
 
 
 [![](attachments/arrow_left.png)](Exported-Database-Design.md)
 [![](attachments/arrow_up.png)](Welcome.md)
-[![](attachments/arrow_right.png)](Manual-Project-Creation.md)
+[![](attachments/arrow_right.png)](Command-Line-Project-Creation.md)

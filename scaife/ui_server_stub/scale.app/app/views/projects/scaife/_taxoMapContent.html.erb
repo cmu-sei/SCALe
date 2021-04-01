@@ -29,8 +29,8 @@
                   <td><%= taxo.version %></td>
                   <td align="center">-</td>
                   <% if scaife_taxo.present? %>
-                    <td><%= scaife_taxo["taxonomy_name"] %></td>
-                    <td><%= scaife_taxo["taxonomy_version"] %></td>
+                    <td><%= scaife_taxo.taxonomy_name %></td>
+                    <td><%= scaife_taxo.taxonomy_version %></td>
                   <% else %>
                     <td>unknown</td>
                     <td><!-- colspan not working on td? --></td>
@@ -91,9 +91,9 @@
               </thead>
               <tbody class="tgt-taxo-list">
                 <% @scaife_taxonomies_by_id.each_value do |scaife_taxo| %>
-                  <tr data-id="<%= scaife_taxo["taxonomy_id"] %>" class="list-item">
-                    <td class="tgt-name"><%= scaife_taxo["taxonomy_name"] %></td>
-                    <td class="tgt-version"><%= scaife_taxo["taxonomy_version"] %></td>
+                  <tr data-id="<%= scaife_taxo.taxonomy_id %>" class="list-item">
+                    <td class="tgt-name"><%= scaife_taxo.taxonomy_name %></td>
+                    <td class="tgt-version"><%= scaife_taxo.taxonomy_version %></td>
                   </tr>
                 <% end %>
               </tbody>

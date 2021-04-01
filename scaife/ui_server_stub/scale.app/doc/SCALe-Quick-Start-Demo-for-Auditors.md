@@ -3,9 +3,9 @@ title: 'SCALe : SCALe Quick Start Demo for Auditors'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -39,10 +39,10 @@ Demo Overview
 In this demo, we use SCALe to audit the source code of the common UNIX
 utility
 [dos2unix](http://waterlan.home.xs4all.nl/dos2unix.html){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png),
-version 7.2.2. We evaluate alerts from the static analysis tool
-CERT Rosecheckers. We show how to import the output into the SCALe auditing
+version 7.2.2. We evaluate results from the static analysis tool
+CERT Rosecheckers. We show how to import the tool output into the SCALe auditing
 application. We then show how to use the web application to evaluate
-alerts. Finally, we show how to export the results of this evaluation
+alertConditions. Finally, we show how to export the results of this evaluation
 from the application.
 
 This diagram summarizes the scenario.
@@ -66,8 +66,7 @@ The demo is composed of the following steps:
 
 1.  [Upload Source Code and Analysis
     Outputs](Upload-Source-Code-and-Analysis-Outputs.md)
-2.  [Inspect Alerts for Violations of CERT Secure Coding
-    Rules](Inspect-Alerts-for-Violations-of-CERT-Secure-Coding-Rules.md)
+2.  [Inspect AlertConditions to Adjudicate for Conditions](Inspect-AlertConditions-to-Adjudicate-for-Conditions.md)
 3.  [Export Analysis Results from the Web
     Application](Export-Analysis-Results-from-the-Web-Application.md)
 

@@ -32,9 +32,9 @@
 # as hard-coded below.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -70,16 +70,21 @@ def tool_file(basename):
 
 def main():
     # make sure SCAIFE services are up, including SCALe, start a session
-    bootstrap.assert_services_are_up()
+    try:
+        bootstrap.assert_services_are_up()
+    except AssertionError as e:
+        print >> sys.stderr, str(e)
+        sys.exit(1)
     sess = ScaleSession()
     sess.event_scaife_session_establish()
     # create a basic project with dos2unix/rosecheckers and language C89
+    project_name = "dos2unix/rosecheckers"
     src_file = os.path.join(dos2unix_dir, "dos2unix-7.2.2.tar.gz")
     tools = {
         "rosecheckers_oss-c-cpp": (tool_file("rosecheckers_oss.txt"), ""),
     }
     sess.event_project_create(
-        name="dos2unix/rosecheckers project",
+        name="%s project" % project_name,
         description="test project automation",
         src_file=src_file,
         tools=tools,
@@ -118,6 +123,8 @@ def main():
     # run classifier
     sess.query_scaife_classifier_run(classifier_name, primed=True)
     # all done, return newly created project ID
+    if VERBOSE:
+        print("automation complete: %s %s" % (project_name, sess.project_id))
     return sess.project_id
 
 # this has to happen below the definition of main(). Register this

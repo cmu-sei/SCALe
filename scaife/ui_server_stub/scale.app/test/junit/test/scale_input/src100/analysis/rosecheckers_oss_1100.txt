@@ -1,0 +1,1101 @@
+ rosecheckers -c -I/src100/csmith/runtime 30bb1190-6da4-4346-87ad-4c9c0a3001e5.c
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:208:5: warning: DCL00-C: Const-qualify immutable objects: l_14
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:223:9: warning: DCL00-C: Const-qualify immutable objects: l_4382
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:225:15: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:225:124: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:245:5: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:245:5: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:245:5: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:246:15: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:246:15: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:246:32: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:246:163: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:246:225: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:248:15: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:252:9: warning: DCL00-C: Const-qualify immutable objects: l_4328
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:262:13: warning: DCL00-C: Const-qualify immutable objects: l_4323
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:263:13: warning: DCL00-C: Const-qualify immutable objects: l_4340
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:269:13: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:269:13: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:276:23: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:276:23: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:279:17: warning: DCL00-C: Const-qualify immutable objects: l_4353
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:280:17: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:280:17: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:280:17: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:280:17: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:280:17: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:280:17: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:284:21: warning: DCL00-C: Const-qualify immutable objects: l_4362
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:286:21: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:286:21: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:286:21: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:286:21: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:286:21: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:286:21: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:288:28: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:288:28: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:288:233: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:288:448: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:290:27: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:290:40: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:290:219: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:307:5: warning: DCL00-C: Const-qualify immutable objects: l_3944
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:308:5: warning: DCL00-C: Const-qualify immutable objects: l_3947
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:313:5: warning: DCL00-C: Const-qualify immutable objects: l_3985
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:314:5: warning: DCL00-C: Const-qualify immutable objects: l_3987
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:315:5: warning: DCL00-C: Const-qualify immutable objects: l_4000
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:320:5: warning: DCL00-C: Const-qualify immutable objects: l_4138
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:321:5: warning: DCL00-C: Const-qualify immutable objects: l_4176
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:322:5: warning: DCL00-C: Const-qualify immutable objects: l_4177
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:324:5: warning: DCL00-C: Const-qualify immutable objects: l_4197
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:325:5: warning: DCL00-C: Const-qualify immutable objects: l_4204
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:326:5: warning: DCL00-C: Const-qualify immutable objects: l_4228
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:327:5: warning: DCL00-C: Const-qualify immutable objects: l_4260
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:328:5: warning: DCL00-C: Const-qualify immutable objects: l_4279
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:329:5: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:329:5: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:342:9: warning: DCL00-C: Const-qualify immutable objects: l_3945
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:343:9: warning: DCL00-C: Const-qualify immutable objects: l_3946
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:344:9: warning: DCL00-C: Const-qualify immutable objects: l_3949
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:345:9: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:345:9: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:345:9: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:345:9: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:352:9: warning: DCL00-C: Const-qualify immutable objects: l_3964
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:354:9: warning: DCL00-C: Const-qualify immutable objects: l_3968
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:355:9: warning: DCL00-C: Const-qualify immutable objects: l_3969
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:356:9: warning: DCL00-C: Const-qualify immutable objects: l_3970
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:357:9: warning: DCL00-C: Const-qualify immutable objects: l_3986
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:358:9: warning: DCL00-C: Const-qualify immutable objects: l_3990
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:359:9: warning: DCL00-C: Const-qualify immutable objects: l_3993
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:360:9: warning: DCL00-C: Const-qualify immutable objects: l_4065
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:362:9: warning: DCL00-C: Const-qualify immutable objects: l_4111
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:363:9: warning: DCL00-C: Const-qualify immutable objects: l_4113
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:365:9: warning: DCL00-C: Const-qualify immutable objects: l_4139
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:366:9: warning: DCL00-C: Const-qualify immutable objects: l_4151
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:367:9: warning: DCL00-C: Const-qualify immutable objects: l_4152
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:368:9: warning: DCL00-C: Const-qualify immutable objects: l_4158
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:369:9: warning: DCL00-C: Const-qualify immutable objects: l_4161
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:370:9: warning: DCL00-C: Const-qualify immutable objects: l_4175
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:372:9: warning: DCL00-C: Const-qualify immutable objects: l_4202
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:373:9: warning: DCL00-C: Const-qualify immutable objects: l_4229
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:374:9: warning: DCL00-C: Const-qualify immutable objects: l_4280
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:375:9: warning: DCL00-C: Const-qualify immutable objects: l_4306
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:376:9: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:376:9: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:376:9: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:376:9: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:397:68: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: p_34
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:410:5: warning: DCL00-C: Const-qualify immutable objects: l_3337
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:415:5: warning: DCL00-C: Const-qualify immutable objects: l_3560
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:418:5: warning: DCL00-C: Const-qualify immutable objects: l_3644
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:419:5: warning: DCL00-C: Const-qualify immutable objects: l_3647
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:424:5: warning: DCL00-C: Const-qualify immutable objects: l_3855
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:427:5: warning: DCL00-C: Const-qualify immutable objects: l_3895
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:448:49: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:448:283: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:471:9: warning: DCL00-C: Const-qualify immutable objects: l_3442
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:476:9: warning: DCL00-C: Const-qualify immutable objects: l_3769
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:477:9: warning: DCL00-C: Const-qualify immutable objects: l_3799
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:483:9: warning: DCL00-C: Const-qualify immutable objects: l_3813
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:486:9: warning: DCL00-C: Const-qualify immutable objects: l_3832
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:487:9: warning: DCL00-C: Const-qualify immutable objects: l_3932
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:488:9: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:488:9: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:488:9: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:488:9: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:491:409: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:491:139: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:491:75: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:493:13: warning: DCL00-C: Const-qualify immutable objects: l_3299
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:495:13: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:495:13: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:496:23: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:500:17: warning: DCL00-C: Const-qualify immutable objects: l_3280
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:504:17: warning: DCL00-C: Const-qualify immutable objects: l_3298
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:507:21: warning: DCL00-C: Const-qualify immutable objects: l_3279
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:513:34: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:525:530: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:540:13: warning: DCL00-C: Const-qualify immutable objects: l_3566
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:542:13: warning: DCL00-C: Const-qualify immutable objects: l_3571
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:544:13: warning: DCL00-C: Const-qualify immutable objects: l_3583
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:548:13: warning: DCL00-C: Const-qualify immutable objects: l_3704
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:549:13: warning: DCL00-C: Const-qualify immutable objects: l_3713
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:550:13: warning: DCL00-C: Const-qualify immutable objects: l_3725
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:551:13: warning: DCL00-C: Const-qualify immutable objects: l_3742
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:553:13: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:560:17: warning: DCL00-C: Const-qualify immutable objects: l_3323
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:563:17: warning: DCL00-C: Const-qualify immutable objects: l_3396
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:565:17: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:565:17: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:570:214: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:574:21: warning: DCL00-C: Const-qualify immutable objects: l_3340
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:575:21: warning: DCL00-C: Const-qualify immutable objects: l_3345
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:581:21: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:581:21: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:581:21: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:581:21: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:581:21: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:581:21: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:582:78: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:582:81: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:584:25: warning: DCL00-C: Const-qualify immutable objects: l_3359
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:590:25: warning: DCL00-C: Const-qualify immutable objects: l_3376
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:592:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:592:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:592:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:592:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:593:35: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:593:35: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:593:590: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:593:384: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:593:384: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:594:32: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:594:43: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:600:38: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:606:26: warning: EXP12-C: Do not ignore values returned by functions: safe_lshift_func_uint8_t_u_u
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:606:482: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:606:448: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:606:410: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:608:25: warning: DCL00-C: Const-qualify immutable objects: l_3408
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:615:25: warning: DCL00-C: Const-qualify immutable objects: l_3422
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:617:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:617:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:617:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:617:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:617:25: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:617:25: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:619:32: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:619:121: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:619:169: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:619:227: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:619:237: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:621:35: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:621:35: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:621:316: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:621:187: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:621:218: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:627:17: warning: DCL00-C: Const-qualify immutable objects: l_3437
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:638:17: warning: DCL00-C: Const-qualify immutable objects: l_3502
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:639:17: warning: DCL00-C: Const-qualify immutable objects: l_3537
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:641:28: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:641:28: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:641:78: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:641:374: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:641:351: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:641:319: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:642:358: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:642:202: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:646:21: warning: DCL00-C: Const-qualify immutable objects: l_3484
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:649:21: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:651:181: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:653:25: warning: DCL00-C: Const-qualify immutable objects: l_3501
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:654:25: warning: DCL00-C: Const-qualify immutable objects: l_3503
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:655:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:655:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:655:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:656:35: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:656:446: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:666:21: warning: DCL00-C: Const-qualify immutable objects: l_3506
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:670:21: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:670:21: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:671:26: warning: EXP12-C: Do not ignore values returned by functions: safe_div_func_uint64_t_u_u
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:671:61: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:675:32: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:675:274: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:675:333: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:688:21: warning: DCL00-C: Const-qualify immutable objects: l_3549
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:689:21: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:689:21: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:689:21: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:689:21: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:689:21: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:689:21: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:692:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:692:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:698:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:698:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:702:35: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:705:26: warning: EXP12-C: Do not ignore values returned by functions: safe_add_func_uint32_t_u_u
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:721:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:721:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:728:311: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:728:29: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:728:249: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:730:17: warning: DCL00-C: Const-qualify immutable objects: l_3564
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:731:17: warning: DCL00-C: Const-qualify immutable objects: l_3567
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:732:17: warning: DCL00-C: Const-qualify immutable objects: l_3569
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:733:17: warning: DCL00-C: Const-qualify immutable objects: l_3570
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:734:17: warning: DCL00-C: Const-qualify immutable objects: l_3573
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:735:17: warning: DCL00-C: Const-qualify immutable objects: l_3574
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:736:17: warning: DCL00-C: Const-qualify immutable objects: l_3575
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:737:17: warning: DCL00-C: Const-qualify immutable objects: l_3588
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:739:17: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:739:17: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:739:17: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:739:17: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:742:21: warning: DCL00-C: Const-qualify immutable objects: l_3563
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:743:21: warning: DCL00-C: Const-qualify immutable objects: l_3565
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:744:21: warning: DCL00-C: Const-qualify immutable objects: l_3576
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:745:21: warning: DCL00-C: Const-qualify immutable objects: l_3578
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:746:21: warning: DCL00-C: Const-qualify immutable objects: l_3579
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:747:21: warning: DCL00-C: Const-qualify immutable objects: l_3580
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:748:21: warning: DCL00-C: Const-qualify immutable objects: l_3581
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:749:21: warning: DCL00-C: Const-qualify immutable objects: l_3582
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:750:21: warning: DCL00-C: Const-qualify immutable objects: l_3584
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:751:21: warning: DCL00-C: Const-qualify immutable objects: l_3586
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:752:21: warning: DCL00-C: Const-qualify immutable objects: l_3587
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:753:21: warning: DCL00-C: Const-qualify immutable objects: l_3589
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:754:21: warning: DCL00-C: Const-qualify immutable objects: l_3590
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:759:25: warning: DCL00-C: Const-qualify immutable objects: l_3597
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:761:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:761:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:765:35: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:771:17: warning: DCL00-C: Const-qualify immutable objects: l_3611
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:780:17: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:783:190: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:788:21: warning: DCL00-C: Const-qualify immutable objects: l_3639
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:794:21: warning: DCL00-C: Const-qualify immutable objects: l_3679
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:800:21: warning: DCL00-C: Const-qualify immutable objects: l_3746
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:801:21: warning: DCL00-C: Const-qualify immutable objects: l_3747
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:805:21: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:805:21: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:805:21: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:808:26: warning: EXP12-C: Do not ignore values returned by functions: safe_div_func_int16_t_s_s
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:808:60: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:808:75: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:808:104: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:808:144: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:808:154: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:808:247: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:811:25: warning: DCL00-C: Const-qualify immutable objects: l_3660
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:812:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:817:32: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:817:71: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:817:71: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:817:89: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:817:132: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:817:201: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:817:387: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:822:25: warning: DCL00-C: Const-qualify immutable objects: l_3682
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:823:25: warning: DCL00-C: Const-qualify immutable objects: l_3683
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:824:25: warning: DCL00-C: Const-qualify immutable objects: l_3684
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:825:25: warning: DCL00-C: Const-qualify immutable objects: l_3685
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:826:25: warning: DCL00-C: Const-qualify immutable objects: l_3689
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:827:25: warning: DCL00-C: Const-qualify immutable objects: l_3714
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:828:25: warning: DCL00-C: Const-qualify immutable objects: l_3715
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:829:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:829:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:829:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:829:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:830:32: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:832:32: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:832:32: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:832:257: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:835:26: warning: EXP12-C: Do not ignore values returned by functions: safe_rshift_func_uint8_t_u_s
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:837:25: warning: DCL00-C: Const-qualify immutable objects: l_3722
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:838:25: warning: DCL00-C: Const-qualify immutable objects: l_3723
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:839:25: warning: DCL00-C: Const-qualify immutable objects: l_3724
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:840:25: warning: DCL00-C: Const-qualify immutable objects: l_3726
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:841:25: warning: DCL00-C: Const-qualify immutable objects: l_3727
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:842:25: warning: DCL00-C: Const-qualify immutable objects: l_3728
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:844:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:844:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:853:32: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:861:25: warning: DCL00-C: Const-qualify immutable objects: l_3766
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:864:25: warning: DCL00-C: Const-qualify immutable objects: l_3794
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:865:25: warning: DCL00-C: Const-qualify immutable objects: l_3795
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:867:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:867:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:867:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:867:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:868:490: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:868:190: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:868:274: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:892:14: warning: EXP12-C: Do not ignore values returned by functions: safe_mod_func_uint16_t_u_u
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:892:157: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:895:13: warning: DCL00-C: Const-qualify immutable objects: l_3862
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:896:13: warning: DCL00-C: Const-qualify immutable objects: l_3864
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:898:13: warning: DCL00-C: Const-qualify immutable objects: l_3896
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:899:13: warning: DCL00-C: Const-qualify immutable objects: l_3898
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:900:13: warning: DCL00-C: Const-qualify immutable objects: l_3902
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:901:13: warning: DCL00-C: Const-qualify immutable objects: l_3903
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:902:13: warning: DCL00-C: Const-qualify immutable objects: l_3907
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:903:13: warning: DCL00-C: Const-qualify immutable objects: l_3910
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:904:13: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:904:13: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:908:17: warning: DCL00-C: Const-qualify immutable objects: l_3860
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:909:17: warning: DCL00-C: Const-qualify immutable objects: l_3866
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:910:17: warning: DCL00-C: Const-qualify immutable objects: l_3867
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:913:17: warning: DCL00-C: Const-qualify immutable objects: l_3900
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:914:17: warning: DCL00-C: Const-qualify immutable objects: l_3901
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:915:17: warning: DCL00-C: Const-qualify immutable objects: l_3904
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:916:17: warning: DCL00-C: Const-qualify immutable objects: l_3905
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:918:17: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:918:17: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:931:21: warning: DCL00-C: Const-qualify immutable objects: l_3908
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:932:21: warning: DCL00-C: Const-qualify immutable objects: l_3909
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:935:21: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:935:21: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:935:21: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:935:21: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:935:21: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:935:21: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:945:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:945:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:945:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:945:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:35: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:80: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:97: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:191: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:191: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:207: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:529: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:251: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:947:486: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:952:25: warning: DCL00-C: Const-qualify immutable objects: l_3861
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:953:25: warning: DCL00-C: Const-qualify immutable objects: l_3863
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:954:25: warning: DCL00-C: Const-qualify immutable objects: l_3865
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:955:25: warning: DCL00-C: Const-qualify immutable objects: l_3868
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:957:35: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:965:25: warning: DCL00-C: Const-qualify immutable objects: l_3897
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:966:25: warning: DCL00-C: Const-qualify immutable objects: l_3899
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:967:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:967:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:967:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:967:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:968:35: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:968:35: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:978:17: warning: DCL00-C: Const-qualify immutable objects: l_3918
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:979:17: warning: DCL00-C: Const-qualify immutable objects: l_3919
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:980:17: warning: DCL00-C: Const-qualify immutable objects: l_3920
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:981:17: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:981:17: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:981:17: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:981:17: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1016:5: warning: DCL00-C: Const-qualify immutable objects: l_2818
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1019:5: warning: DCL00-C: Const-qualify immutable objects: l_2971
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1020:5: warning: DCL00-C: Const-qualify immutable objects: l_3033
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1024:5: warning: DCL00-C: Const-qualify immutable objects: l_3072
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1025:5: warning: DCL00-C: Const-qualify immutable objects: l_3074
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1026:5: warning: DCL00-C: Const-qualify immutable objects: l_3089
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1027:5: warning: DCL00-C: Const-qualify immutable objects: l_3120
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1031:5: warning: DCL00-C: Const-qualify immutable objects: l_3149
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1032:5: warning: DCL00-C: Const-qualify immutable objects: l_3153
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1034:5: warning: DCL00-C: Const-qualify immutable objects: l_3221
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1035:5: warning: DCL00-C: Const-qualify immutable objects: l_3226
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1036:5: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1036:5: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1045:21: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1045:34: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1051:9: warning: DCL00-C: Const-qualify immutable objects: l_2836
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1053:9: warning: DCL00-C: Const-qualify immutable objects: l_2860
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1056:9: warning: DCL00-C: Const-qualify immutable objects: l_2969
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1057:9: warning: DCL00-C: Const-qualify immutable objects: l_3042
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1058:9: warning: DCL00-C: Const-qualify immutable objects: l_3044
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1059:9: warning: DCL00-C: Const-qualify immutable objects: l_3052
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1060:9: warning: DCL00-C: Const-qualify immutable objects: l_3142
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1065:9: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1065:9: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1065:9: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1065:9: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1065:9: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1065:9: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1069:13: warning: DCL00-C: Const-qualify immutable objects: l_2777
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1070:13: warning: DCL00-C: Const-qualify immutable objects: l_2779
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1071:13: warning: DCL00-C: Const-qualify immutable objects: l_2782
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1072:13: warning: DCL00-C: Const-qualify immutable objects: l_2785
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1073:13: warning: DCL00-C: Const-qualify immutable objects: l_2809
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1075:13: warning: DCL00-C: Const-qualify immutable objects: l_2812
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1076:13: warning: DCL00-C: Const-qualify immutable objects: l_2888
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1077:13: warning: DCL00-C: Const-qualify immutable objects: l_2901
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1078:13: warning: DCL00-C: Const-qualify immutable objects: l_2921
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1079:13: warning: DCL00-C: Const-qualify immutable objects: l_2940
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1080:13: warning: DCL00-C: Const-qualify immutable objects: l_3011
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1082:13: warning: DCL00-C: Const-qualify immutable objects: l_3045
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1083:13: warning: DCL00-C: Const-qualify immutable objects: l_3053
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1084:13: warning: DCL00-C: Const-qualify immutable objects: l_3054
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1085:13: warning: DCL00-C: Const-qualify immutable objects: l_3104
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1086:13: warning: DCL00-C: Const-qualify immutable objects: l_3133
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1087:13: warning: DCL00-C: Const-qualify immutable objects: l_3152
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1088:13: warning: DCL00-C: Const-qualify immutable objects: l_3186
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1089:13: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1089:13: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1100:13: warning: DCL00-C: Const-qualify immutable objects: l_3187
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1101:13: warning: DCL00-C: Const-qualify immutable objects: l_3197
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1107:13: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1116:20: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1116:272: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1116:272: warning: INT14-C: Avoid performing bitwise and arithmetic operations on the same data
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1123:423: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1123:119: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1160:5: warning: DCL00-C: Const-qualify immutable objects: l_2537
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1167:5: warning: DCL00-C: Const-qualify immutable objects: l_2728
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1171:5: warning: DCL00-C: Const-qualify immutable objects: l_2738
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1174:5: warning: DCL00-C: Const-qualify immutable objects: l_2741
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1177:5: warning: DCL00-C: Const-qualify immutable objects: l_2744
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1178:5: warning: DCL00-C: Const-qualify immutable objects: l_2745
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1179:5: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1187:23: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1196:9: warning: DCL00-C: Const-qualify immutable objects: l_2213
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1200:9: warning: DCL00-C: Const-qualify immutable objects: l_2277
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1205:9: warning: DCL00-C: Const-qualify immutable objects: l_2394
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1206:9: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1206:9: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1206:9: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1206:9: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1217:188: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1222:17: warning: DCL00-C: Const-qualify immutable objects: l_2221
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1226:21: warning: DCL00-C: Const-qualify immutable objects: l_2228
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1230:25: warning: DCL00-C: Const-qualify immutable objects: l_2222
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1234:25: warning: DCL00-C: Const-qualify immutable objects: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1234:25: warning: DCL01-C: Do not reuse variable names in subscopes: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1234:25: warning: DCL00-C: Const-qualify immutable objects: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1234:25: warning: DCL01-C: Do not reuse variable names in subscopes: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1234:25: warning: DCL00-C: Const-qualify immutable objects: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1234:25: warning: DCL01-C: Do not reuse variable names in subscopes: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1236:32: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1236:91: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1236:265: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1238:45: warning: INT13-C: Use bitwise operators only on unsigned operands
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:1247:13: warning: DCL00-C: Const-qualify immutable objects: l_2255
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: i
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: j
+30bb1190-6da4-4346-87ad-4c9c0a3001e5.c:2185:5: warning: DCL02-C: Use visually distinct identifiers: k

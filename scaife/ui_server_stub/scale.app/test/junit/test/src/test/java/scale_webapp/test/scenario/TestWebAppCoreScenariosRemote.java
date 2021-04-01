@@ -1,7 +1,7 @@
 // <legal>
-// SCALe version r.6.2.2.2.A
+// SCALe version r.6.5.5.1.A
 // 
-// Copyright 2020 Carnegie Mellon University.
+// Copyright 2021 Carnegie Mellon University.
 // 
 // NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 // INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -58,6 +58,7 @@ import scale_webapp.test.infra.ScaleWebApp.AlertConditionsViewerPage.FilterValue
 import scale_webapp.test.infra.ScaleWebApp.HomePage.ProjectRow;
 import scale_webapp.test.infra.ScaleWebApp.ToolRow;
 import scale_webapp.test.infra.ScaleWebApp.Verdict;
+import scale_webapp.test.infra.InputPathInfo;
 import scale_webapp.test.infra.ToolInfo;
 
 /**
@@ -168,17 +169,16 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
-
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 		try {
 			// Build a model of our Web App with the given driver.
 			webApp = this.config.createApp();
 
 			// Launch the app, create a project, then go back to the home page
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.goHome();
 
 			// Test that the project appears in the list
@@ -196,24 +196,24 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	}
 
 	/**
-	 * Test whether all alerts are uploaded to the webapp, from a given
-	 * Fortify file and a zip archive.
+	 * Test whether all alerts are uploaded to the webapp, from a
+	 * zip archive.
 	 */
 	public void testAlertsPresentZip() {
-		alertsPresent("dos2unix/dos2unix-7.2.2.zip");
+		alertsPresent(InputPathInfo.Dos2UnixSrc);
 	}
 
 	/**
-	 * Test whether all alerts are uploaded to the webapp, from a given
-	 * Fortify file and a tgz archive
+	 * Test whether all alerts are uploaded to the webapp, from a
+	 * tgz archive
 	 */
 	public void testAlertsPresentTgz() {
 		alertsPresent("dos2unix/dos2unix-7.2.2.tgz");
 	}
 
 	/**
-	 * Test whether all alerts are uploaded to the webapp, from a given
-	 * Fortify file and a tar.gz archive
+	 * Test whether all alerts are uploaded to the webapp, from a
+	 * tar.gz archive
 	 */
 	public void testAlertsPresentTarGz() {
 		alertsPresent("dos2unix/dos2unix-7.2.2.tar.gz");
@@ -229,8 +229,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-		String rosePath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 
 		try {
 			// Build a model of our Web App with the given driver.
@@ -238,7 +238,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			// Launch the app, create a project, then go back to the home page
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosePath,
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.waitForAlertConditionsTableLoad();
 			AlertConditionRow row = webApp.AlertConditionsViewer.getOneAlertConditionRow(1);
@@ -263,9 +263,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String gccPath = new File(this.config.inputDirectory, "dos2unix/analysis/gcc_oss.txt").toString();
-		String cppCheckPath = new File(this.config.inputDirectory, "dos2unix/analysis/cppcheck_oss.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String gccPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputGcc).toString();
+		String cppCheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
 
 		try {
 			webApp = this.config.createApp();
@@ -299,8 +299,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	}
 
 	/**
-	 * test if alerts are present when creating project with the given input and
-	 * fortixy_30.xml
+	 * test if alerts are present when creating project with the
+	 * given source and tool output
 	 *
 	 * @param input
 	 */
@@ -309,13 +309,13 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
 		String archivePath = new File(this.config.inputDirectory, input).toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify_30.xml").toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers30).toString();
 
 		try {
 			webApp = this.config.createApp();
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 
 			int count = 0;
 			do {
@@ -325,7 +325,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 						fail("Invalid message");
 					// count scrambled
 					//assertEquals(count + "", r.line.getText());
-					assertEquals("fortify", r.tool.getText());
+					assertEquals("rosecheckers_oss", r.tool.getText());
 					assertTrue(r.path.getText().endsWith("common.c"));
 					assertEquals("[Unknown]", r.verdict.getText());
 					assertEquals("0", r.previous.getText());
@@ -340,20 +340,19 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	}
 
 	/**
-	 * Test whether all alerts are uploaded to the webapp, from a given
-	 * Fortify file.
+	 * Test whether all alerts are uploaded to the webapp, from
+	 * two given tool output files.
 	 * @throws InterruptedException
 	 */
 	public void testTwoUpload() throws InterruptedException {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity_1.json").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify_10.xml").toString();
-		int numRowsExpected = 12;
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
+		int numRowsExpected = 262;
 		try {
-
 
 			webApp = this.config.createApp();
 			webApp.launch();
@@ -367,12 +366,12 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			webApp.UploadAnalysis.getArchiveUploader().sendKeys(archivePath);
 			ToolRow toolRow;
-			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.Coverity_C_ID, false);
+			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.CPPCHECK_OSS_C_ID, false);
 			toolRow.checkbox.click();
-			toolRow.uploadFile.sendKeys(coverityPath);
-			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.Fortify_C_ID, false);
+			toolRow.uploadFile.sendKeys(cppcheckPath);
+			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.Rosecheckers_OSS_C_ID, false);
 			toolRow.checkbox.click();
-			toolRow.uploadFile.sendKeys(fortifyPath);
+			toolRow.uploadFile.sendKeys(rosecheckersPath);
 
 			webApp.UploadAnalysis.getCreateDatabaseButton().click();
 			webApp.validatePage();
@@ -404,8 +403,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-		String rosecheckersPath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 		try {
 			webApp = this.config.createApp();
 			webApp.launch();
@@ -515,9 +514,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity.json").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 
 		try {
 
@@ -534,12 +533,12 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			webApp.UploadAnalysis.getArchiveUploader().sendKeys(archivePath);
 			ToolRow toolRow;
-			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.Coverity_C_ID, false);
+			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.CPPCHECK_OSS_C_ID, false);
 			toolRow.checkbox.click();
-			toolRow.uploadFile.sendKeys(coverityPath);
-			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.Fortify_C_ID, false);
+			toolRow.uploadFile.sendKeys(cppcheckPath);
+			toolRow = webApp.UploadAnalysis.getToolRowById(ToolInfo.Rosecheckers_OSS_C_ID, false);
 			toolRow.checkbox.click();
-			toolRow.uploadFile.sendKeys(fortifyPath);
+			toolRow.uploadFile.sendKeys(rosecheckersPath);
 
 			webApp.UploadAnalysis.getCreateDatabaseButton().click();
 			webApp.validatePage();
@@ -554,7 +553,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			/*Test All */
 
-			int numRowsExpected = 65;
+			int numRowsExpected = 260;
 			int rowsDisplayed = Integer.parseInt(driver.findElement(By.id("totalRecords")).getText());
 
 			assertEquals(rowsDisplayed, numRowsExpected);
@@ -571,7 +570,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.AlertConditionsViewer.filter();
 
 			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("totalRecords"))));
-			numRowsExpected = 29;
+			numRowsExpected = 8;
 			rowsDisplayed = Integer.parseInt(driver.findElement(By.id("totalRecords")).getText());
 
 			assertEquals(rowsDisplayed, numRowsExpected);
@@ -588,7 +587,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.AlertConditionsViewer.filter();
 
 			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("totalRecords"))));
-			numRowsExpected = 36;
+			numRowsExpected = 252;
 			rowsDisplayed = Integer.parseInt(driver.findElement(By.id("totalRecords")).getText());
 
 			assertEquals(rowsDisplayed, numRowsExpected);
@@ -599,9 +598,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	}
 
 	/**
-	 * Test filtering by taxonomy CWEs for a project with rosecheckers
-	 * toy with rosecheckers has no CWEs, filtering by CWE should result in
-	 * no meta-alerts
+	 * Test filtering by taxonomy CWEs for a project with
+	 * rosecheckers; filtering by CWE should result in no
+	 * meta-alerts
 	 *
 	 * @throws InterruptedException
 	 */
@@ -609,8 +608,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-		String rosePath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 
 		try {
 			// Build a model of our Web App with the given driver.
@@ -618,7 +617,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			// Launch the app, create a project, then go back to the home page
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosePath,
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 
 			webApp.waitForAlertConditionsTableLoad();
@@ -654,15 +653,15 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify_30.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers30).toString();
 
 		try {
 			webApp = this.config.createApp();
 
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 			WebDriver driver = webApp.getDriver();
 
 			webApp.validatePage();
@@ -752,8 +751,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	 * @throws InterruptedException
 	 */
 	public void testEditingCertAlertConditionFields() throws InterruptedException{
-		// Need to edit a file with 10 non-fused alertConditions
-		editAlertConditionFields("dos2unix/analysis/fortify_10.xml", ToolInfo.Fortify_C_ID);
+		// Need to edit a file with at least 10 non-fused alertConditions
+		editAlertConditionFields(InputPathInfo.Dos2UnixToolOutputRosecheckers30,
+                                         ToolInfo.Rosecheckers_OSS_C_ID);
 	}
 
 	/**
@@ -762,7 +762,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	 * @throws InterruptedException
 	 */
 	public void testEditingCweAlertConditionFields() throws InterruptedException{
-		// Need to edit a file with 10 non-fused alertConditions
+		// Need to edit a file with at least 10 non-fused alertConditions
 		editAlertConditionFields("dos2unix/analysis/cppcheck_oss_5.xml", ToolInfo.CPPCHECK_OSS_C_ID);
 	}
 
@@ -797,7 +797,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
 		String resultsPath = new File(this.config.inputDirectory, resultsFilepath).toString();
 		WebDriver driver = null;
 
@@ -990,15 +990,15 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify_10.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers30).toString();
 
 		try {
 			webApp = this.config.createApp();
 			webApp.launch();
 			WebDriver driver = webApp.getDriver();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.waitForAlertConditionsTableLoad();
 			webApp.AlertConditionsViewer.getSelectAll().click();
 			driver.findElement(By.linkText("Set selected to")).click();
@@ -1054,16 +1054,16 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			// Create new project
 			String projectDescriptionNew = projectNameNew.hashCode() + "";
-			String archivePathNew = new File(this.config.inputDirectory, "toy2/toy2.zip").toString();
-			String alertPathNew = new File(this.config.inputDirectory, "toy2/analysis/rosecheckers2_oss.txt").toString();
+			String archivePathNew = new File(this.config.inputDirectory, InputPathInfo.Toy2Src).toString();
+			String alertPathNew = new File(this.config.inputDirectory, InputPathInfo.Toy2ToolOutputRosecheckers).toString();
 			webApp.createSimpleProject(projectNameNew, projectDescriptionNew, archivePathNew, alertPathNew,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 
 			// Now create old project
 			webApp.goHome();
 			String projectDescriptionOld = projectNameOld.hashCode() + "";
-			String archivePathOld = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-			String alertPathOld = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+			String archivePathOld = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+			String alertPathOld = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 			webApp.createSimpleProject(projectNameOld, projectDescriptionOld, archivePathOld, alertPathOld,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.validatePage();
@@ -1099,9 +1099,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity.json").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 		String verdict = "False";
 		String flag = "Flagged";
 		String ignored = "Ignored";
@@ -1112,7 +1112,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		try {
 			webApp = this.config.createApp();
 			webApp.createProjectWithFusion(projectName,
-			projectDescription, archivePath, coverityPath, fortifyPath);
+			projectDescription, archivePath, cppcheckPath, rosecheckersPath);
 			WebDriver driver = webApp.getDriver();
 			webApp.AlertConditionsViewer.changeAlertConditionsPerPage(100);
 			webApp.waitForAlertConditionsTableLoad();
@@ -1153,8 +1153,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String srcPath = new File(this.config.inputDirectory, "dos2unix/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 
 		try {
 			// Build a model of our Web App with the given driver.
@@ -1163,7 +1163,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			// Launch the app, create a project, then go back to the home page
 			webApp.launch();
 			WebDriver driver = webApp.getDriver();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, srcPath,
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.AlertConditionsViewer.getSelectAllCheckbox().click();
 			driver.findElement(By.linkText("Set selected to")).click();
@@ -1192,16 +1192,16 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify_10.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 		WebDriver driver = null;
 
 		try {
 			webApp = this.config.createApp();
 			driver = webApp.getDriver();
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 
 			for (AlertConditionRow row : webApp.AlertConditionsViewer.getAlertConditionRows()) {
 				String lineText = row.line.getText();
@@ -1246,20 +1246,19 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity.json").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
-
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers30).toString();
 
 		try {
 			webApp = this.config.createApp();
 			webApp.createProjectWithFusion(projectName, projectDescription,
-					archivePath, coverityPath, fortifyPath);
+					archivePath, cppcheckPath, rosecheckersPath);
 
 			webApp.AlertConditionsViewer.changeAlertConditionsPerPage(100);
 
-			//Retrieve meta alert
-			String selected_meta_alert = "21 meta_alert alert-warning";
+			//Retrieve fused meta alert
+			String selected_meta_alert = "44 meta_alert alert-warning";
 
 			webApp.waitForAlertConditionsTableLoad();
 		//	new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
@@ -1271,7 +1270,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			for (AlertConditionRow row : webApp.AlertConditionsViewer.getAlertConditionRows()) {
 				String meta_alert_id = row.metaAlertID;
-
 				if(selected_meta_alert.equals(meta_alert_id)){
 					rows.add(row);
 					if (metaAlertRow == -1) {
@@ -1337,14 +1335,14 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity.json").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers30).toString();
 
 		try {
 			webApp = this.config.createApp();
 			webApp.createProjectWithFusion(projectName,
-					projectDescription, archivePath, coverityPath, fortifyPath);
+					projectDescription, archivePath, cppcheckPath, rosecheckersPath);
 			ArrayList<String> displayIds = new ArrayList();
 
 			do {
@@ -1379,14 +1377,14 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity.json").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 
 		try {
 			webApp = this.config.createApp();
 			webApp.createProjectWithFusion(projectName,
-					projectDescription, archivePath, coverityPath, fortifyPath);
+					projectDescription, archivePath, cppcheckPath, rosecheckersPath);
 			WebElement fusedOffButton = webApp.getDriver().findElement(By.id("fused_off_button"));
 			fusedOffButton.click();
 			webApp.validatePage();
@@ -1469,7 +1467,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.elementToBeClickable(dialog_close_button));
 		dialog_close_button.click();
 
-		if(setNotesandFlag) {
+		if (setNotesandFlag) {
 			row = webApp.AlertConditionsViewer.getOneAlertConditionRow(rowNumber);
 			new WebDriverWait(webApp.getDriver(), 50).until(ExpectedConditions.elementToBeClickable(row.flag));
 			row.flag.click();
@@ -1492,10 +1490,14 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('change'));", existing_note);
 
 			webApp.waitForAlertConditionsTableLoad();
+
 		}
 
-		if(driver.findElement(By.id("myModal")).isDisplayed())
-			dialog_close_button.click();
+		webApp.waitForPageLoad(driver);
+
+		if (driver.findElement(By.id("myModal")).isDisplayed()) {
+		    driver.findElement(By.className("supplemental-close")).click();
+		}
 	}
 
 	/**
@@ -1506,15 +1508,15 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity_1.json").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
 
 		try {
 			webApp = this.config.createApp();
 			webApp.launch();
 
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, coverityPath,
-					ToolInfo.Coverity_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, cppcheckPath,
+					ToolInfo.CPPCHECK_OSS_C_ID);
 
 			AlertConditionRow row = webApp.AlertConditionsViewer.getOneAlertConditionRow(1);
 			setVerdictInfo(row, webApp, 1, true);
@@ -1581,8 +1583,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String codebasePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-		String alertPath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+		String codebasePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+		String alertPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 		int alertCount = 41;
 
 		try {
@@ -1620,8 +1622,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String codebasePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String cppcheckPath = new File(this.config.inputDirectory, "dos2unix/analysis/cppcheck_oss.xml").toString();
+		String codebasePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
 
 		try {
 			webApp = this.config.createApp();
@@ -1735,7 +1737,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 						"Dangerous - High" + "\n" +
 						"Edit" , supplementalText);
 				assertEquals("0" + test_notes, notesText);
-				assertEquals("4", previousText); // 4 determinations made
+				assert("4".equals(previousText) || "5".equals(previousText));
+                                // Race conditions make this be either "4" or "5".
 			}
 		} finally {
 			// Clear Filters for other Tests
@@ -1776,16 +1779,16 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			// Create new project
 			String projectDescriptionNew = projectNameNew.hashCode() + "";
-			String archivePathNew = new File(this.config.inputDirectory, "toy2/toy2.zip").toString();
-			String alertPathNew = new File(this.config.inputDirectory, "toy2/analysis/rosecheckers2_oss.txt").toString();
+			String archivePathNew = new File(this.config.inputDirectory, InputPathInfo.Toy2Src).toString();
+			String alertPathNew = new File(this.config.inputDirectory, InputPathInfo.Toy2ToolOutputRosecheckers).toString();
 			webApp.createSimpleProject(projectNameNew, projectDescriptionNew, archivePathNew, alertPathNew,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 
 			// Now create old project
 			webApp.goHome();
 			String projectDescriptionOld = projectNameOld.hashCode() + "";
-			String archivePathOld = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-			String alertPathOld = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+			String archivePathOld = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+			String alertPathOld = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 			webApp.createSimpleProject(projectNameOld, projectDescriptionOld, archivePathOld, alertPathOld,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.validatePage();
@@ -1987,17 +1990,20 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		}
 	}
 
-
 	/**
-	 * Test that the "More" link works correctly.
+	 * Test that the "Secondary Message Set" link works correctly.
 	 * @throws InterruptedException
 	 */
-	public void testMoreLink() throws InterruptedException {
+	public void testSecondaryMessages() throws InterruptedException {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String coverityPath = new File(this.config.inputDirectory, "dos2unix/analysis/coverity_1.json").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String coverityPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCoverity1).toString();
+                // Still uses non-OSS tool output, only run if file is in filesystem
+                if (!new File(coverityPath).exists()) {
+                    return;
+                }
 
 		try {
 			webApp = this.config.createApp();
@@ -2067,8 +2073,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String cppcheckPath = new File(this.config.inputDirectory, "dos2unix/analysis/cppcheck_oss.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck).toString();
 		int numRowsExpected = 23;
 
 		try {
@@ -2127,8 +2133,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String cppcheckPath = new File(this.config.inputDirectory, "dos2unix/analysis/cppcheck_oss.v.1.83.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck183).toString();
 		int numRowsExpected = 22;
 
 		try {
@@ -2430,8 +2436,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-		String rosecheckersPath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 		try {
 			webApp = this.config.createApp();
 			webApp.launch();
@@ -2512,8 +2518,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			ScaleWebApp webApp = null;
 			String projectName = UUID.randomUUID().toString();
 			String projectDescription = projectName.hashCode() + "";
-			String archivePath = new File(this.config.inputDirectory, "toy2/toy2.zip").toString();
-			String rosecheckersPath = new File(this.config.inputDirectory, "toy2/analysis/rosecheckers2_oss.txt").toString();
+			String archivePath = new File(this.config.inputDirectory, InputPathInfo.Toy2Src).toString();
+			String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Toy2ToolOutputRosecheckers).toString();
 
 			try {
 				webApp = this.config.createApp();
@@ -2665,8 +2671,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-		String rosecheckersPath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 
 		try {
 			webApp = this.config.createApp();
@@ -2804,8 +2810,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(this.config.inputDirectory, "dos2unix/analysis/fortify.xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 		int perPage = 100;
 
 		try {
@@ -2814,8 +2820,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			// Launch the app, create a project, then go back to the home page
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, fortifyPath,
-					ToolInfo.Fortify_C_ID);
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.waitForAlertConditionsTableLoad();
 			webApp.AlertConditionsViewer.changeAlertConditionsPerPage(perPage);
 			WebElement fusedOffButton = webApp.getDriver().findElement(By.id("fused_off_button"));
@@ -2841,8 +2847,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String srcPath = new File(this.config.inputDirectory, "dos2unix/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 
 		try {
 			// Build a model of our Web App with the given driver.
@@ -2851,7 +2857,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			// Launch the app, create a project, then go back to the home page
 			webApp.launch();
-			webApp.createSimpleProject(projectName, projectDescription, archivePath, srcPath,
+			webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
 					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.waitForAlertConditionsTableLoad();
 
@@ -2930,8 +2936,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-		String toolPath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+		String toolPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 
 		try {
 			// Build a model of our Web App with the given driver.
@@ -2978,8 +2984,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			// Create project
 			String projectDescription = projectName.hashCode() + "";
-			String archivePath = new File(this.config.inputDirectory, "toy/toy.zip").toString();
-			String alertPath = new File(this.config.inputDirectory, "toy/analysis/rosecheckers_oss.txt").toString();
+			String archivePath = new File(this.config.inputDirectory, InputPathInfo.ToySrc).toString();
+			String alertPath = new File(this.config.inputDirectory, InputPathInfo.ToyToolOutputRosecheckers).toString();
 
 			webApp.createSimpleProject(projectName, projectDescription, archivePath, alertPath,
 					ToolInfo.Rosecheckers_OSS_C_ID);
@@ -3036,9 +3042,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
-		String archivePath = new File(this.config.inputDirectory, "dos2unix/dos2unix-7.2.2.zip").toString();
-		String analysisPath = new File(this.config.inputDirectory, "dos2unix/analysis/cppcheck_oss.v.1.83.xml").toString();
-		String analysisPath2 = new File(this.config.inputDirectory, "dos2unix/analysis/rosecheckers_oss.txt").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String analysisPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck183).toString();
+		String analysisPath2 = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
 
 		try {
 			// Build a model of our Web App with the given driver.
@@ -3106,10 +3112,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	 */
 	public void testToolVersionSelectsCppcheck183() {
 		String toolVersion = "1.83";
-		String testProjectPath = new File(this.config.inputDirectory, "dos2unix").toString();
-		String testInputPath = new File(testProjectPath, "analysis").toString();
-		String archivePath = new File(testProjectPath, "dos2unix-7.2.2.zip").toString();
-		String cppcheckPath = new File(testInputPath, "cppcheck_oss.v." + toolVersion + ".xml").toString();
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+		String cppcheckPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputCppcheck183).toString();
 
 		ScaleWebApp webApp = null;
 		String projectName = UUID.randomUUID().toString();
@@ -3127,37 +3131,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.launch();
 			webApp.createMultiToolVersionProject(projectName, projectDescription, archivePath, tools, toolVersions);
 			assertEquals(21, webApp.AlertConditionsViewer.getTotalRecords());
-		} finally {
-			cleanupWebApp( webApp, projectName);
-		}
-	}
-
-	/**
-	 * Test tool version selects -- fortify
-	 */
-	public void testToolVersionSelectsFortify6() {
-		String toolVersion = "6.10.0120";
-		String testProjectPath = new File(this.config.inputDirectory, "dos2unix").toString();
-		String testInputPath = new File(testProjectPath, "analysis").toString();
-		String archivePath = new File(testProjectPath, "dos2unix-7.2.2.zip").toString();
-		String fortifyPath = new File(testInputPath, "fortify.v." + toolVersion + ".xml").toString();
-
-		ScaleWebApp webApp = null;
-		String projectName = UUID.randomUUID().toString();
-		String projectDescription = projectName.hashCode() + "";
-
-
-		HashMap<String, String> tools = new HashMap<String, String>();
-		tools.put(fortifyPath, ToolInfo.Fortify_C_ID);
-
-		HashMap<String, String> toolVersions = new HashMap<String, String>();
-		toolVersions.put(ToolInfo.Fortify_C_ID, toolVersion);
-
-		try {
-			webApp = this.config.createApp();
-			webApp.launch();
-			webApp.createMultiToolVersionProject(projectName, projectDescription, archivePath, tools, toolVersions);
-			assertEquals(22, webApp.AlertConditionsViewer.getTotalRecords());
 		} finally {
 			cleanupWebApp( webApp, projectName);
 		}
@@ -3199,10 +3172,10 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		String projectName = UUID.randomUUID().toString();
 		String projectDescription = projectName.hashCode() + "";
 
+		String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
 		String testProjectPath = new File(this.config.inputDirectory, "dos2unix").toString();
 		String testInputPath = new File(testProjectPath, "analysis").toString();
-		String archivePath = new File(testProjectPath, "dos2unix-7.2.2.zip").toString();
-		String cppcheckPath = new File(testInputPath, "cppcheck_v_1.75_Ubuntu_12.04_scarf.xml").toString();
+		String cppcheckPath = new File(testInputPath, "cppcheck_oss_v_1.75_Ubuntu_12.04_scarf.xml").toString();
 		String cppcheckVersion = "1.86";
 
 		try {

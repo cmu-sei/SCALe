@@ -1,10 +1,14 @@
-#!/bin/sh -f
-# Uploads GNU Global pages to a project, given the project ID and archive file produced by create_src_html.py
-# Can be called from anywhere, but requires SCALE_HOME to be defined
+#!/bin/bash -f
+#
+# Uploads GNU Global pages to a project, given the project ID and
+# archive file produced by create_src_html.py
+#
+# Can be called from anywhere
+
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -25,9 +29,15 @@
 # DM19-1274
 # </legal>
 
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BIN_DIR=$(dirname "$BIN_LOC")
+. $BIN_DIR/../env.sh
+
 project_id=$1
 pages=$2
 
-rm -rf $SCALE_HOME/scale.app/public/GNU/$project_id
-mkdir -p $SCALE_HOME/scale.app/public/GNU/$project_id
-unzip -nq $pages -d $SCALE_HOME/scale.app/public/GNU/$project_id
+set_project_vars $project_id
+
+rm -rf $PROJECT_GNU_DIR
+mkdir -p $PROJECT_GNU_DIR
+unzip -nq $pages -d $PROJECT_GNU_DIR

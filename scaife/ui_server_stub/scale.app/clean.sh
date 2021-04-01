@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -24,8 +24,16 @@
 # DM19-1274
 # </legal>
 
-rm -rf ./public/GNU/*
-rm -rf ./db/backup
-rm -rf ./archive
-rm -f ./db/external.sqlite3
-rm -f ./db/development.sqlite3
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BASE_DIR=$(dirname "$BIN_LOC")
+
+. $BASE_DIR/env.sh
+
+rm -rf $SCALE_DIR/public/GNU/*
+rm -rf $SCALE_DIR/archive
+rm -rf $SCALE_DIR/db/backup
+rm -f $SCALE_DIR/db/external.sqlite3
+rm -f $SCALE_DIR/db/development.sqlite3
+rm -f $SCALE_DIR/db/test.sqlite3
+rm -f $SCALE_DIR/log/development.log
+rm -f $SCALE_DIR/log/test.log

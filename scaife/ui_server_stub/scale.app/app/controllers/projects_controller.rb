@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -60,9 +60,11 @@ class ProjectsController < ApplicationController
     @errors = []
     @projects = Project.all
     @scaife_active = scaife_active()
+    $stdout.flush
     @languages_available = Language.all()
     @taxonomies_available = Taxonomy.all()
     @tools_available = Tool.all()
+
     respond_to do |format|
       format.html
       format.json  { render :json => @projects }
@@ -88,40 +90,41 @@ class ProjectsController < ApplicationController
       @project_description = @project.description
 
 
-      scaife_datahub_controller = ScaifeDatahubController.new
-      list_projects_response = scaife_datahub_controller.listProjects(session[:login_token])
-      if list_projects_response.is_a?(String) #Failed to connect to Registration/DataHub server
-          @get_projects_status = 400
+      c = ScaifeDatahubController.new
+      result = c.listProjects(session[:login_token])
+      if result.is_a?(String) #Failed to connect to Registration/DataHub server
+        puts "#{__method__}() error listProjects(): #{c.scaife_status_code}: #{result}"
+        @get_projects_status = 400
       else
-          @get_projects_status = 200
-          for project_object in list_projects_response
-              project_name = project_object["project_name"]
-              project_description = nil
-              if project_object.key?("project_description")
-                  project_description = project_object["project_description"]
-              else
-                  project_description = "None"
-              end
-              @scaife_projects_descriptions[project_name] = project_description
+        @get_projects_status = 200
+        for project_object in list_projects_response
+          project_name = project_object.project_name
+          project_description = nil
+          if project_object.project_description.present?
+            project_description = project_object.project_description
+          else
+            project_description = "None"
           end
+          @scaife_projects_descriptions[project_name] = project_description
+        end
       end
 
-      list_packages_response = scaife_datahub_controller.listPackages(session[:login_token])
+      list_packages_response = c.listPackages(session[:login_token])
       #puts list_packages_response
       if list_packages_response.is_a?(String) #Failed to connect to Registration/DataHub server
-          @get_packages_status = 400
+        @get_packages_status = 400
       else
-          @get_packages_status = 200
-          for package_object in list_packages_response
-              package_name = package_object["package_name"]
-              package_description = nil
-              if package_object.key?("package_description")
-                  package_description = package_object["package_description"]
-              else
-                  package_description = "None"
-              end
-              @scaife_packages_descriptions[package_name] = package_description
+        @get_packages_status = 200
+        for package_object in list_packages_response
+          package_name = package_object.package_name
+          package_description = nil
+          if package_object.package_description.present?
+            package_description = package_object.package_description
+          else
+            package_description = "None"
           end
+          @scaife_packages_descriptions[package_name] = package_description
+        end
       end
       return
   end
@@ -144,12 +147,25 @@ class ProjectsController < ApplicationController
         self.nuke_project_files(@project.id)
       end
       @scaife_active = scaife_active()
+      backup_dir = backup_dir_from_id(@project.id)
+      if !Dir.exists?(backup_dir)
+        FileUtils.mkdir_p backup_dir
+      end
+      archive_backup_dir = archive_backup_dir_from_id(@project.id)
+      if !Dir.exists?(archive_backup_dir)
+        FileUtils.mkdir_p archive_backup_dir
+      end
+      archive_nobackup_dir = archive_nobackup_dir_from_id(@project.id)
+      if !Dir.exists?(archive_nobackup_dir)
+        FileUtils.mkdir_p archive_nobackup_dir
+      end
+      supplemental_dir = archive_supplemental_dir_from_id(@project.id)
+      if !Dir.exists?(supplemental_dir)
+        FileUtils.mkdir_p supplemental_dir
+      end
       # database() pulls tool/lang info from db/external.sqlite3, so go
       # ahead and instantiate it now (it clones tool/lang info from the
       # the persistent db)
-      if !Dir.exists?(archive_backup_dir_from_id(@project.id))
-        FileUtils.mkdir_p archive_backup_dir_from_id(@project.id)
-      end
       archive_db = archive_backup_db_from_id(@project.id)
       script = scripts_dir().join("init_project_db.py")
       cmd = "#{script} #{archive_db}"
@@ -492,8 +508,8 @@ class ProjectsController < ApplicationController
         if @scaife_active 
           scaife_project_id = @project.scaife_project_id
 
-          scaife_datahub_controller = ScaifeDatahubController.new
-          enable_data_forwarding_response, status_code = scaife_datahub_controller.enableDataForwarding(session[:login_token], scaife_project_id)
+          c = ScaifeDatahubController.new
+          result, status_code = c.enableDataForwarding(session[:login_token], scaife_project_id)
           if 200 == status_code
             @non_fatal_error = nil
             Dir.chdir scripts_dir()
@@ -507,7 +523,7 @@ class ProjectsController < ApplicationController
             end
             @project.data_subscription_id = pid
           else
-            flash[:scaife_enable_data_forwarding_message] =  enable_data_forwarding_response
+            flash[:scaife_enable_data_forwarding_message] =  result
             respond_to do |format|
               format.any { redirect_to "/projects/#{@project.id}/edit" and return}
             end
@@ -544,9 +560,6 @@ class ProjectsController < ApplicationController
         @project.test_suite_sard_id = params[:project][:test_suite_sard_id]
         @project.author_source = params[:project][:author_source]
         @project.license_file = params[:project][:license_file]
-        if !Dir.exists?(supplemental_path)
-          FileUtils.mkdir_p supplemental_path
-        end
         manifest = params[:file] ? params[:file][:manifest_file] : nil
         manifest_url = params[:project][:manifest_url].strip
         if manifest.present?
@@ -1607,7 +1620,7 @@ class ProjectsController < ApplicationController
       session[:login_token], lang.name, lang.version
     )
     if result.is_a?(String)
-      puts "c.createLanguage() error: #{result}"
+      puts "#{__method__}() error createLanguage(): #{c.scaife_status_code}: #{result}"
       if @debug.present?
         puts c.response
       end
@@ -1615,7 +1628,7 @@ class ProjectsController < ApplicationController
     else
       # automatically map it
       ActiveRecord::Base.transaction do
-        lang.scaife_language_id = result["code_language_id"]
+        lang.scaife_language_id = result.code_language_id
         if not lang.save
           if @debug.present?
             @errors += lang.errors.full_messages
@@ -1887,28 +1900,26 @@ class ProjectsController < ApplicationController
     #     condition_fields {str: str}
     @errors = Set[]
     c = ScaifeDatahubController.new
-
+    puts "attempt upload of taxonomy: #{taxo.name} #{taxo.version}"
     result = c.createTaxonomy(
       session[:login_token], taxo.name, taxo.version,
       "Sample taxonomy description", taxo.scaife_conditions(), taxo.author_source
     )
     if result.is_a?(String)
-      if @debug.present?
-        puts c.response
-      end
+      puts "#{__method__}() error createTaxonomy(): #{c.scaife_status_code}: #{result}"
       @errors << result
     else
       cond_cnt = 0
-      scaife_conds = result["conditions"]
-      scaife_conds_by_name = scaife_conds.map { |cond| [cond["condition_name"], cond] }.to_h
+      scaife_conds = result.conditions
+      scaife_conds_by_name = scaife_conds.map { |cond| [cond.condition_name, cond] }.to_h
       common, diff_plus, diff_minus = helpers.set_diff(
         taxo.conditions.map { |cond| cond.name },
         scaife_conds_by_name.keys
       )
       if taxo.conditions.length != scaife_conds.length
         msg = []
-        if result["already_exists"].present?
-          msg << "taxonomy already exists,"
+        if c.scaife_status_code == 422
+          msg << "taxonomy #{taxo.id} already exists,"
         end
         msg << "condition count missmatch: #{taxo.conditions.length} conditions in SCALe, #{scaife_conds.length} conditions in SCAIFE"
         puts msg.join(' ')
@@ -1927,10 +1938,10 @@ class ProjectsController < ApplicationController
         # SCAIFE didn't know about this taxonomy yet
         # map the conditions that uploaded
         ActiveRecord::Base.transaction do
-          taxo.scaife_tax_id = result["taxonomy_id"]
+          taxo.scaife_tax_id = result.taxonomy_id
           taxo.conditions.each do |cond|
             if scaife_conds_by_name.include? cond.name
-              cond.scaife_cond_id = scaife_conds_by_name[cond.name]["condition_id"]
+              cond.scaife_cond_id = scaife_conds_by_name[cond.name].condition_id
               if not cond.save
                 if @debug.present?
                   @errors += cond.errors.full_messages
@@ -1973,14 +1984,12 @@ class ProjectsController < ApplicationController
     #     condition_fields {str: str}
     @errors = Set[]
     c = ScaifeDatahubController.new
-    scaife_conds = c.editTaxonomy(session[:login_token],
+    result = c.editTaxonomy(session[:login_token],
                       scaife_taxo_id,
                       taxo.scaife_conditions(conditions: conds_to_add))
     cond_cnt = 0
     if scaife_conds.is_a?(String)
-      if @debug.present?
-        puts c.response
-      end
+      puts "#{__method__}() error editTaxonomy(): #{c.scaife_status_code}: #{result}"
       @errors << scaife_conds
     else
       # automatically map newly uploaded conditions
@@ -2206,7 +2215,7 @@ class ProjectsController < ApplicationController
           tools_to_upload.each do |tool|
             # or, TODO, upload the langs without scaife_ids
             # in upload_tool_to_scaife()
-            puts "upload tool(#{tool.id}): #{tool.name} #{tool.version}"
+            puts "upload tool #{tool.id}: #{tool.name} #{tool.version}"
             if @project.present?
               # it might be better to include languages the tool knows
               # about and have scaife_ids that the user doesn't happen
@@ -2260,7 +2269,7 @@ class ProjectsController < ApplicationController
     #   code_language_ids [str]
     #   checkers [str]
     #   checker_mappings [{}]
-    #   code_metric_headers {}
+    #   code_metrics_headers []
     @errors ||= Set[]
     if langs.blank?
       langs = tool.languages()
@@ -2272,32 +2281,53 @@ class ProjectsController < ApplicationController
     
     checker_cnt = 0
 
+    # Note: tool.platform is an overloaded variable that can
+    # either contain language varieties (e.g., "c/c++") or 
+    # the tool category (i.e., "metric").  Currently, tool.platform
+    # is used to derive the tool category.
+    tool_category = tool.platform[0] == 'metric' ? "METRICS" : "FFSA"
+
+    code_metrics_headers = []
+    if tool_category == "METRICS"
+        tool_table_name = tool.name.capitalize.split("_oss")[0] + "Metrics"
+
+        with_external_db() do |con|
+          result = con.execute("PRAGMA table_info(" + tool_table_name + ");")
+          for header in result.pluck("name")
+            code_metrics_headers.append(header)
+          end
+        end
+    end
+
     c = ScaifeDatahubController.new
     result = c.uploadTool(
       session[:login_token],
       tool.name,
       tool.version,
-      tool.platform == 'metric' ? "Metrics" : "FFSA", # category
+      tool_category, # category
       tool.platform, # language_platforms
       langs.map { |lang| lang.scaife_language_id }, # code_language_ids
       tool.scaife_checker_mappings(), # checker_mappings
       tool.checkers.map { |check| check.name }, # checkers
-      {}, # code_metric_headers #TODO: Update with Metrics Tools RC-1390
+      code_metrics_headers, # code_metrics_headers
       nil, # author_source
     )
     if result.is_a?(String)
-      puts "c.uploadTool() error: #{result}"
+      puts "#{__method__}() error uploadTool(): #{c.scaife_status_code}: #{result}"
       if @debug.present?
         puts c.response
       end
       @errors << result
     else
       # automatically map it along with its conditions
+      if c.scaife_status_code == 422
+        puts "tool #{tool.id} already exists in scaife"
+      end
       ActiveRecord::Base.transaction do
-        tool.scaife_tool_id = result["tool_id"]
-        if result["checkers"].present?
+        tool.scaife_tool_id = result.tool_id
+        if result.checkers.present?
           # if they aren't present, the tool was already in SCAIFE
-          checker_ids = result["checkers"].map { |chk| [chk["checker_name"], chk["checker_id"]] }.to_h
+          checker_ids = result.checkers.map { |chk| [chk.checker_name, chk.checker_id] }.to_h
           tool.checkers.each do |check|
             if checker_ids[check.name].blank?
               puts "missing scaife_id for checker #{check.name}"

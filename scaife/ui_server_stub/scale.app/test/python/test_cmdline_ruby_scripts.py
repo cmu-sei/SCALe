@@ -1,15 +1,15 @@
 # Python unit tests
-
+#
 # Does not depend on SCALE_HOME, sets it based on pwd, which should be
 # scale.app
-
+#
 # It would be nice if this test left the output file so can compare
 # with answer.
 
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -33,95 +33,106 @@
 import os
 import re
 import shutil
-import subprocess
+from glob import glob
 
+import bootstrap, util
+
+KEEP_OUTPUT = False
 
 class TestManualProject:
+
     def create_manual_project(self, src_zip, tool_output,
                               meta_alerts, displays, supplemental=None):
-        try:
-            os.putenv("SCALE_HOME", os.getenv("PWD") + "/..")
-            scale_app = os.getenv("PWD") + "/"  # Must be $SCALE_HOME/scale.app
-            os.mkdir("temp_scale")
-            os.chdir("temp_scale")
+        # guarantee our data is relative to scale.app, not env
+        # SCALE_HOME. This also sets/overwrites the env var as well.
+        bootstrap.set_env(scale_dir_val=bootstrap.base_dir)
+        tmp_dir = bootstrap.get_tmp_dir(ephemeral = not KEEP_OUTPUT,
+                suffix="test_cmdline_ruby_scripts", uniq=True)
+        scripts_ruby_dir = os.path.join(bootstrap.scripts_dir, "cmdline-ruby")
+        if not tool_output.startswith("/"):
+            tool_output = os.path.join(bootstrap.base_dir, tool_output)
+        if not src_zip.startswith("/"):
+            src_zip = os.path.join(bootstrap.base_dir, src_zip)
+        # Create empty project, and get project_id from output
+        script = os.path.join(scripts_ruby_dir, "create_project.sh")
+        cmd = [script, "TestProject", "A test project"]
+        output = util.callproc(cmd)
+        match = re.search(r"(\d\d*) is the new project id.", output)
+        assert match is not None, \
+            "no match for project id:\n---\n%s\n---" % output
+        project_id = match.group(1)
+        # Make sure new project_id is in internal db
+        cmd = ' '.join([
+            "echo .dump | sqlite3",
+            bootstrap.internal_db,
+            "| grep -c 'INSERT INTO projects VALUES(%s,'" % project_id])
+        output = util.callproc(cmd)
+        assert output.strip() == "1"
 
+        # Make testsuite out supplemental data
+        if supplemental is not None:
+            project_supp_dir = bootstrap.project_supplemental_dir(project_id)
+            script = os.path.join(scripts_ruby_dir, "edit_project.sh")
+            cmd = [script, project_id, "test_suite_name", '"test_suite"']
+            util.callproc(cmd)
+            script = os.path.join(scripts_ruby_dir, "edit_project.sh")
+            cmd = [script, project_id, "test_suite_version", '12345678']
+            util.callproc(cmd)
+            for attribute in supplemental:
+                script = os.path.join(scripts_ruby_dir,
+                    "edit_project_file.sh")
+                valpath = os.path.join(bootstrap.scale_dir,
+                    supplemental[attribute])
+                cmd = [script, project_id, attribute, valpath]
+                util.callproc(cmd)
+                assert os.path.exists(project_supp_dir)
 
-            # Create empty project, and get project_id from output
-            cmd = [scale_app + "scripts/cmdline-ruby/create_project.sh",
-                   "TestProject", "A test project"]
-            output = subprocess.check_output(cmd)
-            match = re.search(r"(\d\d*) is the new project id.", output)
-            project_id = match.group(1)
-            # Make sure new project_id is in db/development.sqlite
-            cmd = "echo .dump | sqlite3 " + scale_app + "db/development.sqlite3" + \
-                " | grep -c 'INSERT INTO projects VALUES(" + project_id + ",'"
-            output = subprocess.check_output(cmd, shell=True)
-            assert output.strip() == "1"
+        # Create GNU Global Archive
+        script = os.path.join(scripts_ruby_dir, "create_src_html.py")
+        out_zip = os.path.join(tmp_dir, "html.zip")
+        cmd = [script, "--out", out_zip, "--tmp-dir", tmp_dir, src_zip]
+        util.callproc(cmd)
+        assert os.path.exists(out_zip)
 
-            # Make testsuite out supplemental data
-            if supplemental is not None:
-                cmd = [scale_app + "./scripts/cmdline-ruby/edit_project.sh",
-                       project_id, "test_suite_name",'"test_suite"']
-                subprocess.call(cmd)
-                cmd = [scale_app + "./scripts/cmdline-ruby/edit_project.sh",
-                       project_id, "test_suite_version",'12345678']
-                subprocess.call(cmd)
-                for attribute in supplemental:
-                    cmd = [scale_app + "./scripts/cmdline-ruby/edit_project_file.sh",
-                           project_id, attribute,
-                           scale_app + supplemental[attribute]]
-                    subprocess.call(cmd)
-                assert os.path.exists(scale_app + "archive/backup/"
-                                      + project_id + "/supplemental")
+        # Upload GNU Global Archive
+        script = os.path.join(scripts_ruby_dir, "upload_src_html.sh")
+        cmd = [script, project_id, out_zip]
+        util.callproc(cmd)
+        assert os.path.exists(bootstrap.project_gnu_dir(project_id))
 
-            # Create GNU Global Archive
-            cmd = [scale_app + "scripts/cmdline-ruby/create_src_html.py", scale_app + src_zip]
-            subprocess.call(cmd)
-            assert os.path.exists("html.zip")
+        # Create database
+        # (All projects use cppcheck output)
+        script = os.path.join(scripts_ruby_dir, "create_database.py")
+        tmp_db = os.path.join(tmp_dir, "db.sqlite3")
+        cmd = [script, "-t", "cppcheck_oss", "-p", "c/cpp", "-V", "1.86",
+                "--tmp-dir", tmp_dir, tmp_db, tool_output, src_zip]
+        util.callproc(cmd)
+        assert os.path.exists(tmp_db)
+        # Count meta-alerts generated
+        cmd = "echo .dump | sqlite3 " + tmp_db + \
+            " | grep -c 'INSERT INTO MetaAlerts'"
+        output = util.callproc(cmd)
+        assert int(output.strip()) == meta_alerts
 
-            # Upload GNU Global Archive
-            cmd = [scale_app + "scripts/cmdline-ruby/upload_src_html.sh",
-                   project_id, "html.zip"]
-            subprocess.call(cmd)
-            assert os.path.exists(scale_app + "public/GNU/" + project_id)
+        # Upload project database
+        script = os.path.join(scripts_ruby_dir, "upload_database.sh")
+        cmd = [script, project_id, tmp_db]
+        output = util.callproc(cmd)
+        match = re.search(r"database was successfully uploaded", output)
+        assert match is not None, \
+                "no match for upload success:\n---\n%s\n---" % output
+        # Count display alerts generated
+        cmd = "echo \"SELECT id FROM Displays WHERE project_id='" \
+            + project_id + "'\" | sqlite3 " + bootstrap.internal_db \
+            + " | wc -l"
+        output = util.callproc(cmd)
+        assert int(output.strip()) == displays
 
-            # Create database
-            # (All projects use cppcheck output)
-            cmd = [scale_app + "scripts/cmdline-ruby/create_database.py",
-                   "-t", "cppcheck_oss", "-p", "c/cpp", "-V", "1.86",
-                   "db.sqlite3", scale_app + tool_output,
-                   scale_app + src_zip]
-            subprocess.call(cmd)
-            assert os.path.exists("db.sqlite3")
-            # Count meta-alerts generated
-            cmd = "echo .dump | sqlite3 db.sqlite3" + \
-                " | grep -c 'INSERT INTO MetaAlerts'"
-            output = subprocess.check_output(cmd, shell=True)
-            assert int(output.strip()) == meta_alerts
-
-            # Upload project database
-            cmd = [scale_app + "scripts/cmdline-ruby/upload_database.sh",
-                   project_id, "db.sqlite3"]
-            output = subprocess.check_output(cmd)
-            match = re.search(r"database was successfully uploaded", output)
-            assert match is not None
-            # Count display alerts generated
-            cmd = "echo \"SELECT id FROM Displays WHERE project_id='" \
-                + project_id + "'\" | sqlite3 " + scale_app \
-                + "db/development.sqlite3 | wc -l"
-            output = subprocess.check_output(cmd, shell=True)
-            assert int(output.strip()) == displays
-
-            # Finally clean up project
-            cmd = [scale_app + "scripts/cmdline-ruby/delete_project.sh", project_id]
-            subprocess.call(cmd)
-            assert not os.path.exists(scale_app + "public/GNU/" + project_id)
-
-        except subprocess.CalledProcessError as e:
-            raise Exception(e.output)
-        finally:
-            os.chdir("..")
-            shutil.rmtree("temp_scale")
+        # Finally clean up project
+        script = os.path.join(scripts_ruby_dir, "delete_project.sh")
+        cmd = [script, project_id]
+        util.callproc(cmd)
+        assert not os.path.exists(bootstrap.project_gnu_dir(project_id))
 
     def test_dos2unix(self):
         self.create_manual_project(

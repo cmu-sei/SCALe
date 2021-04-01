@@ -29,8 +29,8 @@
                   <td class="col-xs-2"><%= tool.version %></td>
                   <td class="col-xs-1" align="center"></td>
                   <% if scaife_tool.present? %>
-                    <td class="col-xs-3"><%= scaife_tool["tool_name"] %></td>
-                    <td class="col-xs-2"><%= scaife_tool["tool_version"] %></td>
+                    <td class="col-xs-3"><%= scaife_tool.tool_name %></td>
+                    <td class="col-xs-2"><%= scaife_tool.tool_version %></td>
                   <% else %>
                     <td colspan="2">unknown</td>
                   <% end %>
@@ -90,9 +90,9 @@
               </thead>
               <tbody class="tgt-tool-list">
                 <% @scaife_tools_by_id.each_value do |scaife_tool| %>
-                  <tr data-id="<%= scaife_tool["tool_id"] %>" class="list-item">
-                    <td class="tgt-name"><%= scaife_tool["tool_name"] %></td>
-                    <td class="tgt-version"><%= scaife_tool["tool_version"] %></td>
+                  <tr data-id="<%= scaife_tool.tool_id %>" class="list-item">
+                    <td class="tgt-name"><%= scaife_tool.tool_name %></td>
+                    <td class="tgt-version"><%= scaife_tool.tool_version %></td>
                   </tr>
                 <% end %>
               </tbody>

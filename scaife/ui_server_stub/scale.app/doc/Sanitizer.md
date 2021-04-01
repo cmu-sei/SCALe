@@ -3,9 +3,9 @@ title: 'SCALe : Sanitizer'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -59,11 +59,12 @@ SEI CERT has developed a file sanitizer that anonymizes sensitive fields
 of databases. Our sanitizer is designed to anonymize fields of SQLite
 audit archives created by the CERT SCALe (Secure Code Analysis Lab)
 auditing tool. SCALe provides a GUI environment for analysts to examine
-alerts (warnings) from static analysis tools and their associated source
-code, mark alert determinations (e.g., true or false), and export the
+alertConditions (warnings from static analysis tools mapped to code flaws from
+taxonomies) and their associated source
+code, mark alertCondition determinations (e.g., true or false), and export the
 audit project information in a database. Along with the audit
 determination (primary and supplemental) and auditor notes, the database
-contains information about the alert and the associated source code.
+contains information about the alertCondition and the associated source code.
 Those database fields may contain sensitive information. For example,
 one could imagine a class name of SecretRocketXControlCode might be
 sensitive.
@@ -317,16 +318,18 @@ reasons to need to sanitize audit archives before sharing them include
 that the sensitive data might be too sensitive to share between
 organizations, and also that different organizations are understandably
 reluctant to share detailed information about potential code flaws (that
-the alerts warn of) in code they have developed.
+the alertConditions warn of) in code they have developed.
 
 The goal of one of our ongoing
 [research](http://resources.sei.cmu.edu/library/asset-view.cfm?assetID=474252){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)
 [projects](https://insights.sei.cmu.edu/sei_blog/2016/06/prioritizing-alerts-from-static-analysis-to-find-and-fix-code-flaws.html){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)
 is to create classifiers to automatically categorize static analysis
-alerts as expected-True (e-TP), expected-False (e-FP), and
-indeterminant. Previous research has shown that features of alerts and
+meta-alerts as expected-True (e-TP), expected-False (e-FP), and
+indeterminant. See definitions of alert, alertCondition, and meta-alert
+at [Terms and Definitions](Terms-and-Definitions.md).
+Previous research has shown that features of alerts and
 their associated source code can be used to develop accurate classifiers
-for alerts from single static analysis tools. (Our research created
+for alertConditions from single static analysis tools. (Our research created
 classifiers with alerts from multiple tools.) Those features include
 sensitive fields (class name, function or method name,
 namespace/package, and partially-shared paths). To use features shown
@@ -335,7 +338,8 @@ that allowed us to use these fields and to be able to correlate
 anonymized fields when they were the same.
 
 Further, creation of classifiers requires a lot of audit archive data
-(i.e., many audited alerts), but auditing alerts takes significant human
+(i.e., many audited alertConditions), but auditing alertConditions or meta-alerts 
+(auditing meta-alerts is more efficient) takes significant human
 work. To collect an archive with sufficient audit archives to create
 accurate classifiers, in a timely manner, we developed a sanitizer
 enabling others to share their data with us.
@@ -349,7 +353,7 @@ lexicon, and auditing rules as discussed in our IEEE SecDev 2016 paper,
 organizations and communities of practice such as the Software Assurance
 Community of Practice (SwA-CoP ) to benefit from sharing large
 quantities of sanitized audit data to develop highly-accurate
-classifiers for static analysis alerts.
+classifiers for static analysis meta-alerts.
 
 Testing the Sanitizer
 =====================
@@ -427,7 +431,7 @@ Important notes about how to do this:
 * lizard_oss
 * ccsm_oss
 
-    3. Make sure to click "Clear Filters" on the alerts page in order to reset any session settings back to defaults. Also select SCAIFE Mode "Demo".
+    3. Make sure to click "Clear Filters" on the alertConditions page in order to reset any session settings back to defaults. Also select SCAIFE Mode "Demo".
     4. Upload user-uploaded fields to the SCALe project using the following file: $SCALE_HOME/scale.app/test/junit/test/scale_input/misc/user_upload_example.csv (See in SCALe manual instructions how to do this, here: $SCALE_HOME/scale.app/public/doc/scale2/The-SCALe-Web-App.html#uploading-additional-fields )
     5. Set the first meta-alert to false, and the second meta-alert to true. (Do this in Fused View.)
     6. Create a prioritization scheme and name it "priorityScheme1", using instructions in the SCALe manual at: $SCALE_HOME/scale.app/public/doc/scale2/The-SCALe-Web-App.html#selecting-a-prioritization-scheme

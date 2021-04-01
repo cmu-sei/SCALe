@@ -5,9 +5,9 @@
 # usage: scale2csv.py <db> [-c <select-arg>]? > <csv-file>
 #
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -68,7 +68,7 @@ with con:
     DB_Map = ["id", "flag", "verdict", "previous",
               "checker", "tool", "msgID", "notes",
               "ignored", "dead", "inapplicable_environment",
-              "dangerous_construct", "confidence", "meta_alert_priority",
+              "dangerous_construct", "class_label", "confidence", "meta_alert_priority",
               # Alerts
               "msgID", "alertID", "path", "line", "message",  # Messages
               "checker", "condition", "tool", "regex",  # Checkers
@@ -80,7 +80,7 @@ with con:
     # Order of fields that we plan to print
     Print_Map = [
         "id", "flag", "verdict", "previous", "path", "line", "link", "message",
-        "checker", "tool", "condition", "title", "confidence",
+        "checker", "tool", "condition", "title", "class_label", "confidence",
         "meta_alert_priority", "severity", "likelihood",
         "remediation", "priority", "level", "cwe_likelihood", "notes",
         "ignored", "dead", "inapplicable_environment",

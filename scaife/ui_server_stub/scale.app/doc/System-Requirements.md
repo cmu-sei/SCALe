@@ -3,9 +3,9 @@ title: 'SCALe : System Requirements'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.2.2.2.A -->
+<!-- SCALe version r.6.5.5.1.A -->
 <!--  -->
-<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
 <!-- NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING -->
 <!-- INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON -->
@@ -45,7 +45,7 @@ We are currently releasing a version of the SCALe software that has been verifie
 SCALe consists of a front-end web app that uses Ruby-on-Rails and
 manages a SQLite database. The front end has been tested with Firefox 69.01
 (Past SCALe versions were tested with Explorer 11 and Google Chrome 44.0).
-The back end consists of several Python and SQL scripts.
+The back end consists of Python and SQL scripts.
 
 Static Analysis Tools
 ---------------------
@@ -62,12 +62,14 @@ static analysis tools:
 | Software | Version  | License | C | C++ | Java | Perl | Windows | Linux | Notes |
 |---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | [CERT Rosecheckers](http://rosecheckers.sourceforge.net/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)* |  | CMU | Yes | Yes |  |  |  | Yes |
+| [Clang](https://clang-analyzer.llvm.org/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)                          | 5.0.1 - 8.0.0    |  Open source | Yes | Yes |  |  |     | Yes |
 | [PC-lint](http://www.gimpel.com/html/pcl.htm){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 9.0 | Proprietary | Yes | Yes |  |  | Yes | |
 | [FlexeLint](http://www.gimpel.com/html/pcl.htm){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 9.0 | Proprietary | Yes | Yes |  |  | | Yes |
 | [LDRA](http://www.ldra.com/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 9.4.3 | Proprietary | Yes | Yes |  |  | Yes |  |  |
 | [Coverity Prevent](http://www.coverity.com/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 7.6.1 | Proprietary | Yes | Yes | Yes |  | Yes | Yes |
 | [Fortify SCA](https://www.microfocus.com/en-us/products/static-code-analysis-sast/overview){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 6.10.0120, 18.10.0187 | Proprietary | Yes | Yes | Yes |  | Yes | Yes | Fortify versions 6.10.0120 and 18.10.0187 have the same output format, but 18.10.0187 has more checker mappings |
 | [cppcheck](http://cppcheck.sourceforge.net/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) |  1.86, 1.83, 1.66, and 1.0 | Open source | Yes |  Yes |  |  | Yes | Yes   | Versions 1.86 and 1.83 have same output format. Versions 1.0 and 1.66 have the same output format. |
+ [CodeSonar](https://www.grammatech.com/products/codesonar/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) |  5.0 | Proprietary | Yes |  Yes |  |  | Yes | Yes   |
 | [Microsoft Visual Studio Static Analyzer](https://msdn.microsoft.com/en-us/library/a5b9aa09(v=vs.120).aspx){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) (part of Microsoft Visual Studio) |  |  Proprietary |  Yes |   Yes |  |  | Yes |  |
 | [Parasoft C/C++Test](https://docs.parasoft.com/display/CPPDESKE1040){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) |  10.4 | Proprietary | Yes |  Yes |  |  | Yes | Yes   |
 | [FindBugs™](http://findbugs.sourceforge.net/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 3.0.1 | Open source |  |  | Yes |  | Yes | Yes |  |
@@ -85,12 +87,12 @@ because it can provide warnings about questionable code.
 SCALe can use output from the following such tools, if your codebase can
 be compiled in them:
 
- | Software | Version  | License | C | C++ | Java | Perl | Windows | Linux |
+| Software | Version  | License | C | C++ | Java | Perl | Windows | Linux |
 |---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| [Microsoft Visual C++](http://msdn.microsoft.com/en-us/vstudio/hh386302.aspx){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | Ultimate 2013 12.0.31101.00 Update 4 |  Proprietary |  | Yes |  |  | Yes |
 | [GCC](https://gcc.gnu.org/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 4.8.3.20140911 |  Open source | Yes |  |  |  | Yes | Yes |
 | [G++ ](https://gcc.gnu.org/onlinedocs/gcc-3.3.5/gcc/G_002b_002b-and-GCC.html){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 4.8.3.20140911 |  Open source |  | Yes |  |  | Yes | Yes |
 | [Eclipse](http://www.eclipse.org/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | Luna sr2 (4.4.2) Build id: 20150219-0600 |  Open source |  |  | Yes |  | Yes | Yes |
+| [Microsoft Visual C++](http://msdn.microsoft.com/en-us/vstudio/hh386302.aspx){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | Ultimate 2013 12.0.31101.00 Update 4 |  Proprietary |  | Yes |  |  | Yes |
 | [Perl](https://www.perl.org/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 5.16.3 | Open source |  |  |  | Yes |  | Yes |
 
 NOTE: If you use a different compiler normally for your
@@ -134,25 +136,25 @@ Third-Party (non-SEI) Software and Offline SCALe Installation Disks
 | [VirtualBox](https://www.virtualbox.org){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 6.1.12 | Open source |
 | [Docker](https://www.docker.com]{.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png) | 19.03.12 | Open source |
 
-In general, we deploy to virtual machines and containers.
+In general, we deploy to virtual machines and containers. (See the SCALe install page at [Installing SCALe](Installing-SCALe.md).)
 Additional information about our automated deployment process and the explicitly-added third-party code
 is available in these code locations that are part of the released code:
 
-* $SCALE_HOME/scale.app/cookbooks
-* $SCALE_HOME/scale.app/Vagrantfile
-* $SCALE_HOME/scale.app/Dockerfile
-* $SCALE_HOME/scale.app/Gemfile
-* For creating a VirtualBox base box that is used with the auto-deployment process with the Vagrantfile, we install VirtualBox Guest Additions [per these instructions](https://www.engineyard.com/blog/building-a-vagrant-box-from-start-to-finish){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)
+* `$SCALE_HOME/scale.app/cookbooks`
+* `$SCALE_HOME/scale.app/Vagrantfile`
+* `$SCALE_HOME/scale.app/Dockerfile`
+* `$SCALE_HOME/scale.app/Gemfile`
+* For creating a VirtualBox base box that is used with the auto-deployment process with the `Vagrantfile`, we install `VirtualBox Guest Additions` [per these instructions](https://www.engineyard.com/blog/building-a-vagrant-box-from-start-to-finish){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)
 
-SCALe also runs as a container as part of SCAIFE; for more details see [Containers](SCAIFE-Customization.md#containers).
+SCALe also runs as a container as part of SCAIFE; for more details see [Containers](SCAIFE-Customization.md#containers) and see the SCALe install page at [Installing SCALe](Installing-SCALe.md).
 
 The following list provides only software packages that got explicitly installed via command-line
-calls to package installers (e.g., apt-get, pip, etc.) during our automated deployment process
+calls to package installers (e.g., `apt-get`, `pip`, etc.) during our automated deployment process
 onto an Xubuntu 18.04 virtual machine for SCALe version r.5.0.0.0.A of 10/03/2019.
 The following list does not include software that got installed automatically, due to dependencies,
 during installation of the explicitly-specified software.
 
-Disclaimer: The release of SCALe version r.5.0.0.0.A within SCAIFE prototype beta version 2.1.3 Ubuntu 18.04 VM on 10/11/2019 depends on the following third-party software. However,  third-party dependencies frequently change as scale.app is developed.  Please keep in mind that the following
+Disclaimer: The release of SCALe version r.5.0.0.0.A within SCAIFE prototype beta version 2.1.3 Ubuntu 18.04 VM on 10/11/2019 depends on the following third-party software. However,  third-party dependencies frequently change as `scale.app` is developed.  Please keep in mind that the following
 information may be outdated.
 
 
@@ -161,6 +163,7 @@ information may be outdated.
 | build-essential |
 | dos2unix v. 7.2.2 |
 | jasper v. 1.900.1 |
+| bzip2 v. 1.0.8 |
 | GnuGlobal v. 6.5.1 |
 | eclipse v. ‎4.7.0 |
 | geckodriver v. 0.24.0 |
@@ -242,9 +245,9 @@ information may be outdated.
 | best_in_place (required to use Gem 'best_in_place'; installed with Gem 'best_in_place') |
 
 
-Not currently guaranteed to work, but in the recent past we developed a Dockerfile for automated container deployment. That is released with the SCALe code and is located at:
+Not currently guaranteed to work, but in the recent past we developed a `Dockerfile` for automated container deployment. That is released with the SCALe code and is located at:
 
-* $SCALE_HOME/scale.app/Dockerfile
+* `$SCALE_HOME/scale.app/Dockerfile`
 
 
 Instructions for installs per-OS-versions are listed on the SCALe Manual's Install pages for various
@@ -288,10 +291,10 @@ not connected to the Internet.
 -   The Projects page links to
     [CERT Secure Coding Products & Services](https://www.cert.org/secure-coding/products-services/){.extlink}![(lightbulb)](images/icons/emoticons/lightbulb_on.png)
     (which includes SCALe).
--   Every alertCondition in the top frame of the alerts pages has links
-    in its *Rules* column. Each link connects to the rule in the
-    SEI/CERT coding standards that corresponds to the alert.
--   The bottom frame in the Alerts pages normally contains GNU
+-   Every alertCondition in the top frame of the alertConditions pages has links
+    in its *Conditions* column. Each link connects to the condition (CWE or rule in the
+    SEI/CERT coding standards) that corresponds to the alertCondition.
+-   The bottom frame in the AlertConditions pages normally contains GNU
     Global source code pages.
 
 Except for optional use of these links, using SCALe does not require an
@@ -358,7 +361,7 @@ The components of SCALe can be partitioned as follows:
 4.  Packages (gems) made available through Ruby's 'gem' mechanism
 5.  SCALe code itself. (Note that distributions of SCALe code do not
     include the JUnit tests.)
-6.  dos2unix and JasPer, third-party open source code packages developed by third parties
+6.  dos2unix, JasPer, and bzip2, third-party open source code packages developed by third parties
 and used for SCALe automated testing during development. This is provided with released SCALe
 code along with many other automated test files, to enable others to use our automated tests
 as they add new features and bugfixes to SCALe.

@@ -1,10 +1,14 @@
-#!/bin/sh -f
-# Edits a project attribute that is a file. Takes project id, attribute name, and pathname
-# Can be called from anywhere, but requires SCALE_HOME to be defined
+#!/bin/bash -f
+#
+# Edits a project attribute that is a file. Takes project id, attribute
+# name, and pathname
+#
+# Can be called from anywhere.
+
 # <legal>
-# SCALe version r.6.2.2.2.A
+# SCALe version r.6.5.5.1.A
 # 
-# Copyright 2020 Carnegie Mellon University.
+# Copyright 2021 Carnegie Mellon University.
 # 
 # NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
 # INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
@@ -25,16 +29,22 @@
 # DM19-1274
 # </legal>
 
+BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
+BIN_DIR=$(dirname "$BIN_LOC")
+. $BIN_DIR/../env.sh
+
 project_id=$1
 attribute=$2
 new_path=$3
-
-prefix=$SCALE_HOME/scale.app/archive/backup/$project_id/supplemental
-old_file=`echo "SELECT $attribute FROM projects WHERE id=$project_id" | sqlite3 $SCALE_HOME/scale.app/db/development.sqlite3`
 new_file=`basename $new_path`
 
-mkdir -p $prefix
-rm $prefix/$old_file || true
-cp $new_path $prefix
+set_project_vars $project_id
+
+old_file=`echo "SELECT $attribute FROM projects WHERE id=$project_id" | sqlite3 $INTERNAL_DB`
+mkdir -p $PROJECT_SUPPLEMENTAL_DIR
+if [ ! -z $old_file ]; then
+  rm $PROJECT_SUPPLEMENTAL_DIR/$old_file || true
+fi
+cp $new_path $PROJECT_SUPPLEMENTAL_DIR
 # Update attribute in SCALe db
-$SCALE_HOME/scale.app/bin/edit_project.sh $project_id $attribute \"$new_file\"
+$BIN_DIR/edit_project.sh $project_id $attribute \"$new_file\"
