@@ -32,7 +32,7 @@ $SCALE_HOME/scale.app/public/doc/index.html
 ```
 
 If you are running the offline version, the SEI CERT Coding rules and the Common Weakness Enumeration (CWEs) that accompany the distribution may not be up-to-date.
-The current version of the SEI CERT Coding rules are available online at:  https://securecoding.cert.org
+The current version of the SEI CERT Coding rules are available online at: https://wiki.sei.cmu.edu/confluence/display/seccode
 The current version of the CWEs is available at: https://cwe.mitre.org/
 
 
