@@ -215,10 +215,38 @@
       </div>
 </table>
 
-      <div id="lang-select-dialogs" class="container-horizontal">
-        <div style="flex: 1; width: 15%"><%= label_tag(:project, "Code Languages: ") %></div>
-        <%= render partial: "shared/lang_select" %>
+    <table>
+      <div class="row">
+        <div class="col-sm-10">
+          <div id="lang-select-dialogs" class="container-horizontal">
+            <div style="flex: 1; width: 15%">
+              <%= label_tag(:project, "Code Languages: ") %>
+            </div>
+            <%= render partial: "shared/lang_select" %>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div>
+            <%= label_tag(:project, "Meta-Alert Counts: ") %>
+          </div>
+          <div>
+            <%= select(:project, :meta_alert_counts_type, [ "", "Wall-Clock Time Period", "CPU-Clock Time Period", "Number of New Meta-Alerts" ], {:selected=> ""}) %>
+          </div>
+          <br/>
+          <div>
+            <%= label_tag(:project, "Confidence Thresholds: ") %>
+          </div>
+          <div>
+            <%= label_tag(:project, "True:") %>
+            <%= number_field(:project, :confidence_threshold, min: 0, max: 1, step: 0.01) %>
+          </div>
+          <div>
+            <%= label_tag(:project, "False") %>
+            <%= number_field(:project, :efp_confidence_threshold, min: 0, max: 1, step: 0.01) %>
+          </div>
+        </div>
       </div>
+    </table>
 
     <h2>Static Analysis Tool Output</h2>
     <br>

@@ -1,7 +1,7 @@
 # Python unit tests
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -29,7 +29,8 @@ from __future__ import print_function
 import os, sys
 import subprocess
 
-import bootstrap, util
+import scripts.bootstrap as bootstrap
+import util
 
 # for debugging, leave output in scale.app/tmp if set
 KEEP_OUTPUT=False

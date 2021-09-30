@@ -3,7 +3,7 @@ title: SCAIFE 'Bill of Materials'
 ---
 
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -39,9 +39,9 @@ Information is available from the following files:
 * ```priority_server_stub/Dockerfile```
 * ```registration_server_stub/Dockerfile```
 * ```stats_server_stub/Dockerfile```
-* ```ui_server_stub/scale.app/Dockerfile``` Within this Dockerfile, there are specified additional files which Dockerfile specifies using to explicitly install additional third-party packages. For instance, the files `scale.app/Gemfile` and `scale.app/Gemfile.lock` specify Ruby gems that get installed. 
-* ```ui_server_stub/Dockerfile``` This file is not used for the production running SCAIFE. It is only used for automated integration testing, which creates a swagger UI module in addition to a SCALe UI module. 
-* ```scaife/Vagrantfile``` The `Vagrantfile` is relevant only for VM releases/deployments, but the other files above are relevant to all our current releases/deployments, which all use containers. 
+* ```ui_server_stub/scale.app/Dockerfile``` Within this Dockerfile, there are specified additional files which Dockerfile specifies using to explicitly install additional third-party packages. For instance, the files `scale.app/Gemfile` and `scale.app/Gemfile.lock` specify Ruby gems that get installed.
+* ```ui_server_stub/Dockerfile``` This file is not used for the production running SCAIFE. It is only used for automated integration testing, which creates a swagger UI module in addition to a SCALe UI module.
+* ```scaife/Vagrantfile``` The `Vagrantfile` is relevant only for VM releases/deployments, but the other files above are relevant to all our current releases/deployments, which all use containers.
 * As part of VM deployments by SEI, we install Virtual Box's (VB's) Guest Tools (see https://www.engineyard.com/blog/building-a-vagrant-box-from-start-to-finish)
 
 
@@ -50,15 +50,15 @@ JavaScript Libraries
 
 All JavaScript libraries are installed for SCALe use only, not the other containers or modules.
 The JavaScript libraries support particular functionality offered by SCALe, and are installed as
-dependencies of Ruby Gems. (See outdated example list below, for an example of 
+dependencies of Ruby Gems. (See outdated example list below, for an example of
 JavaScript libraries installed for an older version of SCALe.)
 
 
 
-Outdated Example Lists of Third-Party Software in SCAIFE 
+Outdated Example Lists of Third-Party Software in SCAIFE
 ====================
 
-NOTE!: The list below contains out-of-date information, provided for readers to 
+NOTE!: The list below contains out-of-date information, provided for readers to
 see an example of third-party packages installed for a previous version of SCAIFE.
 It details components that were explicitly installed via
 command-line calls to package installers (e.g., `apt-get`, `pip`, etc.)

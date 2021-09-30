@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -103,6 +103,78 @@ module Datahub
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: DataHubServerApi#get_alerts_for_project\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Discover if updates exist for a specific project.
+    # @param x_access_token [String] Token that contains information about the user
+    # @param project_id [String] The ID of the project
+    # @param waypoint [String] System will search for status updates from this commit hash (format: sha-1) or timestamp (format: YYYYMMDDHHIISS or unix epoch)
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def get_if_updates_exist_for_project(x_access_token, project_id, waypoint, opts = {})
+      get_if_updates_exist_for_project_with_http_info(x_access_token, project_id, waypoint, opts)
+      nil
+    end
+
+    # Discover if updates exist for a specific project.
+    # @param x_access_token [String] Token that contains information about the user
+    # @param project_id [String] The ID of the project
+    # @param waypoint [String] System will search for status updates from this commit hash (format: sha-1) or timestamp (format: YYYYMMDDHHIISS or unix epoch)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def get_if_updates_exist_for_project_with_http_info(x_access_token, project_id, waypoint, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DataHubServerApi.get_if_updates_exist_for_project ...'
+      end
+      # verify the required parameter 'x_access_token' is set
+      if @api_client.config.client_side_validation && x_access_token.nil?
+        fail ArgumentError, "Missing the required parameter 'x_access_token' when calling DataHubServerApi.get_if_updates_exist_for_project"
+      end
+      # verify the required parameter 'project_id' is set
+      if @api_client.config.client_side_validation && project_id.nil?
+        fail ArgumentError, "Missing the required parameter 'project_id' when calling DataHubServerApi.get_if_updates_exist_for_project"
+      end
+      # verify the required parameter 'waypoint' is set
+      if @api_client.config.client_side_validation && waypoint.nil?
+        fail ArgumentError, "Missing the required parameter 'waypoint' when calling DataHubServerApi.get_if_updates_exist_for_project"
+      end
+      # resource path
+      local_var_path = '/projects/{project_id}/updates/{waypoint}'.sub('{' + 'project_id' + '}', CGI.escape(project_id.to_s)).sub('{' + 'waypoint' + '}', CGI.escape(waypoint.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      header_params[:'x_access_token'] = x_access_token
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type]
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"DataHubServerApi.get_if_updates_exist_for_project",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DataHubServerApi#get_if_updates_exist_for_project\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -300,7 +372,7 @@ module Datahub
     # @param x_access_token [String] Token that contains information about the user
     # @param taxonomy_id [String] ID of the taxonomy to retrieve
     # @param [Hash] opts the optional parameters
-    # @return [Array<LanguageVersionWId>]
+    # @return [Array<CreatedLanguage>]
     def get_taxonomy_languages(x_access_token, taxonomy_id, opts = {})
       data, _status_code, _headers = get_taxonomy_languages_with_http_info(x_access_token, taxonomy_id, opts)
       data
@@ -310,7 +382,7 @@ module Datahub
     # @param x_access_token [String] Token that contains information about the user
     # @param taxonomy_id [String] ID of the taxonomy to retrieve
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<LanguageVersionWId>, Integer, Hash)>] Array<LanguageVersionWId> data, response status code and response headers
+    # @return [Array<(Array<CreatedLanguage>, Integer, Hash)>] Array<CreatedLanguage> data, response status code and response headers
     def get_taxonomy_languages_with_http_info(x_access_token, taxonomy_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DataHubServerApi.get_taxonomy_languages ...'
@@ -342,7 +414,7 @@ module Datahub
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'Array<LanguageVersionWId>'
+      return_type = opts[:debug_return_type] || 'Array<CreatedLanguage>'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -497,7 +569,7 @@ module Datahub
     # Retrieve a list of all the available languages.
     # @param x_access_token [String] Token that contains information about the user
     # @param [Hash] opts the optional parameters
-    # @return [Array<LanguageVersionWId>]
+    # @return [Array<CreatedLanguage>]
     def list_languages(x_access_token, opts = {})
       data, _status_code, _headers = list_languages_with_http_info(x_access_token, opts)
       data
@@ -506,7 +578,7 @@ module Datahub
     # Retrieve a list of all the available languages.
     # @param x_access_token [String] Token that contains information about the user
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<LanguageVersionWId>, Integer, Hash)>] Array<LanguageVersionWId> data, response status code and response headers
+    # @return [Array<(Array<CreatedLanguage>, Integer, Hash)>] Array<CreatedLanguage> data, response status code and response headers
     def list_languages_with_http_info(x_access_token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DataHubServerApi.list_languages ...'
@@ -534,7 +606,7 @@ module Datahub
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'Array<LanguageVersionWId>'
+      return_type = opts[:debug_return_type] || 'Array<CreatedLanguage>'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -865,6 +937,184 @@ module Datahub
       end
       return data, status_code, headers
     end
+
+    # Return list of experiment pre-configurations (.json)
+    # @param x_access_token Token that contains information about the package
+    # @param [Hash] opts the optional parameters
+    # @return [Array<ExperimentConfig>]
+    def list_experiment_configs(x_access_token, opts = {})
+      data, _status_code, _headers = list_experiment_configs_with_http_info(x_access_token, opts)
+    end
+
+    # Return list of experiment pre-configurations (.json)
+    # @param x_access_token Token that contains information about the package
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Array<ExperimentConfig>, Integer, Hash)>] Array<ExperimentConfig> data, response status code and response headers
+    def list_experiment_configs_with_http_info(x_access_token, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DataHubServerApi.get_experiment_configs ...'
+      end
+      # verify the required parameter 'x_access_token' is set
+      if @api_client.config.client_side_validation && x_access_token.nil?
+        fail ArgumentError, "Missing the required parameter 'x_access_token' when calling DataHubServerApi.get_experiment_configs"
+      end
+      # resource path
+      local_var_path = '/experiments/configs'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      header_params[:'x_access_token'] = x_access_token
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:body]
+
+      return_type = opts[:return_type] || 'Array<ExperimentConfig>'
+
+      auth_names = opts[:auth_names] || []
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+                                                        :header_params => header_params,
+                                                        :query_params => query_params,
+                                                        :form_params => form_params,
+                                                        :body => post_body,
+                                                        :auth_names => auth_names,
+                                                        :return_type => return_type)
+
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DataHubServerApi#get_experiment_configs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Upload new experiment configuration (.json)
+    # @param body Config file to be uploaded (.json)
+    # @param x_access_token Token that contains information about the user
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def upload_experiment_config(body, x_access_token, opts = {})
+      upload_experiment_config_with_http_info(body, x_access_token, opts)
+      nil
+    end
+
+    # Upload new experiment configuration (.json)
+    # @param body Config file to be uploaded (.json)
+    # @param x_access_token Token that contains information about the user
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def upload_experiment_config_with_http_info(body, x_access_token, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DataHubServerApi.upload_experiment_config ...'
+      end
+      # verify the required parameter 'body' is set
+      if @api_client.config.client_side_validation && body.nil?
+        fail ArgumentError, "Missing the required parameter 'body' when calling DataHubServerApi.upload_experiment_config"
+      end
+      # verify the required parameter 'x_access_token' is set
+      if @api_client.config.client_side_validation && x_access_token.nil?
+        fail ArgumentError, "Missing the required parameter 'x_access_token' when calling DataHubServerApi.upload_experiment_config"
+      end
+      # resource path
+      local_var_path = '/experiments/configs'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+      header_params[:'x_access_token'] = x_access_token
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:body] || @api_client.object_to_http_body(body)
+
+      return_type = opts[:return_type]
+
+      auth_names = opts[:auth_names] || []
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+                                                        :header_params => header_params,
+                                                        :query_params => query_params,
+                                                        :form_params => form_params,
+                                                        :body => post_body,
+                                                        :auth_names => auth_names,
+                                                        :return_type => return_type)
+
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DataHubServerApi#upload_experiment_config\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Exports relevant peformance metrics for given experiment.
+    # @param x_access_token Token that contains information about the user
+    # @param experiment_id Experiment ID to export data
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def export_experiment_metrics(x_access_token, experiment_id, opts = {})
+      export_experiment_metrics_with_http_info(x_access_token, experiment_id, opts)
+      nil
+    end
+
+    # Exports relevant peformance metrics for given experiment.
+    # @param x_access_token Token that contains information about the user
+    # @param experiment_id Experiment ID to export data
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def export_experiment_metrics_with_http_info(x_access_token, experiment_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DatahubServerApi.export_experiment_metrics ...'
+      end
+      # verify the required parameter 'x_access_token' is set
+      if @api_client.config.client_side_validation && x_access_token.nil?
+        fail ArgumentError, "Missing the required parameter 'x_access_token' when calling DatahubServerApi.export_experiment_metrics"
+      end
+      # verify the required parameter 'experiment_id' is set
+      if @api_client.config.client_side_validation && experiment_id.nil?
+        fail ArgumentError, "Missing the required parameter 'experiment_id' when calling DatahubServerApi.export_experiment_metrics"
+      end
+      # resource path
+      local_var_path = '/experiments/{experiment_id}/export'.sub('{' + 'experiment_id' + '}', experiment_id.to_s)
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      header_params[:'x_access_token'] = x_access_token
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:body]
+
+      return_type = opts[:return_type]
+
+      auth_names = opts[:auth_names] || []
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+                                                        :header_params => header_params,
+                                                        :query_params => query_params,
+                                                        :form_params => form_params,
+                                                        :body => post_body,
+                                                        :auth_names => auth_names,
+                                                        :return_type => return_type)
+
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DatahubServerApi#export_experiment_metrics\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
   end
 
 end

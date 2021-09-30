@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -26,6 +26,13 @@
 
 Scale::Application.routes.draw do
 
+  get '/users/unauthorized', to: 'users#unauthorized'
+  get '/users/login', to: 'users#getLoginModal'
+  post '/users/logout', to: 'users#submitLogout'
+  get '/users/register', to: 'users#getRegisterModal'
+  post '/users/register-submit', to: 'users#submitRegister'
+  post '/users/login-submit', to: 'users#submitLogin'
+
   get '/projects/new', to: 'projects#new'
   get '/projects/script', to: 'projects#script'
   get '/projects/:project_id', to: 'alert_conditions#index'
@@ -42,11 +49,18 @@ Scale::Application.routes.draw do
   post '/projects/:project_id/database', to: 'projects#database'
   get '/projects/:project_id/scaife', to: 'projects#scaife'
   post '/projects/:project_id/scaife', to: 'projects#scaife'
+  get '/projects/:project_id/scaife_ci', to: 'projects#scaife_ci'
+  post '/projects/:project_id/scaife_ci', to: 'projects#scaife_ci'
   post '/projects/:project_id/update_project', to: 'projects#update_project'
   post '/projects/:project_id/database/delete', to:'projects#nukeDatabase'
   post '/projects/:project_id/database/download', to:'projects#downloadDatabase'
   post '/projects/:project_id/database/fromdatabase', to: 'projects#fromDatabase'
   get '/projects/:project_id/showTable', to: 'alert_conditions#showTable'
+  post '/projects/:project_id/end_experiment', to:'alert_conditions#manual_finish_experiment'
+  get '/experiments/', to: 'experiments#index'
+  post '/experiments/create', to: 'experiments#create_experiment', as: 'create_experiment'
+
+  get '/projects/:project_id/get_scaife_updates', to: 'projects#getScaifeUpdates'
 
   ### language/taxonomy/tool SCAIFE integrations
 
@@ -58,6 +72,7 @@ Scale::Application.routes.draw do
   get '/taxonomy_select', to: 'projects#taxoSelect'
   get '/taxonomy_upload', to: 'projects#taxoUpload'
   get '/taxonomy_map', to: 'projects#taxoMap'
+  get '/tool_select', to: 'projects#toolSelect'
   get '/tool_upload', to: 'projects#toolUpload'
   get '/tool_map', to: 'projects#toolMap'
   # submissions
@@ -83,6 +98,9 @@ Scale::Application.routes.draw do
   post '/alertConditions/log-supplemental', to: 'alert_conditions#LogSupplementalDetermination'
   post '/alertConditions/clearfilters', to: 'alert_conditions#clearFilters'
   post '/alertConditions/:project_id/classifier/run', to: 'alert_conditions#runClassifier'
+  get '/alertConditions/sort_by_keys', to: 'alert_conditions#sortByKeysModal'
+  post '/alertConditions/sort_by_keys_submit', to: 'alert_conditions#sortByKeysSubmit'
+
   get '/scaife-registration/login', to: 'scaife_registration#getLoginModal'
   post '/scaife-registration/logout', to: 'scaife_registration#submitLogout'
   get '/scaife-registration/register', to: 'scaife_registration#getRegisterModal'

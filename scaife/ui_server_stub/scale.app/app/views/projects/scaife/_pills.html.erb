@@ -1,40 +1,42 @@
 <%
   # locals via render override class variable
-  if local_assigns[:modal].nil?
-    modal = @modal.present?
-  end
-  if local_assigns[:disable_lang_select].nil?
-    disable_lang_select = @disable_lang_select.present?
+  if local_assigns[:modal].present?
+    @modal = true
   end
   path_params = {
     project_id: @project.present? ? @project.id : nil,
-    disable_lang_select: disable_lang_select || nil,
-    modal: modal || nil,
+    disable_lang_select: @enable_lang_select.present? ? nil : true,
+    disable_tool_select: @enable_tool_select.present? ? nil : true,
+    modal: @modal.present? || nil,
   }
 %>
 <ul class="nav nav-pills">
-  <% if (@project.present? and disable_lang_select.blank?) or (@scaife_active and @languages_available.present?) %>
-    <% if not (@scaife_active and @languages_available.present?) %>
+  <% if @enable_lang_select or @enable_lang_upload %>
+    <% if @enable_lang_select and not @enable_lang_upload%>
       <% # only a single entry, don't do dropdown %>
-      <li><%= link_to "Languages", language_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <% if @modal %>
+        <li><%= link_to "Languages", language_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <% else %>
+        <li><%= link_to "Languages", language_select_path(path_params) %></li>
+      <% end %>
     <% else %>
       <li id="lang-tab" class="dropdown">
         <a id="lang-tab-link" class="dropdown-toggle" data-toggle="dropdown" href="#">Languages
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <% if modal %>
-            <% if @project.present? and not disable_lang_select %>
+          <% if @modal %>
+            <% if @enable_lang_select %>
               <li><%= link_to "Select", language_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
             <% end %>
-            <% if @scaife_active and @languages_available.present? %>
+            <% if @enable_lang_upload %>
               <li><%= link_to "Upload", language_upload_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
               <li><%= link_to "Map", language_map_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
             <% end %>
           <% else %>
-            <% if @project.present? and disable_lang_select.blank? %>
+            <% if @enable_lang_select %>
               <li><%= link_to "Select", language_select_path(path_params) %></li>
             <% end %>
-            <% if @scaife_active and @languages_available.present? %>
+            <% if @enable_lang_upload %>
               <li><%= link_to "Upload", language_upload_path(path_params) %></li>
               <li><%= link_to "Map", language_map_path(path_params) %></li>
             <% end %>
@@ -43,28 +45,32 @@
       </li>
     <% end %>
   <% end %>
-  <% if @project.present? or (@scaife_active and @taxonomies_available.present?) %>
-    <%  if not (@scaife_active and @taxonomies_available.present?) %>
+  <% if @enable_taxo_select or @enable_taxo_upload %>
+    <%  if @enable_taxo_select and not @enable_taxo_upload %>
       <% # only a single entry, don't do dropdown %>
-      <li><%= link_to "Taxonomies", taxonomy_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <% if @modal %>
+        <li><%= link_to "Taxonomies", taxonomy_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <% else %>
+        <li><%= link_to "Taxonomies", taxonomy_select_path(path_params) %></li>
+      <% end %>
     <% else %>
       <li id="taxo-tab" class="dropdown">
         <a id="taxo-tab-link" class="dropdown-toggle" data-toggle="dropdown" href="#">Taxonomies
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <% if modal %>
-            <% if @project.present? %>
+          <% if @modal %>
+            <% if @enable_taxo_select %>
               <li><%= link_to "Select", taxonomy_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
             <% end %>
-            <% if @scaife_active and @taxonomies_available.present? %>
+            <% if @enable_taxo_upload %>
               <li><%= link_to "Upload", taxonomy_upload_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
               <li><%= link_to "Map", taxonomy_map_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
             <% end %>
           <% else %>
-            <% if @project.present? %>
+            <% if @enable_taxo_select %>
               <li><%= link_to "Select", taxonomy_select_path(path_params) %></li>
             <% end %>
-            <% if @scaife_active and @taxonomies_available.present? %>
+            <% if @enable_taxo_upload %>
               <li><%= link_to "Upload", taxonomy_upload_path(path_params) %></li>
               <li><%= link_to "Map", taxonomy_map_path(path_params) %></li>
             <% end %>
@@ -73,19 +79,38 @@
       </li>
     <% end %>
   <% end %>
-  <% if @scaife_active and @tools_available.present? %>
-    <li id="tool-tab" class="dropdown">
-      <a id="tool-tab-link" class="dropdown-toggle" data-toggle="dropdown" href="#">Tools
-      <span class="caret"></span></a>
-      <ul class="dropdown-menu">
-        <% if modal %>
-          <li><%= link_to "Upload", tool_upload_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
-          <li><%= link_to "Map", tool_map_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
-        <% else %>
-          <li><%= link_to "Upload", tool_upload_path(path_params) %></li>
-          <li><%= link_to "Map", tool_map_path(path_params) %></li>
-        <% end %>
-      </ul>
-    </li>
+  <% if @enable_tool_select or @enable_tool_upload %>
+    <%  if @enable_tool_select and not @enable_tool_upload %>
+      <% # only a single entry, don't do dropdown %>
+      <% if @modal %>
+        <li><%= link_to "Tools", tool_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <% else %>
+        <li><%= link_to "Tools", tool_select_path(path_params) %></li>
+      <% end %>
+    <% else %>
+      <li id="tool-tab" class="dropdown">
+        <a id="tool-tab-link" class="dropdown-toggle" data-toggle="dropdown" href="#">Tools
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <% if @modal %>
+            <% if @enable_tool_select %>
+              <li><%= link_to "Select", tool_select_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+            <% end %>
+            <% if @enable_tool_upload %>
+              <li><%= link_to "Upload", tool_upload_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+              <li><%= link_to "Map", tool_map_path(path_params), remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+            <% end %>
+          <% else %>
+            <% if @enable_tool_select %>
+              <li><%= link_to "Select", tool_select_path(path_params) %></li>
+            <% end %>
+            <% if @enable_tool_upload %>
+              <li><%= link_to "Upload", tool_upload_path(path_params) %></li>
+              <li><%= link_to "Map", tool_map_path(path_params) %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
   <% end %>
 </ul>

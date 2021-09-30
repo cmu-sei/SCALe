@@ -1,9 +1,7 @@
-#!/usr/bin/env python
-
 # Data schema used by code to subscribe to SCAIFE data updates
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -89,4 +87,3 @@ class ClassifierResults(Record):
     classifier_instance_id = String()
     project_id = String()
     probability_data = Array(ProbabilityData())
-

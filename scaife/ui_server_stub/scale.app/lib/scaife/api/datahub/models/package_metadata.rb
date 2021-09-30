@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -58,6 +58,17 @@ module Datahub
     # ID of the tools used with this Package
     attr_accessor :tool_ids
 
+    attr_accessor :ci_enabled
+
+    # url to git repository
+    attr_accessor :git_url
+
+    # User name of git user to clone repository (Read-only access)
+    attr_accessor :git_user
+
+    # Access token for git user
+    attr_accessor :git_access_token
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -70,7 +81,11 @@ module Datahub
         :'source_function_url' => :'source_function_url',
         :'test_suite_id' => :'test_suite_id',
         :'alerts' => :'alerts',
-        :'tool_ids' => :'tool_ids'
+        :'tool_ids' => :'tool_ids',
+        :'ci_enabled' => :'ci_enabled',
+        :'git_url' => :'git_url',
+        :'git_user' => :'git_user',
+        :'git_access_token' => :'git_access_token'
       }
     end
 
@@ -91,7 +106,11 @@ module Datahub
         :'source_function_url' => :'String',
         :'test_suite_id' => :'String',
         :'alerts' => :'Array<AlertWUiId>',
-        :'tool_ids' => :'Array<String>'
+        :'tool_ids' => :'Array<String>',
+        :'ci_enabled' => :'Boolean',
+        :'git_url' => :'String',
+        :'git_user' => :'String',
+        :'git_access_token' => :'String'
       }
     end
 
@@ -161,6 +180,22 @@ module Datahub
           self.tool_ids = value
         end
       end
+
+      if attributes.key?(:'ci_enabled')
+        self.ci_enabled = attributes[:'ci_enabled']
+      end
+
+      if attributes.key?(:'git_url')
+        self.git_url = attributes[:'git_url']
+      end
+
+      if attributes.key?(:'git_user')
+        self.git_user = attributes[:'git_user']
+      end
+
+      if attributes.key?(:'git_access_token')
+        self.git_access_token = attributes[:'git_access_token']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -210,7 +245,11 @@ module Datahub
           source_function_url == o.source_function_url &&
           test_suite_id == o.test_suite_id &&
           alerts == o.alerts &&
-          tool_ids == o.tool_ids
+          tool_ids == o.tool_ids &&
+          ci_enabled == o.ci_enabled &&
+          git_url == o.git_url &&
+          git_user == o.git_user &&
+          git_access_token == o.git_access_token
     end
 
     # @see the `==` method
@@ -222,7 +261,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [package_name, package_description, author_source, code_language_ids, code_source_url, source_file_url, source_function_url, test_suite_id, alerts, tool_ids].hash
+      [package_name, package_description, author_source, code_language_ids, code_source_url, source_file_url, source_function_url, test_suite_id, alerts, tool_ids, ci_enabled, git_url, git_user, git_access_token].hash
     end
 
     # Builds the object from hash

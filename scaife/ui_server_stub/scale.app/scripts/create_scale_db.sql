@@ -1,5 +1,5 @@
 -- <legal>
--- SCALe version r.6.5.5.1.A
+-- SCALe version r.6.7.0.0.A
 -- 
 -- Copyright 2021 Carnegie Mellon University.
 -- 
@@ -51,7 +51,15 @@ CREATE TABLE Projects (
   data_subscription_id VARCHAR,
   scaife_test_suite_id VARCHAR,
   scaife_package_id VARCHAR,
-  scaife_project_id VARCHAR
+  scaife_project_id VARCHAR,
+  ci_enabled BOOLEAN,
+  meta_alert_counts_type VARCHAR,
+  confidence_threshold REAL,
+  git_url VARCHAR,
+  git_user VARCHAR,
+  git_access_token VARCHAR,
+  git_hash VARCHAR,
+  efp_confidence_threshold REAL
 );
 INSERT INTO Projects (id, name, description, created_at, updated_at, version, last_used_confidence_scheme, last_used_priority_scheme, current_classifier_scheme) VALUES(0, 'new project', '', DATETIME('now'), DATETIME('now'), 'SCALe_research_db_6', -1, -1, -1);
 -- Note that all these fields are placeholders, they are only useful for projects exported from the web app.
@@ -130,6 +138,15 @@ CREATE TABLE MetaAlertLinks (
   meta_alert_id INTEGER KEY,
   UNIQUE (alert_id, meta_alert_id)
 );
+CREATE TABLE Users (
+  id INTEGER PRIMARY KEY,
+  first_name VARCHAR,
+  last_name VARCHAR,
+  organization VARCHAR,
+  name VARCHAR,
+  password_digest VARCHAR,
+  created_at DATETIME
+);
 CREATE TABLE Determinations (
   id INTEGER PRIMARY KEY,
   project_id INTEGER,
@@ -141,7 +158,8 @@ CREATE TABLE Determinations (
   ignored BOOLEAN,
   dead BOOLEAN,
   inapplicable_environment BOOLEAN,
-  dangerous_construct INTEGER
+  dangerous_construct INTEGER,
+  user_id INTEGER
 );
 CREATE TABLE PrioritySchemes (
   id INTEGER PRIMARY KEY,
@@ -250,4 +268,31 @@ CREATE TABLE ProjectTaxonomies (
   project_id INTEGER,
   taxonomy_id INTEGER,
   UNIQUE(project_id, taxonomy_id)
+);
+CREATE TABLE AuditStatusLog (
+  determination_id INTEGER PRIMARY KEY,
+  project_id INTEGER,
+  sort_keys VARCHAR,
+  filter_selected_id_type VARCHAR,
+  filter_id VARCHAR,
+  filter_meta_alert_id VARCHAR,
+  filter_display_ids VARCHAR,
+  filter_verdict VARCHAR,
+  filter_previous VARCHAR,
+  filter_path VARCHAR,
+  filter_line VARCHAR,
+  filter_checker VARCHAR,
+  filter_condition VARCHAR,
+  filter_tool VARCHAR,
+  filter_taxonomy VARCHAR,
+  filter_category VARCHAR,
+  seed VARCHAR,
+  alertConditionsPerPage INTEGER,
+  fused BOOLEAN,
+  scaife_mode VARCHAR,
+  classifier_chosen VARCHAR,
+  predicted_verdicts INTEGER,
+  etp_confidence_threshold REAL,
+  efp_confidence_threshold REAL,
+  top_meta_alert INTEGER
 );

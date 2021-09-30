@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -35,6 +35,17 @@ class Tool < ApplicationRecord
 
     def platforms()
       self.all.collect { |t| t.platform }.flatten.uniq
+    end
+
+    def by_scaife_id(id)
+      @by_scaife_id ||= {}
+      if @by_scaife_id[id].blank?
+        @by_scaife_id[id] = self.where(scaife_tool_id: id).first
+        if @by_scaife_id[id].blank?
+          raise ScaifeError.new("unknown tool scaife ID: #{id}")
+        end
+      end
+      return @by_scaife_id[id]
     end
 
   end

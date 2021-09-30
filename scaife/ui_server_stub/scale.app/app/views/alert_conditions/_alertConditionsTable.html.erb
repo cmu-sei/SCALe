@@ -36,10 +36,19 @@ actual alertConditions are displayed within fastalerts -->
         <% else %>
           <%= select("classifier_instance", "chosen", options_for_select(@available_classifiers_to_run, @classifier_chosen), prompt: "-Select Classifier Instance-") %>
           <button type="button" id="run-classifier-btn" class="btn btn-primary" <% if @available_classifiers_to_run.empty? or @classifier_chosen.blank? %>disabled<% end %>>Classify</button>
+
+    <p>Manual Verdicts: <%= @manual_verdicts %></p>
+    <p>Predicted Verdicts: <%= @predicted_verdicts %></p>
+
         <% end %>
       </div>
     <% end %>
-  </div
+    <br />
+    <% if @project[:experiment] %>
+      <button type="button" id="end-experiment-btn" class="btn btn-primary">End Experiment</button>
+    <% end %>
+  </div>
+
   <br/>
   <br/>
 
@@ -64,6 +73,7 @@ actual alertConditions are displayed within fastalerts -->
           <th>Title</th>
           <th>Label</th>
           <th>Confidence</th>
+          <th>Category</th>
           <th>AlertCondition Pri</th>
           <th>Sev</th>
           <th>Lik</th>

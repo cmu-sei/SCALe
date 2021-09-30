@@ -1,5 +1,5 @@
 // <legal>
-// SCALe version r.6.5.5.1.A
+// SCALe version r.6.7.0.0.A
 // 
 // Copyright 2021 Carnegie Mellon University.
 // 
@@ -38,6 +38,7 @@ import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -121,8 +122,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		assertEquals("", fVals.toolFilter);
 		assertEquals("", fVals.conditionFilter);
 		assertEquals("View All", fVals.taxFilter);
-		assertEquals("desc", fVals.sortDir);
-		assertEquals("meta_alert_priority", fVals.sortBy);
 	}
 
 	/**
@@ -137,16 +136,17 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 	 * @param line
 	 * @param path
 	 * @param prev
-	 * @param sortBy
-	 * @param sortDir
 	 * @param tax
 	 * @param tool
 	 * @param verdict
 	 */
 	public void checkFilterValues(ScaleWebApp webApp, String checker,
 			String condition, String id, String idType, String line,
-			String path, String prev, String sortBy, String sortDir,
+                        String path, String prev,
 			String tax, String tool, String verdict) {
+
+                new WebDriverWait(webApp.getDriver(), 30).until(ExpectedConditions
+					.elementToBeClickable(By.xpath("//input[@value='Filter']")));
 		FilterValues fVals = webApp.AlertConditionsViewer.getFilterValues();
 		assertEquals(checker, fVals.checkerFilter);
 		assertEquals(condition, fVals.conditionFilter);
@@ -155,8 +155,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		assertEquals(line, fVals.lineFilter);
 		assertEquals(path, fVals.pathFilter);
 		assertEquals(prev, fVals.prevFilter);
-		assertEquals(sortBy, fVals.sortBy);
-		assertEquals(sortDir, fVals.sortDir);
 		assertEquals(tax, fVals.taxFilter);
 		assertEquals(tool, fVals.toolFilter);
 		assertEquals(verdict, fVals.verdictFilter);
@@ -412,7 +410,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 					ToolInfo.Rosecheckers_OSS_C_ID);
 			webApp.validatePage();
 			webApp.waitForAlertConditionsTableLoad();
-			webApp.AlertConditionsViewer.clearFilter();
+                        webApp.AlertConditionsViewer.clearFilter();
 			webApp.waitForAlertConditionsTableLoad();
 			WebDriver driver = webApp.getDriver();
 
@@ -429,8 +427,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			String dLine = fVals.lineFilter;
 			String dPath = fVals.pathFilter;
 			String dPrev = fVals.prevFilter;
-			String dSortBy = fVals.sortBy;
-			String dSortDir = fVals.sortDir;
 			String dTax = fVals.taxFilter;
 			String dTool = fVals.toolFilter;
 			String dVerdict = fVals.verdictFilter;
@@ -443,8 +439,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			String line = "1";
 			String path = "/ARR36-C/arr36-c-false-1.c";
 			String prev = "0";
-			String sortBy = "id";
-			String sortDir = "asc";
 			String tax = "CERT Rules";
 			String tool = "rosecheckers_oss";
 			String verdict = "0";
@@ -457,8 +451,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			filterElems.lineFilter.sendKeys(new String[]{line});
 			filterElems.pathFilter.sendKeys(new String[]{path});
 			filterElems.prevFilter.selectByValue(prev);
-			filterElems.sortBy.selectByValue(sortBy);
-			filterElems.sortDir.selectByValue(sortDir);
 			filterElems.taxFilter.selectByValue(tax);
 			filterElems.toolFilter.selectByValue(tool);
 			filterElems.verdictFilter.selectByValue(verdict);
@@ -481,8 +473,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			filterElems.pathFilter.clear();
 			filterElems.pathFilter.sendKeys(new String[]{dPath});
 			filterElems.prevFilter.selectByValue(dPrev);
-			filterElems.sortBy.selectByValue(dSortBy);
-			filterElems.sortDir.selectByValue(dSortDir);
 			filterElems.taxFilter.selectByValue(dTax);
 			filterElems.toolFilter.selectByValue(dTool);
 			filterElems.verdictFilter.selectByValue(dVerdict);
@@ -492,6 +482,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 					By.xpath("//input[@value='Filter']")).click();
 			webApp.waitForAlertConditionsTableLoad();
 
+                        new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("totalRecords"))));
 			//number of meta-alerts after setting filters to default without
 			//using clear filters button
 			int numRows = Integer.parseInt(driver.findElement(
@@ -570,9 +561,14 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.AlertConditionsViewer.filter();
 
 			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("totalRecords"))));
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
 			numRowsExpected = 8;
 			rowsDisplayed = Integer.parseInt(driver.findElement(By.id("totalRecords")).getText());
-
 			assertEquals(rowsDisplayed, numRowsExpected);
 
 			/*Test CERT rules */
@@ -587,13 +583,19 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.AlertConditionsViewer.filter();
 
 			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("totalRecords"))));
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
 			numRowsExpected = 252;
 			rowsDisplayed = Integer.parseInt(driver.findElement(By.id("totalRecords")).getText());
 
 			assertEquals(rowsDisplayed, numRowsExpected);
 
 		} finally {
-			cleanupWebApp( webApp, projectName);
+                    cleanupWebApp( webApp, projectName);
 		}
 	}
 
@@ -1254,13 +1256,12 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp = this.config.createApp();
 			webApp.createProjectWithFusion(projectName, projectDescription,
 					archivePath, cppcheckPath, rosecheckersPath);
-
 			webApp.AlertConditionsViewer.changeAlertConditionsPerPage(100);
 
 			//Retrieve fused meta alert
 			String selected_meta_alert = "44 meta_alert alert-warning";
 
-			webApp.waitForAlertConditionsTableLoad();
+			webApp.waitForAlertConditionsTableLoad(); // This is a duplicate wait-until, the last line of changeAlertConditionsPerPage calls the same function.
 		//	new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
 		//		.visibilityOf(webApp.getDriver()
 		//		.findElement(By.className("21"))));
@@ -1287,11 +1288,12 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			setVerdictInfo(metaAlertConditionRow, webApp, metaAlertRow, true);
 
 			webApp.waitForAlertConditionsTableLoad();
-
 			WebElement fusedOffButton = webApp.getDriver().findElement(By.id("fused_off_button"));
-			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.elementToBeClickable(fusedOffButton));
+                        new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
+					.refreshed(ExpectedConditions
+					.elementToBeClickable(fusedOffButton)));
 			fusedOffButton.click();
-
+                        webApp.validatePage();
 			webApp.AlertConditionsViewer.changeAlertConditionsPerPage(500);
 			//go to page with selected alert (FIXME...need better way to find selected alert)
 			//for (int i = 0; i < 5; i++) {
@@ -1300,7 +1302,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			//}
 
 			webApp.validatePage();
-
+                        webApp.waitForAlertConditionsTableLoad();
 			for (AlertConditionRow r : webApp.AlertConditionsViewer.getAlertConditionRows()){
 				String row_meta_alert = r.metaAlertID;
 				if(row_meta_alert.equals(selected_meta_alert)){
@@ -1420,6 +1422,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		WebElement edit_button = supp.findElement(By.tagName("a"));
 
 		WebDriver driver = webApp.getDriver();
+                new WebDriverWait(webApp.getDriver(), 20).until(ExpectedConditions.elementToBeClickable(edit_button));
 		scrollIntoView(driver, edit_button);
 		edit_button.click();
 
@@ -1476,9 +1479,10 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			row = webApp.AlertConditionsViewer.getOneAlertConditionRow(rowNumber);
 
 			WebElement notes_cell = row.notes;
-			new WebDriverWait(driver, 50).until(ExpectedConditions.visibilityOf(notes_cell));
+                        new WebDriverWait(driver, 50).until(ExpectedConditions.visibilityOf(notes_cell));
 
-			WebElement existing_note = notes_cell.findElement(By.tagName("div")).findElement(By.tagName("span"));
+                        WebElement existing_note = notes_cell.findElement(By.tagName("div")).findElement(By.tagName("span"));
+                        new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.elementToBeClickable(existing_note));
 			existing_note.click();
 
 			WebElement notes_field = existing_note.findElement(By.tagName("textarea"));
@@ -1495,9 +1499,17 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 		webApp.waitForPageLoad(driver);
 
-		if (driver.findElement(By.id("myModal")).isDisplayed()) {
-		    driver.findElement(By.className("supplemental-close")).click();
+		try {
+			if (driver.findElement(By.id("myModal")).isDisplayed()) {
+			    driver.findElement(By.className("supplemental-close")).click();
+			}
+		} catch (StaleElementReferenceException e) {
+			System.out.println("stale modal element, trying again");
+			if (driver.findElement(By.id("myModal")).isDisplayed()) {
+			    driver.findElement(By.className("supplemental-close")).click();
+			}
 		}
+
 	}
 
 	/**
@@ -1720,6 +1732,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			notes_field.submit(); // trigger success event
 
 			webApp.waitForAlertConditionsTableLoad();
+			// Avoid Stale Reference
+			row = webApp.AlertConditionsViewer.waitForRowRefresh(row);
 
 			for (AlertConditionRow r : webApp.AlertConditionsViewer.getAlertConditionRows()){
 				String flagText = r.flag.getText();
@@ -2218,8 +2232,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 	public void createRunRetrainDeleteClassifierCheckFilters(ScaleWebApp webApp,
 			String checker, String condition, String id, String idType,
-			String line, String path, String prev, String sortBy,
-			String sortDir, String tax, String tool, String verdict) {
+			String line, String path, String prev,
+			String tax, String tool, String verdict) {
 
 		//create classifier scheme
 		String classifierName = "classifierScheme1";
@@ -2229,6 +2243,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		//Check to ensure the test classifier does not exist, if it does delete it first before running the rest of the test.
 		//TODO: Discuss DB mocks or an easier way to delete the classifier after it has been created (currently deleting between running tests)
 		//Removing just the project doesn't remove the classifier scheme.
+
+                new WebDriverWait(webApp.getDriver(), 40).until(ExpectedConditions.elementToBeClickable(By.xpath("//li[@id='classifier-dropdown']//a")));
 		List<WebElement> classifierList = driver.findElements(By.xpath("//li[@id='classifier-dropdown']//ul//li//a"));
 		WebElement removeClassifier = null;
 
@@ -2325,7 +2341,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 		//check filter values
 		checkFilterValues(webApp, checker, condition, id, idType, line,
-				path, prev, sortBy, sortDir, tax, tool, verdict);
+				path, prev, tax, tool, verdict);
 
 		//classify, select the classifier option from the dropdown
 		new WebDriverWait(webApp.getDriver(), 30).until(ExpectedConditions
@@ -2351,7 +2367,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 		//check filter values
 		checkFilterValues(webApp, checker, condition, id, idType, line,
-				path, prev, sortBy, sortDir, tax, tool, verdict);
+				path, prev, tax, tool, verdict);
 
 		//retrain
 		webApp.waitForAlertConditionsTableLoad();
@@ -2384,7 +2400,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 		//check filter values
 		checkFilterValues(webApp, checker, condition, id, idType, line,
-				path, prev, sortBy, sortDir, tax, tool, verdict);
+				path, prev, tax, tool, verdict);
 
 		//delete
 		Actions delete_action = new Actions(driver);
@@ -2410,7 +2426,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 		webApp.waitForAlertConditionsTableLoad();
 		new WebDriverWait(webApp.getDriver(), 10).until(
 				ExpectedConditions.elementToBeClickable(
-						By.id("sort_column")));
+						By.id("tool")));
 
 		//TODO: replace this with the correct wait condition.
 		//I don't know what that is
@@ -2423,7 +2439,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 		//check filter values
 		checkFilterValues(webApp, checker, condition, id, idType, line,
-				path, prev, sortBy, sortDir, tax, tool, verdict);
+				path, prev, tax, tool, verdict);
 	}
 
 	/**
@@ -2454,13 +2470,13 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			String line = "1";
 			String path = "/ARR36-C/arr36-c-false-1.c";
 			String prev = "0";
-			String sortBy = "id";
-			String sortDir = "asc";
 			String tax = "CERT Rules";
 			String tool = "rosecheckers_oss";
 			String verdict = "0";
 
-			FilterElems filterElems = webApp.AlertConditionsViewer.getFilterElems();
+                        new WebDriverWait(webApp.getDriver(), 30).until(ExpectedConditions
+					.elementToBeClickable(By.xpath("//input[@value='Filter']")));
+                        FilterElems filterElems = webApp.AlertConditionsViewer.getFilterElems();
 			filterElems.checkerFilter.selectByVisibleText(checker);
 			filterElems.conditionFilter.selectByVisibleText(condition);
 			filterElems.idFilter.sendKeys(new String[]{id});
@@ -2468,8 +2484,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			filterElems.lineFilter.sendKeys(new String[]{line});
 			filterElems.pathFilter.sendKeys(new String[]{path});
 			filterElems.prevFilter.selectByValue(prev);
-			filterElems.sortBy.selectByValue(sortBy);
-			filterElems.sortDir.selectByVisibleText(sortDir);
 			filterElems.taxFilter.selectByVisibleText(tax);
 			filterElems.toolFilter.selectByVisibleText(tool);
 			filterElems.verdictFilter.selectByValue(verdict);
@@ -2479,7 +2493,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 					By.xpath("//input[@value='Filter']")).click();
 			webApp.waitForAlertConditionsTableLoad();
 			createRunRetrainDeleteClassifierCheckFilters(webApp, checker, condition, id, idType, line,
-					path, prev, sortBy, sortDir, tax, tool, verdict);
+					path, prev, tax, tool, verdict);
 
 			//check unfused view
 			new WebDriverWait(webApp.getDriver(), 30).until(ExpectedConditions
@@ -2487,7 +2501,7 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.getDriver().findElement(By.id("fused_off_button")).click();
 			webApp.waitForAlertConditionsTableLoad();
 			createRunRetrainDeleteClassifierCheckFilters(webApp, checker, condition, id, idType, line,
-					path, prev, sortBy, sortDir, tax, tool, verdict);
+					path, prev, tax, tool, verdict);
 
 		} finally {
 			//clear the filters for other tests
@@ -2689,6 +2703,8 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			//WORKAROUND: Implement a better way! Note this also verifies that the delete method works :D
 
 			//Additional Note, these checks are not as important as in classifier because the priority scheme is not being saved
+                        new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
+						.presenceOfAllElementsLocatedBy(By.xpath("//li[@id='priorityscheme-dropdown']//ul//li//a")));
 			List<WebElement> priorityList = driver.findElements(By.xpath("//li[@id='priorityscheme-dropdown']//ul//li//a"));
 			WebElement removePriority = null;
 
@@ -2733,9 +2749,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 			//save priority scheme
 			webApp.PrioritySchemeModal.saveScheme();
-
 			//run priority scheme
 			webApp.PrioritySchemeModal.runScheme();
+			webApp.waitForAlertConditionsTableLoad();
 
 			//Verify the results
 			for (AlertConditionRow row : webApp.AlertConditionsViewer.getAlertConditionRows()) {
@@ -2781,7 +2797,6 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.PrioritySchemeModal.genFormula();
 			//save priority scheme
 			webApp.PrioritySchemeModal.saveScheme();
-
 			//run priority scheme
 			webApp.PrioritySchemeModal.runScheme();
 
@@ -2889,6 +2904,9 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			//select "Connected", then click "Sign Up", then close register modal"
 			dropdown.selectByVisibleText("Connected");
 			webApp.waitForPageLoad(driver);
+			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
+					.elementToBeClickable(webApp.getDriver()
+							.findElement(By.xpath("//input[@value='Sign Up']"))));
 			driver.findElement(By.xpath("//input[@value='Sign Up']")).click();
 			webApp.waitForPageLoad(driver);
 			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
@@ -2897,10 +2915,10 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 				.getText(), "SCAIFE: Sign Up");
 			webApp.waitForPageLoad(driver);
 			driver.findElement(By.id("scaife-register-modal")).findElement(By.className("close")).click();
+			new WebDriverWait(webApp.getDriver(), 25).until(ExpectedConditions
+                        .stalenessOf(driver.findElement(By.id("scaife_mode_select"))));
 			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
-					.stalenessOf(driver.findElement(By.id("scaife_mode_select"))));
-			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
-					.elementToBeClickable(By.id("scaife_mode_select")));
+			 		.elementToBeClickable(By.id("scaife_mode_select")));
 			dropdown = new Select(driver.findElement(By.id("scaife_mode_select")));
 			assertEquals("Demo", dropdown.getFirstSelectedOption().getText());
 			assert driver.findElements(By.id("classifier-dropdown")).size() > 0 ;
@@ -2996,13 +3014,19 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			Verdict[] verdictTexts = Verdict.values();
 			Verdict selectedVerdict = verdictTexts[index];
 
-			//get the number of Alerts in the GUI
-			int totalAlerts = webApp.AlertConditionsViewer.getAlertConditionRows().size();
+                        webApp.waitForAlertConditionsTableLoad();
+			//get the number of AlertConditions in the GUI
+			int totalAlertConditions = webApp.AlertConditionsViewer.getAlertConditionRows().size();
 
-			// Add the verdict to first 10 alerts
-			int numOfRowsToFilter = 10;
+			// Show 25 alerts
+			int numOfRowsToShow = 25;
+			webApp.AlertConditionsViewer.changeAlertConditionsPerPage(numOfRowsToShow);
+			webApp.validatePage();
+			webApp.waitForAlertConditionsTableLoad();
 
-			for (int rowCounter = 1; rowCounter < numOfRowsToFilter; rowCounter++) {
+			// Add the verdict to 4 alerts
+			int numOfRowsToFilter = 4;
+			for (int rowCounter = 1 /* ignore header */; rowCounter <= numOfRowsToFilter; rowCounter++) {
 				// Avoid Stale Reference
 				AlertConditionRow row = webApp.AlertConditionsViewer.getOneAlertConditionRow(rowCounter);
 
@@ -3019,16 +3043,18 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 			webApp.validatePage();
 			webApp.waitForAlertConditionsTableLoad();
 
-			assertEquals(webApp.AlertConditionsViewer.getAlertConditionRows().size(), numOfRowsToFilter-1);
+			assertEquals(webApp.AlertConditionsViewer.getAlertConditionRows().size(), numOfRowsToFilter);
 
 			webApp.AlertConditionsViewer.clearFilter();
-			webApp.validatePage();
 			webApp.waitForAlertConditionsTableLoad();
-
-			assertEquals(webApp.AlertConditionsViewer.getAlertConditionRows().size(), totalAlerts);
+			webApp.validatePage();
+                        int i = webApp.AlertConditionsViewer.getAlertConditionRows().size();  // returns numOfRowsToFilter, but next time returns numOfRowsToShow (correct value).
+                        //System.out.print("stale size is ");
+                        //System.out.println(i);
+			assertEquals(webApp.AlertConditionsViewer.getAlertConditionRows().size(), numOfRowsToShow);
 
 		} finally {
-			cleanupWebApp(webApp, projectName);
+                        cleanupWebApp(webApp, projectName);
 		}
 	}
 
@@ -3191,4 +3217,53 @@ public class TestWebAppCoreScenariosRemote extends TestCase {
 
 	}
 
+    /**
+     * Test that sorting truly changes the ACs shown
+     *
+     * @throws InterruptedException
+     */
+    public void testSortField() throws InterruptedException {
+        ScaleWebApp webApp = null;
+        String projectName = UUID.randomUUID().toString();
+        String projectDescription = projectName.hashCode() + "";
+        String archivePath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixSrc).toString();
+        String rosecheckersPath = new File(this.config.inputDirectory, InputPathInfo.Dos2UnixToolOutputRosecheckers).toString();
+        try {
+            webApp = this.config.createApp();
+            webApp.launch();
+            webApp.createSimpleProject(projectName, projectDescription, archivePath, rosecheckersPath,
+                                       ToolInfo.Rosecheckers_OSS_C_ID);
+            webApp.validatePage();
+            webApp.waitForAlertConditionsTableLoad();
+            webApp.AlertConditionsViewer.resetSortField();
+            webApp.waitForAlertConditionsTableLoad();
+            // Line numbers are arbitrary order
+            int initialLineNumbers[] = new int[] {358, 393, 357, 390, 1090};
+            int counter = -1;
+            for (AlertConditionRow row : webApp.AlertConditionsViewer.getAlertConditionRows()) {
+                counter++;
+                if (counter >= initialLineNumbers.length)
+                    break;
+                Assert.assertEquals(row.line.getText(),
+                                    new Integer(initialLineNumbers[counter]).toString());
+            }
+
+            webApp.AlertConditionsViewer.setSortField(new String[] {"Line ASC"});
+            // Now line numbers should be sorted
+            initialLineNumbers = new int[] {79, 80, 91, 92, 93};
+            counter = -1;
+            for (AlertConditionRow row : webApp.AlertConditionsViewer.getAlertConditionRows()) {
+                counter++;
+                if (counter >= initialLineNumbers.length)
+                    break;
+                Assert.assertEquals(row.line.getText(),
+                                    new Integer(initialLineNumbers[counter]).toString());
+            }
+
+            webApp.AlertConditionsViewer.resetSortField();
+        } finally {
+            webApp.AlertConditionsViewer.resetSortField();
+            cleanupWebApp(webApp, projectName);
+        }
+    }
 }

@@ -6,11 +6,11 @@ title: 'SCAIFE : System Copyright'
 SCAIFE : System Copyright
 =========================
 
-SCAIFE System version 1.5.5
+SCAIFE System version 3.0.0
 
 Copyright 2021 Carnegie Mellon University.
 
-SCAIFE System version 1.5.5  includes and/or can make use of certain third party software ("Third Party Software"). The Third Party Software that is used by SCAIFE System version 1.5.5  is dependent upon your system configuration, but typically includes the software identified in the software documentation. By using SCAIFE System version 1.5.5 , You agree to comply with any and all relevant Third Party Software terms and conditions contained in any such Third Party Software or separate license file distributed with such Third Party Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries to this License with respect to the terms applicable to their Third Party Software. Third Party Software licenses only apply to the Third Party Software and not any other portion of SCAIFE System version 1.5.5  or SCAIFE System version 1.5.5  as a whole.
+SCAIFE System version 3.0.0  includes and/or can make use of certain third party software ("Third Party Software"). The Third Party Software that is used by SCAIFE System version 3.0.0  is dependent upon your system configuration, but typically includes the software identified in the software documentation. By using SCAIFE System version 3.0.0 , You agree to comply with any and all relevant Third Party Software terms and conditions contained in any such Third Party Software or separate license file distributed with such Third Party Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries to this License with respect to the terms applicable to their Third Party Software. Third Party Software licenses only apply to the Third Party Software and not any other portion of SCAIFE System version 3.0.0  or SCAIFE System version 3.0.0  as a whole.
 
 This material is based upon work funded and supported by the Department of Defense under Contract No. FA8702-15-D-0002 with Carnegie Mellon University for the operation of the Software Engineering Institute, a federally funded research and development center.
 
@@ -20,7 +20,7 @@ References herein to any specific commercial product, process, or service by tra
 
 NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
 
-[DISTRIBUTION STATEMENT F] Further dissemination only as directed by OSD/ASD R&E (determination date: 2019-12-11) or higher DoD authority.
+[DISTRIBUTION STATEMENT D] Distribution Authorized to Department of Defense and U.S. DoD Contractors only. Other requests for this document shall be referred to OUSD R&E.
 
 Notice to DoD Subcontractors:  This document may contain Covered Defense Information (CDI).  Handling of this information is subject to the controls identified in DFARS 252.204-7012 – SAFEGUARDING COVERED DEFENSE INFORMATION AND CYBER INCIDENT REPORTING
 

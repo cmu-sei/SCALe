@@ -1,0 +1,22 @@
+$(document).ready(function() {
+  <% if @user_response.present? %>
+    <% if @user_response === "Log in to SCALe first" %>
+      $("#user-login").click();
+      $('#user-login-modal').on('hidden.bs.modal', function () {
+        if(!$('#user-register-modal').is(':visible')) {
+          window.location.reload();
+        } else {
+          $('#user-register-modal').on('hidden.bs.modal', function () {
+            window.location.reload();
+          });
+        }
+      });
+    <% else %>
+      <% if not ["User Successfully Logged Out", "Registration server offline"].include? @user_response %>
+        alert("<%= j @user_response %>");
+      <% end %>
+      window.location.reload();
+    <% end %>
+  <% end %>
+  window.location.reload();
+});

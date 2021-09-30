@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -22,18 +22,42 @@
 # DM19-1274
 # </legal>
 
-FROM python:3-alpine
+FROM ubuntu:focal
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN apt-get -q update \
+    && DEBIAN_FRONTEND=noninteractive apt-get -q -y install --no-install-recommends git \
+    universal-ctags python3 python3-pip python3-wheel redis-server unzip mongo-tools wget \
+    && apt-get -q clean
+RUN pip3 install -q --no-cache-dir --upgrade pip && \
+    pip3 install -q --no-cache-dir setuptools && \
+    pip3 install -q --no-cache-dir flask_cors tox wheel
 
-COPY requirements.txt /usr/src/app/
+RUN mkdir -p /usr/src \
+    && cd /usr/src \
+    && wget --no-verbose https://github.com/swagger-api/swagger-codegen/archive/master.zip \
+    && unzip -q master.zip \
+    && rm master.zip
 
-RUN pip3 install -q --no-cache-dir -r requirements.txt
+ENV SERVER=/usr/src/app
+ENV PORT=8088
 
-COPY . /usr/src/app
+ENV SRCLIB=swagger_server/rapidclass_scripts/src/rclib
+ENV RCLIBDIR=swagger_server/rapidclass_scripts/src/rclib/rclib
+ENV STATSDIR=swagger_server/rapidclass_scripts/src/rclib/rclib/stats
+ENV PYTHONPATH=$SERVER/$SRCLIB:$SERVER/$RCLIBDIR:$SERVER/$STATSDIR
 
-EXPOSE 8080
+WORKDIR $SERVER
+
+ARG USECERT=""
+ENV E_USECERT=$USECERT
+
+# Running tox installs requirements, in a place tox requires.
+COPY requirements.txt test-requirements.txt setup.py tox.ini init.sh $SERVER/
+RUN ./init.sh
+
+COPY . $SERVER
+
+EXPOSE $PORT
 
 ENTRYPOINT ["python3"]
 

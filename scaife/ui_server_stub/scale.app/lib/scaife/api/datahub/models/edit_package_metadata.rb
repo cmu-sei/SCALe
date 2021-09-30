@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -44,13 +44,25 @@ module Datahub
 
     attr_accessor :alerts
 
+    # url to git repository
+    attr_accessor :git_url
+
+    # User name of git user to clone repository (Read-only access)
+    attr_accessor :git_user
+
+    # Access token for git user
+    attr_accessor :git_access_token
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'package_name' => :'package_name',
         :'package_description' => :'package_description',
         :'tool_ids' => :'tool_ids',
-        :'alerts' => :'alerts'
+        :'alerts' => :'alerts',
+        :'git_url' => :'git_url',
+        :'git_user' => :'git_user',
+        :'git_access_token' => :'git_access_token'
       }
     end
 
@@ -65,7 +77,10 @@ module Datahub
         :'package_name' => :'String',
         :'package_description' => :'String',
         :'tool_ids' => :'Array<String>',
-        :'alerts' => :'Array<AlertWUiId>'
+        :'alerts' => :'Array<AlertWUiId>',
+        :'git_url' => :'String',
+        :'git_user' => :'String',
+        :'git_access_token' => :'String'
       }
     end
 
@@ -109,6 +124,18 @@ module Datahub
           self.alerts = value
         end
       end
+
+      if attributes.key?(:'git_url')
+        self.git_url = attributes[:'git_url']
+      end
+
+      if attributes.key?(:'git_user')
+        self.git_user = attributes[:'git_user']
+      end
+
+      if attributes.key?(:'git_access_token')
+        self.git_access_token = attributes[:'git_access_token']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -132,7 +159,10 @@ module Datahub
           package_name == o.package_name &&
           package_description == o.package_description &&
           tool_ids == o.tool_ids &&
-          alerts == o.alerts
+          alerts == o.alerts &&
+          git_url == o.git_url &&
+          git_user == o.git_user &&
+          git_access_token == o.git_access_token
     end
 
     # @see the `==` method
@@ -144,7 +174,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [package_name, package_description, tool_ids, alerts].hash
+      [package_name, package_description, tool_ids, alerts, git_url, git_user, git_access_token].hash
     end
 
     # Builds the object from hash

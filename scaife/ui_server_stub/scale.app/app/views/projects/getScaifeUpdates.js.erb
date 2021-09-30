@@ -1,0 +1,14 @@
+$(document).ready(function() {
+  <% if @errors.present? %>
+    <% # NOTE: use single quotes for escaping purposes %>
+    <% # NOTE: otherwise newlines will break javascript %>
+    var msg_element = $("#scaife-updates-error-msg");
+    <% msg = @errors.map { |e| e.strip.to_s }.join('<br/>\n') %>
+    var decoded = "<%= msg %>";
+    decoded = decode_html_entities(decoded);
+    msg_element.html(decoded);
+    msg_element.show();
+  <% else %>
+    location.reload();
+  <% end %>
+});

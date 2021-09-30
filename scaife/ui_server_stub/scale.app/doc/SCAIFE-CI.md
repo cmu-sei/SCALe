@@ -58,6 +58,8 @@ Continuous Integration
 -   [Configuring a package for CI](#configuring-a-package-for-ci)
 -   [Using the DataHub Module CI API](#using-the-datahub-ci-api)
 -   [Proxy Configuration](#proxy-configuration)
+-   [Using an SSL Certificate To Access Git](#using-an-ssl-certificate-to-access-git)
+-   [CI Demo](#ci-demo-walkthrough)
 
 Overview
 --------
@@ -80,9 +82,8 @@ Using the DataHub Module CI API
 
 To use SCAIFE with a CI build system, the following data must be provided as a POST request to the DataHub CI endpoint:
 
-1. x_access_token - Token that contains information about the user.
-2. package_id - The id of the SCAIFE package.
-3. tool_id - The id of the SCAIFE tool matching the static analysis results.
+1. x_access_token - The access token used to authenticate a CI user.
+2. tool_id - The id of the SCAIFE tool matching the static analysis results.
 4. git_commit_hash - The current git commit hash that is triggering the CI build.
 5. tool_output - The results of the static analysis performed in a previous CI build step.
 
@@ -91,3 +92,39 @@ Proxy Configuration
 
 When using a proxy the DataHub Module must be explicity configured with the proxy connection information in order to access a git-based repository for cloning and updating.  To configure a proxy, edit the servers.conf file located at
 `scaife/datahub_server_stub/swagger_server/servers.conf` by uncommenting the proxy setting and modifying the url to match your specific proxy connection information. 
+
+Using an SSL Certificate To Access Git
+--------
+
+When cloning a git repository requires a SSL certificate, the
+certificate must be installed onto the DataHub Module docker container.
+The DataHub Module supports installation of an SSL Certificate when
+building the docker container by simply providing the server name of the
+git repository in the `docker-compose.yml` file located in the root
+directory of the SCAIFE system folder structure.
+
+To enable the automatic download and installation of the certificate the
+environment variable `$USECERT` must be set to hostname of the git or
+bitbucket repository. This can be done in several ways prior to building
+the SCAIFE containers with `docker-compose`:
+
+1. Set/export the environment variable `USECERT`, either:
+  - prior to running docker-compose: `export USECERT=yourgithost.org`
+  - on the same line: USECERT=yourgithost.org docker-compose ...`
+2. Edit the `docker-cokmpose.yml` file and provide `yourgithost.org`f as
+   the value for the `USECERT:` argument in the datahub section.
+3. Create a `.env` file in the SCAIFE build directory with the value
+   `USECERT=yourgithost.org`.
+
+With this variable set while building the container the certificate is
+downloaded each time ensuring an up-to-date certificate.
+
+*Note for SEI users: The git repository hostname is likely to be
+`bitbucket.cc.cert.org`*
+
+CI Demo Walkthrough
+--------
+
+This walkthrough will demonstrate how to integrate SCAIFE using a CI server (#using_ci_server), and provide instructions on how to using the CI endpoint manually, without a CI server (#without_ci_server).  A sample CI demo project is provided for this purpose.  The sample CI demo project is located here.  `scaife/ui_server_stub/scale.app/demo/ci_demo`
+
+The [detailed instructions](CI_Demo.md) for the demo can be found in the `CI_Demo.md` file located in the ci_demo folder.

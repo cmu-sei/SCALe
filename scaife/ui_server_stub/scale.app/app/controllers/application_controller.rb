@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -27,8 +27,6 @@
 # All other controllers inherit from this controller. Several sitewide
 # configurations are done here
 class ApplicationController < ActionController::Base
-
-  include Scaife::Api::Registration
 
   class ScaifeError < StandardError
   end
@@ -163,9 +161,6 @@ class ApplicationController < ActionController::Base
   config.force_ssl = false
   protect_from_forgery
 
-  # Basic authentication
-  http_basic_authenticate_with :name => "scale", :password => "Change_me!"
-
   # Disable caching as Firefox's aggresive caching does not work well
   # with the loading gifs.
   before_action :set_cache_headers
@@ -193,48 +188,70 @@ class ApplicationController < ActionController::Base
     Rails.configuration.x.offline_testing
   end
 
-  # define as both class method nd instance method
+  # define as both class method and instance method
   def self.with_external_db()
     original_connection = ActiveRecord::Base.remove_connection
     ActiveRecord::Base.establish_connection(:external)
-    yield ActiveRecord::Base.connection()
+    yield ActiveRecord::Base.connection
   ensure
     ActiveRecord::Base.establish_connection(original_connection)
+    if not ActiveRecord::Base.connection.active?
+      raise "with_internal_db:ensure: datbase is no longer active: #{original_connection[:database]}"
+    end
   end
   delegate :with_external_db, to: :class
 
+  # define as both class method and instance method
+  def self.with_internal_db()
+    # note: sadly if a with_internal_db() block is used inside of a
+    # with_external_db() block, the saved external connection will be
+    # disconnected even once restored. And con.reconnect! does not seem
+    # to work, so establish_connection(:external) must be called again.
+    original_connection = ActiveRecord::Base.remove_connection
+    ActiveRecord::Base.establish_connection(Rails.env.to_sym)
+    yield ActiveRecord::Base.connection
+  ensure
+    ActiveRecord::Base.establish_connection(original_connection)
+    if not ActiveRecord::Base.connection.active?
+      raise "with_internal_db:ensure: datbase is no longer active: #{original_connection[:database]}"
+    end
+  end
+  delegate :with_internal_db, to: :class
 
-  def with_scaife_access(login_token, server)
+
+  def with_scaife_access(login_token, server, silent: false)
+    if login_token.blank?
+      raise ScaifeAccessError.new("no login token present")
+    end
     begin
-      c = ScaifeRegistrationController.new
+      c = ScaifeRegistrationController.new()
       @registration_response, @registration_status_code = \
-        c.get_server_access(server, login_token)
+        c.get_server_access(server, login_token, silent: silent)
       if @registration_status_code == 200
         yield(@registration_response.x_access_token)
       else
-        puts
         raise ScaifeAccessError.new(@registration_response)
       end
     end
   end
 
-  def with_scaife_datahub_access(login_token)
+  def with_scaife_datahub_access(login_token, silent: false)
     server = "datahub"
-    with_scaife_access(login_token, server) do |access_token|
+    with_scaife_access(login_token, server, silent: silent) do |access_token|
       yield(access_token)
     end
   end
 
-  def with_scaife_stats_access(login_token)
+  def with_scaife_stats_access(login_token, silent: false)
     server = "statistics"
-    with_scaife_access(login_token, server) do |access_token|
+    with_scaife_access(login_token, server, silent: silent) do |access_token|
       yield(access_token)
     end
   end
 
-  def with_scaife_prioritization_access(login_token)
+  def with_scaife_prioritization_access(login_token, silent: false)
     server = "prioritization"
-    with_scaife_access(login_token, server) do |access_token|
+    with_scaife_access(login_token, server, silent: silent) do |access_token|
       yield(access_token)
     end
   end
@@ -242,11 +259,12 @@ class ApplicationController < ActionController::Base
   def scaife_active()
     if session[:login_token].present?
       begin
-        with_scaife_datahub_access(session[:login_token]) do |_|
+        with_scaife_datahub_access(session[:login_token], silent: true) do |_|
           return scaife_connected()
         end
       rescue ScaifeAccessError => e
-        self._clear_scaife_session()
+        puts "scaife access: #{e}"
+        _clear_scaife_session()
         return false
       end
     end
@@ -258,8 +276,32 @@ class ApplicationController < ActionController::Base
   end
 
   def _clear_scaife_session()
-    session.delete(:login_token)
-    session.delete(:scaife_mode)
+    if request.present?
+      session.delete(:login_token)
+      session.delete(:scaife_mode)
+    end
+  end
+
+  def has_scaife_updates(project_id)
+    @project = Project.find(project_id)
+    if @project.blank?
+      raise ScaifeError.new("invalid project: #{project_id}")
+    end
+    if @project.ci_enabled
+      if self.scaife_connected()
+        c = ScaifeDatahubController.new
+        begin
+          puts "calling c.updatesExist()"
+          return c.updatesExist(session[:login_token], @project, waypoint: @project.git_hash, override: params[:scaife_updates_available])
+        rescue ScaifeError => e
+          puts "scaife updates: #{e}"
+          return false
+        end
+      else
+        puts "SCAIFE not connected"
+      end
+    end
+    return false
   end
 
   # some SCAIFE tools used by both projects and alerts controllers
@@ -381,14 +423,76 @@ class ApplicationController < ActionController::Base
     return tools_in_scaife, tools_not_in_scaife, scaife_tools_by_id
   end
 
+  def project_language_requirements(project)
+    # required groups include all versions of that language
+    required_lang_groups =
+      LanguageGroup.group_languages_by_key(project.seen_all_languages())
+    # selected groups include only those versions selected
+    selected_lang_groups = \
+      LanguageGroup.group_languages_by_key(project.languages())
+    selected_langs_in_scaife, selected_langs_not_in_scaife, scaife_langs_by_id = self.partition_scaife_languages(project.languages())
+    lang_groups_missing = {}
+    langs_not_in_scaife = Set[]
+    required_lang_groups.each() do |key, lg|
+      if selected_lang_groups.include? key
+        # user has selected at least one language version from a seen group
+        langs_not_in_scaife += lg.languages & selected_langs_not_in_scaife
+      else
+        lang_groups_missing[key] = lg
+      end
+    end
+    lang_groups_not_in_scaife = {}
+    lang_groups_in_scaife = LanguageGroup.group_languages_by_key(selected_langs_in_scaife)
+    LanguageGroup.group_languages_by_key(selected_langs_not_in_scaife).each do |key, lg  |
+      if not lang_groups_in_scaife.include? key
+        lang_groups_not_in_scaife[key] = lg
+      end
+    end
+    return lang_groups_missing, lang_groups_not_in_scaife, selected_langs_in_scaife, scaife_langs_by_id
+  end
+
+  def project_taxonomy_requirements(project)
+    # required groups include all versions of that taxonomy
+    required_taxo_groups =
+      TaxonomyGroup.group_taxonomies_by_key(project.seen_taxonomies())
+    # selected groups include only those versions selected
+    selected_taxo_groups = \
+      TaxonomyGroup.group_taxonomies_by_key(project.taxonomies())
+    selected_taxos_in_scaife, selected_taxos_not_in_scaife, scaife_taxos_by_id = self.partition_scaife_taxonomies(project.taxonomies())
+    taxo_groups_missing = {}
+    taxos_not_in_scaife = Set[]
+    required_taxo_groups.each() do |key, tg|
+      if selected_taxo_groups.include? key
+        # user has selected at least one taxonomy version from a seen group
+        taxos_not_in_scaife += tg.taxonomies & selected_taxos_not_in_scaife
+      else
+        taxo_groups_missing[key] = tg
+      end
+    end
+    taxo_groups_not_in_scaife = {}
+    taxo_groups_in_scaife = TaxonomyGroup.group_taxonomies_by_key(selected_taxos_in_scaife)
+    TaxonomyGroup.group_taxonomies_by_key(selected_taxos_not_in_scaife).each do |key, tg  |
+      if not taxo_groups_in_scaife.include? key
+        taxo_groups_not_in_scaife[key] = tg
+      end
+    end
+    return taxo_groups_missing, taxo_groups_not_in_scaife, selected_taxos_in_scaife, scaife_taxos_by_id
+  end
+
+  def project_tool_requirements(project)
+    # required groups include all versions of that tool
+    tools_in_scaife, tools_not_in_scaife, scaife_tools_by_id = self.partition_scaife_tools(project.tools())
+    return tools_not_in_scaife, tools_in_scaife, scaife_tools_by_id
+  end
+
   def import_to_displays(project_id)
-   # Complete time reduction efforts in RC-1558 
+   # Complete time reduction efforts in RC-1558
    # Comments below were intended to eliminate the second call to Load Data into DB
    # when the Create Project from Database button is pressed after the Create DB button
    # if session[:last_sync_project_id].to_i == project_id
    #   return # If the DB was already loaded with this project skip this step
    # end
-    import_result = Display.importScaleMI(project_id)
+    import_result = Display.importScaleMI(project_id, request: request)
     Display.sync_checkers(project_id)
     session[:last_sync_project_id] = project_id
     return import_result
@@ -417,9 +521,15 @@ class ApplicationController < ActionController::Base
     "/projects/#{project.id}/database"
   end
 
-  # This returns the path to the database page for a SCAIFE project
+  # This returns the path to the creation page for creating a project
+  # from an existing SCAIFE package
   def scaife_project_path(project)
     "/projects/#{project.id}/scaife"
+  end
+
+  # This returns the path to the database page for a SCAIFE CI project
+  def scaife_ci_project_path(project)
+    "/projects/#{project.id}/scaife_ci"
   end
 
   # paths
@@ -442,7 +552,7 @@ class ApplicationController < ActionController::Base
   def log_file_dir()
     Rails.root.join("log")
   end
-  
+
   # This returns the system path to the backed up project archive
   # Most things are backedup except for raw source code
   def self.archive_backup_dir_from_id(project_id)
@@ -544,6 +654,44 @@ class ApplicationController < ActionController::Base
         #JSON.dump(entries, fh)
         fh.write(JSON.pretty_generate(entries))
       end
+    end
+  end
+
+  def self.filter_stacktrace(e)
+    # given an exception, filter down the stacktrace to something
+    # interesting
+    vend_dir = Rails.root.join("vendor")
+    lines = []
+    lines << "Exception #{e.class}:"
+    e.backtrace.each do |line|
+      next if not line.start_with? Rails.root.to_s
+      next if line.start_with? vend_dir.to_s
+      lines << line
+    end
+    lines << "Exception type/message: #{e.class} #{e}"
+    return lines
+  end
+  delegate :filter_stacktrace, to: :class
+
+
+  before_action :require_login
+
+  private
+
+  def require_login
+    #puts "\naction: #{self.action_name}"
+    #puts "original_fullpath: #{request.original_fullpath}"
+    user_page = request.original_fullpath.starts_with?("/users")
+    #puts "session[:login_user]: #{session[:login_user]}"
+    logged_in = session[:login_user].present?
+    if not logged_in and not user_page
+      puts("redirecting to /users/unauthorized\n")
+      redirect_to "/users/unauthorized",
+                  notice: "Please Login to view that page!" and return
+    end
+    if logged_in and (request.original_fullpath == "/users/unauthorized")
+      puts("redirecting to /\n")
+      redirect_to "/", notice: "Welcome!" and return
     end
   end
 

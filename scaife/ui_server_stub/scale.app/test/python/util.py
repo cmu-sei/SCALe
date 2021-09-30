@@ -1,7 +1,7 @@
 # This module is for useful shared methods specific to the python tests.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -30,7 +30,7 @@ import os, sys
 import subprocess
 from subprocess import CalledProcessError
 
-import bootstrap
+import scripts.bootstrap as bootstrap
 
 def callproc(cmd, capture_stderr=True, shell=None):
     if shell is None:

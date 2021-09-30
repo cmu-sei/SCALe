@@ -35,7 +35,7 @@
 # as described in the testing document.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -58,6 +58,8 @@
 # DM19-1274
 # </legal>
 
+from __future__ import print_function
+
 import sys, os, argparse
 
 import bootstrap, automate
@@ -71,14 +73,13 @@ analysis_dir = os.path.join(bootstrap.base_dir,
 def test_file(basename):
     return os.path.join(analysis_dir, basename)
 
-def main():
+def main(skip_classifier=False):
+    if VERBOSE:
+        print("automation: %s" % __file__)
     # make sure SCAIFE services are up, including SCALe, start a session
-    try:
-        bootstrap.assert_services_are_up()
-    except AssertionError as e:
-        print >> sys.stderr, str(e)
-        sys.exit(1)
+    bootstrap.wait_for_services()
     sess = ScaleSession()
+    sess.event_scale_session_establish()
     sess.event_scaife_session_establish()
     # create a test suite project with microjuliet/cppcheck with C 89
     # and C++ 98
@@ -131,11 +132,12 @@ def main():
     sess.query_scaife_tools_upload_submit(tool_ids, primed=True)
     # upload project
     sess.query_scaife_project_upload(primed=True)
-    # create classifier (Random Forest, no AHPO or Adaptive Heuristic)
-    classifier_name = \
-        sess.event_scaife_classifier_create(classifier_type="Random Forest")
-    # run classifier
-    sess.query_scaife_classifier_run(classifier_name, primed=True)
+    if not skip_classifier:
+        # create classifier (Random Forest, no AHPO or Adaptive Heuristic)
+        classifier_name = \
+            sess.event_scaife_classifier_create(classifier_type="Random Forest")
+        # run classifier
+        sess.query_scaife_classifier_run(classifier_name, primed=True)
     # all done, return newly created project ID
     if VERBOSE:
         print("automation complete: %s %s" % (project_name, sess.project_id))
@@ -153,6 +155,8 @@ if __name__ == "__main__":
         for the first project in the Manual Test #1 section of the
         SCALe-SCAIFE interaction page.
         """)
+    parser.add_argument("--no-classifier", action="store_true",
+            help="Skip creating/running classifier")
     parser.add_argument("-v", "--verbose", action=bootstrap.Verbosity)
     args = parser.parse_args()
-    main()
+    main(skip_classifier=args.no_classifier)

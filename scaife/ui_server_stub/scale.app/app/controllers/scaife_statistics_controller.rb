@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -231,6 +231,45 @@ class ScaifeStatisticsController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
+      @scaife_response = e.message
+      @errors << @scaife_response
+    end
+    return @scaife_response
+  end
+
+  def initiateExperimentExport(login_token, scaife_project_id)
+    @scaife_response = nil
+    @errors = []
+    begin
+      with_scaife_stats_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Statistics::StatsServerApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.export_experiment_metrics(access_token, scaife_project_id)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Statistics::ApiError => e
+          @scaife_status_code = e.code
+          if @scaife_status_code == 404
+            # no projects uploaded yet
+            @scaife_response = []
+          elsif [400, 401, 403].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling StatisticsServerApi->list_experiment_configs: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
+        end
+      end
+    rescue ScaifeError => e
+      # registration server issue
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end

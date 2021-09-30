@@ -1,7 +1,7 @@
 #!/bin/env python
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -32,8 +32,9 @@ import os, sys, json
 import atexit, shutil, tempfile, zipfile
 import sqlite3
 
-import bootstrap, util
-from bootstrap import VERBOSE
+import scripts.bootstrap as bootstrap
+import util
+from scripts.bootstrap import VERBOSE
 
 KEEP_OUTPUT = False
 

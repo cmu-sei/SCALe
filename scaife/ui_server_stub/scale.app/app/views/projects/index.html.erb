@@ -56,7 +56,7 @@ Destroy is a link that will purge the Rails database of all alerts and messages 
     </td>
     <td>
       <span>
-        <a href="<%= edit_project_path(p) %>" class="edit_project btn btn-default glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Edit" role="button"></a>
+        <a href="<%= @project_edit_links[p.id] %>" class="edit_project btn btn-default glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Edit" role="button"></a>
         <a href="/projects/<%= p.id %>/export" class="export_tables btn btn-default" data-toggle="tooltip" data-placement="top" title="Export Tables" role="button">
             <img alt="Export Tables" border="0" height="28" width="28" class="dock-item" src="/assets/icons/export_tables.png" /></a>
         <a href="/projects/<%= p.id %>/exportdb" class="export_db btn btn-default" data-toggle="tooltip" data-placement="top" title="Export Database" role="button">
@@ -73,7 +73,9 @@ Destroy is a link that will purge the Rails database of all alerts and messages 
 </table>
 
 <a href="<%= new_project_path %>" id="new_project" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Create a new project using data from SCALe or the SCAIFE DataHub" role="button">New project</a>
-
+<% if ENV['SCALE_EXPERIMENT'] == "1" %>
+    <%= link_to "New Experiment", "/experiments", class: "btn btn-primary", 'data-toggle'=>"tooltip", 'title'=>"Start a new experiment" %>
+<% end %>
 
 <br/>
 <br/>
@@ -85,7 +87,7 @@ Destroy is a link that will purge the Rails database of all alerts and messages 
     </div>
     <div class="panel-body">
       <div class="row">
-        <%= render partial: "projects/scaife/pills", locals: { modal: false, disable_lang_select: true } %>
+        <%= render partial: "projects/scaife/pills", locals: { modal: false } %>
       </div>
     </div>
   </div>

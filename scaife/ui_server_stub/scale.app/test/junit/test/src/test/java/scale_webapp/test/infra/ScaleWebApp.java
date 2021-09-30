@@ -1,5 +1,5 @@
 // <legal>
-// SCALe version r.6.5.5.1.A
+// SCALe version r.6.7.0.0.A
 // 
 // Copyright 2021 Carnegie Mellon University.
 // 
@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -63,8 +64,9 @@ public class ScaleWebApp {
 	private String protocol;
 	private String host;
 	private int port;
-	private String user;
-	private String password;
+	private String scale_user;
+	private String scale_password;
+	private boolean connected = false;
 	public AppConfig remoteConfig;
 	public WebDriver driver;
 
@@ -82,16 +84,16 @@ public class ScaleWebApp {
 	 * @param protocol
 	 * @param host
 	 * @param port
-	 * @param user
-	 * @param password
+	 * @param scale_user
+	 * @param scale_password
 	 * @param driver
 	 */
-	public ScaleWebApp(String protocol, String host, int port, String user, String password, WebDriver driver) {
+	public ScaleWebApp(String protocol, String host, int port, String scale_user, String scale_password, WebDriver driver) {
 		this.protocol = protocol;
 		this.host = host;
 		this.port = port;
-		this.user = user;
-		this.password = password;
+		this.scale_user = scale_user;
+		this.scale_password = scale_password;
 		this.driver = driver;
 		// this is only for locating the scale.app/scripts dir
 		InputStream is = getClass().getResourceAsStream("/test_config.json");
@@ -188,16 +190,8 @@ public class ScaleWebApp {
 	 * @return (String) homepage url
 	 */
 	public String getHomeUrl() {
-		String encodedUser;
-		String encodedPassword;
-
-		try {
-			encodedUser = URLEncoder.encode(this.user, "UTF-8");
-			encodedPassword = URLEncoder.encode(this.password, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new AssertionError("UTF-8 not supported?!");
-		}
-		return String.format("%s://%s:%s@%s:%d", this.protocol, encodedUser, encodedPassword, this.host, this.port);
+            // No longer using HTTP basic authentication
+            return String.format("%s://%s:%d", this.protocol, this.host, this.port);
 	}
 
 	/**
@@ -214,7 +208,48 @@ public class ScaleWebApp {
 	 */
 	public void launch() {
 		this.driver.get(this.getHomeUrl());
+                if (!this.connected) {
+                    this.login();
+                    this.connected = true;
+                }
 		validatePage();
+	}
+
+	/**
+	 * Login to SCALe
+	 */
+	public Boolean login() {
+		waitForPageLoad(this.driver);
+		if (this.driver.findElements(By.id("connect_to_scaife")).size() == 0) {
+                    System.out.println("already connected to SCAIFE");
+                    return true;
+                }
+
+                System.out.println("Login to SCALe");
+                new WebDriverWait(driver, 10).until(ExpectedConditions
+                                                    .elementToBeClickable(driver.findElement(By.id("user-login"))));
+                driver.findElement(By.id("user-login")).click();
+                new WebDriverWait(driver, 30).until(ExpectedConditions
+                                                    .visibilityOfElementLocated(By.id("user-login-modal")));
+                WebElement modal = driver.findElement(By.id("user-login-modal"));
+                WebElement button = modal.findElement(By.xpath("//input[@value='Sign Up']"));
+                button.click();
+                new WebDriverWait(driver, 30).until(ExpectedConditions
+                                                    .visibilityOfElementLocated(By.id("user-register-modal")));
+                modal = driver.findElement(By.id("user-register-modal"));
+                modal.findElement(By.id("user_field")).sendKeys(this.scale_user);
+                modal.findElement(By.id("password_field")).sendKeys(this.scale_password);
+                button = modal.findElement(By.id("userRegisterForm"))
+                    .findElement(By.xpath("//input[@value='Register']"));
+                modal.findElement(By.id("firstname_field")).sendKeys("John");  // these must not be blank
+                modal.findElement(By.id("lastname_field")).sendKeys("Doe");
+                modal.findElement(By.id("org_field")).sendKeys("ACME");
+                button.click();
+                waitForPageLoad(driver);
+                new WebDriverWait(driver, 10).until(ExpectedConditions
+                                                    .visibilityOf(driver.findElement(By.id("user-logout"))));
+                System.out.println("Login to SCALe succeeeded");
+		return true;
 	}
 
 
@@ -1369,15 +1404,24 @@ public class ScaleWebApp {
 		waitForAlertConditionsTableLoad(50);
 	}
 	public void waitForAlertConditionsTableLoad(int timeout) {
-		new WebDriverWait(driver, timeout)
+            for (int i = 0; i < 2; i++) {
+                if (i > 0) {
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException x) {/* ignore */}
+                }
+                try {
+                    new WebDriverWait(driver, timeout)
 			.until(ExpectedConditions.visibilityOfElementLocated(By.id("alert_conditions_table")));
-		new WebDriverWait(driver, timeout)
+                    new WebDriverWait(driver, timeout)
 			.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));
+                } catch (NullPointerException x) {/* ignore */}
+            }
 	}
 
 	public class AlertConditionsViewerPage {
 
-		public int numAlertFields = 23; //number of alert items listed below, from checkbox to notes inclusive
+		public int numAlertConditionFields = 24; //number of alert items listed below, from checkbox to notes inclusive
 
 		public class FilterElems {
 			public Select idTypeFilter;
@@ -1390,8 +1434,6 @@ public class ScaleWebApp {
 			public Select toolFilter;
 			public Select conditionFilter;
 			public Select taxFilter;
-			public Select sortDir;
-			public Select sortBy;
 		}
 
 		public class FilterValues {
@@ -1405,8 +1447,6 @@ public class ScaleWebApp {
 			public String toolFilter;
 			public String conditionFilter;
 			public String taxFilter;
-			public String sortDir;
-			public String sortBy;
 		}
 
 		public class AlertConditionRow {
@@ -1425,6 +1465,7 @@ public class ScaleWebApp {
 			public WebElement title;
 			public WebElement class_label;
 			public WebElement confidence;
+			public WebElement category;
 			public WebElement meta_alert_priority;
 			public WebElement sev;
 			public WebElement lik;
@@ -1603,8 +1644,6 @@ public class ScaleWebApp {
 			filters.toolFilter = getToolFilter();
 			filters.conditionFilter = getConditionFilter();
 			filters.taxFilter = getTaxonomyFilter();
-			filters.sortDir = getSortDirFilter();
-			filters.sortBy = getSortByFilter();
 
 			return filters;
 		}
@@ -1633,10 +1672,6 @@ public class ScaleWebApp {
 				.getFirstSelectedOption().getAttribute("value");
 			fVals.taxFilter = getTaxonomyFilter()
 				.getFirstSelectedOption().getAttribute("value");
-			fVals.sortDir = getSortDirFilter()
-				.getFirstSelectedOption().getAttribute("value");
-			fVals.sortBy = getSortByFilter()
-				.getFirstSelectedOption().getAttribute("value");
 
 			return fVals;
 		}
@@ -1658,7 +1693,7 @@ public class ScaleWebApp {
 		}
 
 		public WebElement getPathFilter() {
-			return driver.findElement(By.id("path"));
+			return driver.findElement(By.id("filter_path"));
 		}
 
 		public WebElement getLineFilter() {
@@ -1679,14 +1714,6 @@ public class ScaleWebApp {
 
 		public Select getTaxonomyFilter() {
 			return new Select(driver.findElement(By.id("taxonomy")));
-		}
-
-		public Select getSortDirFilter() {
-			return new Select(driver.findElement(By.id("sort_direction")));
-		}
-
-		public Select getSortByFilter() {
-			return new Select(driver.findElement(By.id("sort_column")));
 		}
 
 		public String[] getSupplementalOptions() {
@@ -1712,9 +1739,9 @@ public class ScaleWebApp {
 			if (items.size() == 0) {
 				return alertConditionRow;
 			}
-			if (items.size() != numAlertFields) {
+			if (items.size() != numAlertConditionFields) {
 				if (items.size() > 0){
-					System.out.println(String.format("Wrong number of cells in row! Expected %d but got %d", numAlertFields, items.size()));
+					System.out.println(String.format("Wrong number of cells in row! Expected %d but got %d", numAlertConditionFields, items.size()));
 				}
 			}
 
@@ -1750,6 +1777,7 @@ public class ScaleWebApp {
 			alertConditionRow.title = items.get(idx++);
 			alertConditionRow.class_label = items.get(idx++);
 			alertConditionRow.confidence = items.get(idx++);
+			alertConditionRow.category = items.get(idx++);
 			alertConditionRow.meta_alert_priority = items.get(idx++);
 			alertConditionRow.sev = items.get(idx++);
 			alertConditionRow.lik = items.get(idx++);
@@ -1894,6 +1922,61 @@ public class ScaleWebApp {
 		public void update() {
 			driver.findElement(By.xpath("//input[@value='Update']")).click();
 		}
+
+            /**
+             * Set the sort field to the following values
+             *
+             * @param webApp
+             * @param sortValues
+             */
+            public void setSortField(String[] sortValues) {
+                WebElement sortButton = driver.findElement(By.id("sorting"));
+
+                sortButton.click();
+                waitForPageLoad(driver);
+                new WebDriverWait(driver, 10).until(ExpectedConditions
+                                                    .elementToBeClickable(driver.findElement(By.id("submit-sort-modal"))));
+                WebElement submitButton = driver.findElement(By.id("submit-sort-modal"));
+                WebElement addButton = driver.findElement(By.id("add_sk_button"));
+                WebElement removeButton = driver.findElement(By.id("remove_sk_button"));
+                WebElement sortKeysUnselected = driver.findElement(By.id("sort_keys_unselected"));
+                WebElement sortKeysSelected = driver.findElement(By.id("sort_keys_selected"));
+
+                // Remove everything from selected items
+                int num_elems = sortKeysSelected.findElements(By.className("list_item")).size();
+                for (int i = 0; i < num_elems; i++) {
+                    WebElement selectedKey = sortKeysSelected.findElement(By.className("list_item"));
+                    selectedKey.click();
+                    new WebDriverWait(driver, 10).until(ExpectedConditions
+                                                        .elementToBeClickable(removeButton));
+                    removeButton.click();
+                    new WebDriverWait(driver, 10).until(ExpectedConditions
+                                                        .elementToBeClickable(submitButton));
+                }
+
+                // Now select items in sortValues
+                for (String sortValue : sortValues) {
+                    String keyValue = String.format("//li[@class='list_item' and contains(text(), '%s')]", sortValue);
+                    WebElement key = sortKeysUnselected.findElement(By.xpath( keyValue));
+                    key.click();
+                    new WebDriverWait(driver, 10).until(ExpectedConditions
+                                                        .elementToBeClickable(addButton));
+                    addButton.click();
+                    new WebDriverWait(driver, 10).until(ExpectedConditions
+                                                        .elementToBeClickable(submitButton));
+                }
+
+                submitButton.click();
+            }
+
+            /**
+             * Reset the sort field to default value
+             *
+             * @param webApp
+             */
+            public void resetSortField() {
+                this.setSortField(new String[] {"Time DESC"});
+            }
 	}
 
 	public class NewAlertPage {
@@ -1951,6 +2034,10 @@ public class ScaleWebApp {
 
 		public WebElement getConfidenceField() {
 			return driver.findElement(By.id("display_confidence"));
+		}
+
+		public WebElement getCategoryField() {
+			return driver.findElement(By.id("display_category"));
 		}
 
 		public WebElement getAlertPriorityField() {
@@ -2115,12 +2202,10 @@ public class ScaleWebApp {
 		 */
 		public void openSchemeFromNav(String priorityName) {
 			Actions action = new Actions(driver);
-			new WebDriverWait(driver, 10).until(ExpectedConditions
-												.elementToBeClickable(driver.findElement(By.xpath("//li[@id='priorityscheme-dropdown']//a"))));
+			new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[@id='priorityscheme-dropdown']//a"))));
 			action.moveToElement(driver.findElement(By.xpath("//li[@id='priorityscheme-dropdown']//a"))).click().perform();
 			waitForPageLoad(driver);
-			new WebDriverWait(driver, 10).until(ExpectedConditions
-												.elementToBeClickable(driver.findElement(By.linkText(priorityName))));
+			new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.linkText(priorityName))));
 			action.moveToElement(driver.findElement(By.linkText(priorityName))).click().perform();
 			waitForPageLoad(driver);
 		}

@@ -74,10 +74,15 @@ SCAIFE Overview
 
 Source Code Analysis Integrated Framework Environment (SCAIFE) is a multi-server architecture
 with an application programming interface (API) and an open-source prototype that enables
-static analysis alert classification and prioritization. It is designed so a wide variety of
+static analysis meta-alert classification and prioritization. It is designed so a wide variety of
 static analysis tools can integrate with the system using the API definition. The SCAIFE
-architecture shown below includes five types of servers:
+architecture shown below includes five types of servers. SCAIFE releases include code and documentation to help others to further develop it, by including automated test code and test data, plus providing information about how to extend the code, API, tests, and use manual plus tips for new developers and how to use our release automation script.
+Multiple hands-on SCAIFE demos are included in SCAIFE releases:
 
+1.  [SCAIFE Quick Start Hands-on Demo](SCAIFE-Quick-Start-Demo.md)
+1.  [Hands-on Demo of SCAIFE Working with Continuous Integration](CI_Demo.md) (_NOTE: The previous link works from HTML pages. From the markdown page, instead use the following link: [Hands-on Demo of SCAIFE Working with Continuous Integration](../demo/ci_demo/CI_Demo.md)_)
+1.  [SCAIFE Classification Performance Experiments Instructions](SCAIFE-classifier-performance-experiments-v1.md)
+1.  [SCAIFE Experiment Mode](SCAIFE-Experiment-Mode.md)
 1.  [Registration Module](SCAIFE-Registration.md)
 1.  [DataHub Module](SCAIFE-DataHub.md)
 1.  [Statistics (Stats) Module](SCAIFE-Statistics.md)
@@ -90,8 +95,13 @@ architecture shown below includes five types of servers:
 1.  [Automated Distribution of SCAIFE](SCAIFE-Automated-Distribution.md)
 1.  [Developing Testing and Inspecting SCAIFE and SCALe Docker Containers](SCAIFE-Docker-Wisdom.md)
 1.  [SCAIFE and SCALe Coding Conventions](SCAIFE-and-SCALe-Coding-Conventions.md)
-
+1.  [SCAIFE and SCALe New Developer Startup](SCAIFE-and-SCALe-new-developer-startup.md)
 
 ![](attachments/SCAIFE_architecture.png)
+
+Notes on SCAIFE Source Code Analysis
+------------------------
+
+Code projects implementing encoding other than ASCII or UTF-8 on particular files (such as ISO8859-1 encoding) will potentially encounter dropped characters beyond the normal 128 character range (Ó, é, and ü for example). This is due to limitations with our current ctags integration.
 
 ------------------------------------------------------------------------

@@ -1,5 +1,6 @@
-swagger: "2.0"
+openapi: 3.0.1
 info:
+  title: SCAIFE UI Module API Definition
   description: "This is the API definition for a SCAIFE User Interface (UI) Module.\
     \ SCAIFE facilitates auditing static analysis meta-alerts using classifiers, optional\
     \ adaptive heuristics, and meta-alert prioritization. SCAIFE enables jump-starting\
@@ -7,409 +8,504 @@ info:
     \ users (with widely varying datasets, static analysis tools, machine learning\
     \ expertise, and amount of labeled data) to benefit from using classifiers and\
     \ sophisticated prioritization to automatically triage static analysis meta-alerts."
-  version: "2.0.0"
-  title: "SCAIFE UI Module API Definition"
   contact:
-    name: "SCAIFE Project"
-    url: "https://www.sei.cmu.edu/our-work/projects/display.cfm?customel_datapageid_4050=6453"
-    email: "lflynn@cert.org"
+    name: SCAIFE Project
+    url: https://www.sei.cmu.edu/our-work/projects/display.cfm?customel_datapageid_4050=6453
+    email: lflynn@cert.org
   license:
-    name: |2-
-        SCAIFE API Copyright 2007-2021 Carnegie Mellon University. All Rights Reserved.   Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.   2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.   3. Products derived from this software may not include 'Carnegie Mellon University,' 'SEI' and/or 'Software Engineering Institute' in the name of such derived product, nor shall 'Carnegie Mellon University,' 'SEI' and/or 'Software Engineering Institute' be used to endorse or promote products derived from this software without prior written permission. For written permission, please contact permission@sei.cmu.edu.   ACKNOWLEDGMENTS AND DISCLAIMERS:   This material is based upon work funded and supported by the Department of Defense under Contract No. FA8702-15-D-0002 with Carnegie Mellon University for the operation of the Software Engineering Institute, a federally funded research and development center.   The view, opinions, and/or findings contained in this material are those of the author(s) and should not be construed as an official Government position, policy, or decision, unless designated by other documentation.   NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED ON AN 'AS-IS' BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.   [DISTRIBUTION STATEMENT A] This material has been approved for public release and unlimited distribution.  Please see Copyright notice for non-US Government use and distribution.   This material includes field names used in the Software Assurance Marketplace (SWAMP), a service that provides continuous software assurance capabilities to developers and researchers at https://www.mir-swamp.org/#.  Copyright © 2012-2021 The Morgridge Institute for Research, Inc. All rights reserved.   This material includes field names used in the Software Assurance Tool (SwAT), a tool that is used by analysts to analyze static analysis alerts from multiple static analysis tools. https://www.cerdec.army.mil/ Combat Capabilities Development Command (CCDC) C5ISR Center. All rights reserved.   DM19-0572   
-host: "127.0.0.1:8083"
+    name: "  SCAIFE API Copyright 2007-2021 Carnegie Mellon University. All Rights\
+      \ Reserved.   Redistribution and use in source and binary forms, with or without\
+      \ modification, are permitted provided that the following conditions are met:\
+      \   1. Redistributions of source code must retain the above copyright notice,\
+      \ this list of conditions and the following disclaimer.   2. Redistributions\
+      \ in binary form must reproduce the above copyright notice, this list of conditions\
+      \ and the following disclaimer in the documentation and/or other materials provided\
+      \ with the distribution.   3. Products derived from this software may not include\
+      \ 'Carnegie Mellon University,' 'SEI' and/or 'Software Engineering Institute'\
+      \ in the name of such derived product, nor shall 'Carnegie Mellon University,'\
+      \ 'SEI' and/or 'Software Engineering Institute' be used to endorse or promote\
+      \ products derived from this software without prior written permission. For\
+      \ written permission, please contact permission@sei.cmu.edu.   ACKNOWLEDGMENTS\
+      \ AND DISCLAIMERS:   This material is based upon work funded and supported by\
+      \ the Department of Defense under Contract No. FA8702-15-D-0002 with Carnegie\
+      \ Mellon University for the operation of the Software Engineering Institute,\
+      \ a federally funded research and development center.   The view, opinions,\
+      \ and/or findings contained in this material are those of the author(s) and\
+      \ should not be construed as an official Government position, policy, or decision,\
+      \ unless designated by other documentation.   NO WARRANTY. THIS CARNEGIE MELLON\
+      \ UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED ON AN\
+      \ 'AS-IS' BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND,\
+      \ EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO,\
+      \ WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS\
+      \ OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE\
+      \ ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR\
+      \ COPYRIGHT INFRINGEMENT.   [DISTRIBUTION STATEMENT A] This material has been\
+      \ approved for public release and unlimited distribution.  Please see Copyright\
+      \ notice for non-US Government use and distribution.   This material includes\
+      \ field names used in the Software Assurance Marketplace (SWAMP), a service\
+      \ that provides continuous software assurance capabilities to developers and\
+      \ researchers at https://www.mir-swamp.org/#.  Copyright © 2012-2021 The Morgridge\
+      \ Institute for Research, Inc. All rights reserved.   This material includes\
+      \ field names used in the Software Assurance Tool (SwAT), a tool that is used\
+      \ by analysts to analyze static analysis alerts from multiple static analysis\
+      \ tools. https://www.cerdec.army.mil/ Combat Capabilities Development Command\
+      \ (CCDC) C5ISR Center. All rights reserved.   DM19-0572"
+  version: 2.2.0
+servers:
+- url: //127.0.0.1:8088/
 paths:
   /status:
     get:
       tags:
-      - "UI_Server"
-      summary: "Provides Server Status"
-      operationId: "get_status"
-      produces:
-      - "application/json"
+      - UI_Server
+      summary: Provides Server Status
+      operationId: get_status
       parameters:
-      - name: "x_request_token"
-        in: "header"
-        description: "Token that associates messages with each other"
+      - name: x_request_token
+        in: header
+        description: Token that associates messages with each other
         required: true
-        type: "string"
+        style: simple
+        explode: false
+        schema:
+          type: string
       responses:
         "200":
-          description: "Server Is Running"
-          schema:
-            $ref: "#/definitions/request_token"
+          description: Server Is Running
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/request_token'
         "400":
-          description: "Database Connection Lost"
+          description: Database Connection Lost
+          content: {}
         default:
-          description: "Unexpected Error"
-          schema:
-            $ref: "#/definitions/error"
-      x-swagger-router-controller: "swagger_server.controllers.ui_server_controller"
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: swagger_server.controllers.ui_server_controller
+      x-openapi-router-controller: swagger_server.controllers.ui_server_controller
   /projects/{project_id}/classifiers/{classifier_instance_id}:
     post:
       tags:
-      - "Stats_to_UI"
+      - Stats_to_UI
       summary: "Send confidence data for a specific project. When there is an active\
         \ Adaptive Heuristic for projects associated with the UI Module, the Stats\
         \ Module will send the confidence data for the classifier based on some interval\
         \ or threshold set by the Adaptive Heuristic."
-      operationId: "send_confidence_data"
-      consumes:
-      - "application/json"
+      operationId: send_confidence_data
       parameters:
-      - name: "project_id"
-        in: "path"
-        description: "The id of the project to update"
+      - name: project_id
+        in: path
+        description: The id of the project to update
         required: true
-        type: "string"
-      - name: "classifier_instance_id"
-        in: "path"
-        description: "The id of the classifier instance associated with the confidence\
-          \ data"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "probability_data"
-        description: "Updated confidence values"
-        required: true
+        style: simple
+        explode: false
         schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/probability_data"
+          type: string
+      - name: classifier_instance_id
+        in: path
+        description: The id of the classifier instance associated with the confidence
+          data
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated confidence values
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/probability_data'
+        required: true
       responses:
-        200:
-          description: "OK"
-        404:
-          description: "Invalid Project"
+        "200":
+          description: OK
+          content: {}
+        "404":
+          description: Invalid Project
+          content: {}
         default:
-          description: "Unexpected Error"
-          schema:
-            $ref: "#/definitions/error"
-      x-swagger-router-controller: "swagger_server.controllers.stats_to_ui_controller"
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: swagger_server.controllers.stats_to_ui_controller
+      x-codegen-request-body-name: probability_data
+      x-openapi-router-controller: swagger_server.controllers.stats_to_ui_controller
   /packages/{package_id}/alerts:
     put:
       tags:
-      - "DataHub_to_UI"
-      summary: "Forward new Alerts that have been uploaded to the DataHub and have\
-        \ a current open adaptive heuristic request for its respective package. Returns\
-        \ status message for the DataHub to track if the request was completed."
-      operationId: "send_alert_updates"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
+      - DataHub_to_UI
+      summary: Forward new Alerts that have been uploaded to the DataHub and have
+        a current open adaptive heuristic request for its respective package. Returns
+        status message for the DataHub to track if the request was completed.
+      operationId: send_alert_updates
       parameters:
-      - name: "x_access_token"
-        in: "header"
-        description: "Token that contains information about the user"
+      - name: x_access_token
+        in: header
+        description: Token that contains information about the user
         required: true
-        type: "string"
-      - name: "x_request_token"
-        in: "header"
-        description: "Token that associates messages with each other"
-        required: true
-        type: "string"
-      - name: "package_id"
-        in: "path"
-        description: "The id of the package associated with these alerts"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "multiple_alerts"
-        description: "Updated alert data"
-        required: true
+        style: simple
+        explode: false
         schema:
-          $ref: "#/definitions/multiple_alerts"
+          type: string
+      - name: x_request_token
+        in: header
+        description: Token that associates messages with each other
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: package_id
+        in: path
+        description: The id of the package associated with these alerts
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated alert data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/multiple_alerts'
+        required: true
       responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/alert_updates_response"
-        400:
-          description: "Unable to Upload Alerts"
-        404:
-          description: "Invalid Package"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alert_updates_response'
+        "400":
+          description: Unable to Upload Alerts
+          content: {}
+        "404":
+          description: Invalid Package
+          content: {}
         default:
-          description: "Unexpected Error"
-          schema:
-            $ref: "#/definitions/error"
-      x-swagger-router-controller: "swagger_server.controllers.data_hub_to_ui_controller"
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: swagger_server.controllers.data_hub_to_ui_controller
+      x-codegen-request-body-name: multiple_alerts
+      x-openapi-router-controller: swagger_server.controllers.data_hub_to_ui_controller
   /projects/{project_id}/meta_alerts/{meta_alert_id}/determinations:
     put:
       tags:
-      - "DataHub_to_UI"
-      summary: "Forward new Determinations that have been uploaded to the DataHub\
-        \ and have a current open adaptive heuristic request. Returns status message\
-        \ for the DataHub to track if the request was completed."
-      operationId: "send_determination_updates"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
+      - DataHub_to_UI
+      summary: Forward new Determinations that have been uploaded to the DataHub and
+        have a current open adaptive heuristic request. Returns status message for
+        the DataHub to track if the request was completed.
+      operationId: send_determination_updates
       parameters:
-      - name: "x_access_token"
-        in: "header"
-        description: "Token that contains information about the user"
+      - name: x_access_token
+        in: header
+        description: Token that contains information about the user
         required: true
-        type: "string"
-      - name: "x_request_token"
-        in: "header"
-        description: "Token that associates messages with each other"
-        required: true
-        type: "string"
-      - name: "project_id"
-        in: "path"
-        description: "The id of the project associated with this determination"
-        required: true
-        type: "string"
-      - name: "meta_alert_id"
-        in: "path"
-        description: "The id of the meta-alert associated with this determination"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "determination"
-        description: "Updated determination data"
-        required: true
+        style: simple
+        explode: false
         schema:
-          $ref: "#/definitions/determination"
+          type: string
+      - name: x_request_token
+        in: header
+        description: Token that associates messages with each other
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: project_id
+        in: path
+        description: The id of the project associated with this determination
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: meta_alert_id
+        in: path
+        description: The id of the meta-alert associated with this determination
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated determination data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/determination'
+        required: true
       responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/determination_update_response"
-        400:
-          description: "Unable to Upload Determination"
-        404:
-          description: "Invalid Project"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/determination_update_response'
+        "400":
+          description: Unable to Upload Determination
+          content: {}
+        "404":
+          description: Invalid Project
+          content: {}
         default:
-          description: "Unexpected Error"
-          schema:
-            $ref: "#/definitions/error"
-      x-swagger-router-controller: "swagger_server.controllers.data_hub_to_ui_controller"
-definitions:
-  alert:
-    type: "object"
-    required:
-    - "alert_id"
-    - "checker_id"
-    - "primary_message"
-    - "tool_id"
-    properties:
-      alert_id:
-        type: "string"
-      tool_id:
-        type: "string"
-      checker_id:
-        type: "string"
-      primary_message:
-        $ref: "#/definitions/message"
-      secondary_messages:
-        type: "array"
-        items:
-          $ref: "#/definitions/secondary_message"
-    xml:
-      name: "alert"
-  error:
-    required:
-    - "code"
-    - "message"
-    properties:
-      code:
-        type: "integer"
-      message:
-        type: "string"
-    xml:
-      name: "error"
-  message:
-    type: "object"
-    required:
-    - "filepath"
-    - "line_start"
-    - "source_file_id"
-    properties:
-      line_start:
-        type: "integer"
-      line_end:
-        type: "integer"
-      filepath:
-        type: "string"
-      source_file_id:
-        type: "string"
-      source_function_id:
-        type: "string"
-    xml:
-      name: "message"
-  probability_data:
-    properties:
-      meta_alert_id:
-        type: "string"
-      probability:
-        type: "number"
-        format: "double"
-    example:
-      probability: 0.80082819046101150206595775671303272247314453125
-      meta_alert_id: "meta_alert_id"
-  request_token:
-    required:
-    - "request_id"
-    properties:
-      request_id:
-        type: "string"
-        description: "Id used to correlate messages with each other"
-      message:
-        type: "string"
-    xml:
-      name: "request_token"
-    example:
-      message: "message"
-      request_id: "request_id"
-  multiple_alerts:
-    type: "object"
-    properties:
-      meta_alerts:
-        type: "array"
-        items:
-          $ref: "#/definitions/meta_alert"
-      alerts:
-        type: "array"
-        items:
-          $ref: "#/definitions/alert"
-    xml:
-      name: "multiple_alerts"
-  alert_updates_response:
-    type: "object"
-    properties:
-      package_id:
-        type: "string"
-    xml:
-      name: "alert_updates_response"
-    example:
-      package_id: "package_id"
-  determination_update_response:
-    type: "object"
-    properties:
-      project_id:
-        type: "string"
-      meta_alert_id:
-        type: "string"
-    xml:
-      name: "determination_update_response"
-    example:
-      project_id: "project_id"
-      meta_alert_id: "meta_alert_id"
-  meta_alert:
-    type: "object"
-    required:
-    - "meta_alert_id"
-    properties:
-      meta_alert_id:
-        type: "string"
-      condition_id:
-        type: "string"
-      filepath:
-        type: "string"
-      line_number:
-        type: "integer"
-      determination:
-        $ref: "#/definitions/determination"
-      alert_ids:
-        type: "array"
-        items:
-          type: "string"
-      auto_verdict:
-        type: "object"
-        additionalProperties:
-          type: "string"
-    xml:
-      name: "meta_alert"
-  determination:
-    type: "object"
-    properties:
-      flag_list:
-        type: "array"
-        items:
-          $ref: "#/definitions/determination_flag_list"
-      verdict_list:
-        type: "array"
-        items:
-          $ref: "#/definitions/determination_verdict_list"
-      ignored_list:
-        type: "array"
-        items:
-          $ref: "#/definitions/determination_ignored_list"
-      dead_list:
-        type: "array"
-        items:
-          $ref: "#/definitions/determination_dead_list"
-      inapplicable_environment_list:
-        type: "array"
-        items:
-          $ref: "#/definitions/determination_inapplicable_environment_list"
-      dangerous_construct_list:
-        type: "array"
-        items:
-          $ref: "#/definitions/determination_dangerous_construct_list"
-      notes_list:
-        type: "array"
-        items:
-          $ref: "#/definitions/determination_notes_list"
-    xml:
-      name: "determination"
-  determination_flag_list:
-    properties:
-      flag:
-        type: "boolean"
-      timestamp:
-        type: "string"
-        format: "date-time"
-  determination_verdict_list:
-    properties:
-      verdict:
-        type: "string"
-      timestamp:
-        type: "string"
-        format: "date-time"
-  determination_ignored_list:
-    properties:
-      ignored:
-        type: "boolean"
-      timestamp:
-        type: "string"
-        format: "date-time"
-  determination_dead_list:
-    properties:
-      dead:
-        type: "boolean"
-      timestamp:
-        type: "string"
-        format: "date-time"
-  determination_inapplicable_environment_list:
-    properties:
-      inapplicable_environment:
-        type: "boolean"
-      timestamp:
-        type: "string"
-        format: "date-time"
-  determination_dangerous_construct_list:
-    properties:
-      dangerous_construct:
-        type: "string"
-      timestamp:
-        type: "string"
-        format: "date-time"
-  determination_notes_list:
-    properties:
-      notes:
-        type: "string"
-      timestamp:
-        type: "string"
-        format: "date-time"
-  secondary_message:
-    allOf:
-    - $ref: "#/definitions/message"
-    - type: "object"
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: swagger_server.controllers.data_hub_to_ui_controller
+      x-codegen-request-body-name: determination
+      x-openapi-router-controller: swagger_server.controllers.data_hub_to_ui_controller
+components:
+  schemas:
+    alert:
       required:
-      - "message_text"
+      - alert_id
+      - checker_id
+      - primary_message
+      - tool_id
+      type: object
       properties:
-        message_text:
-          type: "string"
+        alert_id:
+          type: string
+        tool_id:
+          type: string
+        checker_id:
+          type: string
+        primary_message:
+          $ref: '#/components/schemas/message'
+        secondary_messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/secondary_message'
+      xml:
+        name: alert
+    error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      xml:
+        name: error
+    message:
+      required:
+      - filepath
+      - line_start
+      - source_file_id
+      type: object
+      properties:
+        line_start:
+          type: integer
+        line_end:
+          type: integer
+        filepath:
+          type: string
+        source_file_id:
+          type: string
+        source_function_id:
+          type: string
+      xml:
+        name: message
+    probability_data:
+      type: object
+      properties:
+        meta_alert_id:
+          type: string
+        probability:
+          type: number
+          format: double
+      example:
+        probability: 0.8008281904610115
+        meta_alert_id: meta_alert_id
+    request_token:
+      required:
+      - request_id
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: Id used to correlate messages with each other
+        message:
+          type: string
+      example:
+        message: message
+        request_id: request_id
+      xml:
+        name: request_token
+    multiple_alerts:
+      type: object
+      properties:
+        meta_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/meta_alert'
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/alert'
+      xml:
+        name: multiple_alerts
+    alert_updates_response:
+      type: object
+      properties:
+        package_id:
+          type: string
+      example:
+        package_id: package_id
+      xml:
+        name: alert_updates_response
+    determination_update_response:
+      type: object
+      properties:
+        project_id:
+          type: string
+        meta_alert_id:
+          type: string
+      example:
+        project_id: project_id
+        meta_alert_id: meta_alert_id
+      xml:
+        name: determination_update_response
+    meta_alert:
+      required:
+      - meta_alert_id
+      type: object
+      properties:
+        meta_alert_id:
+          type: string
+        condition_id:
+          type: string
+        filepath:
+          type: string
+        line_number:
+          type: integer
+        determination:
+          $ref: '#/components/schemas/determination'
+        alert_ids:
+          type: array
+          items:
+            type: string
+        auto_verdict:
+          type: object
+          additionalProperties:
+            type: string
+      xml:
+        name: meta_alert
+    determination:
+      type: object
+      properties:
+        flag_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/determination_flag_list'
+        verdict_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/determination_verdict_list'
+        ignored_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/determination_ignored_list'
+        dead_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/determination_dead_list'
+        inapplicable_environment_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/determination_inapplicable_environment_list'
+        dangerous_construct_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/determination_dangerous_construct_list'
+        notes_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/determination_notes_list'
+      xml:
+        name: determination
+    determination_flag_list:
+      type: object
+      properties:
+        flag:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+    determination_verdict_list:
+      type: object
+      properties:
+        verdict:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    determination_ignored_list:
+      type: object
+      properties:
+        ignored:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+    determination_dead_list:
+      type: object
+      properties:
+        dead:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+    determination_inapplicable_environment_list:
+      type: object
+      properties:
+        inapplicable_environment:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+    determination_dangerous_construct_list:
+      type: object
+      properties:
+        dangerous_construct:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    determination_notes_list:
+      type: object
+      properties:
+        notes:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    secondary_message:
+      allOf:
+      - $ref: '#/components/schemas/message'
+      - required:
+        - message_text
+        type: object
+        properties:
+          message_text:
+            type: string

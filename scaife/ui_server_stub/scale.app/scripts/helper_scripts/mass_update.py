@@ -22,7 +22,7 @@
 # Usage: mass_update.py <path_to_db_file> <meta-alert_id_to_stop_determinations> [-s meta-alert_id_to_start_determinations][-p <project_id>]
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 

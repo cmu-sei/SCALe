@@ -5,7 +5,7 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -47,6 +47,9 @@ swagger_server/test/test_servers.conf
 
 tmp
 temp
+
+# Ignore Python temporary editor files
+**/*.swp
 
 # Ignore commonly used files for development notes
 /notes.org

@@ -4,7 +4,7 @@
 # associated data files, and populates the database
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -354,7 +354,7 @@ def populate_tables(cur, external=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Initialize tools/languages tables")
+        description="Initialize languages/taxonomies/tools tables")
     parser.add_argument("-v", "--verbose", action=bootstrap.Verbosity)
     parser.add_argument("database", help="Target database.")
     parser.add_argument("-f", "--force", action="store_true",

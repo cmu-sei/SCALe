@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -45,6 +45,9 @@ class Project < ActiveRecord::Base
   has_many :messages, :dependent => :delete_all
   has_many :determinations, :dependent => :delete_all
   has_many :priority_schemes, :dependent => :delete_all
+  # not deleting metrics for now
+  has_many :performance_metrics
+  has_many :classifier_metrics
 
   # It must have a name
   validates :name, :presence => true

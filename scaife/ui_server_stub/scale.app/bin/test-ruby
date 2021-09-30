@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -26,8 +26,10 @@
 
 # Setup for the tests
 export MINITEST_REPORTER=JUnitReporter
-mkdir -p test-output/ruby
-bundle exec rails db:test:prepare
+bin/rails db:migrate RAILS_ENV=test
+if [ "$RAILS_ENV" = "test" ]; then
+   bundle exec rails db:test:prepare
+fi
 
 # Run the unit tests
 bundle exec rails test

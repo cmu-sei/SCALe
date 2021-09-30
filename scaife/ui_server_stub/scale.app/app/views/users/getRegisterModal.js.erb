@@ -1,0 +1,5 @@
+$(document).ready(function() {
+  $("#user-login-modal").modal("hide");
+  $("#user-register-modal").find(".modal-content").html("<%= j (render 'getRegisterModal') %>");
+  $("#user-register-modal").modal("show");
+});

@@ -1,0 +1,17 @@
+$(document).ready(function() {
+  registerFormId = "#register-form-msg";
+  <% if @user_status_code == 201 %>
+    <% if @user_login_status_code == 200 %>
+      $(".user-visible").each(function() {
+        $(this).show();
+      });
+      location.reload();
+    <% else %>
+      $(registerFormId).show();
+      $(registerFormId).text("<%= j @user_login_response %>");
+    <% end %>
+  <% else %>
+    $(registerFormId).show();
+    $(registerFormId).text("<%= j @user_response %>");
+  <% end %>
+});

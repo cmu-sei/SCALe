@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# Script to test a scaife-scale tarball.  Takes tarball as single argument.
+# Work is done in a 'temp_scale' directory below ${PWD}.
+# <legal>
+# SCALe version r.6.7.0.0.A
+# 
+# Copyright 2021 Carnegie Mellon University.
+# 
+# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+# INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
+# UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
+# IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
+# FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
+# OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
+# TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+# 
+# Released under a MIT (SEI)-style license, please see COPYRIGHT file or
+# contact permission@sei.cmu.edu for full terms.
+# 
+# [DISTRIBUTION STATEMENT A] This material has been approved for public
+# release and unlimited distribution.  Please see Copyright notice for
+# non-US Government use and distribution.
+# 
+# DM19-1274
+# </legal>
+
+#shift
+tarball=$1
+
+if [ -d "./temp_scale" ]; then
+   echo "Please remove pre-existing temp_scale subdirectory first!"
+   exit 1
+fi
+
+mkdir temp_scale
+cp ${tarball}  temp_scale
+pushd temp_scale
+
+export SCAIFE_DIR=`pwd`
+tar xzf *.tar.gz
+cd scaife
+
+# Check for SCALe markings
+for file in ./start.sh \
+            ./helpers/remove_yaml_examples.py \
+            ./ui_server_stub/scale.app/start.sh \
+             ./ui_server_stub/scale.app/doc/Welcome.md ; do
+    grep "DM19-1274" $file > /dev/null  # SCALe markings
+    if [ ! 0 = $? ]; then
+        echo $file "has incorrect markings"
+    fi
+done
+
+# Check for SCAIFe manual markings
+for file in ./ui_server_stub/scale.app/doc/SCAIFE-Welcome.md; do
+    grep "DM20-0043" $file > /dev/null  # SCAIFE manual markings
+    if [ ! 0 = $? ]; then
+        echo $file "has incorrect markings"
+    fi
+done
+
+
+# Launch container
+docker-compose -f docker-compose.yml up -d --build scale
+sleep 15  # wait for SCALe to come up
+
+# Test container by creating some projects
+echo "Creating projects"
+docker-compose exec scale ./scripts/automation/create_basic_project.py
+docker-compose exec scale ./scripts/automation/create_basic_testsuite_project.py
+
+echo "Testing"
+docker-compose exec scale ./bin/test-link
+docker-compose exec scale ./bin/test-python
+docker-compose exec scale ./bin/test-ruby
+# Run the simplest Selenium test
+docker-compose exec scale ./bin/test-selenium-nostart -Dtest=TestWebAppCoreScenariosRemote\#testAlertsPresentTarGz
+# All of Selenium, which currently takes >40m
+#docker-compose exec scale ./bin/test-selenium-nostart
+
+echo "Cleaning up"
+
+# To clean up container
+docker-compose down
+
+popd
+rm -rf temp_scale
+
+exit 0

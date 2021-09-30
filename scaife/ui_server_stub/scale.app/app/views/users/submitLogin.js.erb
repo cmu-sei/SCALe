@@ -1,0 +1,9 @@
+$(document).ready(function() {
+  loginFormId = "#login-form-msg";
+  <% if @user_status_code == 200 %>
+    location.reload();
+  <% else %>
+    $(loginFormId).show();
+    $(loginFormId).text("<%= j @user_response %>");
+  <% end %>
+});

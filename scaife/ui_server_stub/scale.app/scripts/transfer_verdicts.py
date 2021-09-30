@@ -9,7 +9,7 @@
 # Usage: ./transfer_verdicts.py <old-db> <new-db>
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -53,7 +53,7 @@ def transfer_old_to_new(old_db, new_db, note=None):
     old.Determinations.verdict, old.Determinations.flag,
     old.Determinations.notes, old.Determinations.ignored,
     old.Determinations.dead, old.Determinations.inapplicable_environment,
-    old.Determinations.dangerous_construct
+    old.Determinations.dangerous_construct, old.Determinations.user_id
   FROM main.MetaAlerts
   JOIN main.MetaAlertLinks
     ON main.MetaAlertLinks.meta_alert_id = main.MetaAlerts.id
@@ -81,7 +81,7 @@ def transfer_old_to_new(old_db, new_db, note=None):
                 meta_alert = row[0]
                 if meta_alert in imported_dets:
                     continue
-                if row[1:] == trivial_det:
+                if row[1:7] == trivial_det:
                     continue
                 if row[3] and str(row[3]) != '0':
                     row[3] = "\n".join([row[3], note])
@@ -89,7 +89,7 @@ def transfer_old_to_new(old_db, new_db, note=None):
                     row[3] = note
                 cur.execute("""
                     INSERT INTO main.Determinations
-                    VALUES (NULL, 0, ?, DATETIME('now'), ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (NULL, 0, ?, DATETIME('now'), ?, ?, ?, ?, ?, ?, ?, ?)
                 """.strip(), row)
                 imported_dets.add(meta_alert)
         except con.Error as err:

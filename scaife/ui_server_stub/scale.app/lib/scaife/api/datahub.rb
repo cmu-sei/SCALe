@@ -14,7 +14,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -74,6 +74,7 @@ require_relative 'datahub/models/condition_response_wid'
 require_relative 'datahub/models/condition_response_wid_all_of'
 require_relative 'datahub/models/condition_response_w_tax_id'
 require_relative 'datahub/models/condition_response_w_tax_id_all_of'
+require_relative 'datahub/models/created_language'
 require_relative 'datahub/models/created_package'
 require_relative 'datahub/models/created_project'
 require_relative 'datahub/models/created_taxonomy'
@@ -92,10 +93,10 @@ require_relative 'datahub/models/edit_tool_metadata'
 require_relative 'datahub/models/edit_tool_metadata_outer'
 require_relative 'datahub/models/edited_package'
 require_relative 'datahub/models/edited_project'
+require_relative 'datahub/models/experiment_config'
 require_relative 'datahub/models/get_alerts_response'
 require_relative 'datahub/models/get_tool_response'
-require_relative 'datahub/models/language_version'
-require_relative 'datahub/models/language_version_wid'
+require_relative 'datahub/models/language_metadata'
 require_relative 'datahub/models/message'
 require_relative 'datahub/models/meta_alert_determination'
 require_relative 'datahub/models/meta_alert_mappings'

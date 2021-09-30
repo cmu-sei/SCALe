@@ -9,14 +9,20 @@
   <h3>Modals:</h3>
   <div>
     <ul>
-      <% if @project.present? %>
-        <li><%= link_to "Lang: Select", language_select_path(project_id: @project.present? @project.id : nil, modal: true, disable_lang_select: @disable_lang_select),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <% if @lang_select_enabled %>
+        <li><%= link_to "Lang: Select", language_select_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_lang_select: (not @enable_lang_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
       <% end %>
-      <li><%= link_to "Lang: Upload to SCAIFE", language_upload_path(project_id: @project.present? @project.id : nil, modal: true, disable_lang_select: @disable_lang_select),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
-      <li><%= link_to "Lang: Map to SCAIFE", language_map_path(project_id: @project.present? @project.id : nil, modal: true, disable_lang_select: @disable_lang_select),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
-        <li><%= link_to "Taxo: Select", taxonomy_select_path(project_id: @project.present? @project.id : nil, modal: true, disable_lang_select: @disable_lang_select),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
-      <li><%= link_to "Taxo: Upload to SCAIFE", taxonomy_upload_path(project_id: @project.present? @project.id : nil, modal: true, disable_lang_select: @disable_lang_select),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
-      <li><%= link_to "Taxo: Map to SCAIFE", taxonomy_map_path(project_id: @project.present? @project.id : nil, modal: true, disable_lang_select: @disable_lang_select),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <li><%= link_to "Lang: Upload to SCAIFE", language_upload_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_lang_select: (not @enable_lang_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <li><%= link_to "Lang: Map to SCAIFE", language_map_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_lang_select: (not @enable_lang_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+        <li><%= link_to "Taxo: Select", taxonomy_select_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_lang_select: (not @enable_lang_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <li><%= link_to "Taxo: Upload to SCAIFE", taxonomy_upload_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_lang_select: (not @enable_lang_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <li><%= link_to "Taxo: Map to SCAIFE", taxonomy_map_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_lang_select: (not @enable_lang_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+        <li><%= link_to "Tool: Select", tool_select_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_tool_select: (not @enable_tool_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <li><%= link_to "Tool: Upload to SCAIFE", tool_upload_path(project_id: (@project.present? ? @project.id : nil), modal: true, disable_tool_select: (not @enable_tool_select)),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
+      <li><%= link_to "Tool: Map to SCAIFE", tool_map_path(project_id: @project.present? ? @project.id : nil, modal: true, disable_tool_select: @disable_tool_select),  class: "dropdown-item", remote: true, "data-toggle" => "modal", "data-target" => "#scaife-integration-modal" %></li>
     </ul>
+  </div>
+  <div class="panel-body">
+    <%= render partial: "projects/scaife/pills", locals: { modal: true }   %>
   </div>
 <% end %>

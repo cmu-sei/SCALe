@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -31,9 +31,10 @@ BASE_DIR=$(dirname "$BIN_LOC")
 
 rm -rf $SCALE_DIR/public/GNU/*
 rm -rf $SCALE_DIR/archive
-rm -rf $SCALE_DIR/db/backup
 rm -f $SCALE_DIR/db/external.sqlite3
 rm -f $SCALE_DIR/db/development.sqlite3
-rm -f $SCALE_DIR/db/test.sqlite3
+rm -rf $SCALE_DIR/db/development
 rm -f $SCALE_DIR/log/development.log
+rm -f $SCALE_DIR/db/test.sqlite3
+rm -rf $SCALE_DIR/db/test
 rm -f $SCALE_DIR/log/test.log

@@ -3,7 +3,7 @@ title: 'SCALe : Installing the SCALe Web App on 64-bit Ubuntu 14.04 - Online'
 ---
  [SCALe](index.md) / [Source Code alysis (SLab (SCALe)](Welcome.md) / [Installing SCALe](Installing-SCALe.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->

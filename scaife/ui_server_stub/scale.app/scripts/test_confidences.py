@@ -1,11 +1,13 @@
-# Script to verify that classifiers ran correctly on all projects
+#!/usr/bin/env python
 
+# Script to verify that classifiers ran correctly on all projects
+#
 # This should not be run as part of normal testing, it is to be run
 # after generating confidences in SCAIFE. That is why this is not
 # inside the test/python directory
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 

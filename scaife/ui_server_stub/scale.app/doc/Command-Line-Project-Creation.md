@@ -3,7 +3,7 @@ title: 'SCALe : Manual Project Creation'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->

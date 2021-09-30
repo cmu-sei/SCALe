@@ -2,7 +2,7 @@
 # Script to save the tag name of this current Docker image
 # Takes one argument: bamboo_planRepository_branch, a Docker image tag
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 

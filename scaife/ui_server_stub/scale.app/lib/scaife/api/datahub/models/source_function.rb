@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -68,7 +68,7 @@ module Datahub
         :'name' => :'String',
         :'line_start' => :'Integer',
         :'line_end' => :'Integer',
-        :'code_metrics_data' => :'Array<Hash>'
+        :'code_metrics_data' => :'Object'
       }
     end
 
@@ -110,9 +110,7 @@ module Datahub
       end
 
       if attributes.key?(:'code_metrics_data')
-        if (value = attributes[:'code_metrics_data']).is_a?(Array)
-          self.code_metrics_data = value
-        end
+        self.code_metrics_data = attributes[:'code_metrics_data']
       end
     end
 

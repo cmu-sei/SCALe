@@ -1,7 +1,7 @@
 # Swagger JSON
 This is a swagger JSON built by the [swagger-codegen](https://github.com/swagger-api/swagger-codegen) project.
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->

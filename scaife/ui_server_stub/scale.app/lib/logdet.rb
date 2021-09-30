@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -23,7 +23,8 @@
 # </legal>
 
 module LogDet
-  def log_det(display)
+  # Returns ID of new determination
+  def log_det(display, user_id)
     con = ActiveRecord::Base.connection
 
     # Only operate if no values changed
@@ -39,7 +40,8 @@ module LogDet
          display.ignored == (old_det['ignored'] != 0) &&
          display.dead == (old_det['dead'] != 0) &&
          display.inapplicable_environment == (old_det['inapplicable_environment'] != 0) &&
-         display.dangerous_construct.to_s == old_det['dangerous_construct'].to_s
+         display.dangerous_construct.to_s == old_det['dangerous_construct'].to_s &&
+         userid = old_det['user_id']
              print("No change in this update\n")
              return false
       end
@@ -55,17 +57,19 @@ module LogDet
                return false
         end
     end
-    
-    con.execute("INSERT INTO Determinations ('project_id', 'meta_alert_id', "\
+
+    result = con.execute("INSERT INTO Determinations ('project_id', 'meta_alert_id', "\
                 " 'time', 'verdict', 'flag', 'notes', 'ignored', 'dead', "\
-                " 'inapplicable_environment', 'dangerous_construct') "\
+                " 'inapplicable_environment', 'dangerous_construct', 'user_id') "\
                 "VALUES ('#{display.project_id}', "\
                 "'#{display.meta_alert_id}', DATETIME('now'), "\
                 "'#{display.verdict}', '#{display.flag ? 1 : 0}', "\
                 " '#{display.notes}', '#{display.ignored ? 1 : 0}', "\
                 "'#{display.dead ? 1 : 0}', "\
                 " '#{display.inapplicable_environment ? 1 : 0}', "\
-                "'#{display.dangerous_construct}')")
-    return true
+                "'#{display.dangerous_construct}', "\
+                "'#{user_id}')")
+    det_id = con.last_inserted_id(result)
+    return det_id
   end
 end

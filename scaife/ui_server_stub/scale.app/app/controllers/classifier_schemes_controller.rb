@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -177,7 +177,7 @@ class ClassifierSchemesController < ApplicationController
             msg = "Success"
             status = 200
             end_timestamps = get_timestamps()
-            PerformanceMetrics.addRecord(@scaife_mode, "createClassifier", "Time to create a SCAIFE classifier", "SCALe_user", "Unknown", @project_id.to_i, start_timestamps, end_timestamps)
+            PerformanceMetric.addRecord(@scaife_mode, "createClassifier", "Time to create a SCAIFE classifier", "SCALe_user", "Unknown", @project_id.to_i, start_timestamps, end_timestamps)
           rescue ActiveRecord::RecordInvalid => e
             puts "DB validation error: #{e.message}"
             msg = "Bad Request: #{e.message}"
@@ -188,8 +188,12 @@ class ClassifierSchemesController < ApplicationController
             status = 500
           ensure
             msg = { status: status, message: msg }
-            respond_to do |format|
-              format.json { render json: msg, status: status }
+            if params[:experiment]
+              puts "#{status}: #{msg}"
+            else
+              respond_to do |format|
+                format.json { render json: msg, status: status }
+              end
             end
           end
         end
@@ -201,7 +205,7 @@ class ClassifierSchemesController < ApplicationController
           msg = "Success"
           status = 200
           end_timestamps = get_timestamps()
-          PerformanceMetrics.addRecord(@scaife_mode, "createClassifier", "Time to create a SCAIFE classifier", "SCALe_user", "Unknown", @project_id.to_i, start_timestamps, end_timestamps)
+          PerformanceMetric.addRecord(@scaife_mode, "createClassifier", "Time to create a SCAIFE classifier", "SCALe_user", "Unknown", @project_id.to_i, start_timestamps, end_timestamps)
         rescue ActiveRecord::RecordInvalid => e
           puts "DB validation error: #{e.message}"
           msg = "Bad Request: #{e.message}"

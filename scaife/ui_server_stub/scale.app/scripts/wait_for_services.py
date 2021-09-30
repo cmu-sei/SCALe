@@ -7,7 +7,7 @@
 # status code 0 if all services are up within the the alloted time.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -55,9 +55,11 @@ if __name__ == "__main__":
         """)
     parser.add_argument("-v", "--verbose", action=bootstrap.Verbosity)
     args = parser.parse_args()
+    scale_module = bootstrap.this_module()
     if args.list:
         print "available services: %s" \
-            % ', '.join(sorted(bootstrap.load_services_from_config()))
+            % ', '.join([scale_module.name] + \
+            sorted(x.name for x in scale_module.services))
         sys.exit(0)
     include = args.include
     if include:
@@ -67,7 +69,8 @@ if __name__ == "__main__":
         exclude = [x.strip() for x in re.split(r",", exclude)]
     try:
         bootstrap.wait_for_services(timeout=args.timeout,
-                include=include, exclude=exclude, localhost=args.localhost)
+                include=include, exclude=exclude, localhost=args.localhost,
+                loud=(VERBOSE > 1))
     except ServiceException as e:
         print e.message
         sys.exit(1)

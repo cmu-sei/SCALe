@@ -1,0 +1,166 @@
+<!--
+  Since generating databases and creating projects can take a
+  while, we also have a loading div on this page
+-->
+
+<div id="loader">
+  <img src="/ajax-loader.gif" alt="loading...">
+</div>
+<%= form_tag({:action => "scaife_ci"}, { :multipart => true }) do |f| %>
+  <% if @errors.present? %>
+    <div id="errors">
+      <h2><%= pluralize(@errors.count, "error") %> prohibited this project from being updated:</h2>
+      <ul>
+        <% @errors.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- <div class="panel panel-default"> -->
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      CI project source repository/configuration:
+    </div>
+    <div class="panel-body">
+      <%
+        git_url = (Rails.env == "test" and @project.git_url.blank?) \
+          ? "https://github.com/tizenorg/platform.upstream.dos2unix.git"
+          : @project.git_url
+        git_user = (Rails.env == "test" and @project.git_user.blank?) \
+          ? "test_user"
+          : @project.git_user
+        git_access_token = (Rails.env == "test" \
+                          and @project.git_access_token.blank?) \
+          ? "test_token"
+          : @project.git_access_token
+        author_source = (Rails.env == "test" \
+                          and @project.author_source.blank?) \
+          ? "test_author"
+          : @project.author_source
+        license_file = (Rails.env == "test" \
+                          and @project.license_file.blank?) \
+          ? "test_license_string"
+          : @project.license_file
+      %>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "Project:") %>
+        </div>
+        <div class="col-sm-3">
+          <%= @project.name %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "Project git repo URL:") %>
+        </div>
+        <div class="col-sm-3">
+          <%= text_field(:project, :git_url, value: git_url, class: 'createDatabase form-control', type: 'url') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "Git user id: ") %>
+        </div>
+        <div class="col-sm-3">
+          <%= text_field(:project, :git_user, value: git_user, class: 'createDatabase form-control') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "Git access token: ") %>
+        </div>
+        <div class="col-sm-3">
+          <%= text_field(:project, :git_access_token, value: git_access_token, class: 'createDatabase form-control') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "Author Source: ") %>
+        </div>
+        <div class="col-sm-3">
+          <%= text_field(:project, :author_source, value: author_source, class: 'createDatabase form-control') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "License: ") %>
+        </div>
+        <div class="col-sm-3">
+          <%= text_field(:project, :license_file, value: license_file, class: 'createDatabase form-control') %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <% if @project.scaife_package_id.present? %>
+          <%= submit_tag("Edit/Regenerate", class: "btn btn-default", role: "button") %>
+        <% else %>
+          <%= submit_tag("Create", class: "btn btn-default", role: "button") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% if @ci_token.present? or @project_scaife_tools.present? %>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      Information for CI server configuration:
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "Package access token:") %>
+        </div>
+        <div class="col-sm-8">
+          <% if @ci_token.present? %>
+            <%= text_field(:project, :static, value: @ci_token, class: 'createDatabase form-control', readonly: true, rows: 4) %>
+          <% else %>
+            <%= text_field(:static, :static, value: "No package token found", class: 'createDatabase form-control', readonly: true) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= label_tag(:project, "Tool IDs:") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-10">
+          <table class="table-condensed">
+            <tbody>
+              <tr>
+                <td class="header_items">Name</td>
+                <td class="header_items">Version</td>
+                <td class="header_items">ID</td>
+              </tr>
+              <% if @project_scaife_tools.present? %>
+                <% @project_scaife_tools.each() do |tool| %>
+                  <tr>
+                    <td><%= "#{tool.name}" %></td>
+                    <td><%= "#{tool.version}" %></td>
+                    <td>
+                      <%= text_field(:project, :static, value: tool.scaife_tool_id, class: 'form-control', readonly: true) %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr><td colspan="3"><em>No tool IDs found</em></td></tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    SCAIFE Select/Upload Package Dependencies
+  </div>
+  <div class="panel-body">
+    <%= render partial: "projects/scaife/pills", locals: { modal: true }   %>
+  </div>
+</div>

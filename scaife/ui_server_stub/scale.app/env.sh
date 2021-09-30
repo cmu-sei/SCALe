@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -39,5 +39,8 @@ function maybe_set_rails_env {
     RAILS_ENV=$1
   elif [[ -z "$RAILS_ENV" && ! -z "$SCAIFE_MODE" ]]; then
     RAILS_ENV=$SCAIFE_MODE
+  fi
+  if [ -z "$RAILS_ENV" ]; then
+    RAILS_ENV=development
   fi
 }

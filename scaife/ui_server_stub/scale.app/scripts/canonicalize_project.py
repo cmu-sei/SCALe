@@ -38,7 +38,7 @@
 # could also compare files using hashes, to also compare contents of the files.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -63,6 +63,7 @@
 
 from __future__ import print_function
 
+import argparse
 import sys
 import os
 import re
@@ -87,7 +88,7 @@ def make_normalizer():
     return _normalize
 
 def output_canonicalized_db(db_path, project_id, internal_db=True,
-        out=sys.stdout):
+                            out=sys.stdout, user_info=False):
     if not os.path.exists(db_path):
         raise ValueError("DB does not exist: %s" % db_path)
     project = bootstrap.Project(project_id,
@@ -99,6 +100,8 @@ def output_canonicalized_db(db_path, project_id, internal_db=True,
         ignore_tables = set([
             "performance_metrics", "PerformanceMetrics",
         ])
+        if not user_info:
+            ignore_tables.add("Users")
 
         # note variable columns that aren't automatically identified
         variable_cols = {}
@@ -124,12 +127,17 @@ def output_canonicalized_db(db_path, project_id, internal_db=True,
         variable_wildcard_cols = {}
         variable_wildcard_cols["displays"] = [
             "confidence",
+            "category",
             "class_label",
         ]
         variable_wildcard_cols["MetaAlerts"] = [
             "confidence_score",
             "class_label",
         ]
+        if not user_info:
+            variable_wildcard_cols["determinations"] = variable_wildcard_cols["Determinations"] = [
+                "user_id",
+            ]
 
         variable_timestamp_cols = {}
 
@@ -165,7 +173,8 @@ def output_canonicalized_db(db_path, project_id, internal_db=True,
                 column_names.append(column_name)
 
             if column_names[0].lower() == "id" \
-                    and "project_id" not in column_names:
+                    and ("project_id" not in column_names or
+                         "Determinations" == table_name):
                 del column_names[0]
 
             orig_column_names = list(column_names)
@@ -198,7 +207,11 @@ def output_canonicalized_db(db_path, project_id, internal_db=True,
                 timestamp_indices.append(column_names.index(col))
             wildcard_indices = []
             for col in wildcard_cols:
-                wildcard_indices.append(column_names.index(col))
+                try:
+                    wildcard_indices.append(column_names.index(col))
+                except ValueError as e:
+                    print("warning: %s: %s"
+                            % (table_name, e.message), file=sys.stderr)
 
             # Search by "id" in internal db's projects table
             # Search by "project_id" elsewhere
@@ -271,21 +284,22 @@ def output_canonicalized_db(db_path, project_id, internal_db=True,
                                     row_idx, idx, wildcard=True)
                 out.write("    ROW: " + "|".join(rowlist) + "\n")
 
-def output_canonicalized_project(project_id, out=sys.stdout):
+def output_canonicalized_project(project_id, out=sys.stdout, user_info=False):
     # Produce canonical info for project database
     if project_id is None:
         raise ValueError("project_id required, given: %s" % project_id)
     out.write("External Database Contents:\n")
     backup_db = bootstrap.find_project_db(project_id)
     if not backup_db:
-        raise ValueError("project %s has no external DBs" % project_id)
+        raise ValueError("project %s has no external DBs for env %s"
+                % project_id, bootstrap.rails_env)
     # external always has project id 0
-    output_canonicalized_db(backup_db, 0, internal_db=False, out=out)
+    output_canonicalized_db(backup_db, 0, internal_db=False, out=out, user_info=user_info)
     out.write("\n")
 
     # Produce canonical info for project in internal database
     out.write("Internal Database Contents:\n")
-    output_canonicalized_db(bootstrap.internal_db, project_id, out=out)
+    output_canonicalized_db(bootstrap.internal_db, project_id, out=out, user_info=user_info)
     out.write("\n")
 
     # Produce directory listing of project's 'supplemental' directory.
@@ -311,14 +325,18 @@ def output_canonicalized_project(project_id, out=sys.stdout):
 
 
 if __name__ == "__main__":
-    if "-h" in sys.argv or "--help" in sys.argv:
-        print("Usage: ", sys.argv[0], " <project-id>")
-        exit(1)
-    if len(sys.argv) > 1:
-        project_id = int(sys.argv[1])
-    else:
+    parser = argparse.ArgumentParser(
+        description="Outputs canonicalized version of a scale project",
+        epilog='''
+            No database is modified.
+        ''')
+    parser.add_argument("-u", "--user", action='store_true',
+                        help="Include user info")
+    parser.add_argument("project_id", nargs='?',  default=0,
+                        help="Number of project to canonicalize. Defaults to latest")
+    args = parser.parse_args()
+    if args.project_id == 0:
         project_id = bootstrap.get_latest_project_id()
-        if not project_id:
-            print("no projects present in DB", file=sys.stderr)
-            sys.exit(1)
-    output_canonicalized_project(project_id)
+    else:
+        project_id = int(args.project_id)
+    output_canonicalized_project(project_id, user_info=args.user)

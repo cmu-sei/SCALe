@@ -60,16 +60,15 @@ SCAIFE : DataHub Module
 -   [Adding Audit Data (Adjudications True and False)](#adding-audit-data-adjudications-true-and-false)
 -   [CI Integration](#integration-with-ci)
 
-Overview
---------
+## Overview
+
 The DataHub Module is the main entity server that stores data such as projects, test suites and tool/checker
 information to be used in the classification and alert prioritization.The DataHub also performs
 automatic alert forwarding for projects that use Adaptive Heuristics. It makes automated
 adjudications for test suite projects, which must be uploaded to the DataHub with a manifest
 file that provides meta-data about code flaws. The DataHub is often referred to as the Remote Database.
 
-Using SCALe to Upload to the DataHub
---------
+## Using SCALe to Upload to the DataHub
 
 [SCALe](Welcome.md) is one instantiation of a SCAIFE UI module. We've
 modified the previous version of SCALe for (optional) SCAIFE
@@ -85,8 +84,8 @@ Also right-click "Using SCAIFE" to open that in a new tab, which opens the SCAIF
 In your second tab, the ["SCALe Quick Start Demo for Auditors"](SCALe-Quick-Start-Demo-for-Auditors.md) is helpful at learning the basics of SCALe.
 
 
-Creating a Test Project
---------
+## Creating a Test Project
+
 
 To create a test project in the DataHub from SCALe, follow the instructions below. Following these instructions will
 result in creating a SCAIFE DataHub project that can be used for testing classifiers in the [Statistics Module]
@@ -143,8 +142,7 @@ So you should only use the Vagrant-created SCAIFE VM for these tests.
 
 This brings you to the project auditing page.
 
-Adding Audit Data (Adjudications True and False)
---------
+## Adding Audit Data AKA Adjudications True and False
 
 You must next set at least 10 meta-alert verdicts to "True", and at least 10 to "False". The easiest way to do this is to:
 
@@ -182,10 +180,9 @@ The "Confidence" column should be empty for every meta-alert in the table.
 
 ![](attachments/Confidence.png)
 
-Integration with CI
---------
+## Integration with CI
 
-SCAIFE supports integration with automated CI build systems when package has been configured to integrate with CI.  The DataHub Module API provides a CI endpoint that automates analysis using SCAIFE. See the DataHub Module swagger API definition for details on API usage and complete documentation can be found in the [SCAIFE-CI](SCAIFE-CI.md) page.  Additional configurations, such as proxy setting, and the DataHub Modules local git repository pathing information can be configured by editing the servers.conf file located at `scaife/datahub_server_stub/swagger_server/servers.conf`.
+SCAIFE supports integration with automated CI build systems when package has been configured to integrate with CI.  The DataHub Module API provides a CI endpoint that automates analysis using SCAIFE. See the DataHub Module swagger API definition for details on API usage and complete documentation (including multiple hands-on demos) can be found in the [SCAIFE-CI](SCAIFE-CI.md) page.  Additional configurations, such as proxy setting, and the DataHub Modules local git repository pathing information can be configured by editing the `servers.conf` file located at `scaife/datahub_server_stub/swagger_server/servers.conf`.
 
 ------------------------------------------------------------------------
 

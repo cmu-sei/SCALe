@@ -8,7 +8,7 @@
 # the SCALe database.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -119,6 +119,7 @@ def generate_and_compare(scenario, src_project=None, keep=False):
                 if VERBOSE:
                     print("destroying automation project: %s" % tgt_project_id)
                 sess = automate.ScaleSession()
+                sess.event_scale_session_establish()
                 sess.set_project_id(tgt_project_id)
                 sess.query_project_destroy()
         else:

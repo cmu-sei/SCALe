@@ -3,7 +3,7 @@
 # This file provides a shortcut for retrieving the columns of an alertCondition. The link renderer is for the pagination.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -56,6 +56,9 @@ module AlertConditionsHelper
   def AlertConditionsHelper.build_rule_map
     result = {}
     doc = "public/doc"
+    if not Dir.exists? doc
+      FileUtils.mkdir_p doc
+    end
     Dir.new(doc).each do |lang|
       if File.directory?("#{doc}/#{lang}")
         Dir.new("#{doc}/#{lang}").each do |page|
@@ -77,10 +80,9 @@ module AlertConditionsHelper
   $Rule_Map = AlertConditionsHelper.build_rule_map
 
 
-  # This is a helper that will parse the column name and return the corresponding
-  # HTML formatted data.
+  # This is a helper that will parse the column name and return the
+  # corresponding HTML formatted data.
   def getContentFast(col, d)
-
     case col
     when :id
        content_tag(:p) do
@@ -126,6 +128,10 @@ module AlertConditionsHelper
             d[:confidence].to_s
           end
         end
+      end
+    when :category
+      content_tag(:p) do
+        d.category.to_s
       end
     when :meta_alert_priority
       content_tag(:p) do
@@ -255,6 +261,7 @@ args:
     dc (str) - dangerous construct
 =end
   def update_attrs(d, verdict, flag, ignored, dead, ienv, dc)
+    d.update_attribute(:time, DateTime.now)
     if(verdict != -1)
       d.update_attribute(:verdict, verdict)
     end
@@ -276,7 +283,7 @@ args:
 
     if (verdict != -1) or (flag != "-1") or (ignored != "-1") or (dead != "-1")\
       or (ienv != "-1") or (dc != "-1")
-      log_det(d)
+      return log_det(d, session[:login_user_id])
     end
   end
 end

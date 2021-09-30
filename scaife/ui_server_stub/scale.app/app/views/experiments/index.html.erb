@@ -1,0 +1,111 @@
+<!-- This is the main page for creating a new experiment -->
+<% if flash[:scaife_project_upload_message] %>
+    <%= javascript_tag "alert('" + flash[:scaife_project_upload_message] + "')" %>
+<% end %>
+<script>
+  function uriEscapedToObject(escapedString){
+      return JSON.parse(decodeURIComponent(escapedString));
+  }
+  var configs = uriEscapedToObject("<%= URI.escape(Experiment.configs.to_json) %>");
+
+  function update_config_inputs() {
+    var experiment_name = document.getElementById("experiment_name").value;
+    //console.log(JSON.stringify(configs));
+
+    let info = configs[experiment_name];
+    document.getElementById("test_suite").value = info.classifier_training_project;
+    document.getElementById("classifier_type").value = info.classifier_type;
+    document.getElementById("adaptive_heuristic_type").value = info.heuristic_type;
+    document.getElementById("hyper_parameterization_type").value = info.parameterization_type;
+    document.getElementById("meta_alert_priority_scheme").value = info.alert_priority_scheme;
+    document.getElementById("meta_alert_filtering").value = info.alert_filtering;
+    document.getElementById("fused").value = info.fused;
+  }
+</script>
+
+<div id="project-loader">
+  <!-- This loader div is simply to hold the loading gif -->
+  <img src="/ajax-loader.gif" alt="loading...">
+</div>
+
+<h1>New Experiment</h1>
+
+<div class="page_content" style="width: 100%;">
+  <%= form_with(url: "/experiments/create", method: "post") do %>
+    <div id="adjudicator_information">
+    <h2>ADJUDICATOR INFORMATION</h2>
+    <div class="form-group">
+      <%= label_tag(:adjudicator_name, "Name:") %><br/>
+      <span data-toggle="tooltip" data-placement="top" title="Full Name of Adjudicator">
+        <%= text_field_tag(:adjudicator_name,"", :required => true) %>
+      </span><br/>
+      <%= label_tag(:organization, "Organization:") %><br/>
+      <span data-toggle="tooltip" data-placement="top" title="Name of Adjudicator's Organization">
+        <%= text_field_tag(:organization,"", :required => true)  %>
+      </span><br/>
+      <br/>
+      <%= label_tag(:coding_experience, "Coding Experience:") %><br/>
+      <span data-toggle="tooltip" data-placement="top" title="How much experience Adjudicator has with related coding language.">
+        <%= select_tag(:coding_experience, options_for_select([["Low", "low"], ["Medium", "medium"], ["High", "high"]], ), :required => true) %>
+      </span><br/>
+      <%= label_tag(:years_coding, "Years Coding:") %><br/>
+      <span data-toggle="tooltip" data-placement="top" title="How many years Adjudicator has coded with related coding language.">
+        <%= number_field(:years_coding,"", :required => true) %>
+      </span><br/>
+      <br/>
+      <%= label_tag(:adjudication_experience, "Adjudication Experience:") %><br/>
+      <span data-toggle="tooltip" data-placement="top" title="How much experience Adjudicator has with adjudicating static analysis warnings.">
+        <%= select_tag(:adjudication_experience, options_for_select([["Low", "low"], ["Medium", "medium"], ["High", "high"]], ), :required => true) %>
+      </span><br/>
+      <%= label_tag(:years_adjudicating, "Years Adjudicating:") %><br/>
+      <span data-toggle="tooltip" data-placement="top" title="How many years Adjudicator has adjudicated static analysis warnings.">
+        <%= number_field(:years_adjudicating,"", :required => true) %>
+      </span><br/>
+      <br/>
+    </div>
+  </div>
+    <div id="experiment_config" style="width: 100%;">
+      <h2>EXPERIMENT CONFIGURATION</h2>
+      <div class="form-group">
+          <%= label_tag(:experiment_name, "Select Experiment:") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Name of Chosen Experiment">
+            <%= select_tag(:experiment_name, options_for_select(Experiment.configs.keys), onchange: "update_config_inputs()", :include_blank => true) %>
+          </span><br/>
+          <br/>
+          <%= label_tag(:test_suite, "Classifier Training Additional Project") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Project and Adjudications used to train the classifier.">
+              <%= text_field_tag(:test_suite,"", readonly: true) %>
+          </span><br/>
+          <br/>
+          <%= label_tag(:classifier_type, "Classifier Type") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Classifier used in experiment.">
+            <%= text_field_tag(:classifier_type,"", readonly: true) %>
+          </span><br/>
+          <%= label_tag(:adaptive_heuristic_type, "Adaptive Heuristic Type") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Adaptive Heuristic used in experiment.">
+            <%= text_field_tag(:adaptive_heuristic_type,"", readonly: true) %>
+          </span><br/>
+          <br/>
+          <%= label_tag(:meta_alert_filtering, "Meta-Alert Filtering") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Meta-Alert Filtering used in experiment.">
+            <%= text_field_tag(:meta_alert_filtering,"", readonly: true) %>
+          </span><br/>
+          <%= label_tag(:meta_alert_priority_scheme, "Meta-Alert Priority Scheme") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Meta-Alert Priority Scheme used in experiment.">
+            <%= text_field_tag(:meta_alert_priority_scheme,"", readonly: true) %>
+          </span><br/>
+          <br/>
+          <%= label_tag(:hyper_parameterization_type, "Hyper-Parameterization Type") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Hyper-Parameterization used in experiment.">
+            <%= text_field_tag(:hyper_parameterization_type,"", readonly: true) %>
+          </span><br/>
+          <%= label_tag(:fused, "Fused") %><br/>
+          <span data-toggle="tooltip" data-placement="top" title="Whether experiment classifier is fused.">
+            <%= text_field_tag(:fused,"", readonly: true) %>
+          </span><br/>
+          <br/>
+      </div>
+    </div>
+    <%= submit_tag("Create Experiment", :id=>"create_experiment", :class=>'btn btn-primary', :name=>"submit", "data-placement"=>"top", :title=>"Create a new experiment using the config data") %>
+  <% end %>
+</div>

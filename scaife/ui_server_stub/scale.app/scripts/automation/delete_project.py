@@ -4,7 +4,7 @@
 # nothing but delete a given project (ID or name) from the database.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -27,6 +27,8 @@
 # DM19-1274
 # </legal>
 
+from __future__ import print_function
+
 import sys, os, argparse
 
 import bootstrap
@@ -37,21 +39,22 @@ from bootstrap import VERBOSE
 def main(project):
     if os.path.exists(bootstrap.internal_db):
         # only resolve project name if db is hosted locally
-        project_id, project_name = bootstrap.project_id_and_name(project)
+        project_id, project_name = bootstrap.get_project_id_and_name(project)
         if not project_id:
             raise ValueError("project not found: %s" % project)
     else:
         project_id, project_name = project, None
-    
+
     sess = ScaleSession()
+    sess.event_scale_session_establish()
     sess.set_project_id(project_id)
     try:
         sess.query_project_destroy()
         if VERBOSE:
             if project_name:
-                print "project deleted: %d - %s" % (project_id, project_name)
+                print("project deleted: %d - %s" % (project_id, project_name))
             else:
-                print "project deleted: %d" % project_id
+                print("project deleted: %d" % project_id)
     except FetchError, e:
         print("error: %d %s" % (e.message[0:2]))
 

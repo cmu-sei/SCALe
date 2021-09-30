@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -64,44 +64,83 @@ class Display < ActiveRecord::Base
     #validates :cwe_likelihood, :numericality => { :greater_than_or_equal_to => 0, only_integer: false }
     #validates :dangerous_construct, :numericality => { :greater_than_or_equal_to => 0, only_integer: true }
 
+  # Produce the category of display item d
+  def update_category
+    category_project(Project.find(self.project_id))
+  end
+
+  # Produce the category of display item d, in project p
+  def update_category_project(p)
+    self.category = compute_category(class_label, confidence,
+                                     p[:confidence_threshold],
+                                     p[:efp_confidence_threshold])
+  end
+
+  def self.compute_category(class_label, confidence, etp_ct, efp_ct)
+    if(class_label == 'true' && confidence >= etp_ct)
+      'e-TP'
+    elsif(class_label == 'false' && confidence >= efp_ct)
+      'e-FP'
+    else
+      'I'
+    end
+  end
+
   # This helper function constructs the filter query from the parameters
   # submitted by the filter form at the top of the main auditing page.
   # connection.quote is used to quote and sanitize all inputs.
-  def self.constructSQLFilter(project_id, id_type, id, verdict, path, line, tool, checker, condition, taxonomy)
+  def self.constructSQLFilter(project_id, ui, tax_conditions, efp_ct, etp_ct)
     filter = "project_id = " + connection.quote(project_id)
     #if(meta_alert_id != "")
     #  filter += " AND meta_alert_id = " + connection.quote(meta_alert_id)
     #end
-    if(id_type == "Display (d) ID")
-        filter += " AND id = " + connection.quote(id)
-    elsif(id_type == "Meta-Alert (m) ID")
-       filter += " AND meta_alert_id = " + connection.quote(id)
+    if(ui[:selected_id_type] == "Display (d) ID")
+        filter += " AND id = " + connection.quote(ui[:ID])
+    elsif(ui[:selected_id_type] == "Meta-Alert (m) ID")
+       filter += " AND meta_alert_id = " + connection.quote(ui[:ID])
     end
-    if(verdict.to_i != -1)
-      filter += " AND verdict = " + connection.quote(verdict)
+    verdict_to_i = ui[:verdict].to_i
+    if(verdict_to_i == 5) # known aka not unknown
+      filter += " AND verdict != '0'"
+    elsif(verdict_to_i != -1)
+      filter += " AND verdict = " + connection.quote(ui[:verdict])
     end
-    if(tool != "")
-      filter += " AND tool = " + connection.quote(tool)
+    if(ui[:tool] != "")
+      filter += " AND tool = " + connection.quote(ui[:tool])
     end
-    if(path != "")
-      filter += " AND path = " + connection.quote(path)
+    if(ui[:path] != "")
+      filter += " AND path = " + connection.quote(ui[:path])
     end
-    if(line != "")
-      filter += " AND line = " + connection.quote(line)
+    if(ui[:line] != "")
+      filter += " AND line = " + connection.quote(ui[:line])
     end
-    if(checker != "")
-      filter += " AND checker = " + connection.quote(checker)
+    if(ui[:checker] != "")
+      filter += " AND checker = " + connection.quote(ui[:checker])
     end
-    if(condition != "")
-      filter += " AND condition = " + connection.quote(condition)
+    if(ui[:condition] != "")
+      filter += " AND condition = " + connection.quote(ui[:condition])
     end
-    if(!taxonomy.empty?)
+    if(ui[:category] != "All")
+      filter += " AND category = " + connection.quote(ui[:category])
+    end
+    if(!tax_conditions.empty?)
       current_filter = filter
-      filter += " AND condition = " + connection.quote(taxonomy[0])
-      taxonomy[1, taxonomy.length].each do |r| #ignore first item in list
+      filter += " AND condition = " + connection.quote(tax_conditions[0])
+      tax_conditions[1, tax_conditions.length].each do |r| #ignore first item in list
         filter += " OR " + current_filter + " AND condition = " + connection.quote(r)
       end
     end
+
+    # Enforce the project-wide confidence thresholds unless they are 0
+    if ENV["SCALE_EXPERIMENT"] == "1"
+      if efp_ct && efp_ct > 0.0
+        filter += " AND (confidence IS NULL OR category IS NULL OR confidence == '' OR category!='e-FP' OR confidence >= " + efp_ct.to_s + ")"
+      end
+      if etp_ct && etp_ct > 0.0
+        filter += " AND (confidence IS NULL OR category IS NULL OR confidence == '' OR category!='e-TP' OR confidence >= " + etp_ct.to_s + ")"
+      end
+    end
+
 #    # set up later for filtering based on cwe_likelihood and notes also
 #    if(cwe_likelihood != "")
 #      filter += " AND cwe_likelihood = " + connection.quote(cwe_likelihood)
@@ -143,12 +182,15 @@ class Display < ActiveRecord::Base
   end
 
   # Speedily inserts all the database entries into the Displays table.
-  def self.importScaleMI(project_id)
+  def self.importScaleMI(project_id, request: nil)
     puts "Loading Data into the DB..."
     start_time = Time.now
     # these need to be in method scope
     db_version = nil
     created_at = nil
+    confidence_threshold = nil
+    efp_confidence_threshold = nil
+    category = nil
     data = nil
     determinations = nil
     messages = nil
@@ -173,20 +215,28 @@ class Display < ActiveRecord::Base
       proj = con.execute("SELECT * FROM Projects").first
       db_version = con.quote(proj["version"])
       created_at = con.quote(proj["created_at"])
+      confidence_threshold = proj["confidence_threshold"]
+      if(not confidence_threshold)
+         confidence_threshold = Rails.configuration.x.default_etp_confidence_threshold
+      end
+      efp_confidence_threshold = proj["efp_confidence_threshold"]
+      if(not efp_confidence_threshold)
+         efp_confidence_threshold = Rails.configuration.x.default_efp_confidence_threshold
+      end
 
       # Fetching all the alert data and all the distinct messages.
       # note: ConditionCheckerLinks not required due the presence
       # of Alerts.checker_id and MetaAlerts.condition_id
       data = con.execute(%Q(
         SELECT DISTINCT MetaAlerts.id, Messages.path,
-        Messages.line, Messages.message,
+        Messages.line, Messages.link, Messages.message,
         Checkers.name AS checker, Tools.id AS tool_id,
         Tools.name AS tool, Tools.version AS tool_version,
         Taxonomies.id AS taxonomy_id, Taxonomies.name AS taxonomy,
         Taxonomies.version_string AS taxonomy_version, Taxonomies.format,
         Conditions.name AS condition, Conditions.title,
         Alerts.id AS alert_id, Conditions.formatted_data AS data,
-        MetaAlerts.code_language, MetaAlerts.confidence_score
+        MetaAlerts.code_language, MetaAlerts.confidence_score, MetaAlerts.class_label
         FROM Alerts
         JOIN Messages ON Messages.id=Alerts.primary_msg
         JOIN MetaAlertLinks ON MetaAlertLinks.alert_id=Alerts.id
@@ -229,7 +279,9 @@ class Display < ActiveRecord::Base
       end
 
       con.execute("UPDATE projects SET version=#{db_version},"\
-                  " created_at=#{created_at}"\
+                  " created_at=#{created_at},"\
+                  " confidence_threshold=#{confidence_threshold},"\
+                  " efp_confidence_threshold=#{efp_confidence_threshold}"\
                   " WHERE id=#{project_id}")
 
       ActiveRecord::Base.logger = nil
@@ -247,12 +299,16 @@ class Display < ActiveRecord::Base
                     "inapplicable_environment", "dangerous_construct"]
 
       if determinations.present?
+        # request.session isn't available from class methods, so needs to be
+        # passed in if wanted
+        user_id = request.session.present? ? request.session[:login_user_id] : 0
         determinations.each do |r|
           values = det_fields.collect{|f| ActiveRecord::Base.connection.quote(r[f])}
           meta_alert_id = ActiveRecord::Base.connection.quote(r["meta_alert_id"])
-          con.execute("INSERT INTO determinations ('project_id', 'meta_alert_id', '" +
+
+          con.execute("INSERT INTO determinations ('project_id', 'meta_alert_id', 'user_id', '" +
                       det_fields.join("', '") +
-                      "') VALUES ('#{project_id}', '#{meta_alert_id}', " +
+                      "') VALUES ('#{project_id}', '#{meta_alert_id}', '#{user_id}', " +
                       values.join(", ") + ")")
         end
       end
@@ -291,6 +347,9 @@ class Display < ActiveRecord::Base
         con.execute("INSERT INTO priority_schemes ('project_id', '#{p_schemes_fields_all.join("', '")}') VALUES ('#{project_id}', #{vals_all.join(', ')})")
       end
 
+      # We are not importing experimental data, but any further data
+      # would be added here.
+
       # TODO: Copy all data needed to run SCALe from external.sqlite3 to
       # development.sqlite3 to avoid having to copy/delete/recopy
       # tables, and connect/disconnect/reconnect to different databases
@@ -300,7 +359,7 @@ class Display < ActiveRecord::Base
     dets = Determination.where(project_id: project_id).order(time: :asc)
       .select(det_fields + ["meta_alert_id"])
     detsMap = Hash.new
-    
+
     if dets.present?
       dets.each do |det|
         meta_alert_id = det[:meta_alert_id]
@@ -335,6 +394,9 @@ class Display < ActiveRecord::Base
           format_json = r["format"]
           data_json = r["data"]
           confidence_score = r["confidence_score"]
+          class_label = r["class_label"]
+          category = Display.compute_category(class_label, confidence_score,
+                                              confidence_threshold, efp_confidence_threshold)
           code_language = r["code_language"]
           if not formats_fields.has_key? format_json
             fmt_fields = []
@@ -359,7 +421,7 @@ class Display < ActiveRecord::Base
           end
           meta_alert_id = ActiveRecord::Base.connection.quote(r["id"])
           key = self.genDetMapKey(meta_alert_id, project_id)
-          
+
           if detsMap.key?(key)
             det_values = detsMap[key][0]
             previous = detsMap[key][1] - 1
@@ -374,12 +436,16 @@ class Display < ActiveRecord::Base
               var_fields.join("', '") + "', '" +
               det_fields.join("', '") + "', '" +
               'confidence' + "', '" +
+              'class_label' + "', '" +
+              'category' + "', '" +
               'code_language' + "')" +
               " VALUES (NULL, '#{meta_alert_id}', '#{project_id}', '#{previous}', " +
               values.join(", ") + ", " +
               var_values.join(", ") + ", " +
               "'#{det_values.join("', '")}'" + ", " +
               "'#{confidence_score}'" + ", " +
+              "'#{class_label}'" + ", " +
+              "'#{category}'" + ", " +
               "'#{code_language}'" + ")"
             con.execute(sql)
           else
@@ -448,7 +514,7 @@ class Display < ActiveRecord::Base
         if ext_checker_keys.include? [r["name"],r["tool_id"]]
           con.execute(
             "UPDATE checkers " +
-            "SET scaife_checker_id = '#{r["scaife_checker_id"]}' " + 
+            "SET scaife_checker_id = '#{r["scaife_checker_id"]}' " +
             "WHERE id = '#{r["id"]}'"
           )
         end

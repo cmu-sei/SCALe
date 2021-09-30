@@ -1,0 +1,4 @@
+$(document).ready(function() {
+  $("#user-login-modal").find(".modal-content").html("<%= j (render 'getLoginModal') %>");
+  $("#user-login-modal").modal();
+});

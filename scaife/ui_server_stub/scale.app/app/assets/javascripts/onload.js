@@ -1,5 +1,5 @@
 // <legal>
-// SCALe version r.6.5.5.1.A
+// SCALe version r.6.7.0.0.A
 // 
 // Copyright 2021 Carnegie Mellon University.
 // 
@@ -27,7 +27,7 @@ window.onload = function() {
   // We hide any loaders
   $("#loader").hide();
   $("#project-loader").hide();
-  
+
   //Upload Project to SCAIFE should trigger the loader
   $(".upload_project").click(function(){
 	    //console.log("upload SCAIFE project click()");
@@ -150,7 +150,7 @@ $(document).on('change', '.file', function() {
   $(document).on('change', '.swamp_tool_select', function(){
     var selected = $(this).find("option:selected").text();
     var selected_split = selected.split("/");
-  
+
     var selected_regex = /\[([^\]]+)\]/
     var tool_key = selected_regex.exec($(this).attr("name"));
     var thing = $("#tool_versions_" + tool_key[1].replace(/\//g, "\\/"));
@@ -161,7 +161,7 @@ $(document).on('change', '.file', function() {
   // Toggle the run classifier button based on the select dropdown options
   $(document).on("change", "#classifier_instance_chosen", function(){
 	 classifier_text = $(this).val();
-	 
+
 	 if (!classifier_text.trim()){ // The dropdown prompt has an empty string value.
 		 $("#run-classifier-btn").prop('disabled', true);
 	 }
@@ -173,12 +173,12 @@ $(document).on('change', '.file', function() {
   //get the chosen classifier and make request to run the classifier
   $(document).on('click', "#run-classifier-btn", function() {
    // classifier_instance_name = $("#classifierChosen").text();
-    
+
     // Get the classifier seclected in the dropdown
     classifier_instance_name = $("#classifier_instance_chosen option:selected").text();
-    
+
     var classify_button_text = $("#run-classifier-btn").html();
-    
+
     $("#run-classifier-btn").html("Running...");
 
     $.ajax({
@@ -196,6 +196,26 @@ $(document).on('change', '.file', function() {
     	  return false;
       }
     });
+  });
+
+  //end an experiment
+  $(document).on('click', '#end-experiment-btn', function() {
+      var end_experimet_button_text = $("end-experiment-btn").html();
+      $("#end-experiment-btn").html("Exporting Data...");
+      $.ajax({
+          type: "POST",
+          url: "/projects/" + project_id + "/end_experiment",
+          datatype: "html",
+          success: function(result){
+              $("#end-experiment-btn").html(end_experimet_button_text);
+              alert("Experiment has been successfully exported to $HOME/.exports!")
+              window.location.reload();
+          }, error: function(xhr, status, err){
+              $("#end-experiment-btn").html(end_experimet_button_text);
+              alert("Experiments failed to export.")
+              return false;
+          }
+      });
   });
 
   // maintain language selection state between database view and

@@ -6,7 +6,7 @@ title: 'SCALe : Copyright'
 SCALe : Copyright
 =================
 
-SCALe version r.6.5.5.1.A
+SCALe version r.6.7.0.0.A
 Copyright 2021 Carnegie Mellon University.
 MIT (SEI)
 
@@ -21,12 +21,12 @@ the following conditions:
 The above copyright notice and this permission notice shall be
 included in all copies or substantial portions of the Software.
 
-SCALe version r.6.5.5.1.A includes and/or can make use of
+SCALe version r.6.7.0.0.A includes and/or can make use of
 certain third party software ("Third Party Software"). The Third Party
-Software that is used by SCALe version r.6.5.5.1.A is dependent
+Software that is used by SCALe version r.6.7.0.0.A is dependent
 upon your system configuration, but typically includes the software
 identified in the associated software documentation. By using SCALe
-version r.6.5.5.1.A, You agree to comply with any and all
+version r.6.7.0.0.A, You agree to comply with any and all
 relevant Third Party Software terms and conditions contained in any
 such Third Party Software or separate license file distributed with
 such Third Party Software. The parties who own the Third Party
@@ -34,7 +34,7 @@ Software ("Third Party Licensors") are intended third party
 beneficiaries to this License with respect to the terms applicable to
 their Third Party Software. Third Party Software licenses only apply
 to the Third Party Software and not any other portion of SCALe version
-r.6.5.5.1.A or SCALe version r.6.5.5.1.A as a whole.
+r.6.7.0.0.A or SCALe version r.6.7.0.0.A as a whole.
 
 This material is based upon work funded and supported by the
 Department of Defense under Contract No. FA8702-15-D-0002 with

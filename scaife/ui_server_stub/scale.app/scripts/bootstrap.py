@@ -2,7 +2,7 @@
 # that are generally useful for most of the scripts in this directory.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -36,6 +36,9 @@ from glob import glob
 from copy import copy
 from dateutil.parser import parse as date_parse
 from subprocess import CalledProcessError
+
+class ScriptsError(Exception):
+    pass
 
 # attempt to normalize verbosity across all scripts and modules
 
@@ -175,7 +178,7 @@ _configs = {}
 def db_config(config_file=None):
     if not config_file:
         config_file = db_config_file
-    config_file = os.path.abspath(config_file)
+    config_file = os.path.realpath(config_file)
     if config_file not in _configs:
         _configs[config_file] = yaml.safe_load(open(config_file))
     return _configs[config_file]
@@ -324,8 +327,13 @@ def find_project_db(project_id):
 
 def rel2scale_path(path):
     path = os.path.abspath(path)
-    if path.startswith(base_dir):
-        path = os.path.relpath(path, base_dir)
+    if path.startswith(scale_dir):
+        path = os.path.relpath(path, scale_dir)
+    else:
+        # probably in a docker container
+        abs_scale_dir = os.path.realpath(scale_dir)
+        if path.startswith(abs_scale_dir):
+            path = os.path.relpath(path, abs_scale_dir)
     return path
 
 # The data in these JSON files is destined to initialize both the
@@ -459,32 +467,26 @@ def is_listish(item):
 
 ### Make rails itself do things for us when needed
 
-def export_project(project_id, output_file=None):
+class RailsCmdError(ScriptsError):
+    pass
+
+def run_rails_cmd(rails_cmd, requires=None):
+    requires = set(requires or [])
     cwd = os.getcwd()
     dbf = None
     try:
         os.chdir(base_dir)
-        cmd = ["bin/rails",
-            "-r", "./config/environment",
-            "-r", "alert_conditions_controller",
-            "-e",
-            "print AlertConditionsController.archiveDB(%d)" % project_id]
-        dbf = subprocess.check_output(cmd).strip()
-        if dbf and not os.path.exists(dbf):
-            print("errant ruby result: [%s]" % dbf)
-            cmd[-1] = '"%s"' % cmd[-1]
-            print("cmd: %s" % ' '.join(cmd))
+        cmd = ["bin/rails", "-r", "./config/environment"]
+        for req in requires:
+            cmd.extend(["-r", req])
+        cmd.extend(["-e", rails_cmd])
+        res = subprocess.check_output(cmd, stderr=subprocess.STDOUT).strip()
     except CalledProcessError as e:
         msg = "ruby command failed:\n%s" % e.output
-        raise RuntimeError(msg)
+        raise RailsCmdError(msg)
     finally:
         os.chdir(cwd)
-    if not dbf:
-        print("Unable to archive project: %d" % project_id)
-    if output_file and output_file != dbf:
-        shutil.copy(dbf, output_file)
-        dbf = output_file
-    return dbf
+    return res
 
 _rails_config = None
 
@@ -501,7 +503,7 @@ def rails_config():
                 "-r", "./config/environment",
                 "-r", "application_controller",
                 "-e", "print ApplicationController.export_config.to_json"]
-            res = subprocess.check_output(cmd).strip()
+            res = subprocess.check_output(cmd, stderr=subprocess.STDOUT).strip()
             _rails_config = json.loads(res)
         except CalledProcessError as e:
             msg = "ruby command failed:\n%s" % e.output
@@ -904,8 +906,9 @@ def service_is_up(host, port=None):
     finally:
         sock.close()
 
-def wait_for_service(host, port=None, timeout=None, label=None):
+def wait_for_service(host, port=None, timeout=None, label=None, loud=False):
     if timeout is None:
+        # allow timeout=0 or timeout=False
         timeout = default_svc_timeout
     timeout = abs(int(timeout))
     mark = time.time()
@@ -928,20 +931,30 @@ def wait_for_service(host, port=None, timeout=None, label=None):
         if not timeout:
             # just looking for immediate status
             break
+        elapsed = int(time.time() - mark)
+        if loud and not elapsed % 5:
+            if label:
+                print("waiting for service for %s: %s %s (%s/%s secs)"
+                        % (label, host, port, elapsed, timeout))
+            else:
+                print("waiting for service: %s %s (%s/%s secs)"
+                        % (host, port, elapsed, timeout))
+            sys.stdout.flush()
         time.sleep(1)
-    if status is not None:
-        if label:
-            msg = "service timed out for %s: %s:%s after %d secs" \
-                    % (label, host, port, timeout)
-        else:
-            msg = "service timed out: %s:%s after %d secs" \
-                    % (host, port, timeout)
+    if label:
+        msg = "service timed out for %s: %s:%s after %d secs" \
+                % (label, host, port, timeout)
+    else:
+        msg = "service timed out: %s:%s after %d secs" \
+                % (host, port, timeout)
     raise ServiceTimeout(msg)
+
 
 class Service(object):
 
     def __init__(self, name=None, host=None, port=None, url=None,
-            expected_response=None, check_json=True, label=None):
+            expected_response=None, check_json=True, label=None,
+            loud=None):
         # can be a named service, but doesn't have to be, can
         # just be host:port or a url
         if not host and not name and not url:
@@ -976,6 +989,7 @@ class Service(object):
         self.host = host
         self.port = int(port)
         self.url = url
+        self.loud = (VERBOSE > 1) if loud is None else loud
         self._label = label
         self._status = None
 
@@ -1015,13 +1029,14 @@ class Service(object):
             label = self.name
         return label
 
-    def wait_until_up(self, timeout=None):
+    def wait_until_up(self, timeout=None, loud=None):
         # wait for port to be active, then also wait for valid response
         # if service url has been defined
+        loud = self.loud if loud is None else loud
         try:
-            if self.wait_until_port_active(timeout=timeout):
+            if self.wait_until_port_active(timeout=timeout, loud=loud):
                 if self.url:
-                    self.wait_until_valid_response(timeout=timeout)
+                    self.wait_until_valid_response(timeout=timeout, loud=loud)
                     self._status = True
                 else:
                     self._status = True
@@ -1032,13 +1047,15 @@ class Service(object):
             raise e
         return self._status
 
-    def wait_until_port_active(self, timeout=None):
+    def wait_until_port_active(self, timeout=None, loud=None):
+        loud = self.loud if loud is None else loud
         return wait_for_service(self.host, port=self.port,
-                    timeout=timeout, label=self.label)
+                    timeout=timeout, label=self.label, loud=loud)
 
-    def wait_until_valid_response(self, timeout=None):
+    def wait_until_valid_response(self, timeout=None, loud=None):
         if not self.url:
             return True
+        loud = self.loud if loud is None else loud
         if timeout is None:
             timeout = default_svc_timeout
         sleep_interval = 2
@@ -1060,6 +1077,17 @@ class Service(object):
             if response.status_code != 200:
                 if not timeout:
                     break
+                elapsed = int(time.time() - mark)
+                if loud and not elapsed % 5:
+                    elapsed = int(time.time() - mark)
+                    if self.label:
+                        print("wait for service response for %s: "
+                                "%s (%s/%s secs)"
+                                % (self.label, self.url, elapsed, timeout))
+                    else:
+                        print("wait for service response: %s (%s/%s secs)"
+                                % (self.url, elapsed, timeout))
+                    sys.stdout.flush()
                 time.sleep(sleep_interval)
                 continue
             if self.expected_response:
@@ -1073,11 +1101,10 @@ class Service(object):
                 if valid:
                     if VERBOSE:
                         if self.label:
-                            print("service is responding for %s: %s" \
+                            print("service is responding for %s: %s"
                                     % (self.label, self.url))
                         else:
-                            print("service is responding: %s" \
-                                    % self.url)
+                            print("service is responding: %s" % self.url)
                     # response is valid
                     return content
                 elif not timeout:
@@ -1146,33 +1173,9 @@ def load_services_from_config(config_file=None, env=None,
                 url=url, expected_response=expected, label=label)
     return services
 
-def _filter_services(include=None, exclude=None, localhost=False):
-    services = load_services_from_config(localhost=localhost)
-    svcs_present = services
-    if not svcs_present:
-        raise ValueError("no services present in config")
-    if not include:
-        include = svcs_present
-    include = set(include or [])
-    inc_unknown = include.difference(svcs_present)
-    if inc_unknown:
-        raise ServiceUnknown("cannot include unknown services: %s" \
-            % ', '.join(sorted(inc_unknown)))
-    exclude = set(exclude or [])
-    if exclude:
-        exc_unknown = exclude.difference(svcs_present)
-        if exc_unknown:
-            raise ServiceUnknown("cannot exclude unknown services: %s" \
-                % ', '.join(sorted(exc_unknown)))
-        include.difference_update(exclude)
-    if not include:
-        raise ServiceUnknown("no services selected from: %s" \
-            % ', '.join(svcs_present))
-    return [svcs_present[x] for x in sorted(include)]
-
 def assert_services_are_up(include=None, exclude=None, localhost=False):
-    services = _filter_services(include=include, exclude=exclude,
-            localhost=localhost)
+    services = this_module(localhost=localhost)._filter_services(
+            include=include, exclude=exclude)
     services_up = []
     services_down = []
     for svc in services:
@@ -1186,13 +1189,132 @@ def assert_services_are_up(include=None, exclude=None, localhost=False):
     return services_up
 
 def wait_for_services(timeout=None, include=None, exclude=None,
-        localhost=False):
-    services = _filter_services(include=include, exclude=exclude,
-            localhost=localhost)
-    for svc in services:
-        if VERBOSE:
-            print("waiting for service: %s" % svc.name)
-        svc.wait_until_up(timeout=timeout)
+        localhost=False, loud=None):
+    module = this_module(localhost=localhost)
+    mod_found = None
+    if include:
+        if module.name in include:
+            mod_found = True
+        include = [x for x in include if x != module.name]
+    if exclude:
+        if module.name in exclude:
+            mod_found = False
+        exclude = [x for x in exclude if x != module.name]
+    # If no includes or excludes were provided, wait for the module and
+    # all services. If anything at all was included or excluded, only
+    # pay attention to those; if the only thing included was the module
+    # itself then test for the module but not its services.
+    if mod_found or mod_found is None:
+        module.wait_until_up(timeout=timeout, loud=loud)
+    if include or exclude or (include is None and exclude is None):
+        module.wait_for_services(timeout=timeout, include=include,
+                exclude=exclude, loud=loud)
+
+
+class ScaifeModuleError(Exception):
+    pass
+
+class ScaifeModule(object):
+
+    _service = None
+    _services = {}
+
+    def __init__(self, name=None, localhost=False, loud=None):
+        # some of this logic makes more sense for the other SCAIFE
+        # modules, adapted for SCALe here
+        if name is None:
+            name = "default"
+        self.name = name
+        self.localhost = localhost
+        self.base_dir = base_dir
+        self.config_dir = os.path.join(self.base_dir, "config")
+        self.config_file = os.path.join(self.config_dir, "scaife_servers.yml")
+        self.db_config_file = os.path.join(config_dir, "database.yml")
+        self.loud = (VERBOSE > 1) if loud is None else loud
+
+    def _load_services(self):
+        if os.path.exists(self.config_file):
+            self._services = \
+                load_services_from_config(self.config_file,
+                        localhost=self.localhost)
+            if self.name in self._services:
+                self._service = self._services.pop(self.name)
+        return self._services
+
+    @property
+    def service(self):
+        if not self._service:
+            self._load_services()
+        return self._service
+
+    @property
+    def services(self):
+        # other services defined in servers.conf
+        if not self._services:
+            self._load_services()
+        return list(self._services.values())
+
+    @property
+    def services_by_name(self):
+        return dict((x.name, x) for x in self.services)
+
+    def wait_until_up(self, timeout=None, include_services=False,
+            loud=None):
+        loud = self.loud if loud is None else loud
+        self.service.wait_until_up(timeout=timeout, loud=loud)
+        if include_services:
+            self.wait_for_services(timeout=timeout, loud=loud)
+
+    # the ScaifeModule object will evaluate to True/False depending
+    # on primary service status (which also evaluates boolean)
+    def __bool__(self):
+        return self.service
+
+    def _filter_services(self, include=None, exclude=None):
+        if not self._services:
+            self._load_services()
+        svcs_present = self._services
+        if not svcs_present:
+            raise ValueError(
+                "no services for %s" % self.name)
+        if not include:
+            include = svcs_present
+        include = set(include or [])
+        inc_unknown = include.difference(svcs_present)
+        if inc_unknown:
+            raise ValueError("cannot include unknown services for %s: %s"
+                % (self.name, ', '.join(sorted(inc_unknown))))
+        exclude = set(exclude or [])
+        if exclude:
+            exc_unknown = exclude.difference(svcs_present)
+            if exc_unknown:
+                raise ValueError("cannot exclude unknown modules for %s: %s" 
+                    % (self.name, ', '.join(sorted(exc_unknown))))
+            include.difference_update(exclude)
+        if not include:
+            raise ValueError("no services selected for %s from: %s"
+                % (self.name, ', '.join(svcs_present)))
+        return [svcs_present[x] for x in sorted(include)]
+
+    def wait_for_services(self, timeout=None, include=None, exclude=None,
+            loud=None):
+        # waiting for everything besides this module
+        loud = self.loud if loud is None else loud
+        for svc in self._filter_services(include=include, exclude=exclude):
+            if VERBOSE == 2 and not loud and timeout is not False:
+                print("waiting for service: %s" % svc.name)
+                sys.stdout.flush()
+            svc.wait_until_up(timeout=timeout, loud=loud)
+
+
+def this_module(localhost=False):
+    return ScaifeModule("scale", localhost=localhost)
+
+def this_service(localhost=False):
+    return this_module(localhost=localhost).service
+
+def scale_service(localhost=False):
+    return this_service(localhost=localhost)
 
 
 ### Some useful database integrations and utilities
@@ -1216,19 +1338,23 @@ def get_project_id_and_name(project_name_or_id):
         project_name = project_name_or_id
     if project_id == 0:
         return 0, ""
+    found_id = found_name = None
     with sqlite3.connect(internal_db) as con:
         cur = con.cursor()
         for pid, name in cur.execute("SELECT id, name FROM projects"):
             pid = int(pid)
             if project_name and name == project_name:
-                project_id = pid
+                found_id = pid
+                found_name = name
                 break
-            if project_id and pid == project_id:
+            elif project_id and pid == project_id:
+                found_name = name
+                found_id = pid
                 break
-    if not project_id:
+    if not found_id:
         raise ValueError(
             "Project '%s' not found in SCALe app" % project_name_or_id)
-    return project_id, project_name
+    return found_id, found_name
 
 def get_project_id(project_name_or_id):
     return get_project_id_and_name(project_name_or_id)[0]
@@ -1262,8 +1388,7 @@ class DBObject(object):
             cur.execute(
                 "SELECT name, type FROM pragma_table_info(?)", (self.table,))
             self._columns = []
-            for name, typ in cur:
-                print (name, typ)
+            for name, typ in ((x.lower(), y.lower()) for x, y in cur):
                 if name != "id":
                     setattr(self, name, None) 
                     if typ == "int":

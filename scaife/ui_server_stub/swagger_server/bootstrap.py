@@ -8,7 +8,7 @@
 #       across all modules for common functionality such as this.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -32,7 +32,9 @@
 # </legal>
 
 import os, sys, re, time
+import posixpath, ntpath
 import argparse, requests
+import tempfile, shutil, atexit
 from urllib import parse as urlparse
 from pathlib import Path
 from configparser import ConfigParser
@@ -134,9 +136,89 @@ if not base_dir.joinpath("helpers/%s" % basename).exists():
     # helpers/bootstrap.py isn't around, we're probably a container
     is_container = True
 
+# this tmp dir is always present, not ephemeral
 tmp_dir = base_dir.joinpath("tmp")
 if not tmp_dir.is_dir():
     os.makedirs(tmp_dir)
+
+# tmp dir/file management -- guarantee that they get zapped (optionally)
+# on program exit; if keeping them around for development and debugging,
+# scale.app/tmp is used rather than /tmp
+
+_tmp_dir = None
+
+def get_tmp_dir(ephemeral=True, suffix=None, purge=True, uniq=True):
+    global _tmp_dir
+    tdir = None
+    if ephemeral:
+        if not _tmp_dir:
+            _tmp_dir = tempfile.mkdtemp()
+            def _tmp_cleanup():
+                shutil.rmtree(_tmp_dir, True)
+            atexit.register(_tmp_cleanup)
+        tdir = _tmp_dir
+    else:
+        # use scale.app/tmp
+        tdir = tmp_dir
+    if suffix:
+        tdir = os.path.join(tdir, suffix)
+        # only purge if keeping results and suffix subdir is provided
+        if purge:
+            if not ephemeral and suffix and os.path.exists(tdir):
+                shutil.rmtree(tdir)
+        elif uniq:
+            cnt = len(glob("%s*" % tdir))
+            while os.path.exists("%s.%03d" % (tdir, cnt)):
+                cnt += 1
+            tdir = "%s.%03d" % (tdir, cnt)
+        if not os.path.exists(tdir):
+            os.makedirs(tdir)
+    return tdir
+
+def get_tmp_file(basename=None, ephemeral=True):
+    suffix = None
+    if basename:
+        basename = os.path.basename(basename)
+        suffix = os.path.dirname(basename)
+        if suffix == "/" or not suffix:
+            suffix = None
+    tmp_dir = get_tmp_dir(ephemeral=ephemeral, suffix=suffix)
+    if basename:
+        tmp_file = os.path.join(tmp_dir, basename)
+    else:
+        tmp_file = tempfile.mkstemp(dir=tmp_dir)[-1]
+    return tmp_file
+
+def norm_path(path):
+    """
+    gets rid of superflous dots, separators, and leading slashes
+    """
+    path = os.path.normpath(path)
+    path = os.path.sep.join(x for x in path.split(os.path.sep) if x)
+    return path
+
+def posix_path(path):
+    """
+    return a normalized posix path even if the original path was
+    windows format (drops drive letters if present)
+    """
+    parts = ntpath.splitdrive(path)
+    if parts[0]:
+        # drive letter detected, assume ntpath
+        parts = parts[1].split(ntpath.sep)
+    else:
+        nix_split = path.split(posixpath.sep)
+        win_split = path.split(ntpath.sep)
+        if len(win_split) > len(nix_split):
+            # ntpath assumed
+            parts = win_split
+        else:
+            # posix assumed in all other cases
+            parts = nix_split
+    # gets rid of absolute path if present
+    path = posixpath.sep.join(x for x in parts if x)
+    return posixpath.normpath(path)
+
 
 class ServiceTimeout(Exception):
     pass
@@ -205,7 +287,7 @@ class Service(object):
 
     def __init__(self, name=None, host=None, port=None, url=None,
             expected_response=None, check_json=True, label=None,
-            loud=None):
+            required=True, loud=None):
         # can be a named service, but doesn't have to be, can
         # just be host:port or a url
         if not host and not name and not url:
@@ -241,6 +323,7 @@ class Service(object):
         self.host, self.port = host, int(port)
         self.url = url
         self.loud = (VERBOSE > 1) if loud is None else loud
+        self.required = truthy(required)
         self._label = label
         self._status = None
 
@@ -396,9 +479,13 @@ def load_services_from_config(module_name, filename,
     for k, v in conf.items("DEFAULT"):
         services[module_name][k] = v
     for section in conf.sections():
-        svc = re.sub(r"_DEFAULT", "", section).lower()
+        svc = re.sub(r"(_DEFAULT|_host)$", "", section).lower()
         if svc == "dh":
             svc = "datahub"
+        elif svc == "pri":
+            svc = "priority"
+        elif svc == "reg":
+            svc = "registration"
         services[svc] = {}
         for k, v in conf.items(section):
             services[svc][k] = v
@@ -406,6 +493,7 @@ def load_services_from_config(module_name, filename,
         conf = services[svc]
         host = "localhost" if localhost else conf.get("host", "localhost")
         port = int(conf.get("port"))
+        required = truthy(conf.get("required", True))
         url = expected = None
         if svc == "pulsar":
             # need a better way to handle fancy services than making
@@ -418,8 +506,8 @@ def load_services_from_config(module_name, filename,
                 return all(x in data for x in keys)
             expected = _expected
         services[svc] = Service(name=svc,
-                host=host, port=port,
-                url=url, expected_response=expected, label=label)
+                host=host, port=port, url=url, expected_response=expected,
+                label=label, required=required)
 
     return services
 
@@ -535,7 +623,8 @@ class ScaifeModule(object):
             if VERBOSE == 2 and not loud and timeout is not False:
                 print("waiting for service: %s" % svc.name)
                 sys.stdout.flush()
-            svc.wait_until_up(timeout=timeout, loud=loud)
+            if svc.required:
+                svc.wait_until_up(timeout=timeout, loud=loud)
 
 
 def this_module(localhost=False):

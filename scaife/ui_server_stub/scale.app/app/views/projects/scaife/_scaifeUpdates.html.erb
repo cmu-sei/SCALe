@@ -1,0 +1,58 @@
+<!--project updates-->
+<% if flash[:scaife_updates_available] %>
+  <!--
+  <% flash[:scaife_updates_available] %>
+  -->
+  <div style="margin-top:50px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="scaife-updates-error-msg" class="alert alert-danger" style="display: <%= @errors.present? ? "block" : "none" %>">
+          <% if @errors.present? %>
+            <% @errors.each do |err| %>
+              <%= "#{err}" %></br>
+            <% end %>
+          <% end %>
+        </div>
+        <div id="scaife-updates" class="alert alert-success">
+          SCAIFE has received updates related to this project and they must be applied here in SCALe as well. Do you want to continue? 
+          <% if @project.last_used_confidence_scheme.present?
+               classifier = ClassifierScheme.find_by_id(@project.last_used_confidence_scheme)
+          %>
+            <br/>
+            Remember to re-run the currently selected classifier (<%= classifier.classifier_instance_name %>) once the updates have been received.
+          <% end %>
+          <div>
+            <br/>
+            <%= link_to 'Apply Updates', "/projects/#{@project.id}/get_scaife_updates", remote: true, id: "get_scaife_updates_button", class: "btn btn-primary",  role: "button" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% flash[:scaife_updates_available] = nil %>
+<% elsif @errors.present? %>
+  <div style="margin-top:50px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="scaife--updates-error-msg" class="alert alert-danger" style="display: <%= @errors.present? ? "block" : "none" %>">
+          <% if @errors.present? %>
+            <% @errors.each do |err| %>
+              <%= "#{err}" %></br>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif not @scaife_active %>
+  <div style="margin-top:50px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="scaife-updates" class="alert alert-success">
+          In order to receive CI updates, you must first be connected to SCAIFE.
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<!--/end project updates-->

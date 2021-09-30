@@ -3,7 +3,7 @@ title: 'SCALe : Installing the SCALe Web App on 64-bit XUbuntu 16.04 - Offline'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Installing SCALe](Installing-SCALe.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->

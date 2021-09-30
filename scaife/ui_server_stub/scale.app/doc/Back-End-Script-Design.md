@@ -3,7 +3,7 @@ title: 'SCALe : Back-End Script Design'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -462,7 +462,7 @@ the SCALe databases:
   group should be used -- the tools that support it will process both C
   and C++ on a single pass if present. This list of languages is used to
   store the `platform` field of the tool in the SCALe databases based on
-  the platform assosciated with each language in
+  the platform associated with each language in
   [languages.json](#languages.json).
 - **type** : The type of tool, e.g. "sca" or "metric" currently. Metrics
   are handled differently by SCALe than the regular analysis tools. Not

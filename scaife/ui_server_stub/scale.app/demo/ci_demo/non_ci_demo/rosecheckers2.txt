@@ -1,0 +1,162 @@
+ rosecheckers /app/arr36-c-false-1.c /app/arr36-c-true-1.c /app/dcl31-c-true-1.c /app/exp33-c-false-1.c /app/exp33-c-true-1.c /app/exp34-c-false-1.c /app/exp34-c-true-1.c /app/exp36-c-false-1.c /app/exp36-c-true-1.c /app/int31-c-false-1.c /app/int31-c-true-1.c /app/int33-c-false-1.c /app/int33-c-true-1.c /app/str31-c-false-1.c /app/str31-c-true-1.c
+arr36-c-false-1.c:40:27: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+arr36-c-false-1.c:45:9: warning: DCL00-C: Const-qualify immutable objects: diff
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+arr36-c-true-1.c:4:27: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+arr36-c-true-1.c:5:5: error: STR11-C: Do not specify the dimension of a character array initialized with a string literal
+arr36-c-true-1.c:6:5: error: STR11-C: Do not specify the dimension of a character array initialized with a string literal
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+dcl31-c-true-1.c:9:5: warning: DCL00-C: Const-qualify immutable objects: val
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+waitflags.h:54:3: warning: DCL02-C: Use visually distinct identifiers: P_ALL
+waitflags.h:55:3: warning: DCL02-C: Use visually distinct identifiers: P_PID
+waitflags.h:56:3: warning: DCL02-C: Use visually distinct identifiers: P_PGID
+exp33-c-false-1.c:9:10: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+exp33-c-true-1.c:7:5: warning: EXP12-C: Do not ignore values returned by functions: sscanf
+exp33-c-true-1.c:7:5: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+exp34-c-false-1.c:13:14: error: EXP34-C: Ensure pointer is valid before dereferencing it
+exp34-c-false-1.c:30:27: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp34-c-false-1.c:38:5: error: MEM34-C: Only free memory allocated dynamically
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+exp34-c-true-1.c:11:14: error: EXP34-C: Ensure pointer is valid before dereferencing it
+exp34-c-true-1.c:25:27: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp34-c-true-1.c:29:5: error: MEM34-C: Only free memory allocated dynamically
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+exp36-c-false-1.c:5:27: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp36-c-false-1.c:8:33: warning: EXP09-C: malloc called using something other than sizeof()
+exp36-c-false-1.c:8:33: error: EXP34-C: Ensure pointer is valid before dereferencing it
+exp36-c-false-1.c:9:5: warning: DCL00-C: Const-qualify immutable objects: four_byte_chunks
+exp36-c-false-1.c:9:34: warning: EXP11-C: Do not apply operators expecting one type to data of an incompatible type
+exp36-c-false-1.c:9:46: error: EXP36-C: Do not convert pointers into more strictly aligned pointer types
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+exp36-c-true-1.c:11:27: warning: DCL13-C: Declare function parameters that are pointers to values not changed by the function as const: argv
+exp36-c-true-1.c:13:12: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:14:12: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:15:12: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:16:12: warning: INT07-C: Use only explicitly signed or unsigned char type for numeric values
+exp36-c-true-1.c:17:20: warning: EXP11-C: Do not apply operators expecting one type to data of an incompatible type
+exp36-c-true-1.c:17:27: error: EXP36-C: Do not convert pointers into more strictly aligned pointer types
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+waitflags.h:54:3: warning: DCL02-C: Use visually distinct identifiers: P_ALL
+waitflags.h:55:3: warning: DCL02-C: Use visually distinct identifiers: P_PID
+waitflags.h:56:3: warning: DCL02-C: Use visually distinct identifiers: P_PGID
+int31-c-false-1.c:9:10: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+int31-c-false-1.c:32:18: error: EXP34-C: Ensure pointer is valid before dereferencing it
+int31-c-false-1.c:32:18: warning: MEM04-C: Do not perform zero length allocations
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+int31-c-true-1.c:9:10: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+int31-c-true-1.c:26:18: error: EXP34-C: Ensure pointer is valid before dereferencing it
+int31-c-true-1.c:26:18: warning: MEM04-C: Do not perform zero length allocations
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+waitflags.h:54:3: warning: DCL02-C: Use visually distinct identifiers: P_ALL
+waitflags.h:55:3: warning: DCL02-C: Use visually distinct identifiers: P_PID
+waitflags.h:56:3: warning: DCL02-C: Use visually distinct identifiers: P_PGID
+int33-c-false-1.c:24:16: error: INT33-C: Ensure that division and remainder operations do not result in divide-by-zero errors
+int33-c-false-1.c:31:5: warning: EXP12-C: Do not ignore values returned by functions: sscanf
+int33-c-false-1.c:31:5: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+int33-c-true-1.c:24:16: error: INT33-C: Ensure that division and remainder operations do not result in divide-by-zero errors
+int33-c-true-1.c:31:5: warning: EXP12-C: Do not ignore values returned by functions: sscanf
+int33-c-true-1.c:31:5: warning: INT05-C: Do not use input functions to convert character data if they cannot handle all possible inputs
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist
+libio.h:319:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdin_
+libio.h:320:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stdout_
+libio.h:321:1: warning: DCL02-C: Use visually distinct identifiers: _IO_2_1_stderr_
+stdio.h:135:1: warning: DCL02-C: Use visually distinct identifiers: stdin
+stdio.h:136:1: warning: DCL02-C: Use visually distinct identifiers: stdout
+stdio.h:137:1: warning: DCL02-C: Use visually distinct identifiers: stderr
+sys_errlist.h:26:1: warning: DCL02-C: Use visually distinct identifiers: sys_nerr
+sys_errlist.h:27:1: warning: DCL02-C: Use visually distinct identifiers: sys_errlist

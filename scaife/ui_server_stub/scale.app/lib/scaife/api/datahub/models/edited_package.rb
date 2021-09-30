@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -39,11 +39,17 @@ module Datahub
 
     attr_accessor :alert_mappings
 
+    attr_accessor :ci_enabled
+
+    attr_accessor :ci_token
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'package_id' => :'package_id',
-        :'alert_mappings' => :'alert_mappings'
+        :'alert_mappings' => :'alert_mappings',
+        :'ci_enabled' => :'ci_enabled',
+        :'ci_token' => :'ci_token'
       }
     end
 
@@ -56,7 +62,9 @@ module Datahub
     def self.openapi_types
       {
         :'package_id' => :'String',
-        :'alert_mappings' => :'Array<AlertMappings>'
+        :'alert_mappings' => :'Array<AlertMappings>',
+        :'ci_enabled' => :'Boolean',
+        :'ci_token' => :'String'
       }
     end
 
@@ -90,6 +98,14 @@ module Datahub
           self.alert_mappings = value
         end
       end
+
+      if attributes.key?(:'ci_enabled')
+        self.ci_enabled = attributes[:'ci_enabled']
+      end
+
+      if attributes.key?(:'ci_token')
+        self.ci_token = attributes[:'ci_token']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -111,7 +127,9 @@ module Datahub
       return true if self.equal?(o)
       self.class == o.class &&
           package_id == o.package_id &&
-          alert_mappings == o.alert_mappings
+          alert_mappings == o.alert_mappings &&
+          ci_enabled == o.ci_enabled &&
+          ci_token == o.ci_token
     end
 
     # @see the `==` method
@@ -123,7 +141,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [package_id, alert_mappings].hash
+      [package_id, alert_mappings, ci_enabled, ci_token].hash
     end
 
     # Builds the object from hash

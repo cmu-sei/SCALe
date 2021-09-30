@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -49,6 +49,10 @@ module Datahub
 
     attr_accessor :author_source
 
+    attr_accessor :created_at
+
+    attr_accessor :updated_at
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -58,7 +62,9 @@ module Datahub
         :'package_id' => :'package_id',
         :'uploader_id' => :'uploader_id',
         :'uploader_organization_id' => :'uploader_organization_id',
-        :'author_source' => :'author_source'
+        :'author_source' => :'author_source',
+        :'created_at' => :'created_at',
+        :'updated_at' => :'updated_at'
       }
     end
 
@@ -76,7 +82,9 @@ module Datahub
         :'package_id' => :'String',
         :'uploader_id' => :'String',
         :'uploader_organization_id' => :'String',
-        :'author_source' => :'String'
+        :'author_source' => :'String',
+        :'created_at' => :'Time',
+        :'updated_at' => :'Time'
       }
     end
 
@@ -128,6 +136,14 @@ module Datahub
       if attributes.key?(:'author_source')
         self.author_source = attributes[:'author_source']
       end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -169,7 +185,9 @@ module Datahub
           package_id == o.package_id &&
           uploader_id == o.uploader_id &&
           uploader_organization_id == o.uploader_organization_id &&
-          author_source == o.author_source
+          author_source == o.author_source &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at
     end
 
     # @see the `==` method
@@ -181,7 +199,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [project_id, project_name, project_description, package_id, uploader_id, uploader_organization_id, author_source].hash
+      [project_id, project_name, project_description, package_id, uploader_id, uploader_organization_id, author_source, created_at, updated_at].hash
     end
 
     # Builds the object from hash

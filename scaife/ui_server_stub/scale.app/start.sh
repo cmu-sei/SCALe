@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -30,9 +30,9 @@ BIN_LOC=$(readlink -f "${BASH_SOURCE[0]}")
 BASE_DIR=$(dirname "$BIN_LOC")
 
 . $BASE_DIR/env.sh
-echo "starting with RAILS_ENV: $RAILS_ENV"
 
 maybe_set_rails_env $*
+echo "starting with RAILS_ENV: $RAILS_ENV"
 
 if [ -e $SCALE_DIR/cert/server.crt ] && [ -e $SCALE_DIR/cert/server.key ]; then
     sed -i 's/config\.force_ssl = false/config.force_ssl = true/' $SCALE_DIR/app/controllers/application_controller.rb

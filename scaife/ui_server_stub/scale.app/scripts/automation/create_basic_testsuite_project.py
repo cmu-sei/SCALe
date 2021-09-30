@@ -4,7 +4,7 @@
 # using the automation suite.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -27,6 +27,8 @@
 # DM19-1274
 # </legal>
 
+from __future__ import print_function
+
 import sys, os, argparse
 
 import bootstrap
@@ -41,11 +43,12 @@ def test_file(basename):
     return os.path.join(analysis_dir, basename)
 
 def main():
-    svc = bootstrap.Service(name="scale")
+    svc = bootstrap.scale_service()
     if not svc:
         print("SCALe does not appear to be running: %s" % svc)
         sys.exit(1)
     sess = ScaleSession()
+    sess.event_scale_session_establish()
 
     tools = {
         # by tool_group key
@@ -71,6 +74,7 @@ def main():
             tools = tools,
             languages = lang_ids,
         )
+        sess.query_project_export_db()
         sess.query_scaife_logout()
     except FetchError, e:
         print("error: %d %s" % (e.message[0:2]))

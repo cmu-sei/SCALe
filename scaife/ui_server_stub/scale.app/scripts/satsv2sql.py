@@ -11,7 +11,7 @@
 # 7th arg is the SCALe database
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -178,31 +178,20 @@ def insert_alerts(tool, src_dirs, input_file, database):
                 unmapped_checkers.add(checker_name)
                 checker_id = insert_new_checker(con, checker_name, tool_id, False, None)
 
-
             scaife_alert_id = None
-            cur.execute("INSERT INTO Alerts VALUES(?,?,?,?);",
-                         [alert_id, checker_id, primary_message_id, scaife_alert_id]
-                        )
+            cur.execute(
+                "INSERT INTO Alerts VALUES(?,?,?,?);",
+                [alert_id, checker_id, primary_message_id, scaife_alert_id])
 
-            msg_index = 1
-            while msg_index < len(fields) - 1:
-                path = fields[msg_index].strip()
-
+            for path, line_number, message in _partition(fields[1:], 3):
                 path_found = match_paths.find_filepath(path, path_map, unix_path_map)
-
                 if (not path_found):
                     unmapped_paths.add(path)
                 else:
                     path = path_found
-
-
-                line_number = fields[msg_index + 1]
-                message = fields[msg_index + 2]
-
                 if sys.version_info[0] < 3:
                     #Python 2
                     message = unicode(message, "utf-8")
-
                 sql = """
                 INSERT INTO Messages
                   (id, project_id, alert_id, path, line, link, message)
@@ -219,9 +208,8 @@ def insert_alerts(tool, src_dirs, input_file, database):
                     cur.execute(sql, msg_fields)
                 except:
                     raise Exception ("Cannot insert the following record into Messages:\n" + str(msg_fields))
-
                 primary_message_id += incr
-                msg_index += 3 # This increment is necessary, because of the way secondary messages are represented
+
             alert_id += incr
 
     input_file.close()

@@ -48,7 +48,7 @@
 
 
 <%     [:previous, :path,
-        :line, :message, :checker, :tool, :condition, :title, :class_label, :confidence,
+        :line, :message, :checker, :tool, :condition, :title, :class_label, :confidence, :category,
         :meta_alert_priority, :severity, :likelihood, :remediation, :priority,
         :level, :cwe_likelihood].each do |col| %>
 <%=       content_tag(:td, content_tag(:div, class: col) do %>

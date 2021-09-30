@@ -14,7 +14,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -74,8 +74,8 @@ require_relative 'statistics/models/packages_with_tool_data_tool_data'
 require_relative 'statistics/models/secondary_message'
 require_relative 'statistics/models/secondary_message_all_of'
 require_relative 'statistics/models/source_mappings'
-require_relative 'statistics/models/sourcefile'
-require_relative 'statistics/models/sourcefunction'
+require_relative 'statistics/models/source_file'
+require_relative 'statistics/models/source_function'
 require_relative 'statistics/models/taxonomy'
 
 # APIs

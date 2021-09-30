@@ -3,7 +3,7 @@ title: 'SCALe : Fortify Usage Notes'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [Introduction](Introduction.md) / [Static Analysis Tool Support](Static-Analysis-Tool-Support.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->

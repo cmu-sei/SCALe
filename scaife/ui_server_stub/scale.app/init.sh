@@ -1,6 +1,6 @@
 #!/bin/sh
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -23,14 +23,46 @@
 # DM19-1274
 # </legal>
 
+if [ -z "$RAILS_ENV" ]; then
+  RAILS_ENV=development
+fi
+
+if [ -z "$E_USECERT" ]; then
+    echo "E_USECERT not set, Skipping certificate download."
+else
+    echo "Downloading certificate from $E_USECERT"
+    openssl s_client -showcerts -servername $E_USECERT \
+    -connect $E_USECERT:443 </dev/null 2>/dev/null | \
+    sed -n -e '/BEGIN\ CERTIFICATE/,/END\ CERTIFICATE/ p' > cert.pem
+    cat cert.pem | tee -a /etc/ssl/certs/ca-certificates.crt
+    rm cert.pem
+fi
+
 echo "Adding bundled gems"
 bundle config set path ./vendor/bundle \
-    && bundle install --jobs 8
-
-echo "Initializing database"
-bundle exec rake db:migrate  \
-    && bundle exec rake db:schema:load \
-    && bundle exec rake db:seed
+    && bundle install --quiet --jobs 8
 
 echo "Adding HTML manual"
 ./scripts/builddocs.sh
+
+DB="./db/$RAILS_ENV.sqlite3"
+
+if [ -f $DB ]; then
+  # don't destroy existing data
+  echo "Migrating/seeding database: $DB"
+  bundle exec rake db:migrate db:setup
+else
+  # init new DB
+  echo "Initializing/seeding database: $DB"
+  bundle exec rake db:migrate  \
+    && bundle exec rake db:schema:load \
+    && bundle exec rake db:seed
+fi
+
+if [ $RAILS_ENV != "test" ]; then
+  # init new test DB even when not in test mode, for, tests
+  echo "Initializing/seeding database: ./db/test.sqlite3"
+  RAILS_ENV=test bundle exec rake db:migrate  \
+    && bundle exec rake db:schema:load \
+    && bundle exec rake db:seed
+fi

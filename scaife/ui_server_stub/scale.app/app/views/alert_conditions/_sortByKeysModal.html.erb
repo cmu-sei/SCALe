@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <button type="button" class="close" data-dismiss="modal">x</button>
+      <h4 class="modal-title" id="sortByKeysLabel">Sort by Keys</h4>
+    </div>
+  </div>
+</div>
+<div hidden id="sort-form-msg" class="alert alert-danger"></div>
+<%= form_tag("/alertConditions/sort_by_keys_submit", :remote => true, :id => "sortForm") do %>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-4">
+      <div id = "currentKeys">
+        <div id="sort_keys_unselect" class="vertical-menu">
+          <ul id="sort_keys_unselected" class ="list-unstyled">
+            <li class="header_items"><em>Available Keys:</em></li>
+            <% unless @sort_keys_unselected.nil? or @sort_keys_unselected.empty? %>
+            <% @sort_keys_unselected.each do |k| %>
+            <li class="list_item"><%= k %></li>
+            <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div id="move_buttons">
+    	<button class="btn-md btn-default" id="add_sk_button" type="button">Add &gt;&gt;</button><br/><br/>
+    	<button class="btn-md btn-default" id="remove_sk_button" type="button">&lt;&lt; Remove</button>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div id="sort_keys_select" class="vertical-menu">
+        <ul id="sort_keys_selected" class ="list-unstyled">
+          <li class="header_items"><em>Selected Keys:</em></li>
+          <% unless @sort_keys_selected.nil? or @sort_keys_selected.empty? %>
+          <% @sort_keys_selected.each do |k| %>
+          <li class="list_item"><%= k %></li>
+          <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- end row-->
+
+  </br>
+  <div class="row">
+    <button type="submit" class="btn btn-primary" id="submit-sort-modal" >Set Ordering</button>
+  </div>
+</div>
+<% end %>

@@ -12,7 +12,7 @@
 # The old-format Lizard output is parsed by SCALe when input, with conversion done by the script convert_lizard_metrics.py
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 

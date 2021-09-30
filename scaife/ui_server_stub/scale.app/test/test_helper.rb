@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -52,12 +52,23 @@ class ActiveSupport::TestCase
 =end
 
   def basic_auth
-    @user = 'scale'
-    @password = 'Change_me!'
-    return {
-      Authorization: ActionController::HttpAuthentication::Basic
-      .encode_credentials(@user, @password)
-    }
+    # Login to SCALe web app
+    headers = {}
+    headers["Accept"] = "text/javascript"
+
+    post '/users/register-submit', as: :json,
+         params: {
+           firstname_field: "John",
+           lastname_field: "Doe",
+           org_field: "SEI",
+           user_field: "test_user",
+           password_field: "Test!abc123"
+         },
+         headers: headers,
+         xhr: true
+
+    assert_response :success
+    return {} # empty headers
   end
 
   # create the test external db
@@ -750,7 +761,7 @@ class ActiveSupport::TestCase
     api = Scaife::Api::Datahub::UIToDataHubApi.new
 
     begin
-      request_data = Scaife::Api::Datahub::LanguageVersion.new(
+      request_data = Scaife::Api::Datahub::LanguageMetadata.new(
         language: l_name,
         version: l_version
       )

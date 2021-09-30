@@ -3,7 +3,7 @@ title: 'SCALe : Terms and Definitions'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -103,9 +103,18 @@ execution environment. [ISO/IEC 9899:2011]
 Microsoft Visual Studio. A Windows IDE whose C/C++ support is
 [integrated](Microsoft-Visual-Studio-Static-Analyzer.md) in SCALe.
 
+## SCAIFE package
+Contains a codebase, static analysis alert data, and (optionally) code metrics tool data, but never includes meta-alert adjudications. It also contains meta-data including date of creation, package name, coding languages used, and more.
+
+## SCAIFE project
+Includes (via database mapping to link information, not within a single mongo database collection) everything in its associated SCAIFE package. A SCAIFE project may also include meta-alert adjudications of true and/or false, made by the SCAIFE project's auditors (also called analysts). It also contains meta-data including date of creation, project name, and more.
+
 ## SCALe
 Source Code Analysis Lab, an application and process for detecting
-vulnerabilities in source code using multiple static analyzers.
+vulnerabilities in source code using one or more static analyzers.
+
+## SCALe project
+Contains a codebase, static analysis alert data, code metrics tool data (optional), meta-alert adjudications (optional), and meta-data such as that in SCAIFE packages and projects, plus (if it's a SCAIFE-uploaded project) includes SCAIFE IDs for data that has separate SCALe IDs. If uploaded to the SCAIFE DataHub, the uploaded data is split into a SCAIFE package and a SCAIFE project. If a SCAIFE project is downloaded to SCALe, SCALe creates a new SCALe project out of the SCAIFE package and SCAIFE project data. 
 
 ## static analysis
 Any process for assessing code without executing it. [ISO/IEC TS

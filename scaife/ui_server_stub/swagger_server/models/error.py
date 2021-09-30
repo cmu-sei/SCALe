@@ -1,6 +1,6 @@
 # coding: utf-8
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -37,8 +37,7 @@ class Error(Model):
 
     Do not edit the class manually.
     """
-
-    def __init__(self, code: int = None, message: str = None):  # noqa: E501
+    def __init__(self, code: int=None, message: str=None):  # noqa: E501
         """Error - a model defined in Swagger
 
         :param code: The code of this Error.  # noqa: E501
@@ -55,7 +54,6 @@ class Error(Model):
             'code': 'code',
             'message': 'message'
         }
-
         self._code = code
         self._message = message
 

@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -46,22 +46,22 @@ disconnect_all()
 STATS_DB_NAME = "stats_test"
 DATAHUB_DB_NAME = "datahub_test"
 
-datahub_module = bootstrap.datahub_module(localhost=True)
-datahub_svc = datahub_module.service
-datahub_db_svc = datahub_module.services_by_name["db_host"]
+ui_module = bootstrap.this_module()
+
+datahub_svc = ui_module.services_by_name["datahub"]
+datahub_db_svc = ui_module.services_by_name["dh_database"]
 datahub_url = "http://%s:%s" % (datahub_svc.host, datahub_svc.port)
 
-stats_module = bootstrap.stats_module(localhost=True)
-stats_svc = stats_module.service
-stats_db_svc = stats_module.services_by_name["db_host"]
+stats_svc = ui_module.services_by_name["stats"]
+stats_db_svc = ui_module.services_by_name["stats_database"]
 stats_url = "http://%s:%s" % (stats_svc.host, stats_svc.port)
 
 register_connection('default', db=STATS_DB_NAME, name=STATS_DB_NAME,
-        host=datahub_db_svc.host, port=datahub_db_svc.port)
-register_connection('datahub', db=DATAHUB_DB_NAME, name=DATAHUB_DB_NAME,
         host=stats_db_svc.host, port=stats_db_svc.port)
+register_connection('datahub', db=DATAHUB_DB_NAME, name=DATAHUB_DB_NAME,
+        host=datahub_db_svc.host, port=datahub_db_svc.port)
 
-INPUT_DATA_FOLDER = bootstrap.bootstrap_dir.joinpath("test/data")
+INPUT_DATA_FOLDER = ui_module.app_dir.joinpath("swagger_server/test/data")
 
 
 def get_access_token(author_example, organization_example, module_name):  # get an authentication token
@@ -96,12 +96,12 @@ def create_classifier(classifier_id, classifier_type, adaptive_heuristic_id, ada
     classifier.save()
 
 
-def get_code_languages(): 
+def get_code_languages():
     code_languages_versions = []
-  
+
     data_filepath = INPUT_DATA_FOLDER.joinpath("languages.json")
     data = json.load(data_filepath.open())
-    
+
     for lang in data:
         versions = data[lang]["versions"]
         for v in versions:
@@ -117,11 +117,11 @@ def get_conditions(data_filepath):
         condition_name = temp[1]
         condition_title = temp[2]
         conditions.append((condition_name, condition_title))
-    f.close()   
+    f.close()
     return conditions
 
 
-def get_taxonomies_and_conditions(): 
+def get_taxonomies_and_conditions():
     taxonomies_conditions = {}
 
     cert_data_filepath = INPUT_DATA_FOLDER.joinpath(
@@ -136,19 +136,19 @@ def get_taxonomies_and_conditions():
     cwe_conditions = get_conditions(cert_data_filepath)
     taxonomies_conditions["cwe"] = cwe_conditions
     return taxonomies_conditions
-  
 
-def get_tools(): 
+
+def get_tools():
     tool_names_versions = []
     tool_names_types = {}
-  
+
     data_filepath = INPUT_DATA_FOLDER.joinpath("tools.json")
     data = json.load(data_filepath.open())
-    
+
     for obj in data:
         tool_name = obj["name"]
         tool_type = obj["type"]
-        tool_names_types[tool_name] = tool_type 
+        tool_names_types[tool_name] = tool_type
         tool_names_versions.append((tool_name, "generic"))
         versions = obj["versions"]
         for v in versions:
@@ -188,7 +188,7 @@ def get_valid_filepaths(directory):
             file_path = os.path.join(dirpath, fname)[idx:]
             if file_path.rfind(os.sep) == 0:
                 file_path = file_path[len(os.sep):]  # chop off leading /
-            paths.add(str(file_path)) 
+            paths.add(str(file_path))
     return paths
 
 
@@ -210,7 +210,7 @@ def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_l
     for fields in tsv_reader:
         ui_alert_id += 1
         if not fields:
-            continue 
+            continue
         checker_name = fields[0].strip()
         if (tool_name, checker_name) not in tool_checker_names_ids:
             unknown_checkers.add(checker_name)
@@ -220,7 +220,7 @@ def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_l
         secondary_messages = []
         msg_index = 1
         while msg_index < len(fields) - 1:
-            temp_path = fields[msg_index].strip()   
+            temp_path = fields[msg_index].strip()
             path = resolve_filepath(tool_name, paths, temp_path)
             line_number = int(fields[msg_index + 1].strip())
             msg_text = fields[msg_index + 2].strip()
@@ -234,7 +234,7 @@ def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_l
             msg_index = msg_index + 3
 
         alert_object = {}
-        alert_object["ui_alert_id"] = str(ui_alert_id)      
+        alert_object["ui_alert_id"] = str(ui_alert_id)
         alert_object["code_language"] = code_language
         alert_object["tool_id"] = tool_id
         alert_object["checker_id"] = checker_id
@@ -248,7 +248,7 @@ def get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_l
     return alerts
 
 
-def get_alerts(source_directory_filepath, tool_name, package_name, code_language_name, code_language_version, tool_id, tool_checker_names_ids): 
+def get_alerts(source_directory_filepath, tool_name, package_name, code_language_name, code_language_version, tool_id, tool_checker_names_ids):
     alerts = {}
 
     tool_parser_output_dir = INPUT_DATA_FOLDER.joinpath("tool_parser_output")
@@ -259,11 +259,11 @@ def get_alerts(source_directory_filepath, tool_name, package_name, code_language
         if not ((tool_name in file_name) and (package_name in file_name)):
             continue
 
-        alerts = get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_language_name, code_language_version, tool_id, tool_name, tool_checker_names_ids)        
-    return alerts     
-    
+        alerts = get_alerts_from_file(source_directory_filepath, tool_output_filepath, code_language_name, code_language_version, tool_id, tool_name, tool_checker_names_ids)
+    return alerts
 
-def get_meta_alerts(alert_mappings, ui_id_alert_data, checker_ids_tool_checker_names, tool_checker_names_condition_names, condition_names_ids): 
+
+def get_meta_alerts(alert_mappings, ui_id_alert_data, checker_ids_tool_checker_names, tool_checker_names_condition_names, condition_names_ids):
 
     temp_meta_alerts = {}
     #raise Exception(alert_mappings)
@@ -281,9 +281,9 @@ def get_meta_alerts(alert_mappings, ui_id_alert_data, checker_ids_tool_checker_n
         (tool_name, checker_name) = checker_ids_tool_checker_names[checker_id]
         condition_name = tool_checker_names_condition_names[(tool_name, checker_name)]
         condition_id = condition_names_ids[condition_name]
-        
+
         all_conditions.add(condition_id)
- 
+
         if (filepath, line_number, condition_id) not in temp_meta_alerts:
             temp_meta_alerts[(filepath, line_number, condition_id)] = [alert_id]
         else:
@@ -306,7 +306,7 @@ def get_meta_alerts(alert_mappings, ui_id_alert_data, checker_ids_tool_checker_n
     return meta_alerts
 
 
-def get_checkers_and_conditions(): 
+def get_checkers_and_conditions():
     tool_name_map = {}
 
     properties_dir = INPUT_DATA_FOLDER.joinpath("properties")
@@ -324,8 +324,8 @@ def get_checkers_and_conditions():
             condition_name = temp[1].strip()
             checkers_conditions[checker_name] = condition_name
         tool_name_map[tool_name] = checkers_conditions
-    return tool_name_map     
-     
+    return tool_name_map
+
 
 def standard2camel(name):
     return ''.join([x.capitalize() for x in name.split('_')])
@@ -350,5 +350,3 @@ def delete_generic_objects(model_name, database):  # delete objects from the Mon
 
     if objects_to_delete:
         objects_to_delete.delete()
-
-

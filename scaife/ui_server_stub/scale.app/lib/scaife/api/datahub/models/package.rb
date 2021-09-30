@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -59,6 +59,22 @@ module Datahub
 
     attr_accessor :tool_ids
 
+    attr_accessor :ci_enabled
+
+    attr_accessor :ci_token
+
+    # url to git repository
+    attr_accessor :git_url
+
+    # User name of git user to clone repository (Read-only access)
+    attr_accessor :git_user
+
+    # Access token for git user
+    attr_accessor :git_access_token
+
+    # Current git commit hash for CI enabled package
+    attr_accessor :git_hash
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
@@ -78,6 +94,12 @@ module Datahub
         :'uploader_organization_id' => :'uploader_organization_id',
         :'author_source' => :'author_source',
         :'tool_ids' => :'tool_ids',
+        :'ci_enabled' => :'ci_enabled',
+        :'ci_token' => :'ci_token',
+        :'git_url' => :'git_url',
+        :'git_user' => :'git_user',
+        :'git_access_token' => :'git_access_token',
+        :'git_hash' => :'git_hash',
         :'created_at' => :'created_at',
         :'updated_at' => :'updated_at'
       }
@@ -94,7 +116,7 @@ module Datahub
         :'package_id' => :'String',
         :'package_name' => :'String',
         :'package_description' => :'String',
-        :'code_languages' => :'Array<LanguageVersionWId>',
+        :'code_languages' => :'Array<CreatedLanguage>',
         :'alerts' => :'Array<AlertWId>',
         :'source_files' => :'Array<SourceFile>',
         :'test_suite_id' => :'String',
@@ -103,6 +125,12 @@ module Datahub
         :'uploader_organization_id' => :'String',
         :'author_source' => :'String',
         :'tool_ids' => :'Array<String>',
+        :'ci_enabled' => :'Boolean',
+        :'ci_token' => :'String',
+        :'git_url' => :'String',
+        :'git_user' => :'String',
+        :'git_access_token' => :'String',
+        :'git_hash' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time'
       }
@@ -187,6 +215,30 @@ module Datahub
         end
       end
 
+      if attributes.key?(:'ci_enabled')
+        self.ci_enabled = attributes[:'ci_enabled']
+      end
+
+      if attributes.key?(:'ci_token')
+        self.ci_token = attributes[:'ci_token']
+      end
+
+      if attributes.key?(:'git_url')
+        self.git_url = attributes[:'git_url']
+      end
+
+      if attributes.key?(:'git_user')
+        self.git_user = attributes[:'git_user']
+      end
+
+      if attributes.key?(:'git_access_token')
+        self.git_access_token = attributes[:'git_access_token']
+      end
+
+      if attributes.key?(:'git_hash')
+        self.git_hash = attributes[:'git_hash']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -241,6 +293,12 @@ module Datahub
           uploader_organization_id == o.uploader_organization_id &&
           author_source == o.author_source &&
           tool_ids == o.tool_ids &&
+          ci_enabled == o.ci_enabled &&
+          ci_token == o.ci_token &&
+          git_url == o.git_url &&
+          git_user == o.git_user &&
+          git_access_token == o.git_access_token &&
+          git_hash == o.git_hash &&
           created_at == o.created_at &&
           updated_at == o.updated_at
     end
@@ -254,7 +312,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [package_id, package_name, package_description, code_languages, alerts, source_files, test_suite_id, file_extensions, uploader_id, uploader_organization_id, author_source, tool_ids, created_at, updated_at].hash
+      [package_id, package_name, package_description, code_languages, alerts, source_files, test_suite_id, file_extensions, uploader_id, uploader_organization_id, author_source, tool_ids, ci_enabled, ci_token, git_url, git_user, git_access_token, git_hash, created_at, updated_at].hash
     end
 
     # Builds the object from hash

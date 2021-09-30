@@ -6,7 +6,7 @@
 # The only argument indicates the file containing the input.
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -32,7 +32,7 @@
 import unittest
 import sys, os
 
-import bootstrap
+import scripts.bootstrap as bootstrap
 sys.path.insert(0, os.path.join(bootstrap.scripts_dir, "tool_output_parsers"))
 
 import jshint_oss2tsv as t

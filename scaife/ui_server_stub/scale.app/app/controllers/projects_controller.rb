@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -28,6 +28,8 @@
 # actions for the project model.
 
 require 'utility/timing'
+require 'fileutils'
+require "git"
 
 class ProjectsController < ApplicationController
 
@@ -57,13 +59,32 @@ class ProjectsController < ApplicationController
   # the view. There is also a JSON response for the API.
   def index
     #puts "SCALe splash page"
-    @errors = []
+    if @errors.blank?
+      @errors = []
+    end
     @projects = Project.all
     @scaife_active = scaife_active()
     $stdout.flush
-    @languages_available = Language.all()
-    @taxonomies_available = Taxonomy.all()
-    @tools_available = Tool.all()
+
+    _scaife_integration_mode_set()
+
+    @project_edit_links = {}
+    @projects.each do |p|
+      if p.ci_enabled
+        @project_edit_links[p.id] = scaife_ci_project_path(p)
+      else
+        @project_edit_links[p.id] = edit_project_path(p)
+      end
+    end
+
+    @project_edit_links = {}
+    @projects.each do |p|
+      if p.ci_enabled
+        @project_edit_links[p.id] = scaife_ci_project_path(p)
+      else
+        @project_edit_links[p.id] = edit_project_path(p)
+      end
+    end
 
     respond_to do |format|
       format.html
@@ -97,7 +118,7 @@ class ProjectsController < ApplicationController
         @get_projects_status = 400
       else
         @get_projects_status = 200
-        for project_object in list_projects_response
+        for project_object in result
           project_name = project_object.project_name
           project_description = nil
           if project_object.project_description.present?
@@ -109,13 +130,13 @@ class ProjectsController < ApplicationController
         end
       end
 
-      list_packages_response = c.listPackages(session[:login_token])
+      result = c.listPackages(session[:login_token])
       #puts list_packages_response
-      if list_packages_response.is_a?(String) #Failed to connect to Registration/DataHub server
+      if result.is_a?(String) #Failed to connect to Registration/DataHub server
         @get_packages_status = 400
       else
         @get_packages_status = 200
-        for package_object in list_packages_response
+        for package_object in result
           package_name = package_object.package_name
           package_description = nil
           if package_object.package_description.present?
@@ -139,7 +160,19 @@ class ProjectsController < ApplicationController
     @scaife_mode = session[:scaife_mode]
     @project = Project.new(project_params)
     @project_type = params[:project_type]
+
+    # Default confidence thresholds
+    @project.efp_confidence_threshold =
+      Rails.configuration.x.default_efp_confidence_threshold
+    @project.confidence_threshold =
+      Rails.configuration.x.default_etp_confidence_threshold
+
     @scaife_active = scaife_active()
+    if not ["scale", "scaife", "scaife-ci"].include? @project_type
+      msg = "Invalid project type: #{@project_type}"
+      puts msg
+      raise ScaifeError.new(msg)
+    end
     if @project.save
       if Dir.exists?(archive_backup_dir_from_id(@project.id))
         msg = "External data already exists for project #{@project.id} #{archive_backup_dir_from_id(@project.id)} ... DELETING"
@@ -183,6 +216,12 @@ class ProjectsController < ApplicationController
           format.json  { render :json => @project,
                   :status => :created, :location => edit_project_path }
         end
+      elsif "scaife-ci" == @project_type
+        respond_to do |format|
+          format.html  { redirect_to(scaife_ci_project_path(@project)) }
+          format.json  { render :json => @project,
+                  :status => :created, :location => edit_project_path }
+        end
       end
     else
       respond_to do |format|
@@ -202,11 +241,13 @@ class ProjectsController < ApplicationController
   def add_gnu_global_pages(project)
 
     backup_path = backup_dir_from_id(project.id)
-    if Dir.exists?(backup_path)
+    if Dir.exists? backup_path
       FileUtils.rm_rf(backup_path)
     end
-    Dir.mkdir backup_path
-    FileUtils.cp(external_db(), backup_path)
+    FileUtils.mkdir_p backup_path
+    if File.exists? external_db()
+      FileUtils.cp(external_db(), backup_path)
+    end
 
     # Next, generate HTML source using htags from GNU Global
     source_path = archive_src_dir_from_id(project.id)
@@ -240,15 +281,22 @@ class ProjectsController < ApplicationController
 
   # This action shows the edit project page.
   def edit
-    @errors = []
+    if @errors.blank?
+      @errors = Set[]
+    end
     @project = Project.find(params[:id])
-    @scaife_active = scaife_active()
     # from web request, so must sanitize
     if not '#{@project.id.to_s}'.match('\d*')
       msg = "invalid project id: #{@project.id.to_s}"
       print msg
       @errors << msg
     else
+      # lang/tool select happens directly through database view;
+      # upload/mapping should still be present if @scaife_active is
+      # true. also sets @scaife_active, @languages_available, etc
+      _scaife_integration_mode_set(
+        disable_tool_select: true
+      )
       # Pass some more useful parameters to the view. Specifically,
       # these parameters keep track of what checkboxes are already
       # marked and what files are already uploaded. @out will
@@ -258,15 +306,17 @@ class ProjectsController < ApplicationController
       @uploaded = {}
       @out = {}
       @out_multiple = {}
-      @project.is_test_suite = @project.test_suite_version.blank?
+      @project.is_test_suite = @project.test_suite_version.present?
       @tool_groups = ToolGroup.all()
-      @languages_available = @project.languages()
-      @taxonomies_available = @project.taxonomies()
-      @tools_available = @project.tools()
+      @scaife_connected = self.scaife_connected()
       if not '#{@project.id.to_s}'.match('\d*')  # from web request, so must sanitize
         print "invalid project id: #{@project.id.to_s}"
       else
         project_id = params[:id]
+
+        if @scaife_connected
+          flash[:scaife_updates_available] = has_scaife_updates(project_id)
+        end
 
         if nil == @project.publish_data_updates
          @project.publish_data_updates = 0
@@ -276,57 +326,55 @@ class ProjectsController < ApplicationController
          @project.subscribe_to_data_updates = 0
         end
 
-        @project.is_test_suite = @project.test_suite_version.blank? ? false : true
         ToolGroup.all_by_key().each do |tool_key, tool_group|
           unless tool_key.start_with? "swamp"
             tool_group.tools().each do |tool|
-                warning_file = "GNU/#{project_id.to_s}/analysis/#{tool.id}.txt"
-                if File.exists?("public/#{warning_file}")
-                  @uploaded[tool_key] = true
-                  warnings = `cat public/#{warning_file}`
-                  if warnings.length() == 0
-                    @out[tool_key] = "" # success
-                  else
-                    @out[tool_key] = warning_file  # link to warnings
-                  end
-                end
-              end
-          else #  SWAMP tool information
-              tool = tool_group.tool_from_version("") # Get the swamp tool
-              warning_file = "GNU/#{project_id.to_s}/analysis/#{tool.id}_*.txt"
-              swamp_warning_files = Dir.glob("public/#{warning_file}")
-
-              if swamp_warning_files.length == 1
+              warning_file = "GNU/#{project_id.to_s}/analysis/#{tool.id}.txt"
+              if File.exists?("public/#{warning_file}")
                 @uploaded[tool_key] = true
-                warnings = `cat #{swamp_warning_files[0]}`
+                warnings = `cat public/#{warning_file}`
                 if warnings.length() == 0
                   @out[tool_key] = "" # success
                 else
-                  @out[tool_key] = swamp_warning_files[0].sub('public/', '')  # link to warnings
-                end
-              elsif swamp_warning_files.length > 1
-                @uploaded[tool_key] = true
-                swamp_warning_files.each do |out_file|
-                  puts out_file
-                  tool_regex = out_file.match /#{tool.id}_(.*)\.txt$/
-                  if tool_regex
-                    actual_tool_key = tool_regex[1].tr("-","/")
-                  end
-
-                  warnings = `cat #{out_file}`
-                  @out_multiple[tool_key] = {}
-
-                  if warnings.length() == 0
-                    @out_multiple[tool_key][actual_tool_key] = ""
-                  else
-                    @out_multiple[tool_key][actual_tool_key] = out_file.sub('public/', '').to_s  # link to warnings
-                  end
+                  @out[tool_key] = warning_file  # link to warnings
                 end
               end
+            end
+          else #  SWAMP tool information
+            tool = tool_group.tool_from_version("") # Get the swamp tool
+            warning_file = "GNU/#{project_id.to_s}/analysis/#{tool.id}_*.txt"
+            swamp_warning_files = Dir.glob("public/#{warning_file}")
+
+            if swamp_warning_files.length == 1
+              @uploaded[tool_key] = true
+              warnings = `cat #{swamp_warning_files[0]}`
+              if warnings.length() == 0
+                @out[tool_key] = "" # success
+              else
+                @out[tool_key] = swamp_warning_files[0].sub('public/', '')  # link to warnings
+              end
+            elsif swamp_warning_files.length > 1
+              @uploaded[tool_key] = true
+              swamp_warning_files.each do |out_file|
+                puts out_file
+                tool_regex = out_file.match /#{tool.id}_(.*)\.txt$/
+                if tool_regex
+                  actual_tool_key = tool_regex[1].tr("-","/")
+                end
+
+                warnings = `cat #{out_file}`
+                @out_multiple[tool_key] = {}
+
+                if warnings.length() == 0
+                  @out_multiple[tool_key][actual_tool_key] = ""
+                else
+                  @out_multiple[tool_key][actual_tool_key] = out_file.sub('public/', '').to_s  # link to warnings
+                end
+              end
+            end
           end
         end
       end
-
     end
   end
 
@@ -490,9 +538,14 @@ class ProjectsController < ApplicationController
       supplemental_path = archive_supplemental_dir_from_id(@project.id)
       @project.name = params[:project][:name]
       @project.description = params[:project][:description]
+
       @project.is_test_suite = @project.test_suite_name.blank? ? false : true
       @project.publish_data_updates = params[:project][:publish_data_updates]
       @project.subscribe_to_data_updates = params[:project][:subscribe_to_data_updates]
+
+      @project.meta_alert_counts_type = params[:project][:meta_alert_counts_type]
+      @project.confidence_threshold = params[:project][:confidence_threshold].to_f
+      @project.efp_confidence_threshold = params[:project][:efp_confidence_threshold].to_f
 
       if @project.publish_data_updates or @project.subscribe_to_data_updates
         if nil == @project.scaife_project_id
@@ -501,11 +554,11 @@ class ProjectsController < ApplicationController
           respond_to do |format|
               format.any { redirect_to "/projects/#{@project.id}/edit" and return}
           end
-        end       
+        end
       end
-      
+
       if @project.subscribe_to_data_updates
-        if @scaife_active 
+        if @scaife_active
           scaife_project_id = @project.scaife_project_id
 
           c = ScaifeDatahubController.new
@@ -540,7 +593,7 @@ class ProjectsController < ApplicationController
           Dir.chdir scripts_dir()
           # Close a subscription for this project
           # Future iterations may use other information like user info to decipher
-          # which processes to kill. 
+          # which processes to kill.
           if @project.data_subscription_id
             begin
               Process.kill('QUIT', @project.data_subscription_id.to_i)
@@ -552,7 +605,7 @@ class ProjectsController < ApplicationController
           end
         end
       end
-      
+
       if @project.is_test_suite
         @project.test_suite_name = params[:project][:test_suite_name]
         @project.test_suite_version = params[:project][:test_suite_version]
@@ -925,9 +978,16 @@ class ProjectsController < ApplicationController
   # the subsequent construction of the database.
   def database
     #puts "database() #{params}"
+
+    # lang/tool select happens directly through database view;
+    # upload/mapping should still be present if @scaife_active is true.
+    # this also sets @scaife_active, etc
+    _scaife_integration_mode_set(
+      disable_lang_select: true,
+      disable_tool_select: true
+    )
+
     # First, fetch the project ID and construct useful paths
-    @project = Project.find(params[:project_id])
-    @scaife_active = scaife_active()
     source_path = archive_src_dir_from_id(@project.id)
     analysis_path = archive_analysis_dir_from_id(@project.id)
     supplemental_path = archive_supplemental_dir_from_id(@project.id)
@@ -951,6 +1011,11 @@ class ProjectsController < ApplicationController
     @taxonomies_available = @project.taxonomies()
     @tools_available = @project.tools()
 
+    if params[:project]
+      @project.meta_alert_counts_type = params[:project][:meta_alert_counts_type]
+      @project.confidence_threshold = params[:project][:confidence_threshold].to_f
+      @project.efp_confidence_threshold = params[:project][:efp_confidence_threshold].to_f
+    end
     if (params[:project] and params[:project][:is_test_suite])
       @project.is_test_suite = ActiveModel::Type::Boolean.new.cast(params[:project][:is_test_suite])
     else
@@ -1169,14 +1234,14 @@ class ProjectsController < ApplicationController
       end_time = Time.now
       duration = (end_time - start_time).to_f
       puts "[Completed in #{duration.round(1)} s]"
-      
+
       puts "Parsing Analysis into Alerts..."
       start_time = Time.now
       params[:selectedTools].each do |tool_key|
         # This is the command to run for digest_alerts. The second part
         # will pipe the output to ##.out where ## is the number corresponding
         # to the tool.
-        
+
         #SWAMP uses the SWAMP parser but the different tool properties files
         if tool_key.start_with? "swamp"
           swamp_tool_key = tool_key
@@ -1255,7 +1320,7 @@ class ProjectsController < ApplicationController
       end_time = Time.now
       duration = (end_time - start_time).to_f
       puts "[Completed in #{duration.round(1)} s]"
-      
+
       if File.exists? db_path
         FileUtils.cp(db_path, external_db())
         self.import_to_displays(@project.id)
@@ -1344,6 +1409,310 @@ class ProjectsController < ApplicationController
   end
 
 
+  # action for displaying/creating/editing a SCAIFE CI-enabled
+  # package/project
+  def scaife_ci
+    _scaife_integration_mode_set()
+    if not @project.ci_enabled
+      @project.ci_enabled = true
+      if not @project.save
+        @errors << @project.errors.full_messages
+      end
+    end
+    if @errors.blank?
+      @errors = Set[]
+    end
+    if @scaife_active
+      # since this can be an edit, pre-populate some information
+      # pertaining to SCAIFE and CI functionality
+      if @project.scaife_package_id.present?
+        # fetch the ci_token if present
+        datahub_controller = ScaifeDatahubController.new
+        result = datahub_controller.editPackage(session[:login_token],
+                        @project.scaife_package_id)
+        if result.is_a?(String)
+          # something borked
+          puts "scaife_ci() error editPackage(): #{datahub_controller.scaife_status_code} #{result}"
+          @msg = "#{result}"
+          @errors << @msg
+        else
+          @ci_token = result.ci_token
+        end
+      end
+      @project_scaife_tools = []
+      @project.tools.each do |tool|
+        if tool.scaife_tool_id.present?
+          @project_scaife_tools << tool
+        end
+      end
+    else
+      @errors << "Not connected to SCAIFE servers"
+    end
+
+    project_params = params[:project]
+    if request.request_method == "GET" or project_params.blank?
+      # just rendering initial form
+      return
+    end
+
+    puts "scaife_ci() #{params}"
+    if project_params[:git_url].present?
+      if project_params[:git_url].starts_with? "https://"
+        @project.git_url = project_params[:git_url]
+      else
+        @errors << "Only git URLs using the https protocol are currently supported."
+      end
+    else
+      @errors << "Repository URL required"
+    end
+    @project.git_user = project_params[:git_user]
+    @project.git_access_token = project_params[:git_access_token]
+    if not @project.save
+      @errors << @project.errors.full_messages
+    end
+
+    if @errors.any?
+      return
+    end
+
+    # hard coding lang/tool/taxo selections/uploads for now, for testing
+
+    lang_ids = project_params[:languages]
+    if lang_ids.blank?
+      # C89, C++98
+      lang_ids = [1, 6]
+    end
+    taxo_ids = project_params[:taxonomies]
+    if taxo_ids.blank?
+      # CERT C Rules, CWEs
+      taxo_ids = [1, 6]
+    end
+    tool_ids = project_params[:tools]
+    if tool_ids.blank?
+      # rosecheckers
+      tool_ids = [2]
+    end
+
+    for lang_id in lang_ids
+      # C89, C++98
+      lang = Language.find(lang_id)
+      if not @project.languages.include? lang
+        @project.languages << lang
+      end
+    end
+    for taxo_id in taxo_ids
+      # CERT C Rules, CWEs
+      taxo = Taxonomy.find(taxo_id)
+      if not @project.taxonomies.include? taxo
+        @project.taxonomies << taxo
+      end
+    end
+    for tool_id in tool_ids
+      # cppcheck 1.86
+      tool = Tool.find(tool_id)
+      if not @project.tools.include? tool
+        @project.tools << tool
+      end
+    end
+    if not @project.save
+      @errors << @project.errors.full_messages
+    end
+
+    @languages_available = @project.languages()
+    @taxonomies_available = @project.taxonomies()
+    @tools_available = @project.tools()
+
+    # upload them if no scaife id; automatic uploads for testing
+    _, _, langs_in_scaife, _ = project_language_requirements(@project)
+    @project.languages.each do |lang|
+      if not langs_in_scaife.include? lang
+        self.upload_language_to_scaife(lang)
+      end
+    end
+    _, _, taxos_in_scaife, _ = project_taxonomy_requirements(@project)
+    @project.taxonomies.each do |taxo|
+      if not taxos_in_scaife.include? taxo
+        self.upload_taxonomy_to_scaife(taxo)
+      end
+    end
+    _, tools_in_scaife, _ = project_tool_requirements(@project)
+    @project.tools.each do |tool|
+      if not tools_in_scaife.include? tool
+        self.upload_tool_to_scaife(tool, langs: @project.languages)
+      end
+    end
+
+    # Check on language selection and upload requirements
+    begin
+      lang_groups_missing, lang_groups_not_in_scaife, langs_in_scaife, scaife_langs_by_id = project_language_requirements(@project)
+      unsatisfied_lang_names =
+        (lang_groups_missing.keys + lang_groups_not_in_scaife.keys).uniq
+    rescue ScaifeError => e
+      @msg = e.message
+      @errors << @msg
+      puts "scaife_ci() scaife generic lang req err: #{@msg}"
+    end
+    if unsatisfied_lang_names.present?
+      verb = []
+      if lang_groups_missing.present?
+        verb << "selected"
+        instruction = "SCAIFE Languages-> Select"
+      end
+      if lang_groups_not_in_scaife.present?
+        verb << "uploaded"
+        instruction = "SCAIFE Languages-> Upload"
+      end
+      if verb.length > 1
+        instruction = "Languages Config -> Select followed by Languages Config -> Upload"
+      end
+      verb = verb.join('/')
+      @msg = "Project upload requires languages of the following #{'type'.pluralize(unsatisfied_lang_names.length)} to be #{verb} first: #{unsatisfied_lang_names.join(', ')}. To do that, edit the project and then select  #{instruction}"
+      @errors << @msg
+      puts "scaife_ci() scaife lang missing err: #{@msg}"
+    end
+
+    # Check on taxonomy selection and upload requirements
+    begin
+      taxo_groups_missing, taxo_groups_not_in_scaife, taxos_in_scaife, scaife_taxos_by_id = project_taxonomy_requirements(@project)
+    rescue ScaifeError => e
+      @msg = e.message
+      @errors << @msg
+      puts "scaife_ci() scaife generic taxo req err: #{@msg}"
+    end
+    unsatisfied_taxo_names =
+      (taxo_groups_missing.keys + taxo_groups_not_in_scaife.keys).uniq
+    if unsatisfied_taxo_names.present?
+      verb = []
+      if taxo_groups_missing.present?
+        verb << "selected"
+        instruction = "SCAIFE Taxonomies -> Select"
+      end
+      if taxo_groups_not_in_scaife.present?
+        verb << "uploaded"
+        instruction = "SCAIFE Taxonomies -> Upload"
+      end
+      if verb.length > 1
+        instruction = "SCAIFE Taxonomies -> Select followed by SCAIFE Taxonomies -> Upload"
+      end
+      verb = verb.join('/')
+      @msg = "Project upload requires taxonomies of the following #{'type'.pluralize(unsatisfied_taxo_names.length)} to be #{verb} first: #{unsatisfied_taxo_names.join(', ')}. To do that, edit the project and then select #{instruction}"
+      @errors << @msg
+      puts "scaife_ci() scaife taxo missing err: #{@msg}"
+    end
+
+    # Check on tool upload requirements
+    begin
+      tools_not_in_scaife, tools_in_scaife, scaife_tools_by_id = project_tool_requirements(@project)
+    rescue ScaifeError => e
+      @msg = e.message
+      @errors << @msg
+      puts "scaife_ci() scaife generic tool req err: #{@msg}"
+    end
+    if tools_not_in_scaife.present?
+      tool_label_list = []
+      tools_not_in_scaife.each do |tool|
+        label = "#{tool.group_key}"
+        if tool.version.present?
+          label += " - #{tool.version}"
+        end
+        tool_label_list << label
+      end
+      @msg = "Project upload requires the following #{'tool'.pluralize(tools_not_in_scaife.length)} to be uploaded to SCAIFE first: #{tool_label_list.join(', ')}. To do that, edit the project and then select select SCAIFE Tools -> Upload"
+      @errors << @msg
+      puts "scaife_ci() scaife tool missing err: #{@msg}"
+    end
+
+    if @errors.any?
+      return
+    end
+
+    author_source = "GENERIC_SCALE_AUTHOR_SOURCE"
+
+    pkg_name = @project.name
+    pkg_desc = @project.description
+    if pkg_desc.blank?
+      # Note: SCAIFE requires a package description
+      pkg_desc = "None"
+    end
+
+    datahub_controller = ScaifeDatahubController.new
+
+    @lang_ids = @project.languages.map { |lang| lang.scaife_language_id }
+    @taxo_ids = @project.taxonomies.map { |taxo| taxo.scaife_tax_id }
+    @tool_ids = @project.tools.map { |tool| tool.scaife_tool_id }
+
+    result = datahub_controller.createCIPackage(session[:login_token],
+        pkg_name, pkg_desc, author_source, @lang_ids, @tool_ids,
+        @project.git_url, # required param
+        git_user: @project.git_user,
+        git_access_token: @project.git_access_token)
+
+    if result.is_a?(String)
+      # something borked
+      puts "scaife_ci() error createPackage(): #{datahub_controller.scaife_status_code} #{result}"
+      @msg = "#{result}"
+      @errors << @msg
+    else
+      package = result
+      puts "scaife package uploaded, pkg: #{package.package_id}"
+      puts "scaife package uploaded, pkg_token: #{package.ci_token}"
+      @ci_token = package.ci_token
+      @package_id = package.package_id
+      @project.update(scaife_package_id: @package_id)
+    end
+
+    result = datahub_controller.createProject(session[:login_token],
+        @project.name, @project.description,
+        @project.author_source, @project.scaife_package_id, [], @taxo_ids)
+
+    if result.is_a?(String)
+      # something borked
+      puts "scaife_ci() error createProject(): #{datahub_controller.scaife_status_code} #{result}"
+      @msg = result
+      @errors << @msg
+    else
+      @msg = "Data uploaded to SCAIFE!"
+      @scaife_project_id = result.project_id
+      puts "scaife project uploaded, project: #{@scaife_project_id}"
+      @project.update(scaife_project_id: @scaife_project_id)
+      @project.update(scaife_uploaded_on: Time.now)
+
+      result, status_code = datahub_controller.enableDataForwarding(
+        session[:login_token], @scaife_project_id)
+      if 200 != status_code
+        @msg = "Failed to enable data forwarding."
+        flash[:scaife_project_upload_message] = @msg
+        puts "scaife_ci() error createProject(): (#{datahub_controller.scaife_status_code}): #{result}"
+        @errors << @msg
+      else
+        @project.update(subscribe_to_data_updates: true)
+        @project.update(publish_data_updates: true)
+      end
+    end
+
+    @project_scaife_tools = []
+    @project.tools.each do |tool|
+      if tool.scaife_tool_id.present?
+        @project_scaife_tools << tool
+      end
+    end
+
+    if !Dir.exists? archive_src_dir_from_id(@project.id)
+      # prevents routing errors when viewing alertConditions/meta-alerts
+      # page, even though there are no alerts / alertConditions /
+      # meta-alerts yet
+      FileUtils.mkdir_p archive_src_dir_from_id(@project.id)
+      add_gnu_global_pages(@project)
+    end
+
+    # this is also the edit page; users need the package token and tool
+    # IDs, so display them
+
+    return
+
+  end
+
+
   # This action handles downloading the database generated by the scripts
   # Note that since this is from the database page, it does not know anything
   # about any audited information. This is the original database produced by
@@ -1359,6 +1728,65 @@ class ProjectsController < ApplicationController
   # This action creates the main auditing page from the database file
   # produced by digest_alerts.
   def fromDatabase
+    start_timestamps = get_timestamps()
+
+    # Create new project with the uploaded files and resulting
+    # scripts outputs and use import_to_displays()
+    @project = Project.find(params[:project_id])
+    if not '#{@project.id.to_s}'.match('\d*')  # from web request, so must sanitize
+      print "invalid project id: #{@project.id.to_s}"
+    else
+      source_path = archive_src_dir_from_id(@project.id)
+      db_path = archive_backup_db_from_id(@project.id)
+
+      if !File.exist?(db_path) or !Dir.exists?(source_path)
+        puts "database or source doesn't exist but tried to create, aborting"
+        redirect_to "/projects/#{@project.id}/database"
+      else
+        # Otherwise, we move the database over to external.sqlite3
+        # and run import_to_displays()
+        FileUtils.cp(db_path, external_db())
+        start_time = Time.now
+        result_of_import = self.import_to_displays(@project.id)
+        end_time = Time.now
+        duration = (end_time - start_time).to_f
+        #puts "[completed in #{duration.round(1)} s]"
+
+        if @project.save && result_of_import == "invalid"
+          puts("database is not consistent! Run Project.manualCreate in the rails console to get a backtrace")
+          redirect_to "/projects/#{@project.id}/database"
+        else
+          # If imported successfully, backup the database
+          if !Dir.exists?(backup_dir())
+            Dir.mkdir backup_dir()
+          end
+
+          add_gnu_global_pages(@project)
+
+          # Create links
+          puts "Updating links in Displays and Messages..."
+          start_time = Time.now
+          Display.createLinks(@project.id)
+          end_time = Time.now
+          duration = (end_time - start_time).to_f
+          puts "[completed in #{duration.round(1)} s]"
+
+          end_timestamps = get_timestamps()
+          PerformanceMetric.addRecord(@scaife_mode, "projects_controller.fromDatabase", "Time to create a SCALe project", "SCALe_user", "Unknown", @project.id, start_timestamps, end_timestamps)
+
+          Dir.chdir Rails.root
+
+          respond_to do |format|
+            format.html  { redirect_to(@project) }
+            format.json  { render :json => @project,
+                                  :status => :created, :location => @project }
+          end
+        end
+      end
+    end
+  end
+
+  def experimentFromDatabase
     start_timestamps = get_timestamps()
 
     # Create new project with the uploaded files and resulting
@@ -1403,44 +1831,116 @@ class ProjectsController < ApplicationController
           puts "[completed in #{duration.round(1)} s]"
 
           end_timestamps = get_timestamps()
-          PerformanceMetrics.addRecord(@scaife_mode, "projects_controller.fromDatabase", "Time to create a SCALe project", "SCALe_user", "Unknown", project.id, start_timestamps, end_timestamps)
+          PerformanceMetric.addRecord(@scaife_mode, "projects_controller.fromDatabase", "Time to create a SCALe project", "SCALe_user", "Unknown", project.id, start_timestamps, end_timestamps)
 
           Dir.chdir Rails.root
 
-          respond_to do |format|
-            format.html  { redirect_to(project) }
-            format.json  { render :json => project,
-                                  :status => :created, :location => project }
-          end
         end
       end
     end
   end
 
   ### SCAIFE Language/Taxonomy/Tool integrations
- 
-  def _scaife_integration_init()
-    @errors = Set[]
-    #puts params
-    if params[:project_id].present?
-      @project = Project.find(params[:project_id])
+
+  def _scaife_integration_mode_set(project: nil,
+           disable_lang_select: nil, disable_tool_select: nil)
+    # these instance variables will control what options are visibile as
+    # tabs, pills, and dropdowns relating to scaife integration
+    if @errors.blank?
+      @errors = Set[]
     end
-    @scaife_active = scaife_active()
+    # if pills are being rendered from database() then lang/tool select
+    # is disabled; otherwise the disable parameters are coming from the
+    # various submit() calls for state retention
+    if params[:disable_lang_select].present? and not disable_lang_select.nil?
+      disable_lang_select = true
+    end
+    if params[:disable_tool_select].present? and not disable_tool_select.nil?
+      disable_tool_select = true
+    end
+    @modal = params[:modal].present?
+    if project.blank?
+      if @project.blank?
+        project_id = params[:project_id] or params[:id]
+        if project_id.present?
+          @project = Project.find(project_id)
+          if @project.blank?
+            @errors << "invalid project ID: #{project_id}"
+            return
+          end
+        end
+      end
+    else
+      @project = project
+    end
+    if @project.present?
+      @enable_lang_select = disable_lang_select.blank?
+      # taxonomies can always be selected for a project
+      @enable_taxo_select = true
+      if @project.ci_enabled
+        @enable_tool_select = disable_tool_select.blank?
+      end
+      @languages_available = @project.languages()
+      @taxonomies_available = @project.taxonomies()
+      @tools_available = @project.tools()
+    else
+      @enable_lang_select = false
+      @enable_taxo_select = false
+      @enable_tool_select = false
+      @languages_available = Language.all()
+      @taxonomies_available = Taxonomy.all()
+      @tools_available = Tool.all()
+    end
+    if @scaife_active.blank?
+      @scaife_active = scaife_active()
+    end
+    # lang_select and tool_select will have already been set by now if
+    # project is present, etc; regardless of lang/tool select,
+    # upload/map will be enabled for all when scaife active
+    if @scaife_active
+      if @project.present?
+        @enable_lang_upload = @languages_available.present?
+        @enable_taxo_upload = @taxonomies_available.present?
+        @enable_tool_upload = @tools_available.present?
+      else
+        @enable_lang_upload = true
+        @enable_taxo_upload = true
+        @enable_tool_upload = true
+      end
+    else
+      @enable_lang_upload = false
+      @enable_taxo_upload = false
+      @enable_tool_upload = false
+    end
+  end
+
+  def _scaife_integration_init(project: nil)
+    #puts params
+    self._scaife_integration_mode_set(project: project)
     @current_action = caller[0][/`.*'/][1..-2]
+    @current_action.sub!(/^experiment/, "")
+    @current_action[0] = @current_action[0].downcase
     @current_action.sub!(/Submit$/, "")
     @format = request.format
     @modal = params[:modal].present?
-    @disable_lang_select = params[:disable_lang_select].present?
     @render_skin_path = "projects/scaife/scaifeIntegration"
     if @modal
       @render_skin_path += "Modal"
     end
     @render_content_path = "projects/scaife/#{@current_action}Content"
-    submit_params = {
-      project_id: @project.present? ? @project.id : nil,
-      disable_lang_select: @disable_lang_select,
-      modal: @modal || nil,
-    }
+    submit_params = {}
+    if @project.present?
+      submit_params[:project_id] = @project.id
+    end
+    if not @enable_lang_select
+      submit_params[:disable_lang_select] = true
+    end
+    if not @enable_tool_select
+      submit_params[:disable_tool_select] = true
+    end
+    if @modal
+      submit_params[:modal] = true
+    end
     case @current_action
     when "langSelect"
       @submit_path = language_select_submit_path(submit_params)
@@ -1454,10 +1954,14 @@ class ProjectsController < ApplicationController
       @submit_path = taxonomy_upload_submit_path(submit_params)
     when "taxoMap"
       @submit_path = taxonomy_map_submit_path(submit_params)
+    when "toolSelect"
+      @submit_path = tool_select_submit_path(submit_params)
     when "toolUpload"
       @submit_path = tool_upload_submit_path(submit_params)
     when "toolMap"
       @submit_path = tool_map_submit_path(submit_params)
+    else
+        raise ScaifeError.new("unknown @current_action: #{@current_action}")
     end
     @form_title = "SCAIFE"
   end
@@ -1465,7 +1969,6 @@ class ProjectsController < ApplicationController
   def scaifeIntegration
     # a default unembellished generic view is available for testing
     self._scaife_integration_init()
-    self._dump_remote_js(request.path)
     respond_to do |format|
       format.html
       format.js
@@ -1475,8 +1978,6 @@ class ProjectsController < ApplicationController
   ### Language integrations
 
   def _scaife_languages_init()
-    @languages_available = \
-      @project.present? ? @project.languages : Language.all()
     @scaife_languages_by_id = {}
     @languages_in_scaife = []
     @languages_not_in_scaife = []
@@ -1493,6 +1994,7 @@ class ProjectsController < ApplicationController
   end
 
   def langSelect
+    #puts "langSelect() #{params}"
     self._scaife_integration_init()
     self._scaife_languages_select_init()
     respond_to do |format|
@@ -1502,17 +2004,17 @@ class ProjectsController < ApplicationController
   end
 
   def langSelectSubmit
-    self._scaife_integration_init() 
+    self._scaife_integration_init()
     langs_selected = params[:select_langs]
     langs_deselected = params[:deselect_langs]
-      
+
     if langs_selected.present?
       langs_selected = langs_selected.values.reject { |v| v.blank? }
       langs_selected = langs_selected.map { |lang_id| Language.find(lang_id) }
     else
       langs_selected = []
     end
-    
+
     if langs_deselected.present?
       langs_deselected = langs_deselected.values.reject { |v| v.blank? }
       langs_deselected = \
@@ -1550,7 +2052,7 @@ class ProjectsController < ApplicationController
       @errors << "No languages selected or deselected"
     end
     self._scaife_languages_select_init()
-    
+
     if not params[:upload_project].present?
       respond_to do |format|
         format.js
@@ -1614,6 +2116,36 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def experimentLangUploadSubmit
+    #puts "langUploadSubmit() #{params}"
+    self._scaife_integration_init()
+    langs_to_upload = params[:upload_langs]
+    if langs_to_upload.present?
+      langs_to_upload = langs_to_upload.values.reject { |v| v.blank? }
+      langs_to_upload = \
+        langs_to_upload.map { |lang_id| Language.find(lang_id) }
+    end
+    if langs_to_upload.present?
+      uploaded_cnt = 0
+      begin
+        langs_to_upload.each do |lang|
+          self.upload_language_to_scaife(lang)
+          uploaded_cnt += 1
+        end
+      rescue ScaifeError => e
+        @errors << e.message
+      end
+      if uploaded_cnt > 0
+        @success = \
+          "#{uploaded_cnt} #{'language'.pluralize(uploaded_cnt)} uploaded to SCAIFE"
+      end
+    else
+      @errors << "No languages selected for upload"
+    end
+    self._scaife_languages_init()
+    self._scaife_languages_upload_init()
+  end
+
   def upload_language_to_scaife(lang)
     c = ScaifeDatahubController.new
     result = c.createLanguage(
@@ -1639,7 +2171,7 @@ class ProjectsController < ApplicationController
         end
       end
     end
-    puts "language #{lang.id} uploaded to SCAIFE"
+   puts "language #{lang.id} (#{lang.name}) uploaded to SCAIFE: #{lang.scaife_language_id}"
   end
 
   def _scaife_languages_map_init()
@@ -1695,31 +2227,6 @@ class ProjectsController < ApplicationController
       format.js
     end
   end
-  
-  ### Tool selections from Upload Project Page
-  def toolSelectSubmit
-    if params[:project_id].present?
-      @project = Project.find(params[:project_id])
-    end
-    @scaife_active = scaife_active()
-    
-    tools_selected = params[:select_tools]
-      
-    tools_selected = tools_selected.values.reject { |v| v.blank? }
-    tools_selected = tools_selected.map { |tool_id| Tool.find(tool_id) }
-     
-    if tools_selected 
-      tools_selected.each do |tool|
-        if not @project.tools.include? tool
-            @project.tools << tool
-        end
-      end
-      
-      if not @project.save
-        @errors << @project.errors.full_messages
-      end
-    end
-  end
 
   ### Taxonomy integrations
 
@@ -1751,6 +2258,7 @@ class ProjectsController < ApplicationController
   end
 
   def taxoSelectSubmit
+    #puts "taxoSelectSubmit(): #{params}"
     self._scaife_integration_init()
     taxos_selected = params[:select_taxos]
     taxos_deselected = params[:deselect_taxos]
@@ -1886,6 +2394,40 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def experimentTaxoUploadSubmit
+    #puts "taxoUploadSubmit() #{params}"
+    self._scaife_integration_init()
+    taxos_to_upload = params[:upload_taxos]
+    if taxos_to_upload.present?
+      taxos_to_upload = taxos_to_upload.values.reject { |v| v.blank? }
+      taxos_to_upload = \
+        taxos_to_upload.map { |taxo_id| Taxonomy.find(taxo_id) }
+    end
+    if taxos_to_upload.present?
+      uploaded_cnt = 0
+      begin
+        taxos_to_upload.each do |taxo|
+          upload_taxonomy_to_scaife(taxo)
+          uploaded_cnt += 1
+        end
+      rescue ScaifeError => e
+        puts "ScaifeError caught in taxoUploadSubmit(): #{e.message}"
+        @errors << e.message
+      end
+      if uploaded_cnt > 0
+        @success = \
+          "#{uploaded_cnt} #{'taxonomy'.pluralize(uploaded_cnt)} uploaded to SCAIFE"
+      end
+    else
+      @errors << "No taxonomies selected for upload"
+    end
+    @errors.each do |err|
+      puts "taxo upload err: #{err}"
+    end
+    self._scaife_taxonomies_init()
+    self._scaife_taxonomies_upload_init()
+  end
+
   def upload_taxonomy_to_scaife(taxo)
     # required:
     #   name
@@ -1898,7 +2440,9 @@ class ProjectsController < ApplicationController
     #     title
     #     platforms [str]
     #     condition_fields {str: str}
-    @errors = Set[]
+    if @errors.blank?
+      @errors = Set[]
+    end
     c = ScaifeDatahubController.new
     puts "attempt upload of taxonomy: #{taxo.name} #{taxo.version}"
     result = c.createTaxonomy(
@@ -1933,7 +2477,7 @@ class ProjectsController < ApplicationController
         puts "editing scaife taxo with #{diff_minus.length} conditions"
         cond_names = Set.new(diff_minus)
         conds_to_add = taxo.conditions.select { |cond| cond_names.include?(cond.name) }
-        update_taxonomy_on_scaife(taxo, result["taxonomy_id"], conds_to_add)
+        update_taxonomy_on_scaife(taxo, result.taxonomy_id, conds_to_add)
       else
         # SCAIFE didn't know about this taxonomy yet
         # map the conditions that uploaded
@@ -1982,21 +2526,23 @@ class ProjectsController < ApplicationController
     #     title
     #     platforms [str]
     #     condition_fields {str: str}
-    @errors = Set[]
+    if @errors.blank?
+      @errors = Set[]
+    end
     c = ScaifeDatahubController.new
     result = c.editTaxonomy(session[:login_token],
                       scaife_taxo_id,
                       taxo.scaife_conditions(conditions: conds_to_add))
     cond_cnt = 0
-    if scaife_conds.is_a?(String)
+    if result.is_a?(String)
       puts "#{__method__}() error editTaxonomy(): #{c.scaife_status_code}: #{result}"
-      @errors << scaife_conds
+      @errors << result
     else
       # automatically map newly uploaded conditions
-      scaife_conds_by_name = scaife_conds.map { |cond| [cond["condition_name"], cond] }.to_h
+      result = result.map { |cond| [cond.condition_name, cond] }.to_h
       ActiveRecord::Base.transaction do
         taxo.conditions.each do |cond|
-          cond.scaife_cond_id = scaife_conds_by_name[cond.name]["condition_id"]
+          cond.scaife_cond_id = result[cond.name].condition_id
           if not cond.save
             if @debug.present?
               @errors += cond.errors.full_messages
@@ -2007,7 +2553,9 @@ class ProjectsController < ApplicationController
           end
           cond_cnt += 1
         end
-        puts "about to save taxo in edit, errors:\n#{@errors.to_a.join("\n")}"
+        if @errors.present?
+          puts "about to save taxo in edit, errors:\n#{@errors.to_a.join("\n")}"
+        end
         # if taxonomy was implicitly created by tool upload, the scaife
         # id probably isn't in SCALe yet
         taxo.scaife_tax_id = scaife_taxo_id
@@ -2090,7 +2638,6 @@ class ProjectsController < ApplicationController
   ### Tool integrations
 
   def _scaife_tools_init()
-    @tools_available = @project.present? ? @project.tools() : Tool.all()
     @scaife_tools_by_id = {}
     @tools_in_scaife = []
     @tools_not_in_scaife = []
@@ -2099,6 +2646,78 @@ class ProjectsController < ApplicationController
     rescue ScaifeError => e
       @errors << e.message
     end
+  end
+
+  def _scaife_tools_select_init()
+    @form_title = "Project Tool Selections"
+    @submit_label = "Submit Tools"
+  end
+
+  def toolSelect
+    self._scaife_integration_init()
+    self._scaife_tools_select_init()
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def toolSelectSubmit
+    #puts "toolSelectSubmit(): #{params}"
+    self._scaife_integration_init()
+
+    tools_selected = params[:select_tools]
+    tools_deselected = params[:deselect_tools]
+
+    if tools_selected.present?
+      tools_selected = tools_selected.values.reject { |v| v.blank? }
+      tools_selected = tools_selected.map { |tool_id| Tool.find(tool_id) }
+    else
+      tools_selected = []
+    end
+    if tools_deselected.present?
+      tools_deselected = tools_deselected.values.reject { |v| v.blank? }
+      tools_deselected = tools_deselected.map { |tool_id| Tool.find(tool_id) }
+    else
+      tools_deselected = []
+    end
+
+    sel_cnt = desel_cnt = 0
+    if tools_selected.present? or tools_deselected.present?
+      tools_deselected.each do |tool|
+        if @project.tools.include? tool
+          @project.tools.delete(tool)
+          desel_cnt += 1
+        end
+      end
+      tools_selected.each do |tool|
+        if not @project.tools.include? tool
+          @project.tools << tool
+          sel_cnt += 1
+        end
+      end
+      if @project.save
+        msg = []
+        if sel_cnt.present?
+          msg << "#{sel_cnt} #{'tool'.pluralize(sel_cnt)} added to project"
+        end
+        if desel_cnt.present?
+          msg << "#{desel_cnt} #{'tool'.pluralize(desel_cnt)} removed from project"
+        end
+        @success = msg.join("; ")
+      else
+        @errors << @project.errors.full_messages
+      end
+    else
+      @errors << "No taxonomies selected or deselected"
+    end
+    self._scaife_tools_select_init()
+    if not params[:upload_project].present?
+      respond_to do |format|
+        format.js
+      end
+    end
+
   end
 
   def _scaife_tools_upload_init()
@@ -2259,6 +2878,92 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def experimentToolUploadSubmit
+    #puts "toolUploadSubmit()"
+    self._scaife_integration_init()
+    tools_to_upload = params[:upload_tools]
+    if tools_to_upload.present?
+      tools_to_upload = tools_to_upload.values.reject { |v| v.blank? }
+      tools_to_upload = \
+        tools_to_upload.map { |tool_id| Tool.find(tool_id) }
+    end
+    if tools_to_upload.present?
+      begin
+        lang_groups_missing, lang_groups_not_in_scaife, langs_in_scaife = self.tool_language_requirements(tools_to_upload)
+      rescue ScaifeError => e
+        @errors << e.message
+      end
+      if @errors.blank?
+        unsatisfied_names =
+          (lang_groups_missing.keys + lang_groups_not_in_scaife.keys).uniq
+        if unsatisfied_names.present?
+          if @project.present?
+            verb = []
+            if lang_groups_missing.present?
+              verb << "selected"
+            end
+            if lang_groups_not_in_scaife.present?
+              verb << "uploaded"
+            end
+            verb = verb.join('/')
+            # possible TODO: using lang_groups_not_in_scaife, it would be
+            # easy to automatically upload these languages down in
+            # upload_tool_to_scaife()
+            @errors << "Languages of the following #{'type'.pluralize(unsatisfied_names.length)} need to be #{verb} first: #{unsatisfied_names.join(', ')}"
+          else
+            @errors << "All versions of #{unsatisfied_names.length > 1 ? "each of" : "" } the following #{'language'.pluralize(unsatisfied_names.length)} need to be uploaded first: #{unsatisfied_names.join(', ')}"
+          end
+        end
+      end
+      if @errors.blank?
+        uploaded_cnt = 0
+        checkers_total_cnt = 0
+        begin
+          tools_to_upload.each do |tool|
+            # or, TODO, upload the langs without scaife_ids
+            # in upload_tool_to_scaife()
+            puts "upload tool #{tool.id}: #{tool.name} #{tool.version}"
+            if @project.present?
+              # it might be better to include languages the tool knows
+              # about and have scaife_ids that the user doesn't happen
+              # to have selected for the project...this limits it to
+              # only those they have actually selected.
+
+              # Surprise, & loses scaife_language_id unless interseciton sets orderd thusly:
+              langs = @project.languages.to_set & tool.languages.to_set & langs_in_scaife
+            else
+              langs = tool.languages.to_set & langs_in_scaife
+            end
+            checkers_total_cnt += upload_tool_to_scaife(tool, langs: langs)
+            uploaded_cnt += 1
+          end
+          if @project.present? and checkers_total_cnt > 0
+            # this is intended to capture any "unknown checkers" that
+            # have been assigned scaife_ids to the external project DB
+            AlertConditionsController.archiveDB(@project.id)
+            # this might have been called from the database() view, in
+            # which case changes need to go to the archive db also.
+            # archiveDB() took care of copying to the backup db.
+            FileUtils.cp(external_db(), archive_backup_db_from_id(@project.id))
+          end
+        rescue ScaifeError => e
+          puts "ScaifeError caught in toolUploadSubmit(): #{e.message}"
+          @errors << e.message
+        end
+        if uploaded_cnt > 0
+          msg = "#{uploaded_cnt} #{'tool'.pluralize(uploaded_cnt)} uploaded to SCAIFE"
+          puts msg
+          @success = msg
+        end
+      end
+    else
+      @errors << "No tools selected for upload"
+    end
+    # refresh dialogs with any changes
+    self._scaife_tools_init()
+    self._scaife_tools_upload_init()
+  end
+
   def upload_tool_to_scaife(tool, langs: nil)
     # required:
     #   name str
@@ -2278,11 +2983,11 @@ class ProjectsController < ApplicationController
     if langs.any? { |lang| lang.scaife_language_id.blank? }
       raise StandardError.new("blank scaife ids for some langs")
     end
-    
+
     checker_cnt = 0
 
     # Note: tool.platform is an overloaded variable that can
-    # either contain language varieties (e.g., "c/c++") or 
+    # either contain language varieties (e.g., "c/c++") or
     # the tool category (i.e., "metric").  Currently, tool.platform
     # is used to derive the tool category.
     tool_category = tool.platform[0] == 'metric' ? "METRICS" : "FFSA"
@@ -2413,6 +3118,355 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def getScaifeUpdates()
+    #puts "getScaifeUpdates() here: #{params}"
+    if @errors.blank?
+      @errors = Set[]
+    end
+    #puts params
+    if params[:project_id].present?
+      @project = Project.find(params[:project_id])
+    end
+    if @project.blank?
+      msg = "invalid project id: #{params[:project_id]}"
+      puts msg
+      @errors << msg
+      #return
+    end
+    @scaife_active = scaife_active()
+    if not @scaife_active
+      msg = "Not connected to SCAIFE"
+      puts msg
+      @errors << msg
+      #return
+    end
+    if @errors.blank?
+      c = ScaifeDatahubController.new
+      puts "calling c.getUpdatesForProject: #{@project.scaife_project_id}"
+      alerts_result = c.getUpdatesForProject(session[:login_token], @project.scaife_project_id)
+      if alerts_result.is_a?(String)
+        puts "#{__method__}() error getUpdatesForProject(): #{c.scaife_status_code}: #{alerts_result}"
+        if @debug.present?
+          puts c.response
+        end
+        @errors << alerts_result
+        return
+      end
+      #proj_result = c.getProjects(session[:login_token], [@project.id])
+      #if proj_result.is_a?(String)
+      #  puts "#{__method__}() error getProjects(): #{c.scaife_status_code}: #{proj_result}"
+      #  if @debug.present?
+      #    puts c.response
+      #  end
+      #  @errors << proj_result
+      #  return
+      #end
+      begin
+        puts "calling update_project_with_scaife_alerts()"
+        @ma_updated, @alerts_updated = self.update_project_with_scaife_alerts(
+          @project, alerts_result)
+        puts "@ma_updated: #{@ma_updated}"
+        puts "alerts_updated: #{@alerts_updated}"
+      rescue ScaifeError => e
+        puts "problem updating alerts: #{e}"
+        @errors << "#{e}"
+      end
+      #if @errors
+      #  return
+      #end
+    end
+    respond_to do |format|
+      format.html  { redirect_to(@project) }
+      format.js
+    end
+  end
+
+  def _get_taxo(id)
+    @taxos_by_id ||= {}
+    if @taxos_by_id[id].blank?
+      @taxos_by_id[id] = Taxonomy.find(id)
+    end
+    return @taxos_by_id[id]
+  end
+
+  def update_project_with_scaife_alerts(project, scaife_data)
+    # note: for details on how alerts and meta-alerts are formatted in
+    # the SCAIFE response, please see the expanded schema for
+    # `get_alerts_response` as returned by the
+    # `get_alerts_for_project()` operation/endpoint in the datahub
+    # OpenAPI specification:
+    #
+    #     scaife/datahub_server_stub/swagger_server/swagger/swagger.yaml
+
+    puts "update_project_with_scaife_alerts(#{scaife_data.meta_alerts.length}, #{scaife_data.alerts.length}) here"
+    puts "scaife_data.git_commit_hash: #{scaife_data.git_commit_hash}"
+    alerts_by_id = {}
+    for alert in scaife_data.alerts
+      alerts_by_id[alert.alert_id] = alert
+    end
+    verdict_map = {
+      nil: 0,
+      "Unknown": 0,
+      "Complex": 1,
+      "False": 2,
+      "Dependent": 3,
+      "True": 4,
+    }
+    dc_map = {
+      nil: 0,
+      "Unknown": 0,
+      "No": 0,
+      "Low Risk": 1,
+      "Medium Risk": 2,
+      "High Risk": 3,
+    }
+    alert_id_by_tool = {}
+    # see scripts/satsv2sql.py for the reason for this alert increment
+    incr = 1000
+    meta_alert_id = 1
+    ma_updated = alerts_updated = 0
+    ActiveRecord::Base.transaction do
+      Display.where(project_id: project.id).destroy_all()
+      Determination.where(project_id: project.id).destroy_all()
+      Message.where(project_id: project.id).destroy_all()
+      for ma in scaife_data.meta_alerts.sort_by \
+                { |x| [ x.filepath, x.line_number ] }
+        cond = Condition.by_scaife_id(ma.condition_id)
+        taxo = _get_taxo(cond.taxonomy_id)
+        langs = cond.languages.map { |lang| lang.name }.join('/')
+        dets = []
+        if ma.determination.present?
+          [ ma.determination.flag_list[0],
+            ma.determination.verdict_list[0],
+            ma.determination.ignored_list[0],
+            ma.determination.dead_list[0],
+            ma.determination.inapplicable_environment_list[0],
+            ma.determination.dangerout_construct_list[0],
+            ma.determination.notes_list[0] ].transpose.each \
+          do |flag, verdict, ignored, dead, ie, dc, note|
+            det = Determination.new(
+              project_id: project.id,
+              meta_alert_id: meta_alert_id,
+              time: flag.timestamp,
+              flag: flag.present? ? 1 : 0,
+              verdict: verdict_map[verdict],
+              notes: note.present? ? note : 0,
+              ignored: ignored.present? ? ignored : 0,
+              dead: dead.present? ? dead : 0,
+              inapplicable_environment: ie.present? ? ie : 0,
+              dangerous_construct: dc.present? ? dc_map[dc] : 0
+            )
+            det.save!
+            dets << det
+          end
+        end
+        # already on the same line number for alerts within ma_alerts
+        for alert in ma.alert_ids.map { |x| alerts_by_id[x] }.sort_by \
+            { |x| [ Tool.by_scaife_id(x.tool_id).name ] }
+          if alert.blank?
+            raise ScaifeError.new("malformed meta_alert/alert mapping")
+          end
+          tool = Tool.by_scaife_id(alert.tool_id)
+          checker = Checker.by_scaife_id(alert.checker_id)
+          alert_id = (alert_id_by_tool[tool.id] ||= tool.id)
+          primary_msg = Message.new(
+            project_id: project.id,
+            alert_id: alert_id,
+            path: alert.primary_message.filepath,
+            line: alert.primary_message.line_start,
+            message: alert.primary_message.message_text
+          )
+          primary_msg.save!
+          for msg in alert.secondary_messages or []
+            msg = Message.new(
+              project_id: project.id,
+              alert_id: alert_id,
+              path: alert.primary_message.filepath,
+              line: alert.primary_message.line_start,
+              message: alert.primary_message.message_text
+            )
+            msg.save!
+          end
+          dsp = Display.new(
+            previous: dets.count - 1,
+            path: primary_msg.path,
+            line: primary_msg.line,
+            #link:
+            message: primary_msg.message,
+            tool: tool.name,
+            #confidence:
+            #meta_alert_priority:
+            project_id: project.id,
+            meta_alert_id: meta_alert_id,
+            alert_id: alert_id,
+            scaife_alert_id: alert.alert_id,
+            scaife_meta_alert_id: ma.meta_alert_id,
+            taxonomy_id: taxo.id,
+            taxonomy: taxo.name,
+            taxonomy_version: taxo.version_string,
+            tool_id: tool.id,
+            tool_version: tool.version,
+            code_language: langs,
+            #next_confidence:
+            #class_label:
+            #category:
+            # deterimination fields defaults follow
+            time: project.created_at,
+            flag: 0,
+            notes: 0,
+            ignored: 0,
+            dead: 0,
+            inapplicable_environment: 0,
+            verdict: 0,
+            dangerous_construct: 0
+          )
+          if cond.present?
+            dsp.condition = cond.name
+            dsp.title = cond.title
+            dsp.severity = cond.additional_fields[:severity]
+            dsp.likelihood = cond.additional_fields[:likelihood]
+            dsp.remediation = cond.additional_fields[:remediation]
+            dsp.priority = cond.additional_fields[:priority]
+            dsp.level = cond.additional_fields[:level]
+            dsp.cwe_likelihood = cond.additional_fields[:cwe_likelihood]
+          end
+          if checker.present?
+            dsp.checker = checker.name
+          end
+          if dets.present?
+            puts "determinations present"
+            dsp.time = dets[0].timestamp
+            dsp.flag = dets[0].flag
+            dsp.notes = dets[0].notes
+            dsp.ignored = dets[0].ignored
+            dsp.dead = dets[0].dead
+            dsp.inapplicable_environment = dets[0].inapplicable_environment
+            dsp.verdict = dets[0].verdict
+            dsp.dangerous_construct = dets[0].dangerous_construct
+          end
+          dsp.save!
+          alert_id_by_tool[tool.id] += incr
+          alerts_updated += 1
+        end
+        meta_alert_id += 1
+        ma_updated += 1
+      end
+      if scaife_data.git_commit_hash.present?
+        puts "checking out git repo: #{scaife_data.git_commit_hash}"
+        self.checkout_git_repo(project,
+                               commit_hash: scaife_data.git_commit_hash)
+        project.git_hash = scaife_data.git_commit_hash
+        project.save!
+        # don't forget to update links in displays and messages
+        puts "adding gnu global pages"
+        add_gnu_global_pages(project)
+        puts "updating links for project: #{project.id}"
+        Display.createLinks(project.id)
+      end
+    rescue ActiveRecord::ActiveRecordError => e
+      puts
+      puts "CAUGHT ActiveRecordError EXCEPTION while importing from SCAIFE"
+      puts self.filter_stacktrace(e)
+      puts
+      raise ScaifeError.new("problem importing SCAIFE data")
+    end
+
+    # have to re-initialize with updated messages; this has to happen
+    # outside of the above ActiveRecord transaction
+    AlertConditionsController.archiveDB(project.id, initialize: true)
+
+    puts "update_project_with_scaife_alerts(#{ma_updated}, #{alerts_updated}) complete"
+
+    return ma_updated, alerts_updated
+
+  end
+
+  def get_git_url(project)
+    if ENV["PROXY_CONN"].present?
+      proxy_env_vars = []
+      if project.git_access_token.present?
+        proxy_env_vars << "HTTPS_PROXY"
+      end
+      proxy_env_vars << "HTTP_PROXY"
+      for var in proxy_env_vars
+        proxy_url = ENV[var]
+        if proxy_url.blank?
+          proxy_url = ENV[var.downcase]
+        end
+        if proxy_url.present?
+          break
+        end
+      end
+    else
+      proxy_url = nil
+    end
+    if proxy_url.present?
+      config = "http.proxy='#{proxy_url}'"
+    else
+      config = nil
+    end
+    if ENV["E_USECERT"].present?
+      git_url = URI(project.git_url)
+      if project.git_user.present?
+        git_url.user = project.git_user
+      end
+      if project.git_access_token.present?
+        git_url.password = project.git_access_token
+      end
+      git_url = git_url.to_s
+    else
+      git_url = project.git_url
+    end
+    return [git_url, proxy_url]
+  end
+
+  def checkout_git_repo(project, commit_hash: nil)
+    # note: need to properly handle git authentication (token, ssh, etc)
+    if not project.ci_enabled
+      raise ScaifeError("project #{project.id} is not a CI-enabled project")
+    end
+    if project.git_url.blank?
+      raise ScaifeError("project #{project.id} has no git URL/path")
+    end
+    src_dir = archive_src_dir_from_id(project.id)
+    if not Dir.exists? src_dir
+      FileUtils.mkdir_p src_dir
+    end
+    git_url, proxy_url = self.get_git_url(project)
+    if proxy_url.present?
+      config = "http.proxy='#{proxy_url}'"
+    else
+      config = nil
+    end
+    repo_name = Pathname(URI(project.git_url).to_s).basename.to_s
+    repo_name.gsub!(/\.git$/, '')
+    repo_dir = archive_src_dir_from_id(project.id).join(repo_name)
+    if Dir.exist?(repo_dir) and \
+        Dir.entries(".").select { |x|  x != '.' and x != '..' }.blank?
+      FileUtils.rm_rf(repo_dir)
+    end
+    if proxy_url.present?
+      Git.config("http.proxy", proxy_url)
+    end
+    if Dir.exist? repo_dir
+      repo = Git.open(repo_dir)
+      repo.fetch()
+    else
+      # clone repo
+      FileUtils.mkdir_p(repo_dir)
+      repo = Git.clone(git_url, repo_dir)
+    end
+    if commit_hash.present?
+      begin
+        repo.checkout(commit_hash)
+      rescue Git::GitExecuteError => e
+        msg = "unknown git commit hash: #{e}"
+        puts msg
+        raise ScaifeError.new(msg)
+      end
+    end
+    return repo
+  end
 
   # A more secure delete command.
   def shred(path)
@@ -2434,7 +3488,7 @@ class ProjectsController < ApplicationController
         FileUtils.rm_rf("#{path}/HTML")
       end
     else
-      Dir.mkdir path
+      FileUtils.mkdir_p path
     end
   end
 

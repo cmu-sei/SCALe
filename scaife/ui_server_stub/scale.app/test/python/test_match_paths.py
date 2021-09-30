@@ -1,7 +1,7 @@
 # Automated testing for match_paths.py
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -29,7 +29,8 @@ import json
 import os
 import re
 
-import bootstrap, util
+import scripts.bootstrap as bootstrap
+import util
 
 KEEP_OUTPUT = False
 
@@ -54,9 +55,9 @@ class TestMatchPath:
             with open(tmp_out) as out_fd:
                printed_line = out_fd.readline()
                # Test case not found in directory
-               if testcase["answer"] == None: 
+               if testcase["answer"] == None:
                    assert printed_line == "[Warning] Path not found in the provided source: " + testcase["input"] + "\n"
-               else:                       
+               else:
                    assert printed_line == "Path " + testcase["input"] + " updated to " + testcase["answer"] + "\n"
 
 

@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -198,20 +198,20 @@ module Datahub
 
     # Create a new language definition.
     # @param x_access_token [String] Token that contains information about the user
-    # @param language_version [LanguageVersion] Language information
+    # @param language_metadata [LanguageMetadata] Language information
     # @param [Hash] opts the optional parameters
-    # @return [LanguageVersionWId]
-    def create_language(x_access_token, language_version, opts = {})
-      data, _status_code, _headers = create_language_with_http_info(x_access_token, language_version, opts)
+    # @return [CreatedLanguage]
+    def create_language(x_access_token, language_metadata, opts = {})
+      data, _status_code, _headers = create_language_with_http_info(x_access_token, language_metadata, opts)
       data
     end
 
     # Create a new language definition.
     # @param x_access_token [String] Token that contains information about the user
-    # @param language_version [LanguageVersion] Language information
+    # @param language_metadata [LanguageMetadata] Language information
     # @param [Hash] opts the optional parameters
-    # @return [Array<(LanguageVersionWId, Integer, Hash)>] LanguageVersionWId data, response status code and response headers
-    def create_language_with_http_info(x_access_token, language_version, opts = {})
+    # @return [Array<(CreatedLanguage, Integer, Hash)>] CreatedLanguage data, response status code and response headers
+    def create_language_with_http_info(x_access_token, language_metadata, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: UIToDataHubApi.create_language ...'
       end
@@ -219,9 +219,9 @@ module Datahub
       if @api_client.config.client_side_validation && x_access_token.nil?
         fail ArgumentError, "Missing the required parameter 'x_access_token' when calling UIToDataHubApi.create_language"
       end
-      # verify the required parameter 'language_version' is set
-      if @api_client.config.client_side_validation && language_version.nil?
-        fail ArgumentError, "Missing the required parameter 'language_version' when calling UIToDataHubApi.create_language"
+      # verify the required parameter 'language_metadata' is set
+      if @api_client.config.client_side_validation && language_metadata.nil?
+        fail ArgumentError, "Missing the required parameter 'language_metadata' when calling UIToDataHubApi.create_language"
       end
       # resource path
       local_var_path = '/languages'
@@ -241,10 +241,10 @@ module Datahub
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(language_version)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(language_metadata)
 
       # return_type
-      return_type = opts[:debug_return_type] || 'LanguageVersionWId'
+      return_type = opts[:debug_return_type] || 'CreatedLanguage'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

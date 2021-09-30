@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -62,7 +62,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.listProjects() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -104,7 +104,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.listPackages() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -143,7 +143,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.listLanguages() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -156,7 +156,7 @@ class ScaifeDatahubController < ScaifeController
     begin
       with_scaife_datahub_access(login_token) do |access_token|
         begin
-          data = Scaife::Api::Datahub::LanguageVersion.build_from_hash({
+          data = Scaife::Api::Datahub::LanguageMetadata.build_from_hash({
             language: lang_name,
             version: lang_version
           })
@@ -183,7 +183,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.createLanguage() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -222,7 +222,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.listTaxonomies() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -261,7 +261,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.getTaxonomy() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -313,7 +313,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.createTaxonomy() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -354,13 +354,13 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.editTaxonomy() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
     return @scaife_response
   end
-  
+
   def listTools(login_token)
     @scaife_response = nil
     @errors = []
@@ -394,7 +394,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.listTools() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -430,7 +430,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.getToolData() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -490,7 +490,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.uploadTool() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -532,7 +532,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.editTool() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -570,7 +570,6 @@ class ScaifeDatahubController < ScaifeController
             body = self.symbolize_data(body)
             @scaife_response =
               Scaife::Api::Datahub::CreatedProject.build_from_hash(body)
-            @scaife_response = maybe_json_response(e.response_body)
           elsif [400, 401, 403].include? @scaife_status_code
             # Invalid Request, missing tokens, etc
             @scaife_response = maybe_json_response(e.response_body)
@@ -585,7 +584,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.createProject() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -613,7 +612,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.enableDataForwarding() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -657,7 +656,68 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.editProject() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
+      @scaife_response = e.message
+      @errors << @scaife_response
+    end
+    return @scaife_response
+  end
+
+  def editPackage(login_token, p_id, p_name: nil, p_desc: nil, tool_ids: nil, alerts: nil, git_url: nil, git_user: nil, git_access_token: nil)
+    @scaife_response = nil
+    @errors = []
+    begin
+      with_scaife_datahub_access(login_token) do |access_token|
+        begin
+          data = {}
+          if p_name.present?
+            data[:project_name] = p_name
+          end
+          if p_desc.present?
+            data[:project_description] = p_desc
+          end
+          if tool_ids.present?
+            data[:tool_ids] = tool_ids
+          end
+          if alerts.present?
+            data[:alerts] = alerts
+          end
+          if git_url.present?
+            data[:git_url] = git_url
+          end
+          if git_user.present?
+            data[:git_user] = git_user
+          end
+          if git_access_token.present?
+            data[:git_access_token] = git_access_token
+          end
+          data = self.symbolize_data(data)
+          data = Scaife::Api::Datahub::EditPackageMetadata.build_from_hash(data)
+          api = Scaife::Api::Datahub::UIToDataHubApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.edit_package_with_http_info(access_token, p_id, data)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Datahub::ApiError => e
+          @scaife_status_code = e.code
+          if [400, 401, 403, 404].include? @scaife_status_code
+            puts "Datahub: unable to edit package: #{@scaife_status_code}"
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling UIToDataHubApi->edit_package: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
+        end
+      end
+    rescue ScaifeError => e
+      # registration server issue
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -701,22 +761,28 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.sendMetaAlertsForProject() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
     return @scaife_response
   end
 
-  def createPackage(login_token, p_name, p_descript, author_src, lang_ids, code_src_url, src_file_url, src_func_url, ts_id, alerts, t_ids)
+  def createCIPackage(login_token, pkg_name, pkg_desc, author_src, lang_ids, tool_ids, git_url, git_user: nil, git_access_token: nil)
+    return createPackage(login_token, pkg_name, pkg_desc, author_src, lang_ids,
+              "", "", "", "", [], tool_ids, git_url: git_url,
+              git_user: git_user, git_access_token: git_access_token)
+  end
+
+  def createPackage(login_token, pkg_name, pkg_desc, author_src, lang_ids, code_src_url, src_file_url, src_func_url, ts_id, alerts, t_ids, git_url: nil, git_user: nil, git_access_token: nil)
     @scaife_response = nil
     @errors = []
     begin
       with_scaife_datahub_access(login_token) do |access_token|
         begin
           data = self.symbolize_data({
-            package_name: p_name,
-            package_description: p_descript,
+            package_name: pkg_name,
+            package_description: pkg_desc,
             author_source: author_src,
             code_language_ids: lang_ids,
             code_source_url: code_src_url,
@@ -726,6 +792,11 @@ class ScaifeDatahubController < ScaifeController
             alerts: alerts,    # array of schema
             tool_ids: t_ids
           })
+          if git_url.present?
+            data[:git_url] = git_url
+            data[:git_user] = git_user
+            data[:git_access_token] = git_access_token
+          end
           data = Scaife::Api::Datahub::PackageMetadata.build_from_hash(data)
           api = Scaife::Api::Datahub::UIToDataHubApi.new
           @scaife_response, @scaife_status_code, response_headers = \
@@ -755,7 +826,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.createPackage() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -801,7 +872,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.uploadCodebaseForPackage() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -854,7 +925,7 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.createTestSuite() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end
@@ -907,7 +978,180 @@ class ScaifeDatahubController < ScaifeController
       end
     rescue ScaifeError => e
       # registration server issue
-      puts "c.uploadTestSuite() ScaifeError caught: #{e.message}"
+      puts "#{__method__} ScaifeError caught: #{e.message}"
+      @scaife_response = e.message
+      @errors << @scaife_response
+    end
+    return @scaife_response
+  end
+
+  def listExperimentConfigs(login_token)
+    @scaife_response = nil
+    @errors = []
+    begin
+      with_scaife_datahub_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Datahub::DataHubServerApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.list_experiment_configs(access_token)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Datahub::ApiError => e
+          @scaife_status_code = e.code
+          if @scaife_status_code == 404
+            # no projects uploaded yet
+            @scaife_response = []
+          elsif [400, 401, 403].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling DataHubServerApi->list_experiment_configs: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
+        end
+      end
+    rescue ScaifeError => e
+      # registration server issue
+      puts "#{__method__} ScaifeError caught: #{e.message}"
+      @scaife_response = e.message
+      @errors << @scaife_response
+    end
+    return @scaife_response
+  end
+
+  def getUpdatesForProject(login_token, project_id)
+    @scaife_response = nil
+    @errors = []
+    begin
+      with_scaife_datahub_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Datahub::DataHubServerApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.get_alerts_for_project_with_http_info(access_token, project_id)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Datahub::ApiError => e
+          @scaife_status_code = e.code
+          if [400, 401, 403, 404].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling DataHubServerApi->get_alerts_for_project: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
+        end
+      end
+    rescue ScaifeError => e
+      # registration server issue
+      puts "#{__method__} ScaifeError caught: #{e.message}"
+      @scaife_response = e.message
+      @errors << @scaife_response
+    end
+    return @scaife_response
+  end
+
+  def updatesExist(login_token, project, waypoint: nil, override: false)
+    if override
+      puts "overide: #{overide}"
+      return true
+    end
+    if project.scaife_project_id.blank?
+      return false
+    end
+    @errors = []
+    @updates_exist = false
+    if waypoint.blank?
+      # waypoint is required by swagger, just pass a datetime if there
+      # is no commit hash yet; offset into the past
+      puts "no waypoint, passing Time.now"
+      waypoint = Time.now.getutc() - 3600*24*100
+      waypoint = waypoint.strftime("%Y%m%dT%H%M%S%z")
+    end
+    ## check for scaife updates to this project
+    begin
+      with_scaife_datahub_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Datahub::DataHubServerApi.new
+          # waypoint = Time.now.getutc.strftime("%Y%m%dT%H%M%S%z")
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.get_if_updates_exist_for_project_with_http_info(
+              access_token, project.scaife_project_id, waypoint)
+          if @scaife_status_code == 200
+            @updates_exist = true
+          elsif @scaife_status_code == 204
+            @updates_exist = false
+          else
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Datahub::ApiError => e
+          @scaife_status_code = e.code
+          if @scaife_status_code == 404
+            @errors << "project not found: #{project_id}"
+          elsif [400, 401, 403].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            puts "scaife updates response #{@scaife_status_code} #{e.message}"
+            @errors << e.message
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling DataHubServerApi->list_projects: #{e}\n"
+            @errors << e.message
+          end
+          @updates_exist = false
+        end
+      end
+    rescue ScaifeError => e
+      # registration server issue
+      puts "#{__method__} Error caught: #{e.message}"
+      @errors << e.message
+      @updates_exist = false
+    end
+    return @updates_exist
+  end
+
+  def initiateExperimentExport(login_token, scaife_project_id)
+    @scaife_response = nil
+    @errors = []
+    begin
+      with_scaife_datahub_access(login_token) do |access_token|
+        begin
+          api = Scaife::Api::Datahub::DataHubServerApi.new
+          @scaife_response, @scaife_status_code, response_headers = \
+            api.export_experiment_metrics(access_token, scaife_project_id)
+          if @scaife_status_code != 200
+            puts "Unknown result in #{__method__}: #{@scaife_status_code}: #{@scaife_response}"
+            @scaife_response = "Unknown Result"
+            @errors << @scaife_response
+          end
+        rescue Scaife::Api::Datahub::ApiError => e
+          @scaife_status_code = e.code
+          if @scaife_status_code == 404
+            # no projects uploaded yet
+            @scaife_response = []
+          elsif [400, 401, 403].include? @scaife_status_code
+            # Invalid Request, missing tokens, etc
+            @scaife_response = maybe_json_response(e.response_body)
+          else
+            # Unexpected Error
+            puts "\nException #{__method__} calling DataHubServerApi->list_experiment_configs: #{e}\n"
+            @scaife_response = e.message
+          end
+          @errors << @scaife_response
+        end
+      end
+    rescue ScaifeError => e
+      # registration server issue
+      puts "#{__method__} ScaifeError caught: #{e.message}"
       @scaife_response = e.message
       @errors << @scaife_response
     end

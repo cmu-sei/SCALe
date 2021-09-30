@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -73,6 +73,19 @@ class Language < ApplicationRecord
     def platforms()
       return self.all.collect { |l| l.platform }.uniq
     end
+
+    def by_scaife_id(id)
+      # lazy loader by scaife ID
+      @by_scaife_id ||= {}
+      if @by_scaife_id[id].blank?
+        @by_scaife_id[id] = self.where(scaife_language_id: id).first
+        if @by_scaife_id[id].blank?
+          raise ScaifeError.new("unknown language scaife ID: #{id}")
+        end
+      end
+      return @by_scaife_id[id]
+    end
+
   end
 
 end

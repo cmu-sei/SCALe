@@ -1,5 +1,5 @@
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -93,10 +93,80 @@ available here:
 https://resources.sei.cmu.edu/library/author.cfm?authorid=31216.
 
 
+Source Code Analysis Integrated Framework Environment (SCAIFE) is the name of both an architecture and a tool, both designed to enable relatively low-effort use of classifiers on static analysis results, by a wide variety of users (designed to be usable by machine-learning novices and experts alike) and with a wide variety of static analysis tools, classifiers and related algorithms, and in a wide variety of compute systems. SCAIFE is a multi-server architecture with formal API (application programming interface) 
+definitions for communications between modules (servers), which are specified using OpenAPI version 3.
+We have instantiated it in software, into a tool (the SCAIFE System) that enables
+static analysis classification and prioritization, that optionally can be used in continuous integration (CI) systems. 
+It is designed so a wide variety of
+static analysis tools can integrate with the system using the API definition. The SCAIFE
+architecture includes five types of SCAIFE modules. SCAIFE releases include code and documentation to help others to further develop it, by including automated test code and test data, plus providing information about how to extend the code, API, tests, and a SCAIFE/SCALe HTML manual on use plus tips for new developers and how to use our release automation script.
+Multiple hands-on SCAIFE demos are included in SCAIFE releases. 
+We welcome your testing, use, and development of SCAIFE, and your feedback! We also welcome SCAIFE code contributions 
+(new features, bugfixes, and documentation enhancements), test data, and labeled datasets (adjudicated meta-alerts and 
+associated data).
+
+
+## Installation Instructions (Code for Intended External Container User, plus manual, copyrights, API files)
+SCAIFE can be installed as containers on Linux and Mac machines. So far, we have only tested installs on Linux and Mac machines. To make SCAIFE releases work on Windows machines, we will need to make a change in handling symbolic links. In the future, we plan to make that change and test if SCAIFE installs on Windows then works. (Given that SCAIFE is fully Docker-containerized, we expect it to.)
+
+You need a Linux or Mac machine (or VM) that has:
+
+* At minimum, around 32 GB RAM, but more is better. (If you plan to run the largest experiments in SCAIFE v3 tests, you should have 64GB RAM.)
+* at minimum, around 20 GB extra space but more is better. If you will be running our SCAIFE v3 large-codebase experiments option, you should use a machine with 200 GB extra space. NOTE: Few of our collaborators will be running the large-codebase experiments. Most collaborators will test SCAIFE v3 using smaller codebases.
+* a connection to the internet, during the time that the docker containers are built with the docker-compose installation command below
+* `docker` installed, from the Docker website https://www.docker.com/resources/what-container (Docker Community Edition, Docker version 19.03.8, build afacb8b7f0 is a tested and working version installed on an `Ubuntu` version `20.0 LTS` (Note that it’s best to download the latest stable version for your machine directly from Docker’s own website, not to use the default installed `docker` version on the Linux operating system.)
+* `curl` installed (e.g., for machines that can install using apt, ```sudo apt-get install curl``` would install `curl`). `curl` is used in command lines or scripts to transfer data. For more information about curl, see https://curl.haxx.se/  )
+* docker-compose installed. For instance, on a Linux machine with `curl` installed, the following command can be used:
+```
+curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+### Steps to install (works for full SCAIFE system or GitHub-style SCALe release)
+
+1. Unzip and decrypt the file using the decryption passphrase provided by SEI.
+2. Untar the tarball (e.g., with command ```tar -xvf```)
+3. Start up the docker containers for SCAIFE by:
+
+   * changing directories to the ```scaife``` directory (base directory of the untarred download)
+   * If you have the full SCAIFE system release (not only the GitHub style SCALe code): In the ```scaife``` directory, run the following command to start *all* the SCAIFE containers:
+   
+```
+docker-compose -f docker-compose.yml up --build
+```
+   * If starting only SCALe (e.g., with a GitHub style SCALe release as discussed below), then from the ```scaife``` directory, run the following command to start only the SCALe container:
+   
+```
+docker-compose -f docker-compose.yml up --build scale
+```
+
+### Quick Start Documentation and Demos
+
+AFTER it’s started up, you will have access to the SCAIFE/SCALe HTML manual and the SCAIFE GUI (the SCAIFE version 
+of the SCALe web app).
+In your browser, please open these tabs (usually you will want at least 2 open: the web app in one tab and one SCAIFE/SCALe manual page in another tab):
+
+* http://localhost:8083       the SCALe web app (SCALe GUI interface)
+* http://localhost:8083/doc/scale2/Welcome.html SCALe/SCAIFE manual index focused on SCALe 
+   * Alternatively, if you don’t have the scale container running, you can create HTML pages from markdown and then view all the SCALe/SCAIFE manual pages after running the following command, from the `scale.app` directory: `./scripts/builddocs.sh`
+      *	Then, in your browser, load a URL with your local filepath  `file://<YOUR_MACHINE_FILEPATH_TO_SCAIFE>/scaife/ui_server_stub/scale.app/doc/scale2/Welcome.html`
+* http://localhost:8083/doc/scale2/SCAIFE-Welcome.html SCALe/SCAIFE manual index focused on SCAIFE
+
+Run the demos, to get a quick-start understanding of SCALe alone and then the full SCAIFE system:
+
+* SCALe demo: http://localhost:8083/doc/scale2/SCALe-Quick-Start-Demo.html (also clickable from the SCALe-focused manual index page)  
+* SCAIFE quick-start demo: http://localhost:8083/doc/scale2/SCAIFE-Quick-Start-Demo.html (also clickable from the SCAIFE-focused manual index page)
+
 
 # SCAIFE/SCALe HTML manual
 
 Much use, system design, and development information is provided in the included SCAIFE/SCALe HTML manual. To view it, in your web browser open this file location (first starting at SCAIFE home page, second starting at SCALe home page):
+
+* http://localhost:8083/doc/scale2/SCAIFE-Welcome.html SCALe/SCAIFE manual index focused on SCAIFE
+* http://localhost:8083/doc/scale2/Welcome.html SCALe/SCAIFE manual index focused on SCALe 
+
+
+Alternatively, if you don’t have the scale container running, you can create HTML pages from markdown and then view all the SCALe/SCAIFE manual pages after running the following command, from the `scale.app` directory: `./scripts/builddocs.sh`
+Then, in your browser, load a URL with your local filepath  `file://<YOUR_MACHINE_FILEPATH_TO_SCAIFE>/scaife/ui_server_stub/scale.app/doc/scale2/Welcome.html`
 
 * `scaife/ui_server_stub/scale.app/public/doc/scale2/SCAIFE-Welcome.html`
 * `scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html`
@@ -104,15 +174,16 @@ Much use, system design, and development information is provided in the included
 
 # SCAIFE APIs
 
-This repository contains Swagger and non-Swagger files supporting the SCAIFE API, instantiation of the API, and further development of the API and instantiations of it. Additional instructions on instantiating the APIs can be found here: https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=644354.
+This codebase contains Swagger and non-Swagger files supporting the SCAIFE API, instantiation of the API, and further development of the API and instantiations of it. Additional instructions on instantiating the APIs can be found here: https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=644354.
 
 We recently switched to use OpenAPI version 3 format (previously we used Swagger version 2 format) for the API definitions.
 
 
-The directory "scaife/helpers" contains helper scripts useful to developers and testers during code development.
+The directory `scaife/helpers` contains helper scripts useful to developers and testers during code development.
 
-The file "scaife/ABOUT" provides product and version information for a particular SCAIFE system release. This is a release of code and a system that instantiates the SCAIFE API, e.g., a virtual machine for SCAIFE v 1.4.4. The SCAIFE system version is not necessarily the same as the API for a particular SCAIFE module. Each of the four non-SCALe SCAIFE modules has an API version that is specified in its swagger/swagger.yaml file in a line specifying "version", as in the following line:
-version: "1.2.1"
+The file `scaife/ABOUT` provides product and version information for a particular SCAIFE system release. This is a release of code and a system that instantiates the SCAIFE API, e.g., a virtual machine for SCAIFE v 1.4.4. The SCAIFE system version is not necessarily the same as the API for a particular SCAIFE module. Each of the four non-SCALe SCAIFE modules has an API version that is specified in its swagger/swagger.yaml file in a line specifying "version", as in the following line:
+
+`version: "1.2.1"`
 
 The API definitions are available in the following 15 files (5 different `*_server_sub` directories):
 
@@ -123,37 +194,8 @@ scaife/*_server_stub/swagger_server/templates/index.html
 ```
 
 # Additional Info
-More details about SCAIFE have been presented to the DoD National Nuclear Security Administration (NNSA) Software Assurance Community of Practice (SwA CoP). The presentation slides are location at: https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=645790. The SCAIFE project Principal Investigator, Lori Flynn, has published a lot of content about SCAIFE, SCALe and other related topics, here: https://resources.sei.cmu.edu/library/author.cfm?authorid=31216.
+More details about SCAIFE have been presented to the DoD National Nuclear Security Administration (NNSA) Software Assurance Community of Practice (SwA CoP). The 2020 presentation slides are here: https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=645790. The SCAIFE project Principal Investigator, Lori Flynn, has published a lot of content about SCAIFE, SCALe and other related topics, here: https://resources.sei.cmu.edu/library/author.cfm?authorid=31216.
 
-
-## Installation Instructions (Code for Intended External Container User, plus manual, copyrights, API files)
-SCAIFE can be installed as containers on Linux and Mac machines. So far, we have only tested installs on Linux and Mac machines,
-so we don't know if Windows container installs would work.
-
-You need a Linux or Mac machine (or VM) that has:
-* around 10 GB extra space (2.5 GB for the expanded files, 6.5GB virtual space for the containers but prior to any activity they use less than 1GB on our test machine, per ```docker ps --size```)
-* a connection to the internet, during the time that the docker containers are built with the docker-compose installation command below
-* docker installed, from the Docker website https://www.docker.com/resources/what-container (Docker Community Edition, Docker version 19.03.8, build afacb8b7f0 is a tested and working version installed on an Ubuntu version 20.0 LTS (Note that it’s best to download the latest stable version for your machine directly from Docker’s own website, not to use the default installed docker version on the Linux operating system.)
-* curl installed (e.g., for machines that can install using apt, ```sudo apt-get install curl``` would install curl). curl is used in command lines or scripts to transfer data. For more information about curl, see https://curl.haxx.se/  )
-* docker-compose installed. For instance, on a Linux machine with Curl installed, the following command can be used:
-```
-curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-```
-
-### Steps to install (works for full SCAIFE system or GitHub-style SCALe release)
-
-1. Unzip and decrypt the file using the decryption passphrase provided by SEI.
-2. Untar the tarball (e.g., with command ```tar -xvf```)
-3. Start up the docker containers for SCAIFE by:
-**	changing directories to the ```scaife``` directory (base directory of the untarred download)
-**	If you have the full SCAIFE system release (not only the GitHub style SCALe code): In the ```scaife``` directory, run the following command to start *all* the SCAIFE containers:
-```
-docker-compose -f docker-compose.yml up --build
-```
-**	If starting only SCALe (e.g., with a GitHub style SCALe release), then from the ```scaife``` directory, run the following command to start only the SCALe container:
-```
-docker-compose -f docker-compose.yml up --build scale
-```
 
 ### More Information for GitHub-style SCALe releases
 
@@ -172,8 +214,8 @@ docker-compose stop scale
 
 #### Test the SCALe Container
 
-1. SCALe has several test scripts in its scale.app/bin directory. To run the Python tests, use this command:
-Command to run a test in a SCALe container docker-compose run scale ./bin/test-python
+1. SCALe has several test scripts in its `scale.app/bin` directory. To run the Python tests, use this command:
+Command to run a test in a SCALe container `docker-compose run scale ./bin/test-python`
 
 
 #### Open a Terminal in the Container
@@ -187,43 +229,49 @@ Accessing the bash shell, allows the user to perform actions in the container li
 ```
 > sqlite db/development.sqlite3 # Open the SQLite DB
 > .tables # List all the tables
-``` 
+```
 
 
 ## Installation Instructions for VM Releases
 
-If the SCALe web app is provided via a virtual machine (VM), then the SCALe app will be configured to run automatically when the machine boots, except for VMs with Docker containers. Instructions for starting the Docker containers on those types of VMs are provided in the HTML manual at scale.app/public/doc/scale2/SCAIFE-Server-Management.html (markdown version at scale.app/doc/SCAIFE-Server-Management.md ).
+If the SCALe web app is provided via a virtual machine (VM), then the SCALe app will be configured to run automatically when the machine boots, except for VMs with Docker containers. Instructions for starting the Docker containers on those types of VMs are provided in the HTML manual at `scale.app/public/doc/scale2/SCAIFE-Server-Management.html` (markdown version at `scale.app/doc/SCAIFE-Server-Management.md` ).
 
-Less relevant but possibly useful: Some information (but not all) that is SCALe-specific about installing SCALe (e.g., changing the user login name and password) that may be useful is located here: scale.app/public/doc/scale2/Installing-SCALe.html (markdown version at scale.app/doc/SCAIFE-Server-Management.md ).
+Less relevant but possibly useful: Some information (but not all) that is SCALe-specific about installing SCALe (e.g., changing the user login name and password) that may be useful is located here: scale.app/public/doc/scale2/Installing-SCALe.html (markdown version at `scale.app/doc/SCAIFE-Server-Management.md` ).
 
-### SCAIFE System version 1.0.0 (a Previous Version) Release VM with Containers
+### SCAIFE System version 1.0.0 (an old version) Release VM with Containers
 
 The SCAIFE System version 1.0.0 Release VM includes Docker containers. Installers will find the following information useful:
 The release VM is distributed in an approximately 10 GB OVA file.
 Once imported (e.g., as a VMWare VM), the VM is approximately 20 GB. The VM itself is set to expand dynamically up to 200 GB disk size, so installers should be careful to make sure that their host machine has sufficient space. (Please keep in mind that the host machine must also have spare disk space for itself, separate from the VM.)
 The VM is set to 24 GB RAM memory, and users should increase that if their host machine has sufficient memory. (However, keep in mind that the host machine must also have memory for itself separate from the VM.)
 
-## Swagger_server Details for SCAIFE
+## Swagger server Details for SCAIFE
+
 CORS support is included in main.py to help with testing in the browser using local instances of the server and UI.
+
 -- Install CORS prior to running the server:
+
 ```
 sudo -E pip install flask-cors
 ```
+
 The default ports have been changed so that instances of SCALe will not collide with running these servers.
-DataHub Module - localhost:8084
-Prioritization Module - localhost:8085
-Statistics Module - localhost:8086
-Registration Module - localhost:8087
+
+* DataHub Module - `localhost:8084`
+* Prioritization Module - `localhost:8085`
+* Statistics Module - `localhost:8086`
+* Registration Module - `localhost:8087`
+* Integration Module - `localhost:8088`
 
 Server configuration information is provided in the ```scaife/*/Dockerfile```(s) and in the ```scaife/ui_server_stub/scale.app/config/scaife_servers.yml``` file
 
---Templates folder contains any HTML files or templates needed to render content by the controller. It contains the HTML code generated by codegen to provide instructions on how the API works (```<server_name>_api.html```).
+--`Templates` folder contains any HTML files or templates needed to render content by the controller. It contains the HTML code generated by codegen to provide instructions on how the API works (```<server_name>_api.html```).
 
---Static folder contains static content, like CSS or JS files to display the templates.
+--`Static` folder contains static content, like CSS or JS files to display the templates.
 
---Upload_Files folder stores files sent to the server that will not be stored in the database, but need to be accessible in the server.
+--`Upload_Files` folder stores files sent to the server that will not be stored in the database, but need to be accessible in the server.
 
---Test/Test_Input folder contains open-source output (output from running an open-source tool on an open-source codebase) that can be used in testing the functionality of SCAIFE.
+--`Test/Test_Input` folder contains open-source output (output from running an open-source tool on an open-source codebase) that can be used in testing the functionality of SCAIFE.
 
 ## CI Integration
 
@@ -259,16 +307,13 @@ git submodule update --init
 ```
 
 
-
-
-
 ## Relevant Known Issues
 
 1. Not all of the SCAIFE-connected functionality is integrated. Although this version enables specification of adaptive heuristic type, the adaptive heuristic dataflows are partially and not fully implemented in this SCAIFE release. The current version does not yet download projects and packages from the SCAIFE DataHub to SCALe (however, the current version does upload them from SCALe to the SCAIFE DataHub).
 
 1. The SCALe/SCAIFE HTML manual has many out-of-date screenshots and some out-of-date instructions. Current collaborators receive special instructions directing them to the relevant HTML pages for use and testing, which we believe have sufficient updates (or are completely up-to-date). In future releases, the HTML manual will be further updated. In the future we hope to automate updating screenshots in the manual as part of the auto-deployment process.
 
-1. The user-uploaded fields can be used in prioritization formulas, but cannot be viewed in the SCALe GUI. 
+1. The user-uploaded fields can be used in prioritization formulas, but cannot be viewed in the SCALe GUI.
 
 1. During the SCALe quick start demonstration, the following superfluous error is generated in the web app console: `.../scale.app/archive/backup/6/analysis/...out: no such file or directory.
 
@@ -288,13 +333,11 @@ git submodule update --init
 
 1. Different Fortify versions should use different checker sets in SCALe, but currently they don't.
 
-1. "SPECIAL" checkers in SCALe currently may not be always handled correctly.
-
 1. Some SCALe GUI features may not work on browsers other than Firefox (e.g., Chrome or Microsoft Edge).
 
 1. No field for the checker mappings CSV currently exist in SCALe, though that is required for one of the API calls involving the  SCAIFE UI Module.
 
-1. SCALe (but not the rest of SCAIFE) currently uses Python version 2, but Python version 2 is not officially supported anymore. We have modified most of the SCALe Python code so it works with both Python 3 and Python 2. In the future, SCALe updates to Python 3 need to be completed. 
+1. SCALe (but not the rest of SCAIFE) currently uses Python version 2, but Python version 2 is not officially supported anymore. We have modified most of the SCALe Python code so it works with both Python 3 and Python 2. In the future, SCALe updates to Python 3 need to be completed.
 
 1. The fix_path.py code in SCALe should be revised to run more efficiently.
 
@@ -320,5 +363,41 @@ Note this failure does not occur when the SCAIFE containers are started in norma
 
 1. Currently, if multiple combinations of a `tool_name + tool_version` (e.g., `cppcheck 1.00`, `1.66`, `1.83`, etc.) exist in SCAIFE, an error occurs if only one `tool_name + tool_version` is added to a Package.  To create a Package in SCAIFE, every combination of that `tool_name + tool_version` must be added to the Package if multiple versions of that tool were uploaded to SCAIFE. Requiring all those combinations in a Package is a bug we plan to fix.
 
-1. The Selenium sanitizer test currently fails. It needs updates in the reference database, since we've integrated new static analysis tools to work with SCALe.
+### Relevant Unfixed Bugs
+
+The ID starting with `RC-`represents the bug in the SEI internal bug database.
+
+
+```
+| ID      | Summary                                                                                                  |
+| RC-1732 | Complete after classifier-performance release : create script to sanitize experiment output data         |
+| RC-1837 | SCAIFE bugfix: automated script doesn't fill label and confidence fields         |
+RC-1572 SCALe bugfix: package.py symbolic link only sometimes transferred to tarball
+
+RC-1727 SCALe bugfix: fix GitHub automated test errors
+RC-1710 SCALe bugfix: Enable a project to be uploaded to SCAIFE with a single code_language_name + code_language_version 
+RC-1708 SCAIFE DataHub bugfix: Make test_suite_metadata.code_languages required
+RC-1711 SCAIFE DataHub bugfix: existing_alert_mappings not defined
+RC-1631 Bugfix: SCALe does not show existing classifier schemes from Stats module
+RC-1718 SCAIFE bugfix: Fix failing swagger ui module tox test
+RC-1770 SCALe bugfix: new tool output can't be imported into SCALe anymore during project edit
+RC-1785 SCALe bugfix: Selenium test function returns different values but should return same values
+RC-1095 SCALe bugfix: make test-suite projects editable in SCALe
+RC-506 SCAIFE transition bugfix: Can’t save classifier scheme if name starts with number
+RC-1685 SCALe bugfix: fix 2 Ruby test-ruby errors
+RC-1684 SCALe bugfix: fix JavaScript test error
+RC-1277 SCAIFE bugfix: "SPECIAL" checkers in SCALe no longer being handled correctly
+RC-1514 SCAIFE bugfix: Stats Module Must be able to handle data that contains only one type of verdict
+RC-1262 SCAIFE bugfix: insert_classifiers.py shouldn't add all AHs and AHPOs to every classifier 
+RC-1670 SCALe Transition Bugfix: Selecting Filter by "All IDs" does not clear ID field.
+RC-689 SCALe Bugfix: perlcritic parser broken
+RC-1529 SCALe bugfix: automated scale script bug but only with containers in test mode
+RC-449 SCALe Transition Bugfix: Editing Existing Priority Scheme "confidence" value doesn't populate GUI
+RC-1044 SCALe (post-release SCAIFE) bugfix: fix manual SCALe project creation
+RC-842 SCALe transition bugfix: Deleted classifier in current_classifier_scheme leads to empty modal popup
+RC-840 SCALe Bugfix: selenium tests, project doesn't get deleted at the end of each test
+RC-671 SCALe and SCAIFE bugfix: New Manual Alerts not Exported Properly.
+RC-682 SCALe bugfix: manual alerts don't properly fuse
+
+```
 

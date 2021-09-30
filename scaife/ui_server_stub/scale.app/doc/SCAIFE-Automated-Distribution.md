@@ -57,7 +57,7 @@ Automated Distribution of SCAIFE
 =========================================
 
 With the SCAIFE code (and with the separable SCAIFE UI module SCALe code), we release scripts and provide instructions on this page, to enable users to create automated distributions of the applications.
-We distribute the full SCAIFE System (with all 5 SCAIFE modules's APIs instantiated into code) as a code tarball for SCAIFE Docker containers or on a virtual machine (VM). We also sometimes separate and distribute only (the SCAIFE version of) SCALe, in three different ways: as a code tarball for a SCALe container, on a VM, and on GitHub. The GitHub version of SCALe is different than the other versions, including helper scripts and docker-compose files. 
+We distribute the full SCAIFE System (with all 5 SCAIFE modules's APIs instantiated into code) as a code tarball for SCAIFE Docker containers or on a virtual machine (VM). We also sometimes separate and distribute only (the SCAIFE version of) SCALe, in three different ways: as a code tarball for a SCALe container, on a VM, and on GitHub. The GitHub version of SCALe is different than the other versions, including helper scripts and docker-compose files.
 
 
 Table of Contents
@@ -67,7 +67,6 @@ Table of Contents
 1. [Review and possibly update the Bill of Materials](#review-and-possibly-update-the-bill-of-materials)
 1. [Update Markings and ABOUT Files](#update-markings-and-about-files)
 1. [Update API](#update-api)
-1. [Update and verify API definition version numbers in SCALe files with client code for SCAIFE API calls](#update-and-verify-api-definition-version-numbers-in-scale-files-with-client-code-for-scaife-api-calls)
 1. [Verify README files](#verify-readme-files)
 1. [Pull requests associated with this release](#pull-requests-associated-with-this-release)
 1. [First prep the code and tag repos for the release](#first-prep-the-code-and-tag-repos-for-the-release)
@@ -88,24 +87,9 @@ As of 8/1/2019:
 
 Review and possibly update the Bill of Materials
 ---------------------
-The Bill of Materials is called by the acronym "BOM".
+This section refers to the Bill of Materials (BOM) located at `scaife/Bill_of_Materials.md`. In deployed VMs the BOM is located at: `~/Desktop/scaife/Bill_of_Materials.md`.
 
-This section refers to the BOM located at `scaife/Bill_of_Materials.md`.
-
-SEI developers (also advisable for external developers): If you make edits to the BOM, you should do that in the release branch (created from a release JIRA issue) of the `scaife` code repository. (As discussed elsewhere on this document, the release branches will be used for making many edits including the new release version IDs, and those branches will be pull-requested and eventually merged to the main development branches.)
-
-Do a *brief* review of `scaife/Bill_of_Materials.md` and quickly add/remove info if necessary. For now, only do fast updates if there's been an additional third-party software package update that you know of.
-(We are not spending much effort on updating it for now. At some point in the future we will automate the process, which will include automated collection during deployment of third-party software.)
-For now we point readers to updated information in the scaife/Vagrantfile and to the 5 Dockerfiles for lists of explicitly-added third-party packages, in addition to the previously-documented third-party software
-from a previous (effort-intensive) manual process of gathering data.
-No edits should be made below (as of 5/8/20) what's currently line 16, since everything below that line only describes what was in SCAIFE System release version 2.1.3.
-
-Do a brief review of scaife/Bill_of_Materials.md and quickly add/remove info if necessary. For now, only do fast updates if there's been an additional third-party software package update that you know of. (We are not spending much effort on updating it for now. At some point in the future we will automate the process, which will include automated collection during deployment of third-party software.) For now we point readers to updated information in the scaife/Vagrantfile and to the 5 Dockerfiles for lists of explicitly-added third-party packages, in addition to the previously-documented third-party software from a previous (effort-intensive) manual process of gathering data. No edits should be made below (as of 5/8/20) what's currently line 16, since everything below that line only describes what was in SCAIFE System release version 2.1.3.
-
-SEI developers: Update the file in the release branch (git commit and push). 
-Eventually, you will create a PR and merge the update (and other release branch updates, per below) with the main `scaife` code repository's development branch, named `dev-branch`.
-
-Detail: The current BoM is in the repository (in released code, location is `scaife/Bill_of_Materials.md`) and in deployed VMs is located at: `~/Desktop/scaife/Bill_of_Materials.md`.
+For now, no edits should be made below (as of 5/8/20) what's currently line 16, since everything below that line only describes what was in SCAIFE System release version 2.1.3.
 
 
 Update Markings and ABOUT Files
@@ -113,10 +97,10 @@ Update Markings and ABOUT Files
 
 Non-SEI developers should consult their own organization about how to assign version numbers. If there's a possibility you may contribute this code to SEI (or to a joint code effort), please ensure your version numbering scheme doesn't conflict with SEI's scheme.
 
-SEI developers: Determine if current SEI markings apply or if they need to be updated by SEI Contracts. Update them (year and or total markings) as needed, using your favorite text editor and possibly a script (for changing only year). Make sure that the copyright year and the version strings are correct. (Here are details about SCALe version numbering, consult Lori for the correct version number for SCAIFE, for (1) the version number of minnow-SCALe within SCAIFE; (2) the overall SCAIFE System version number; AND (3) the SCAIFE API version numbers (5 API version numbers, they may all be different, for more information see Section [Update API](#update-api)). 
+SEI developers: Determine if current SEI markings apply or if they need to be updated by SEI Contracts. Update them (year and or total markings) as needed, using your favorite text editor and possibly a script (for changing only year). Make sure that the copyright year and the version strings are correct. (Here are details about SCALe version numbering, consult Lori for the correct version number for SCAIFE, for (1) the version number of minnow-SCALe within SCAIFE; (2) the overall SCAIFE System version number; AND (3) the SCAIFE API version numbers (5 API version numbers, they may all be different, for more information see Section [Update API](#update-api)).
 
 SEI developers: For SEI new releases, consult Lori for the correct version number for SCAIFE, for
-(1) the version number of minnow-SCALe within SCAIFE; (2) the overall SCAIFE System version number; AND (3) the SCAIFE API version numbers (5 API version numbers, they may all be different. For more information see sections [Update API](#update-api) and [Update and verify API definition version numbers in SCALe files with client code for SCAIFE API calls](#update-and-verify-api-definition-version-numbers-in-scale-files-with-client-code-for-scaife-api-calls)).
+(1) the version number of minnow-SCALe within SCAIFE; (2) the overall SCAIFE System version number; AND (3) the SCAIFE API version numbers (5 API version numbers, they may all be different. For more information see sections [Update API](#update-api)).
 Detail about SEI version numbering:
 
 * If the `minnow` branch was used (minnow branch is for SCALe versions compatible with SCAIFE) then there is an `r` in the branch version
@@ -143,10 +127,10 @@ These files should also be inspected and updated as needed. They have an HTML-if
 
 ```
 8. scaife/ui_server_stub/scale.app/doc/Welcome.md
-9. scaife/ui_server_stub/scale.app/doc/SCAIFE-Welcome.md 
-``` 
+9. scaife/ui_server_stub/scale.app/doc/SCAIFE-Welcome.md
+```
 and all other `scale.app/doc/SCAIFE-*.md` files
-``` 
+```
 10. scaife/ui_server_stub/scale.app/doc/Introduction.md
 11. scaife/ui_server_stub/scale.app/doc/control/html.template
 12. scaife/ui_server_stub/scale.app/app/views/layouts/_footer.html.erb
@@ -161,7 +145,7 @@ Update API
 Someone must update the API version in the 5  `swagger.yaml` files in the `scaife` code repository.
 
 That person should check what the API version was (in the 5 `swagger.yaml` files in the `scaife` repository, located at  `scaife/*_server_stub/swagger_server/swagger/swagger.yaml` ) in the last published (API or  SCAIFE system) release.
-SEI developers: Do that by checking in the Bitbucket code repository in the development branch. 
+SEI developers: Do that by checking in the Bitbucket code repository in the development branch.
 
 For each `swagger.yaml` file, navigate to the `swagger.yaml` file in your repository (e.g., within SEI that's BitBucket viewed via your web browser), then select `History`
 drop-down  at the top of the page. Look for any commits since the last release date. Use the commit messages to understand if there was a bugfix or feature added for the particular commit (usually it's one or the other),
@@ -169,7 +153,15 @@ or even a major change requiring an update to the first number)
 If you are an external-to-SEI organization, please add something to the version ID that specifies it is your branch (not the SEI main branch, which otherwise might have identical version IDs).
 
 !. The code (or .yaml file!) releaser is responsible for checking the 5 files, and comparing current numbers to the last-released number.
-2. If any of the 5 swagger.yaml files have changed since the last publication/release, then **that** file should have its number incremented. For SEI developers (also advisable for external developers: Related to a release JIRA issue, there should be one or more release branches with that JIRA issue number, and that person should `git commit` and `git push` those edits, then PR-accept those changes into the development branch of `scaife`, which within the SEI is `dev-branch`. 
+2. If any of the 5 swagger.yaml files have changed since the last publication/release, then **that** file should have its number incremented. For SEI developers (also advisable for external developers: Related to a release JIRA issue, there should be one or more release branches with that JIRA issue number, and that person should `git commit` and `git push` those edits, then PR-accept those changes into the development branch of `scaife`, which within the SEI is `dev-branch`.
+
+We now automatically generate Ruby client API code from the `swagger.yaml` SCAIFE API definition files, then integrate  that client code into the SCALe codebase. The following files should be checked for version info. If the corresponding `swagger.yaml` version number was bumped (eg the `version:` string, not the `openapi:` string), then the version number in the following files should be bumped too:
+
+* `scale.app/lib/scaife/api/datahub/version.rb`
+* `scale.app/lib/scaife/api/prioritization/version.rb`
+* `scale.app/lib/scaife/api/registration/version.rb`
+* `scale.app/lib/scaife/api/statistics/version.rb`
+
 
 EVEN IF none of the version numbers have changed, the HTML, JSON, and updated YAML files should be regenerated to use the latest copyright and date information. ESPECIALLY if any of those 5 .yaml files has a version number that incremented since the last publication, definitely the HTML and .json files (and, if applicable, the aggregated .yaml file) must be modified to use that version number.
 
@@ -214,17 +206,6 @@ python helpers/remove_yaml_examples.py stats_server_stub/swagger_server/swagger/
 python helpers/remove_yaml_examples.py stats_server_stub/swagger_server/swagger/swagger.yaml
 ```
 
-Update and verify API definition version numbers in SCALe files with client code for SCAIFE API calls
--------
-
-We now automatically generate Ruby client API code from the `swagger.yaml` SCAIFE API definition files, then integrate  that client code into the SCALe codebase. The following files should be checked for version info:
-
-* `scale.app/lib/scaife/api/datahub/version.rb`
-* `scale.app/lib/scaife/api/prioritization/version.rb`
-* `scale.app/lib/scaife/api/registration/version.rb`
-* `scale.app/lib/scaife/api/statistics/version.rb`
-
-
 Verify README files
 -------
 Verify that the `scale.app/README.md`  and `scaife/README.md` files are correct:
@@ -240,7 +221,7 @@ Pull requests associated with this release
 
 Eventually, you will create a pull request (PR) and merge the updates (and other release branch updates, per below) with your development branches in your code repositories.
 
-* For SEI developers, for SEI-internal repositories these include `dev-branch` for the `scaife` repository, `minnow` for the `scale.app` repository, and two development branches for the `rapidclass_scripts` repositories: `dh_dev` and `stats_dev`. 
+* For SEI developers, for SEI-internal repositories these include `dev-branch` for the `scaife` repository, `minnow` for the `scale.app` repository, and two development branches for the `rapidclass_scripts` repositories: `dh_dev` and `stats_dev`.
 * For SEI developers, for our GitHub SCALe publications we use the `scaife-scale` branch, as of September 2020.
 * If you are external to the SEI, we would be grateful if you would share new features and bugfixes you develop, either by submitting a PR to our GitHub  `scaife-scale` branch of SCALe (`scale.app`) at [https://github.com/cmu-sei/SCALe/tree/scaife-scale](https://github.com/cmu-sei/SCALe/tree/scaife-scale), or by sending us code via [DoD SAFE](https://safe.apps.mil/) if your code is for other parts of the SCAIFE system.
 
@@ -259,9 +240,8 @@ SCALe documentation.
 1. Using the release branches:
     * Review and possibly update the Bill of Materials (BOM), per section [Review and possibly update the Bill of Materials](#review-and-possibly-update-the-bill-of-materials)
     * Update Markings and `ABOUT` Files, per section [Update Markings and ABOUT Files](#update-markings-and-about-files)
-    * Update API, per these sections: 
+    * Update API, per these sections:
       * [Update API](#update-api)
-      * [Update and verify API definition version numbers in SCALe files with client code for SCAIFE API calls](#update-and-verify-api-definition-version-numbers-in-scale-files-with-client-code-for-scaife-api-calls)
     * [Verify README files](#verify-readme-files) as specified in the linked section
 1. Make sure you have `git push`-ed all the above changes you were supposed to push to the release branches. (The next steps are possibly error-prone, so it's important to have pushed your changes so far in case you need to revert back to them.)
 1. In a completely fresh empty directory outside of any previous clone or copy of the repository (including different from anything used in the steps immediately above):
@@ -269,11 +249,12 @@ SCALe documentation.
         * If you have access to the repositories, do ``git submodule update --init`` to get the submodules in the appropriate directories (for SEI developers, ``scale.app`` (using ``minnow`` branch, in ``scaife/ui_server_stub``) and ``rapidclass_scripts`` (``stats_dev`` and ``dh_dev branches``)
     * Caution: The following step will alter files in the directory, in addition to finding missing legal tags. Do this with a temporary copy or clone of the code.
     * Perform the following step in the ``scaife`` directory, to find missing legal tags and add them, using the following method:
-        * run `python2 ui_server_stub/scale.app/package.py -w`  to identify any missing legal markings (In addition to identifying missing tags, the script substitutes for `<legal></legal>` tags and removes proprietary mappings. ).
+        * run `python2 ui_server_stub/scale.app/package.py -w -c`  to identify any missing legal markings (In addition to identifying missing tags, the script substitutes for `<legal></legal>` tags and removes proprietary mappings. ).
         * manually fix any files it identifies as lacking legal tags
         * `git commit` and `git push` only the added legal tags to the release branches. CAUTION: Do not commit/push files with the legal markings substitutions!
 1. make pull requests and merge to main development branches (`dev-branch`, `minnow`, `stats_dev`, and `dh_dev`)
-1. `git tag` all 4 SCAIFE development branches with the SCAIFE release version and a message saying which SCALe release version. For the `rapidclass_scripts` and `scaife` branches that looks like this command:
+1. `git tag` all 4 SCAIFE development branches with the SCAIFE release version and a message saying which SCALe release version.  This is best done by using Bitbucket to visit each commit and add a tag.
+ For the `rapidclass_scripts` and `scaife` branches that looks like this command:
 `git tag -a 1.1.1 -m "SCAIFE v 1.1.1 release SCALe v r.6.1.1.1.A"`  For the `stats_dev` and `dh_dev`, the tag respectively for that release would be `stats-1.1.1` and `dh-1.1.1`  Then, `git commit` and `push` the tag
 (which by default doesn't get pushed) using `git push --tags`. For SCALe, use a command like: `git tag -a r.6.1.1.1.A  -m  "SCAIFE v 1.1.1 release SCALe v r.6.1.1.1.A"`   Verify the new tag is there locally and remotely with `git tag -n` and also `git ls-remote --tags`
 1. In a fresh (empty) base directory `~/temp`, make a fresh clone of `scaife` (`dev_branch`) and then do `git submodule update --init`  to get the submodules in the appropriate directories (for SEI developers,
@@ -297,7 +278,7 @@ To do so, change to the location of the submodule and checkout the default branc
         * In this case, when the user is using the SCALe interface, when they select the SEI coding standards (or a hyperlinked CERT coding rule from the SCALe GUI alertConditions list), they will open the SEI CERT coding standards wiki online. This means they will be able to see the latest and greatest coding standards versions.
         * Command to run (from the scaife directory), with example parameters in angled brackets: `python2 ui_server_stub/scale.app/package.py --target=scaife-online  --top-dir=<path-to-scaife-release-directory>/scaife  --dependent`
         * Example: `python2 ui_server_stub/scale.app/package.py --target=scaife-online --top-dir=/home/lflynn/temp/scaife --dependent`
-        * NOTE: Currently, when we release code tarballs for containers, their tarballs must be created as 'online' (and 'dependent'), since to during container creation third-party software packages must be downloaded.
+        * NOTE: Currently, when we release code tarballs for containers, their tarballs must be created as 'online' (and 'dependent'), since a dependent container cannot be created from an "independent" tarball.
 
 You can share this tarball with others, and publish it. However, the
 tarball must be extracted on a POSIX-compliant file system, such as
@@ -317,13 +298,14 @@ Creation of SCALe GitHub Code Distribution for Docker Container Use
 These instructions are a slightly modified version of the [First prep the code and tag repos for the release](#first-prep-the-code-and-tag-repos-for-the-release) instructions. This distribution includes only the SCAIFE UI module instantiation (the SCAIFE version of SCALe, which is a separable stand-alone tool). It includes some helper scripts and docker-compose files, compared to the other distribution types for SCALe-only releases.
 
 
-1. EASIEST OPTION: When ready to create the tarball (when you get to the instruction to run `package.py`, automatically create and test the tarball for correctness by doing the following: 
+1. EASIEST OPTION: When ready to create the tarball (when you get to the instruction to run `package.py`, automatically create and test the tarball for correctness by doing the following:
     * Copy the script `scale.app/bin/test-github-release` outside of the `scale.app` tree, then change directories to the `scaife` directory and execute the `test-github-release` script.
 1. Alternatively, you can manually create and test the tarball. To do that, use the following instructions.
    1. when you get to the instruction to run `package.py`, change directories to the `scaife` directory and create the tarball as follows:
         * ``cd scaife``
         * ``./ui_server_stub/scale.app/package.py --top-dir ${PWD} --target scaife-scale-online``
-    1. To manually test the tarball, extract it, then from the `scaife` directory:
+   1. To test the tarball, you can use the `test-github-tar` script. It takes a single argument: the path to the tarball. It creates a `temp-scale` directory inside your current working directory, and does its testing there. It removes the `temp-scale` directory upon successful completion.
+   1. Alternately, you can test the tarball manually, by extracting it, then from inside its `scaife` directory:
         * Launch SCALe:
 ``docker-compose -f docker-compose.yml up --build scale``
         * In a separate terminal, you can run this test, which should pass:
@@ -351,26 +333,26 @@ they will open the static version of the SEI CERT coding standards that were exp
 
 How to Test Tarball for Correctness if not a GitHub SCALe Tarball
 ---------------
-Sometime soon, we plan to automate tarball correctness checking for the other releases, similar to the GitHub tarballs. After completing creating the tarball per instructions above running `packages.py`, check the following after creating a new folder to test the tarball in (`mkdir ~/test; mv filename.tar.gz; ~/test cd ~/test`) untarring the tarball (`tar -xvf filename.tar.gz`):
+Sometime soon, we plan to automate tarball correctness checking for the other releases, similar to the GitHub tarballs. After completing creating the tarball per instructions above running `packages.py`, check the following after creating a new folder to test the tarball in (`mkdir ~/test; mv filename.tar.gz ~/test; cd ~/test`) untarring the tarball (`tar -xvf filename.tar.gz`):
 (NOTE: Do not move or remove the original tarball...you will need it for the next section)
 
 1. Verify you can view the SCAIFE/SCALe HTML manual and that at minimum the following items look ok:
-    * in VM's Firefox browser, view file scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html
-    * view the SCALe copyright page in the HTML manual (make sure it has reasonable text) via the VM browser, at file  scaife/ui_server_stub/scale.app/public/doc/scale2/SCALe-copyright.html 
+    * in VM's Firefox browser, view file `scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html`
+    * view the SCALe copyright page in the HTML manual (make sure it has reasonable text) via the VM browser, at file `scaife/ui_server_stub/scale.app/public/doc/scale2/SCALe-copyright.html`
        * Make sure copyright year is this year
-       * make sure there are no "{{SCALE_VERSION}}" strings left
-    * make sure link to SCALe copyright page works from the top and the index is listed at  scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html
+       * make sure there are no `{{SCALE_VERSION}}` strings left
+    * make sure link to SCALe copyright page works from the top and the index is listed at `scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html`
     * verify the SCAIFE HTML pages are properly marked. 
          * SCAIFE pages start here: scaife/ui_server_stub/scale.app/public/doc/scale2/SCAIFE-Welcome.html
                * There's a list (currently 8) of additional SCAIFE pages from this page
-       * Make sure the following file ( scaife/ui_server_stub/scale.app/public/doc/scale2/SCAIFE-SYSTEM-copyright.html ) does not have the string "{{SCAIFE_VERSION}}"
+       * Make sure the following file (`scaife/ui_server_stub/scale.app/public/doc/scale2/SCAIFE-SYSTEM-copyright.html`) does not have the string `{{SCAIFE_VERSION}}`
        * At top section, click to see these 3 copyrights from the following hyperlinked text:
-               * "here"
-               * "Click here to see the SCAIFE system copyright."
-               * The SCAIFE API definition copyright is "here"
+               * `here`
+               * `Click here to see the SCAIFE system copyright.`
+               * The SCAIFE API definition copyright is `here`
        * In footer section, click on hyperlinked text, for both of the following:
-             * "©Copyright for SCALe" and
-             * "©Copyright for SCAIFE documentation not SCAIFE system"
+             * `©Copyright for SCALe` and
+             * `©Copyright for SCAIFE documentation not SCAIFE system`
     * verify some non-SCAIFE HTML pages (like the manual index) don't have the same SCAIFE top section with copyright
   * verify that you see the legal markings (legal tags substituted) in several files (variety from scaife, rapidclass_scripts, and scale.app)
   * verify you can view the SCAIFE/SCALe HTML manual (using the exact filepath in your own machine with directory that you unpacked the tarball to, for example in Firefox URL  like: file:///home/lflynn/temp/scaife.online.1.3.3/scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html 
@@ -455,7 +437,7 @@ following:
     * First take the VM down, either within the VM itself (do a shutdown). Or do vagrant halt in the host.
     * Launch Virtualbox, and select `Export Appliance`. This produces an archive of the VM that can be released, if all tests pass.
     * Relaunch the VM, either in Virtualbox's GUI, or `vagrant up` in the host.
-    * At minimum, run all of the tests in the following list and they must pass. **NOTE**: The **tox tests** (top of the list) **must be run using independent** containers, **but all the other tests must be run using dependent containers**:
+    * At minimum, run all of the tests in the following list and they must pass. **NOTE**: The **tox tests** (top of the list) **must be run using independent** containers.  When testing the vagrant VM, all the other tests must be run using dependent containers. (For other testing, the other tests should preferably be run using independent containers):
         * Tox tests:
             * If you already have any containers running, then stop the containers from the scaife directory with command `docker-compose down` before proceeding.
             * Run all tox tests, they must all pass. Note that, unlike subsequent tests, the tox tests require the containers to not be running. This is because most of them must be launched in a special test mode.  The tox tests themselves run in the various containers rather than the VM itself.
@@ -566,5 +548,3 @@ Test case for upload_codebase_for_package ... FAIL
 
 
 ------------------------------------------------------------------------
-
-

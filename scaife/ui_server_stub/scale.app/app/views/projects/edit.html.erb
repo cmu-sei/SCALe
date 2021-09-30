@@ -3,6 +3,8 @@
     <%= javascript_tag "alert('" + flash[:scaife_enable_data_forwarding_message] + "')" %>
 <% end %>
 
+<%= render partial: "projects/scaife/scaifeUpdates.html.erb", locals: { project_id: @project.id } %>
+
 <h1>Edit project</h1>
 <br />
 
@@ -22,7 +24,7 @@
           </div>
         <% end %>
         <%= hidden_field(:project, :is_test_suite, checked: @project.is_test_suite) %>
-        <%= hidden_field(:project, :source_file) %>    
+        <%= hidden_field(:project, :source_file) %>
         <div class="container-plain-horizontal form-group">
           <%= f.label :name, "Name: ", :class=>"control-label" %>&nbsp;
           <%= f.text_field(:name, :class => "form-control") %>
@@ -30,7 +32,7 @@
         <div class="form-group">
           <%= f.label :description, "Description: " %>
           <%= f.text_area :description, class: "createProject form-control", rows: 5 %>
-        </div>  
+        </div>
         <div class="form-group">
           <% if !@project.source_file.blank? %>
             <%= f.label :source_file, "Source archive: " + @project.source_file %>
@@ -90,6 +92,33 @@
           <br/>
         <% end %>
 
+
+    <table>
+      <div class="row">
+        <div class="col-sm-5">
+          <div>
+            <%= label_tag(:project, "Meta-Alert Counts: ") %>
+          </div>
+          <div>
+            <%= select(:project, :meta_alert_counts_type, [ "", "Wall-Clock Time Period", "CPU-Clock Time Period", "Number of New Meta-Alerts" ], {:selected=> ""}) %>
+          </div>
+          <br/>
+          <div>
+            <%= label_tag(:project, "Confidence Thresholds: ") %>
+          </div>
+          <div>
+            <%= label_tag(:project, "True:") %>
+            <%= number_field(:project, :confidence_threshold, min: 0, max: 1, step: 0.01) %>
+          </div>
+          <div>
+            <%= label_tag(:project, "False") %>
+            <%= number_field(:project, :efp_confidence_threshold, min: 0, max: 1, step: 0.01) %>
+          </div>
+      </div>
+    </table>
+
+    <br/>
+
     <div class="panel panel-info">
       <div class="panel-heading">
           SCAIFE Data Forwarding
@@ -97,19 +126,19 @@
       <div class="panel-body">
         <div class="form-group">
           <%= label_tag(:publish_data_updates, "Publish Data Updates to SCAIFE") %>
-          <%= check_box(:project, "publish_data_updates", {}) %>        
-        </div>   
+          <%= check_box(:project, "publish_data_updates", {}) %>
+        </div>
         <div class="form-group">
           <%= label_tag(:subscribe_to_data_updates, "Subscribe to data updates from SCAIFE") %>
-          <%= check_box(:project, "subscribe_to_data_updates", {}) %>        
-        </div> 
+          <%= check_box(:project, "subscribe_to_data_updates", {}) %>
+        </div>
       </div>
     </div>
 
     <div><%= f.submit nil, class: "btn btn-primary", role: "button", id: "edit_project_button" %></div>
     <% end %>
     </div>
-          
+
     <br />
 
     <div class="panel panel-info">
@@ -195,7 +224,8 @@
 <!-- This part of the page is for uploading/replacing static analysis tool output -->
     <div class="panel panel-info">
       <div class="panel-heading">Upload new Alerts/Metric Tool Outputs</div>
-        <br />
+</div><!-- end panel-->
+
 <table class="table-bordered table-striped table-condensed" style="width:100%">
       <tr>
         <th>Tool & Platform</th>
@@ -281,7 +311,6 @@
       </tr>
     <% end %>
     <!-- Finally, a button to trigger the action to run the scripts -->
-    <!-- Finally, a button to trigger the action to run the scripts -->
     <tr>
       <td colspan=3 align="center">
         <%= submit_tag("Update project database", {id: 'update_project_button', class: "btn btn-primary", role: "button"}) %>
@@ -290,7 +319,6 @@
 
 <% end %>
 </table>
-</div><!-- end panel-->
 </div><!-- end col-->
 
 </div>

@@ -3,7 +3,7 @@ title: 'SCALe : SCALe Quick Start Demo for Auditors'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -64,11 +64,9 @@ Demo Steps
 
 The demo is composed of the following steps:
 
-1.  [Upload Source Code and Analysis
-    Outputs](Upload-Source-Code-and-Analysis-Outputs.md)
+1.  [Upload Source Code and Analysis Outputs](Upload-Source-Code-and-Analysis-Outputs.md)
 2.  [Inspect AlertConditions to Adjudicate for Conditions](Inspect-AlertConditions-to-Adjudicate-for-Conditions.md)
-3.  [Export Analysis Results from the Web
-    Application](Export-Analysis-Results-from-the-Web-Application.md)
+3.  [Export Analysis Results from the Web Application](Export-Analysis-Results-from-the-Web-Application.md)
 
 
 ------------------------------------------------------------------------

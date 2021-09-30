@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -24,7 +24,8 @@
 # DM19-1274
 # </legal>
 
-import os, sys, shutil, subprocess, argparse
+import os, sys, re, argparse
+import shutil, subprocess
 from subprocess import CalledProcessError
 
 import bootstrap
@@ -34,24 +35,14 @@ def export_project_db(project_id, output_file=None, force=False):
     cwd = os.getcwd()
     dbf = None
     if not force and output_file and os.path.exists(output_file) \
-            and output_file != bootstrap.external_db():
+            and output_file != bootstrap.external_db:
         raise ValueError("db already exists: %s" % database)
-    try:
-        os.chdir(bootstrap.base_dir)
-        cmd = ["bin/rails",
-            "-r", "./config/environment",
-            "-r", "alert_conditions_controller",
-           "-e", "print AlertConditionsController.archiveDB(%d)" % project_id]
-        dbf = subprocess.check_output(cmd).strip()
-        if dbf and not os.path.exists(dbf):
-            print("errant ruby result: [%s]" % dbf)
-            cmd[-1] = '"%s"' % cmd[-1]
-            print("cmd: %s" % ' '.join(cmd))
-    except CalledProcessError as e:
-        msg = "ruby command failed:\n%s" % e.output
-        raise RuntimeError(msg)
-    finally:
-        os.chdir(cwd)
+    cmd = "print AlertConditionsController.archiveDB(%d)" % project_id
+    dbf = bootstrap.run_rails_cmd(cmd)
+    dbf = re.split(r"\n", dbf)[-1]
+    if dbf and not os.path.exists(dbf):
+        print("errant ruby result: [%s]" % dbf)
+        print("cmd:", cmd)
     if not dbf:
         print("Unable to export project: %d" % project_id)
     if output_file and output_file != dbf:
@@ -66,12 +57,12 @@ if __name__== "__main__":
         description="Export project to external DB")
     parser.add_argument("project_id_or_name", help="Name or ID of project")
     parser.add_argument("-v", "--verbose", action=bootstrap.Verbosity)
-    parser.add_argument("-d", "--database", default=bootstrap.external_db(),
+    parser.add_argument("-d", "--database", default=bootstrap.external_db,
             help="Output DB file")
     parser.add_argument("-f", "--force", action="store_true",
         help="Overwrite DB if it already exists and is not the default output")
     args = parser.parse_args()
     if args.database:
         database = args.database
-    project_id = bootstrap.get_project_id(args.project_id_or_name)[0]
+    project_id = bootstrap.get_project_id(args.project_id_or_name)
     export_project_db(project_id, output_file=database, force=args.force)

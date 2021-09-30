@@ -4,7 +4,7 @@ title: 'SCALe : Source Code Analysis Lab (SCALe)'
 
 [SCALe](index.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -41,7 +41,7 @@ Welcome to the SCALe documentation!
 1.  [The SCALe Web App](The-SCALe-Web-App.md)
 1.  [Quick Start Demo](SCALe-Quick-Start-Demo-for-Auditors.md)
 1.  [Audit Instructions](Audit-Instructions.md)
-1.  [Using SCAIFE](SCAIFE-Welcome.md)
+1.  [Using SCAIFE Details and Demos](SCAIFE-Welcome.md)
 1.  Design Details
     a.  [Web App Design](Web-App-Design.md)
     a.  [Back-End Script Design](Back-End-Script-Design.md)
@@ -54,10 +54,11 @@ Welcome to the SCALe documentation!
     a.  [Notes on Languages vs Platforms](Notes-on-Languages-vs-Platforms.md)
 1. Maintenance Instructions
     a.  [Adding a Tool to SCALe](Adding-a-Tool-to-SCALe.md)
-    a.  [Manual Project
-        Creation](Command-Line-Project-Creation.md)
+    a.  [Migrating All SCALe Projects to Later SCALe Versions](Migrating-All-SCALe-Projects-to-Later-SCALe-Versions.md) 
+    a.  [Manual Project Creation](Command-Line-Project-Creation.md)
     a.  [Updating the SCALe Documentation](Updating-the-SCALe-Documentation.md)
     a.  [SCAIFE and SCALe Coding Conventions](SCAIFE-and-SCALe-Coding-Conventions.md)
+    
 1. [Terms and Definitions](Terms-and-Definitions.md)
 
 ------------------------------------------------------------------------

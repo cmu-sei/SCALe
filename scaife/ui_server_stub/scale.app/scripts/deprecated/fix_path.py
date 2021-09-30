@@ -16,7 +16,7 @@
 # usage: ./fix_path.py <sources> <substitution_map> <paths_to_fix> <output_file>
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 

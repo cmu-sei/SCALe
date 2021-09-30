@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -47,9 +47,17 @@ module Datahub
 
     attr_accessor :author_source
 
+    attr_accessor :ci_enabled
+
+    attr_accessor :ci_token
+
     attr_accessor :file_extensions
 
-    attr_accessor :code__languages
+    attr_accessor :code_languages
+
+    attr_accessor :created_at
+
+    attr_accessor :updated_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -60,8 +68,12 @@ module Datahub
         :'uploader_id' => :'uploader_id',
         :'uploader_organization_id' => :'uploader_organization_id',
         :'author_source' => :'author_source',
+        :'ci_enabled' => :'ci_enabled',
+        :'ci_token' => :'ci_token',
         :'file_extensions' => :'file_extensions',
-        :'code__languages' => :'code__languages'
+        :'code_languages' => :'code_languages',
+        :'created_at' => :'created_at',
+        :'updated_at' => :'updated_at'
       }
     end
 
@@ -79,8 +91,12 @@ module Datahub
         :'uploader_id' => :'String',
         :'uploader_organization_id' => :'String',
         :'author_source' => :'String',
+        :'ci_enabled' => :'Boolean',
+        :'ci_token' => :'String',
         :'file_extensions' => :'Array<String>',
-        :'code__languages' => :'Array<LanguageVersionWId>'
+        :'code_languages' => :'Array<CreatedLanguage>',
+        :'created_at' => :'Time',
+        :'updated_at' => :'Time'
       }
     end
 
@@ -129,16 +145,32 @@ module Datahub
         self.author_source = attributes[:'author_source']
       end
 
+      if attributes.key?(:'ci_enabled')
+        self.ci_enabled = attributes[:'ci_enabled']
+      end
+
+      if attributes.key?(:'ci_token')
+        self.ci_token = attributes[:'ci_token']
+      end
+
       if attributes.key?(:'file_extensions')
         if (value = attributes[:'file_extensions']).is_a?(Array)
           self.file_extensions = value
         end
       end
 
-      if attributes.key?(:'code__languages')
-        if (value = attributes[:'code__languages']).is_a?(Array)
-          self.code__languages = value
+      if attributes.key?(:'code_languages')
+        if (value = attributes[:'code_languages']).is_a?(Array)
+          self.code_languages = value
         end
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
       end
     end
 
@@ -181,8 +213,12 @@ module Datahub
           uploader_id == o.uploader_id &&
           uploader_organization_id == o.uploader_organization_id &&
           author_source == o.author_source &&
+          ci_enabled == o.ci_enabled &&
+          ci_token == o.ci_token &&
           file_extensions == o.file_extensions &&
-          code__languages == o.code__languages
+          code_languages == o.code_languages &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at
     end
 
     # @see the `==` method
@@ -194,7 +230,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [package_id, package_name, package_description, uploader_id, uploader_organization_id, author_source, file_extensions, code__languages].hash
+      [package_id, package_name, package_description, uploader_id, uploader_organization_id, author_source, ci_enabled, ci_token, file_extensions, code_languages, created_at, updated_at].hash
     end
 
     # Builds the object from hash

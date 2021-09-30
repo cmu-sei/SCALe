@@ -124,7 +124,7 @@ Note:  Selecting an AHPO slightly increases the amount of time to create a class
 
    5. Whether to apply [principal component analysis](https://en.wikipedia.org/wiki/Principal_component_analysis) (PCA) to the data.  Machine learning features are variables that act like input to the classifier.  PCA is a technique that reduces the number of features in a data set, while preserving as much useful information as possible.  Because it reduces noise in the data, PCA can both improve classifier accuracy and efficiency.  Consider applying this option to a data set with a large number of features to see if PCA improves classifier performance.
 
-Note: The functionality behind the option to "Use Semantic Features" will be available in a subsequent version of SCAIFE.  Currently, this option can be ignored.  When available, the option will combine information from existing machine learning features, such as the number of static analysis alerts per file, and semantic (source code) features to possibly improve classifier precision and recall.  In the future, consider selecting this option to see if semantic features improves classifier performance on your data.  
+Note: The functionality behind the option to "Use Semantic Features" will be available in a subsequent version of SCAIFE.  Currently, this option can be ignored.  When available, the option will combine information from existing machine learning features, such as the number of static analysis alerts per file, and semantic (source code) features to possibly improve classifier precision and recall.  In the future, consider selecting this option to see if semantic features improves classifier performance on your data. 
 
 4. Click the "Create Classifier" button
 
@@ -153,7 +153,7 @@ The following classifier metrics are saved in SCALe after running a classifier. 
 - __train_precision__.  The percentage of positive predictions on the training data set (i.e., predictions that a meta-alert is an actual defect) that are correct. For example, if the classifier had 75 true positives and 25 false positives, then the recall would be 75 / (75 + 25) = 0.75. This is determined by comparing classifier predictions with the available ground truth data. (Both manual adjudications and automated adjudications based on test suite metadata provide ground truth.)
 - __train_recall__.  The percentage of defects that were correctly identified in the training data set, where “defect” refers to a meta-alert with a ground-truth status of true. For example, if the classifier had 60 true positives and 40 false negatives, then the recall would be 60 / (60 + 40) = 0.6.
 - __train_f1__.  An overall measure of a classifier’s accuracy on the training data set that combines precision and recall. See [F1](https://en.wikipedia.org/wiki/F-score) for more detail.
-- __test_accuracy__.  TThe percent of predictions made by the classifier on the test data set that are correct. For example, if the classifier had 40 true positives, 30 true negatives, 20 false positives, and 10 false negatives, then the accuracy would be (40 + 30) / (40 + 30 + 20 + 10) = 0.7.
+- __test_accuracy__.  The percent of predictions made by the classifier on the test data set that are correct. For example, if the classifier had 40 true positives, 30 true negatives, 20 false positives, and 10 false negatives, then the accuracy would be (40 + 30) / (40 + 30 + 20 + 10) = 0.7.
 - __test_precision__.  The percentage of positive predictions on the test data set (i.e., predictions that a meta-alert is an actual defect) that are correct. For example, if the classifier had 75 true positives and 25 false positives, then the recall would be 75 / (75 + 25) = 0.75. This is determined by comparing classifier predictions with the available ground truth data. (Both manual adjudications and automated adjudications based on test suite metadata provide ground truth.)
 - __test_recall__.  The percentage of defects that were correctly identified in the test data set, where “defect” refers to a meta-alert with a ground-truth status of true. For example, if the classifier had 60 true positives and 40 false negatives, then the recall would be 60 / (60 + 40) = 0.6.
 - __test_f1__.  An overall measure of a classifier’s accuracy on the test data set that combines precision and recall. See [F1](https://en.wikipedia.org/wiki/F-score) for more detail.
@@ -175,26 +175,43 @@ For SCAIFE Developers: How to Extend Current Classifiers
 Creating a new classifier type
 ------------------------------
 
-1. Add a row to the 'classifier_types.csv' file (stats_server_stub/swagger_server/machine_learning/classifiers/classifier_types.csv) that includes the following information:
-    1. A string describing the type of classifier in Column 1
-    2. The name of the Python submodule (script) you will create for the new classifier type in Column 2
-2. Create a new Python submodule in stats_server_stub/swagger_server/machine_learning/classifiers/ with a name that matches the string you entered in classifier_types.csv file in Step 1.2.  The submodule must include both a 'fit' and 'predict' function.  (See stats_server_stub/swagger_server/machine_learning/classifiers/lightgbm.py for more details.)
-3. Edit the 'classify.py' script (stats_server_stub/swagger_server/machine_learning/classify.py) to import the new submodule created in Step 2.
-4. Restart the Stats server using the command "python -m swagger_server". The new classifier type will be automatically added to the SCAIFE database
+1. Add a row to the `classifier_types.csv` file (`stats_server_stub/swagger_server/machine_learning/classifiers/classifier_types.csv`) that includes the following information:
+    a. A string describing the type of classifier in Column 1
+    b. The name of the Python submodule (script) you will create for the new classifier type in Column 2
+2. Create a new Python submodule in `stats_server_stub/swagger_server/machine_learning/classifiers/` with a name that matches the string you entered in `classifier_types.csv` file in Step 1.2.  The submodule must include both a `fit` and `predict` function.  (See `stats_server_stub/swagger_server/machine_learning/classifiers/lightgbm.py` for more details.)
+3. Edit the `classify.py` script (`stats_server_stub/swagger_server/machine_learning/classify.py`) to import the new submodule created in Step 2.
+4. Restart the Stats server using the command `python -m swagger_server`. The new classifier type will be automatically added to the SCAIFE database
 
-To specify the set of adaptive heuristics and automated hyperparameter optimization (AHPO) algorithms that can be used with the new classifier type, edit the 'insert_classifiers.py' script (stats_server_stub/swagger_server/database/insert_classifiers.py).
+To specify the set of adaptive heuristics and automated hyperparameter optimization (AHPO) algorithms that can be used with the new classifier type, edit the `insert_classifiers.py` script (`stats_server_stub/swagger_server/database/insert_classifiers.py`).
 
 
 Creating a new adaptive heuristic
 ---------------------------------
-1. Create a Python submodule in stats_server_stub/swagger_server/machine_learning/adaptive_heuristics/ with a name that describes the new adaptive heuristic.  The submodule must include both a 'train' and 'run' function.  (See stats_server_stub/swagger_server/machine_learning/adaptive_heuristics/k_nearest_neighbors.py for more details.)
+1. Create a Python submodule in `scaife/stats_server_stub/swagger_server/machine_learning/adaptive_heuristics/` with a name that describes the new adaptive heuristic.  The submodule must include both a `train` and `run` function.  (See `stats_server_stub/swagger_server/machine_learning/adaptive_heuristics/k_nearest_neighbors.py` for more details.)
 2. Edit the following files to import the new submodule created in Step 1:
-    1. stats_server_stub/swagger_server/controllers/datahub_to_stats_controller.py
-    2. stats_server_stub/swagger_server/controllers/ui_to_stats_controller.py
-    3. stats_server_stub/swagger_server/controllers/helper_controller.py
-3. Add the new adaptive heuristic to the switch statement in the get_adaptive_heuristic function in stats_server_stub/swagger_server/controllers/helper_controller.py
+    a. `stats_server_stub/swagger_server/controllers/datahub_to_stats_controller.py`
+    b. `stats_server_stub/swagger_server/controllers/ui_to_stats_controller.py`
+    c. `stats_server_stub/swagger_server/controllers/helper_controller.py`
+3. Add the new adaptive heuristic to the switch statement in the `get_adaptive_heuristic` function in `stats_server_stub/swagger_server/controllers/helper_controller.py`
 
-To specify the set of classifier types that can be used with the new adaptive heuristic, edit the 'insert_classifiers.py' script (stats_server_stub/swagger_server/database/insert_classifiers.py).
+To specify the set of classifier types that can be used with the new adaptive heuristic, edit the `insert_classifiers.py` script (`stats_server_stub/swagger_server/database/insert_classifiers.py`).
+
+
+Performance Measurements
+--------------------------
+To record performance measurements when running SCAIFE, start the Stats Module server using the "`--experiment`" flag followed by "`y`" or "`n`".  See [SCAIFE-Experiment-Mode.md](SCAIFE-Experiment-Mode.md) for how to do that. Also, by default, performance measurements are automatically collected when SCAIFE is run in test mode.
+
+To calculate and display performance measurements, do one of the following, depending on if you are using Docker containers or not:
+
+1. If using containers:
+
+-   Start SCAIFE, with at minimum the Stats module in experiment mode, with a command such as the following: `docker-compose -f docker-compose.yml -f docker-compose.experiment.yml up -d --build`
+-   Then, enable a terminal command line from the Stats module, with this command: `docker container exec -it stats /bin/bash`. 
+-   Next, create project(s) with SCALe, make adjudications (unless it's a test suite project), upload the project(s) to the SCAIFE DataHub, and create and run at least one classifier on project(s). 
+-   Then, from the terminal for the Stats container, in directory `/usr/src/app`, run this command: `python3 -m swagger_server.controllers.performance_measurements` It will output JSON-formatted performance metrics.
+
+2. If NOT using containers: 
+-   Run `python swagger_server/controllers/performance_measurements.py` from the `scaife/stats_server_stub` directory.  If trying to access performance measurements after running SCAIFE in test mode, add the `--mode` flag followed by `test` (i.e., `python swagger_server/controllers/performance_measurements.py --mode test`)
 
 ------------------------------------------------------------------------
 

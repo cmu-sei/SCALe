@@ -3,7 +3,7 @@ title: 'SCALe : The SCALe Web App'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -120,28 +120,9 @@ system.
 
 #### Access Control
 
-The SCALe web app uses HTTP basic authentication. Users log in to the
-app with a single username and password. This username and password can
-be configured in the file
-`$SCALE_HOME/scale.app/app/controllers/application_controller.rb`,
-excerpted here:
-
-```ruby
-class ApplicationController < ActionController::Base
-  config.force_ssl = true
-  protect_from_forgery
- # Modify the next line to change the username and password.
-  http_basic_authenticate_with :name => "scale", :password => "Change_me!"
-```
-
-As you can see, the default credentials are
-
--   Username: scale
--   Password: Change\_me!
-
-The credentials should be changed before launching the web app for the
-first time. The updated credentials should be securely distributed to
-all users.
+The SCALe web app provides its own login security. Users can use the
+app's `Login` button and subsequent `Sign Up` button to create
+suitable user names and passwords.
 
 #### SSL
 
@@ -531,7 +512,7 @@ section (not all of these are visible in the screenshot above).
 +=======================+=========================================================================================================================================================================================+=======================+
 | ID                    | A unique ID associated with this item.  In fused view, if multiple alertConditions map to the meta-alert, then it shows the meta-alert ID and ends with "(m)".                          | Positive integer      |
 |                       | In fused view, if only one alertCondition maps to the meta-alert, then it shows the alertCondition(Display) ID and "(d)". In unfused view, it shows the                                 |                       |
-|                       | alertCondition (development.sqlite3 database, display table) ID and "(d)".                                                                                                              |                       | 
+|                       | alertCondition (development.sqlite3 database, display table) ID and "(d)".                                                                                                              |                       |
 +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------+
 | Flag                  | A binary value                                                                                                                                                                          | Flagged or not        |
 |                       | associated with the                                                                                                                                                                     | flagged               |
@@ -798,6 +779,10 @@ section (not all of these are visible in the screenshot above).
 ##### Filtering by Path
 * Filepaths for the filter require the user to input exact file paths starting from the source code archive's (decompressed) base directory. The entries for the "Path" field in the alertCondition list provide filepaths that can be used for this filter.
   * The filepaths here may differ from the filepath strings in tool output (e.g., output from flaw-finding static analysis tools or code metrics tools). Those tools' filepaths may differ at the beginning (e.g., a tool's output filepath may have "/home/USERNAME/SOME_DIRECTORY" at the beginning), and also the archive's base directory name may be different.
+
+
+##### Filtering by Verdict
+* The user may select to view only verdicts. The final item "Known" shows all Meta-Alerts that are not "Unknown". The other itmes show only Meta-Alerts with the specific verdict.
 
 
 ##### Sorting by Display (d) ID

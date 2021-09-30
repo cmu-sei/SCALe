@@ -4,5 +4,5 @@ lxml >= 4.5.0
 beautifulsoup4 >= 4.8.2
 requests >= 2.24.0
 fastavro == 0.24.2
-pulsar-client == 2.7.0
+pulsar-client[avro] == 2.8.1
 python-dateutil >= 2.6.0

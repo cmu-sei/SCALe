@@ -8,6 +8,7 @@
         <img alt="Brand" src="/doc/lightbulb_on.png"></nobr></li>
       <% unless @scaife_mode == "SCALe-only" %>
         <% unless @inAlertConditions.nil? %>
+
           <li id="classifier-dropdown" class="dropdown">
             <%= link_to 'Classifiers <b class="caret"></b>'.html_safe, "#", class: "dropdown-toggle", 'data-toggle'=>"dropdown" %>
             <ul class="dropdown-menu">
@@ -54,6 +55,19 @@
       <li><%= link_to "Definitions", "/doc/scale2/Terms-and-Definitions.html" %></li>
       <li><%= link_to "Help", "/doc/scale2/index.html" %></li>
       <li><%= link_to "Copyright", "/doc/scale2/SCALe-copyright.html" %></li>
+
+      <% if session[:login_user].blank? %>
+        <li>
+          <%= button_to 'SCALe Login', '/users/login',  {id: "user-login", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#user-login-modal', method: :get, class: 'btn btn-primary nav-button'}  %>
+          <div id="user-login-modal" class="modal fade" role="dialog" aria-labelledby="userLoginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content"></div>
+            </div>
+          </div>
+        </li>
+      <% else %>
+        <li><%= button_to "SCALe Logout: " + session[:login_user], "/users/logout", {id: "user-logout", method: :post, :remote => true, class: 'btn btn-primary nav-button'} %></li>
+      <% end %>
 
       <% if session[:scaife_mode] == "Connected" %>
         <li><%= button_to "Disconnect from SCAIFE", "/scaife-registration/logout", {id: "disconnect_from_scaife", :scaife_mode => "Demo", method: :post, :remote => true, class: 'btn btn-primary nav-button'} %></li>

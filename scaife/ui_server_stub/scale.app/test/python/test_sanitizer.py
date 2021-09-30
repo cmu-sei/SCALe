@@ -1,7 +1,7 @@
 #!/bin/env python
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -32,8 +32,8 @@ import os, sys, re
 import itertools, shutil, sqlite3
 from datetime import datetime
 
-import bootstrap
-from bootstrap import rel2scale_path
+from scripts import bootstrap, export_project
+from scripts.bootstrap import rel2scale_path
 
 # The db to test is determined in one of several different ways:
 #   a) a project name is specified, in which case the db file
@@ -47,7 +47,7 @@ dat_dir = os.path.join(bootstrap.python_test_data_dir, 'sanitizer')
 
 def archive_project_db(project_id, project_name):
     cwd = os.getcwd()
-    dbf = bootstrap.export_project(project_id)
+    dbf = export_project.export_project_db(project_id)
     if not dbf:
         print("Unable to archive project %d: %s" % (project_id, project_name))
     return dbf
@@ -242,6 +242,8 @@ class TestSanitizer(object):
             rows_ref = tuple(dict(row) for row in self.cur_ref.execute(sql))
             rows_tgt = tuple(dict(row) for row in self.cur_tgt.execute(sql))
             rc_tgt, rc_ref = len(rows_tgt), len(rows_ref)
+            if "Users" == table:
+                continue
             if "PerformanceMetrics" == table: # Handle additional row being inserted into the target database on Bamboo
                 assert rc_tgt >= rc_ref, "Table %s row count mismatch: %d is not >= %d" % (table, len(rows_tgt), len(rows_ref))
             else:

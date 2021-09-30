@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -178,6 +178,67 @@ module Datahub
       end
       return data, status_code, headers
     end
+
+    # Exports relevant performance metrics for given experiment.
+    # @param x_access_token Token that contains information about the user
+    # @param experiment_id Experiment ID to export data
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def export_experiment_metrics(x_access_token, experiment_id, opts = {})
+      export_experiment_metrics_with_http_info(x_access_token, experiment_id, opts)
+      nil
+    end
+
+    # Exports relevant performance metrics for given experiment.
+    # @param x_access_token Token that contains information about the user
+    # @param experiment_id Experiment ID to export data
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def export_experiment_metrics_with_http_info(x_access_token, experiment_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExperimentsApi.export_experiment_metrics ...'
+      end
+      # verify the required parameter 'x_access_token' is set
+      if @api_client.config.client_side_validation && x_access_token.nil?
+        fail ArgumentError, "Missing the required parameter 'x_access_token' when calling ExperimentsApi.export_experiment_metrics"
+      end
+      # verify the required parameter 'experiment_id' is set
+      if @api_client.config.client_side_validation && experiment_id.nil?
+        fail ArgumentError, "Missing the required parameter 'experiment_id' when calling ExperimentsApi.export_experiment_metrics"
+      end
+      # resource path
+      local_var_path = '/experiments/{experiment_id}/export'.sub('{' + 'experiment_id' + '}', experiment_id.to_s)
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      header_params[:'x_access_token'] = x_access_token
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:body]
+
+      return_type = opts[:return_type]
+
+      auth_names = opts[:auth_names] || []
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+                                                        :header_params => header_params,
+                                                        :query_params => query_params,
+                                                        :form_params => form_params,
+                                                        :body => post_body,
+                                                        :auth_names => auth_names,
+                                                        :return_type => return_type)
+
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExperimentsApi#export_experiment_metrics\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
   end
 
 end

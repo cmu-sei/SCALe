@@ -21,7 +21,7 @@
 # python ui_server_stub/scale.app/package.py --target=scaife-online --top-dir=/home/lflynn/temp/code-release-for-containers/scaife
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -92,6 +92,7 @@ TAR_CONFIGS = {
 # Functions may add to this list of files before it gets consulted
 # when creating the tarball
 IGNORED_FILES = [
+     "db/*.sqlite3",
     ".DS_Store",
     ".git/*",
     ".vagrant/*",
@@ -99,8 +100,6 @@ IGNORED_FILES = [
     "TAGS",
     "archive/*",
     "cert/*",
-    "cert/*",
-    "db/*.sqlite3",
     "db/back/*",
     "db/backup/*",
     "log/*",
@@ -135,7 +134,6 @@ SCAIFE_IGNORED_SCAIFE_SCALE_FILES = [
 ]
 PROPRIETARY_CODE_DIRS = [
     "demo/dos2unix/analysis",
-    "demo/codesonar_test/analysis",
     "scripts/data",
     "scripts/data/properties/cert_rules",
     "scripts/data/properties/cwes",
@@ -150,7 +148,6 @@ PROPRIETARY_CODE_DIRS = [
     "test/python/data/input",
 ]
 SCAIFE_PROPRIETARY_CODE_DIRS = [
-    "datahub_server_stub/swagger_server/rapidclass_scripts/archived",
     "datahub_server_stub/swagger_server/rapidclass_scripts/statswork",
     "stats_server_stub/swagger_server/rapidclass_scripts/archived",
     "stats_server_stub/swagger_server/rapidclass_scripts/statswork",
@@ -168,6 +165,7 @@ SCAIFE_SCALE_FILES_TO_CLOBBER = [
 
 COPYRIGHT_DENYLIST = [
     ".git",
+    ".gitmodules",
     ".pytest_cache",
     ".vagrant",
     "archive",
@@ -186,12 +184,16 @@ ADDITIONAL_COPYRIGHT_DENYLIST = [
     ".git",
     ".gitmodules",
     ".vagrant",
-    "datahub_server_stub/.tox",
     "datahub_server_stub/swagger_server/test/test_output",
     "datahub_server_stub/swagger_server/uploaded_files",
+    "ui_server_stub/swagger_server/test/data/packages",
+    "ui_server_stub/.pytest_cache",
+    "datahub_server_stub/scripts/api",
+    "datahub_server_stub/.tox",
     "priority_server_stub/.tox",
     "registration_server_stub/.tox",
     "stats_server_stub/.tox",
+    "ui_server_stub/.tox",
 ]
 COPYRIGHT_FILENAME_MAP = {
     ".dockerignore": r'# \1',
@@ -223,15 +225,18 @@ COPYRIGHT_EXTENSION_MAP = {
     ".template": r'<p>\1',
 
     # For SCAIFE
-    ".R": r'# \1',
-    ".Rmd":  r'<!-- \1 -->',
+    ".R":     r'# \1',
+    ".Rmd":   r'<!-- \1 -->',
     ".cpp":   r'// \1',
+    ".c":     r'// \1',
+    ".h":     r'// \1',
 
     # These file extensions can be ignored
     ".class": None,
     ".conf": None,
     ".css": None,
     ".csv": None,
+    ".tsv": None,
     ".docx": None,
     ".erb": None,
     ".gif": None,
@@ -257,6 +262,10 @@ COPYRIGHT_EXTENSION_MAP = {
 WARNINGS = False
 
 
+# To be precise, this function returns true if package.py was invoked
+# from the 'scaife' dir. Which is to be done for both scaife releases
+# and the Github scaife-scale release. It is only false for a
+# scale-only release.
 def is_scaife():
     return os.path.exists(SCAIFE_SCALE_PATH)
 
@@ -314,12 +323,13 @@ def update_copyright(cfg):
         Updating copyright info in each file that contains it
     '''
 
+    global WARNINGS
     # Update README for scaife-scale-online distro (b/f other copyrights)
     if "scaife-scale-online" in cfg['target']:
         with io.open("./README.md", 'r+', encoding="utf-8") as fp:
             contents = fp.read()
             match = re.search(r'</legal>', contents)
-            if not match:
+            if WARNINGS and not match:
                 print("WARNING: No legal tag for README")
             else:
                 with io.open("helpers/gitHubReleaseReadme.md") as extra_readme:
@@ -329,7 +339,6 @@ def update_copyright(cfg):
                     fp.seek(0)
                     fp.write(new_contents)
 
-    global WARNINGS
     scaife_flag = is_scaife()
     if scaife_flag:
         new_legal_scale = "<legal>"+"\n".join(cfg['legal-scale'])+"</legal>"
@@ -337,7 +346,7 @@ def update_copyright(cfg):
     else:
         new_legal_scale = "<legal>" + "\n".join(cfg['legal']) + "</legal>"
         new_legal_scaife = ""
-    new_legal_manual = "<legal>" + "\n".join(cfg['legal-manual']) + "</legal>"
+    new_legal_manual = "<legal>" + "\n".join(cfg['legal-manual']) + "</legal>" if scaife_flag else "<legal></legal>"
 
     for dirpath, _, files in os.walk('.'):
         if any([dirpath.startswith(x) for x in COPYRIGHT_DENYLIST]):
@@ -413,6 +422,9 @@ def file_substitute(files, old, new):
     '''
         Substitute new for old in list of files
     '''
+    global WARNINGS
+    if WARNINGS:
+        return
     for filename in files:
         print("Changing " + filename)
         with io.open(filename, 'r', encoding="utf-8") as input_f:
@@ -457,8 +469,12 @@ def fetch_vendor_bundle(cfg):
 
 @console_status('Fetch CWE.pdf')
 def fetch_cwe_pdf(cfg):
-    if not os.path.exists(CWE_PDF_DST):
-        urllib.urlretrieve(CWE_PDF_SRC, CWE_PDF_DST)
+    if is_scaife():
+        cwe_pdf_dst = SCAIFE_SCALE_PATH + os.path.sep + CWE_PDF_DST
+    else:
+        cwe_pdf_dst = CWE_PDF_DST
+    if not os.path.exists(cwe_pdf_dst):
+        urllib.urlretrieve(CWE_PDF_SRC, cwe_pdf_dst)
         return 'DONE'
     else:
         return 'SKIP'
@@ -621,12 +637,14 @@ def main():
     if args.copyright:
         sys.exit()
 
-    fetch_manual(cfg)
+    if not WARNINGS:
+        fetch_manual(cfg)
     # After calling fetch_manual, then in the scale.app directory
     # Stay in scale.app directory for next few function calls
     fetch_cert_coding_guidelines(cfg)
     fetch_cwe_pdf(cfg)
-    fetch_vendor_bundle(cfg)
+    if not WARNINGS:
+        fetch_vendor_bundle(cfg)
 
     # Before making the tarball, make sure in the original top-level directory
     os.chdir(args.topdir)

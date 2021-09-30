@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -115,6 +115,7 @@ class SourceFile(Document):
     filename = StringField()
     filepath = StringField()
     filepath_depth = IntField()
+    line_count = IntField()
     metrics_data = DictField()
     defect_info = EmbeddedDocumentListField(DefectInfo)
     functions = ListField(ReferenceField(SourceFunction))

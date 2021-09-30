@@ -3,7 +3,7 @@ title: 'SCALe : Introduction'
 ---
 [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -39,7 +39,7 @@ SCALe : Introduction
 Purpose
 -------
 
-The purpose of this document is to provide installation and usage
+The purpose of this document is to provide installation, usage, and development 
 information for new SCALe users, whether individuals or organizations.
 This document is meant to be read electronically (although no Internet
 connectivity is required), so we use hyperlinks to direct readers to
@@ -226,14 +226,14 @@ Contributors
 
 Contributors within SEI / CERT:
 
-Thanks go to Eric Azebu, Lucas Bengtson, Lori Flynn, Charisse Haruta,
+Thanks go to Eric Azebu, Lucas Bengtson, Tyler Brooks, Rhonda Brown, Lori Flynn, Charisse Haruta,
 Sujay Jain, Pranjal Jumde, Derrick H. Karimi, David Keaton, William
 Klieber, Aman Kumar, Carol Lallier, Jiyeon Lee, Reed Little, Justin Loo,
-Derek Leung, Yitzhak Mandelbaum, Ebonie McNeil, Dhruv Mohindra, Aniket
+Derek Leung, Yitzhak Mandelbaum, Ebonie McNeil, Jeffrey Mellon, Dhruv Mohindra, Aniket
 Mokashi, Vishal Patel, Dan Plakosh, Abhishek Ramani, Maria A Rodriguez
 De La Cruz, Raunak Rungta, Brendan Saulsbury, Robert C. Seacord, David
-J. Shepard, Matt Sisk, William Snavely, Dean F. Sutherland, David Svoboda, Baptiste
-Vauthey, Michael Shaye-Wen Wang, Eric Wong, and Shirley
+J. Shepard, Matt Sisk, William Snavely, Dean F. Sutherland, David Svoboda, Dustin Updyke, Baptiste
+Vauthey, Michael Shaye-Wen Wang, Eric Wong, Joseph Yankel, and Shirley
 Zhou for helping with the development and testing of SCALe and the
 documentation.
 

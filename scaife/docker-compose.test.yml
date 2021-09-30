@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -46,12 +46,17 @@ services:
       - SCAIFE_MODE=test
       - FLASK_ENV=test
 
+  integration:
+    environment:
+      - SCAIFE_MODE=test
+      - FLASK_ENV=test
+
   # for SCALe, need ARG for build and also ENV for runtime container
   scale:
+    environment:
+      SCAIFE_MODE: test
+      RAILS_ENV: test
     build:
       args:
         SCAIFE_MODE: test
         RAILS_ENV: test
-    environment:
-      - SCAIFE_MODE=test
-      - RAILS_ENV=test

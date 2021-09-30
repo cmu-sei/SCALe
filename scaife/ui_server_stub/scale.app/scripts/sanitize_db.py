@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -312,6 +312,10 @@ def populate_sanit_db(old_db_path, sanit_db_path, salt):
                 d["file_info_file"] = _sanitize_path(d["file_info_file"])
                 d["license_file"] = _sanitize_path(d["license_file"])
                 d["version"] = _sanitize_txt(d["version"])
+                d["git_url"] = _sanitize_txt(d["git_url"])
+                d["git_user"] = _sanitize_txt(d["git_user"])
+                d["git_access_token"] = _sanitize_txt(d["git_access_token"])
+                d["git_hash"] = _sanitize_txt(d["git_hash"])
                 sql = _insert_dict_sql(keys, table)
                 new_cursor.execute(sql, d)
         elif table == "Messages":
@@ -342,6 +346,19 @@ def populate_sanit_db(old_db_path, sanit_db_path, salt):
                 keys = row.keys()
                 d = dict(row)
                 d["notes"] = _sanitize_txt(d["notes"])
+                sql = _insert_dict_sql(keys, table)
+                new_cursor.execute(sql, d)
+        elif table == "Users":
+            if VERBOSE:
+                print("sanitizing table %s" % table)
+            for row in _fetchall(table):
+                keys = row.keys()
+                d = dict(row)
+                d["first_name"] = _sanitize_txt(d["first_name"])
+                d["last_name"] = _sanitize_txt(d["last_name"])
+                d["organization"] = _sanitize_txt(d["organization"])
+                d["name"] = _sanitize_txt(d["name"])
+                d["password_digest"] = "" # remove
                 sql = _insert_dict_sql(keys, table)
                 new_cursor.execute(sql, d)
         elif table == "UserUploads":

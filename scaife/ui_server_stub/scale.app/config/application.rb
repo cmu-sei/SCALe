@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -168,6 +168,36 @@ module Scale
 
     config.x.offline_testing = false
 
+    # Default confidence thresholds
+    config.x.default_efp_confidence_threshold = 0.7
+    config.x.default_etp_confidence_threshold = 0.7
+
+    # Default sort order
+    def generate_sort_keys()
+      all_sort_fields = { 'Display (d) ID' => 'id',
+                          'Meta-Alert (m) ID' => 'meta_alert_id',
+                          'Flag' => 'flag',
+                          'Line' => 'line',
+                          'Severity' => 'severity',
+                          'Likelihood' => 'likelihood',
+                          'Remediation' => 'remediation',
+                          'CERT Priority' => 'priority',
+                          'Level' => 'level',
+                          'Checker' => 'checker',
+                          'Message' => 'message',
+                          'Path' => 'path',
+                          'Label' => 'class_label',
+                          'Confidence' => 'confidence',
+                          'Category' => 'category',
+                          'Time' => 'time',
+                          'AlertCondition Priority' => 'meta_alert_priority' }
+      all_sort_dirs = ['ASC','DESC']
+      return all_sort_fields.to_a.product(all_sort_dirs).collect{ |key, dir|
+        [key[0] + ' ' + dir, key[1] + ' ' + dir]}.to_h
+    end
+
+    config.x.all_sort_keys = generate_sort_keys
+    config.x.default_ordering = 'Path ASC, Line ASC'
   end
 
 end

@@ -15,7 +15,7 @@
 # This script produces only one message per alert
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -38,26 +38,43 @@
 # DM19-1274
 # </legal>
 
-import sys
-import re
+import os, re
 
 from toolparser import tool_parser_args
 
+dir_pat = re.compile(r"^In\s+directory:\s*(.*)$")
+
+msg_pat = re.compile(r"""
+    ^
+    (.*?):([0-9]*)(?::[0-9]*)?:
+    \s+
+    (warning|error):
+    \s+
+    ([-A-Za-z0-9]*):
+    \s+
+    (.*?)
+    \s*
+    $
+""", re.X)
+
+#parse = re.match(r"^(.*?):([0-9]*)(?::[0-9]*)?: (warning|error): ([-A-Za-z0-9]*): (.*?) *$", line)
+
 def process_file(input_file, output_file):
+
     directory = ""
 
     for line in input_file:
         line = line.strip()
 
-        parse = re.match(r"^In directory: *(.*)$", line)
-        if (parse != None):
+        parse = dir_pat.search(line)
+        if parse:
             directory = parse.group(1)
             continue
 
-        parse = re.match(r"^(.*?):([0-9]*)(?::[0-9]*)?: (warning|error): ([-A-Za-z0-9]*): (.*?) *$", line)
-
-        if (parse == None):
+        parse = msg_pat.search(line)
+        if not parse:
             continue
+
         file_name = parse.group(1)
         line_number = parse.group(2)
         checker = parse.group(4)

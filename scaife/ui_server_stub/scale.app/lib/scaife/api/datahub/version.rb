@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -31,7 +31,7 @@ module Scaife
 module Api
 module Datahub
 
-  VERSION = '2.0.0'
+  VERSION = '2.2.0'
 
 end
 end

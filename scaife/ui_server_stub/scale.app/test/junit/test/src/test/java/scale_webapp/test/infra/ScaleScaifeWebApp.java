@@ -1,5 +1,5 @@
 // <legal>
-// SCALe version r.6.5.5.1.A
+// SCALe version r.6.7.0.0.A
 // 
 // Copyright 2021 Carnegie Mellon University.
 // 
@@ -82,9 +82,9 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 	 * @param scaife_password
 	 * @param driver
 	 */
-	public ScaleScaifeWebApp(String protocol, String host, int port, String user, String password, String scaife_user, String scaife_password, WebDriver driver) {
+	public ScaleScaifeWebApp(String protocol, String host, int port, String scale_user, String scale_password, String scaife_user, String scaife_password, WebDriver driver) {
 
-		super(protocol, host, port, user, password, driver);
+		super(protocol, host, port, scale_user, scale_password, driver);
 		this.scaife_user = scaife_user;
 		this.scaife_password = scaife_password;
 
@@ -557,18 +557,18 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 		return projectName;
 
 	}
-	
+
 	public void createAndRunClassifier(String projectName, String classifierType) {
 		createAndRunClassifier(projectName, classifierType, null, null);
 	}
 	public void createAndRunClassifier(String projectName, String classifierType, String ahpoName, String adaptiveHeurName) {
 
-		// expects to already be on project alerts page		
+		// expects to already be on project alerts page
 		String classifierName = this.createClassifier(projectName,  classifierType, ahpoName, adaptiveHeurName);
 		this.runClassifier(classifierName);
 
 	}
-	
+
 	public String createClassifier(String projectName, String classifierType) {
 		return createClassifier(projectName, classifierType, null, null);
 	}
@@ -644,24 +644,26 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 		System.out.printf("submitting classifier: %s\n", classifierName);
 		submitButton.click();
 
-		try {
+                for (int i = 0; i < 2; i++) {
+                    try {
 			new WebDriverWait(driver, 500)
 				.until(ExpectedConditions.invisibilityOfElementLocated(By.id("modal-placement")));
 			this.waitForAlertConditionsTableLoad(50);
-		} catch (TimeoutException e) {
+                        return classifierName;
+                    } catch (NullPointerException e) {/* ignore */
+                    } catch (TimeoutException e) {
 			// perhaps something went wrong, check for error text
 			WebElement err_elm = driver.findElement(By.id("classifier-errors"));
 			if (err_elm.isDisplayed()) {
-				throw new TimeoutException("error creating classifier: " + err_elm.getText());
+                            throw new TimeoutException("error creating classifier: " + err_elm.getText());
 			}
+                    }
 		}
-
-		return classifierName;
-		
+                return classifierName;
 	}
-	
+
 	public void runClassifier(String classifierName) {
-		
+
 		this.waitForAlertConditionsTableLoad();
 		// Run the classifier
 		new WebDriverWait(driver, 30).until(ExpectedConditions
@@ -691,7 +693,7 @@ public class ScaleScaifeWebApp extends ScaleWebApp {
 		new WebDriverWait(driver, 500).until(
 				ExpectedConditions.textToBe(By.id(rcBtnId), "Classify"));
 		this.waitForAlertConditionsTableLoad();
-		
+
 	}
-	
+
 }

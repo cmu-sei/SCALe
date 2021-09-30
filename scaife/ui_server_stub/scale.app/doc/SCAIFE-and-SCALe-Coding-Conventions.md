@@ -97,25 +97,26 @@ have some additional constraints:
    the module as described in the top comments is sufficient
    documentation. In these cases there is no need to add a "--help"
    command line argument and associated help text.
-   
+
 ### Python3 versus Python2
-SCALe code, which is located in `scale.app` directory and below, still uses the old Python version 2 (here, called Python2). 
+
+SCALe code, which is located in `scale.app` directory and below, still uses the old Python version 2 (here, called Python2).
 The rest of SCAIFE uses Python version 3 (here, called Python3). There might currently exist
 rare exceptions where non-SCALe code in SCAIFE uses Python2 or SCALe code uses Python3.
 
- * Even within SCALe code, try to comply as much as possible with Python3 requirements, 
- where the code will also work in python2. Most print statements can be changed to work 
- for both python3 and python2 (often simply by adding parentheses), and developers 
+ * Even within SCALe code, try to comply as much as possible with Python3 requirements,
+ where the code will also work in python2. Most print statements can be changed to work
+ for both python3 and python2 (often simply by adding parentheses), and developers
  should do that.
- * We plan to upgrade SCALe to Python3. We have already put in considerable effort to 
- make much of the current SCALe code compatible with Python3, but it will take more 
+ * We plan to upgrade SCALe to Python3. We have already put in considerable effort to
+ make much of the current SCALe code compatible with Python3, but it will take more
  work to complete.
- * If you absolutely must use Python2 outside of the `scale.app` repository, there 
- should be a very strong justification. In that case, the user must be notified of 
- this unusual requirement. The use-statement should include that fact with the 
- following text: "This script must be run with python2, different than the 
- default for scripts in the {{rapidclass_scripts}} path." Also, the overview of 
- what the script does in {{Back-End-Script-Design.md}} must specify that it 
+ * If you absolutely must use Python2 outside of the `scale.app` repository, there
+ should be a very strong justification. In that case, the user must be notified of
+ this unusual requirement. The use-statement should include that fact with the
+ following text: "This script must be run with python2, different than the
+ default for scripts in the {{rapidclass_scripts}} path." Also, the overview of
+ what the script does in {{Back-End-Script-Design.md}} must specify that it
  uses Python2.
 
 ### Non-Scriptable Conventions
@@ -125,6 +126,23 @@ script. Some smaller platforms use Dash or some other minimal
 shell. For maximum portability run `/bin/sh` instead of Bash. The Bourne
 shell (`/bin/sh`) is available on all POSIX-compliant platforms, and is
 just as suitable as Bash for running shell scripts.
+
+Many Ruby or Rails exceptions get swallowed by SCALe. If you suspect a Ruby function is throwing an exception that you cannot see, add this code to the end of the function (before the `end` statement)
+
+```
+Document this technique for catching Ruby errors:
+  rescue => e
+    puts("CAUGHT ERROR " + e.to_s + "\n")
+    puts(e.backtrace.join("\n"))
+  end
+```
+
+This will cause any thrown exception to be printed to the Rails console.
+
+#### Default Values
+
+The `scale.app/config/application.rb` is the recommended place for
+storing default values that are used by the Ruby code in SCALe.
 
 ### Copyright Conventions
 
@@ -164,7 +182,7 @@ With that, if `PRINT_TO_CONSOLE` is set to `True` inside the helper controller t
 
 This section documents SCAIFE development design decisions which developers need to know about, which aren't documented in the formal SCAIFE APIs. This documentation is important so developers can avoid violating architectural design decisions they aren't aware of.
 
-These design decisions include: 
+These design decisions include:
 
 * Only authors of SCAIFE packages are allowed to delete those SCAIFE packages from the SCAIFE DataHub.
 * Only authors of SCAIFE projects are allowed to delete those SCAIFE projects from the SCAIFE DataHub.

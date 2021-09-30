@@ -5,8 +5,10 @@ This file is split into two parts: an upper and a lower div, which
 correspond to the upper and lower halves of the webpage.
 -->
 <% if flash[:scaife_run_classifier_message] %>
-  <%= javascript_tag "alert('" + flash[:scaife_run_classifier_message] + "')" %>
+  <%= javascript_tag "alert('" + escape_javascript(flash[:scaife_run_classifier_message]) + "')" %>
 <% end %>
+
+<%= render partial: "projects/scaife/scaifeUpdates.html.erb", locals: { project_id: @project_id } %>
 
 <div id="adjustable-splitter">
 
@@ -14,12 +16,30 @@ correspond to the upper and lower halves of the webpage.
     <!-- A heading for the form -->
     <div class="row">
       <h1>Project: <%= @project.name %></h1>
+      <% if ENV['SCALE_EXPERIMENT'] == "1" %>
+        <%= 'Experiment' %>
+      <% end %>
     </div>
     <div class="row">
       <div class="col-sm-1 pull-down" style="padding: 0px;">
         <%= link_to "New Alert + Condition", "/projects/#{@project_id}/add", id: "create_new_alert_and_condition" %>
       </div>
-      <div class="col-sm-9"></div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-1">
+        <%= button_to 'Order by', '/alertConditions/sort_by_keys',
+            {id: "sorting", remote: true, method: :get, role: 'button',
+            'data-toggle' =>  "modal", 'data-target' => '#sorting-modal',
+            class: 'btn btn-primary nav-button'}  %>
+        <div id="sorting-modal" class="modal fade" role="dialog1" aria-labelledby="sorting-modal-label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <%= text_field_tag(:sort_keys_selected, @sort_keys_selected, :class=>"form-control", readonly: true) %>
+      </div>
+      <div class="col-sm-2"></div>
       <div class="col-sm-2" style="padding: 0px;">
         <span class="pull-right">
           <%= label_tag(:fusedView, "Fused View: ", :class=>"control-label") %>
@@ -53,7 +73,7 @@ correspond to the upper and lower halves of the webpage.
                 <!-- Form input for filtering by verdict -->
                 <%= label_tag(:verdict, "Verdict: ", :class=>"col-sm-1 control-label") %>
                 <div class="col-sm-2">
-                  <%= select_tag(:verdict, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3], ['True',4]],selected: @verdict), :class => "form-control") %>
+                  <%= select_tag(:verdict, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3], ['True',4], ['Known',5]],selected: @verdict), :class => "form-control") %>
                 </div>
                 <!-- Form input for filtering by previous -->
                 <%= label_tag(:previous, "Previous: ", :class=>"col-sm-1 control-label") %>
@@ -61,9 +81,9 @@ correspond to the upper and lower halves of the webpage.
                   <%= select_tag(:previous, options_for_select([['--',-1],['Unknown',0],['Complex',1],['False',2],['Dependent',3],['True',4]], selected: @previous), :class => "form-control") %>
                 </div>
                 <!-- Form input for filtering by path -->
-                <%= label_tag(:path, " Path: ", :class=>"col-sm-1 control-label") %>
+                <%= label_tag(:filter_path, " Path: ", :class=>"col-sm-1 control-label") %>
                 <div class="col-sm-2">
-                  <%= text_field_tag(:path, @path, :class=>"form-control") %>
+                  <%= text_field_tag(:filter_path, @filter_path, :class=>"form-control") %>
                 </div>
               </div> <!-- end form-group -->
 
@@ -98,17 +118,12 @@ correspond to the upper and lower halves of the webpage.
 
               <!-- filter options Row 3 -->
               <div class="form-group">
-                <!-- Form input for deciding sort direction -->
-                <%= label_tag(:sort_direction, "Sort direction: ", :class=>"col-sm-1 control-label") %>
-                <div class="col-sm-1">
-                      <%= select_tag(:sort_direction, options_for_select([["asc", "asc"],["desc", "desc"]], selected: @sort_direction), :class => "form-control") %>
-                </div>
-                <!-- Form input for deciding sort criterion-->
-                <%= label_tag(:sort_column, "Sort by: ", :class=>"col-sm-1 control-label") %>
-                <!--add ["CWE Likelihood","cwe_likelihood"] later for filtering and also notes-->
+                 <!-- Form input for filtering by category -->
+                <%= label_tag(:category, " Category: ", :class=>"col-sm-1 control-label") %>
                 <div class="col-sm-2">
-                      <%= select_tag(:sort_column, options_for_select([["Display (d) ID", "id"],["Meta-Alert (m) ID", "meta_alert_id"],["Flag", "flag"],["Line", "line"],["Severity", "severity"],["Likelihood","likelihood"],["Remediation","remediation"],["CERT Priority","priority"],["Level","level"],["Checker","checker"],["Message","message"],["Path","path"], ["Label","class_label"], ["Confidence","confidence"], ["AlertCondition Priority", "meta_alert_priority"]], selected: @sort_column), :class => "form-control") %>
+                  <%= select_tag(:category, options_for_select([["All", "All"], ["e-FP", "e-FP"],["e-TP", "e-TP"], ["I", "I"]], selected: @category), :class => "form-control") %>
                 </div>
+
                 <!-- Form input for shuffling by seed -->
                 <%= label_tag(:seed, "Shuffle Seed: ", :class=>"col-sm-1 control-label") %>
                 <div class="col-sm-1">

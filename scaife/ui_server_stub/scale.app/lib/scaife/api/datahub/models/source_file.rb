@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -45,6 +45,8 @@ module Datahub
 
     attr_accessor :defect_info
 
+    attr_accessor :line_count
+
     attr_accessor :code_metrics_data
 
     attr_accessor :functions
@@ -57,6 +59,7 @@ module Datahub
         :'filepath' => :'filepath',
         :'filepath_depth' => :'filepath_depth',
         :'defect_info' => :'defect_info',
+        :'line_count' => :'line_count',
         :'code_metrics_data' => :'code_metrics_data',
         :'functions' => :'functions'
       }
@@ -73,9 +76,10 @@ module Datahub
         :'source_file_id' => :'String',
         :'filename' => :'String',
         :'filepath' => :'String',
-        :'filepath_depth' => :'String',
-        :'defect_info' => :'Object',
-        :'code_metrics_data' => :'Array<Hash>',
+        :'filepath_depth' => :'Integer',
+        :'defect_info' => :'Array<DefectInfo>',
+        :'line_count' => :'Integer',
+        :'code_metrics_data' => :'Object',
         :'functions' => :'Array<SourceFunction>'
       }
     end
@@ -118,13 +122,17 @@ module Datahub
       end
 
       if attributes.key?(:'defect_info')
-        self.defect_info = attributes[:'defect_info']
+        if (value = attributes[:'defect_info']).is_a?(Array)
+          self.defect_info = value
+        end
+      end
+
+      if attributes.key?(:'line_count')
+        self.line_count = attributes[:'line_count']
       end
 
       if attributes.key?(:'code_metrics_data')
-        if (value = attributes[:'code_metrics_data']).is_a?(Array)
-          self.code_metrics_data = value
-        end
+        self.code_metrics_data = attributes[:'code_metrics_data']
       end
 
       if attributes.key?(:'functions')
@@ -157,6 +165,7 @@ module Datahub
           filepath == o.filepath &&
           filepath_depth == o.filepath_depth &&
           defect_info == o.defect_info &&
+          line_count == o.line_count &&
           code_metrics_data == o.code_metrics_data &&
           functions == o.functions
     end
@@ -170,7 +179,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [source_file_id, filename, filepath, filepath_depth, defect_info, code_metrics_data, functions].hash
+      [source_file_id, filename, filepath, filepath_depth, defect_info, line_count, code_metrics_data, functions].hash
     end
 
     # Builds the object from hash

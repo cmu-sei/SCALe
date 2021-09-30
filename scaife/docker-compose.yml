@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -36,7 +36,13 @@ services:
   datahub:
     image: scaife_research_lsi/scaife.datahub:scaife
     container_name: datahub
-    build: ./datahub_server_stub
+    build:
+      context: ./datahub_server_stub
+      args:
+        # Set USECERT to the server name of git or bitbucket server (ie.
+        # bitbucket.myorg). For SEI users this would be
+        # bitbucket.cc.cert.org
+        USECERT:
     ports:
       - "8084:8084"
     depends_on:
@@ -114,7 +120,7 @@ services:
       - "28087:28087"
 
   pulsar:
-    image: apachepulsar/pulsar:2.5.0
+    image: apachepulsar/pulsar:2.8.1
     container_name: pulsar
     command:  bin/pulsar standalone
     restart: always
@@ -123,3 +129,10 @@ services:
       - "8080:8080"
     logging:
       driver: "none"
+
+  integration:
+    image: scaife_research_lsi/scaife.integration:scaife
+    container_name: integration
+    build: ./ui_server_stub
+    ports:
+      - "8088:8088"

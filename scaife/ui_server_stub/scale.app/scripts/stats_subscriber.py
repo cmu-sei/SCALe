@@ -5,7 +5,7 @@
 # Publishers must use the same topic string to send data objects of a given type.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -96,6 +96,10 @@ def pass_messages(consumer, q):
     while True:
         msg = consumer.receive()
         msg_data = msg.value()
+        if msg_data.probability_data:
+            # since pulsar.schema doesn't support Arrays of Records
+            msg_data.probability_data = \
+                [ProbabilityData(**x) for x in msg_data.probability_data]
         try:
             # Print Statement available for visual testing
             print("Child Process Received a Message")

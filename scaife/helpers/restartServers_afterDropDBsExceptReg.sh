@@ -10,7 +10,7 @@
 #    kill 17407 17408 17409 17410
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 

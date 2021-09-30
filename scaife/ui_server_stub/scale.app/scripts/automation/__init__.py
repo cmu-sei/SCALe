@@ -1,5 +1,3 @@
-import os, re
-
 # This is the automation module that uses the automate module to perform
 # various scenarios and operations on SCALe. Submodules include
 # "scenarios" that perform specific compound tasks such as creating the
@@ -35,7 +33,7 @@ import os, re
 #    main()
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -57,6 +55,10 @@ import os, re
 # 
 # DM19-1274
 # </legal>
+
+from __future__ import print_function
+
+import os, re
 
 _scenario_functions = {}
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -42,46 +42,136 @@ $displayedAlertConditions = []
 class AlertConditionsController < ApplicationController
 
   respond_to :html, :json
+  require 'open3'
   require 'csv'
   require 'will_paginate/array'
   include LogDet
   include Scaife::FormatConversion
   include Utility::Timing
 
-  def index
-    # Fetch all the form components, and update session variables to persist filter selections
-    @ID = helpers.getFilterSelection(:ID, :id_field, "")
-    @meta_alert_ids = helpers.getFilterSelection(:meta_alert_id,
-      :meta_alert_ids, "")
-    @display_ids = helpers.getFilterSelection(:display_id, :display_ids, "")
-    @verdict = helpers.getFilterSelection(:verdict,:verdict, "-1")
-    @previous = helpers.getFilterSelection(:previous, :previous, "-1")
-    @alertConditionsPerPage = helpers.getFilterSelection(:alertConditionsPerPage,
-      :alert_conditions_per_page, "10").to_i
-    @sort_direction = helpers.getFilterSelection(:sort_direction,
-      :sort_direction, "desc")
-    @path = helpers.getFilterSelection(:path, :path, "")
-    @line = helpers.getFilterSelection(:line, :line, "")
-    @tool = helpers.getFilterSelection(:tool, :tool, "")
-    @sort_column = helpers.getFilterSelection(:sort_column, :sort_column,
-      "meta_alert_priority")
-    @seed = helpers.getFilterSelection(:seed, :seed, "")
-    @checker = helpers.getFilterSelection(:checker, :checker, "")
-    @condition = helpers.getFilterSelection(:condition, :condition, "")
-    @selected_id_type = helpers.getFilterSelection(:id_type, :id_type,
-      "ALL IDs")
-    @selected_taxonomy = helpers.getFilterSelection(:taxonomy, :taxonomy,
-      "View All")
-    @project_id = helpers.getFilterSelection(:project_id, :project_id,
-      Project.first.id).to_i
+  # Produce hash of filtering & other forms in Web UI
+  def ui_vars
+    # Most UI fields can be assigned the same way
+    most_fields = {
+      :project_id => [:project_id, :project_id, Project.first.id],
+      :sort_keys_selected => [:sort_keys_selected, :sort_keys_selected,
+                              Rails.configuration.x.default_ordering],
+      :selected_id_type => [:id_type, :id_type, "ALL IDs"],
+      :ID => [:ID, :id_field, ""],
+      :meta_alert_id => [:meta_alert_id, :meta_alert_ids, ""],
+      :display_ids => [:display_id, :display_ids, ""],
+
+      :verdict => [:verdict,:verdict, "-1"],
+      :previous => [:previous, :previous, "-1"],
+      :path => [:filter_path, :filter_path, ""],
+      :line => [:line, :line, ""],
+      :checker => [:checker, :checker, ""],
+      :condition => [:condition, :condition, ""],
+      :tool => [:tool, :tool, ""],
+      :selected_taxonomy => [:taxonomy, :taxonomy, "View All"],
+      :category => [:category, :category, "All"],
+      :seed => [:seed, :seed, ""],
+
+      :alertConditionsPerPage => [:alertConditionsPerPage, :alert_conditions_per_page, "10"],
+    }
+    ui = {}
+    most_fields.each do |k, v|
+      ui[k] = helpers.getFilterSelection(v[0], v[1], v[2])
+    end
+    [:project_id, :alertConditionsPerPage].each do |k|
+      ui[k] = ui[k].to_i
+    end
+    ui[:path] = ui[:path].strip()
+    ui[:filter_path] = ui[:path] # TODO eventually take out :path, used to represent path in URL (RC-1855)
 
     session[:view] = (session[:view] == "" || session[:view] == nil) ? "fused" : session[:view]
-    @view = session[:view]
+    ui[:view] = session[:view]
 
     session[:scaife_mode] = (session[:scaife_mode] == "" || session[:scaife_mode] == nil) ? "Demo" : session[:scaife_mode]
-    @scaife_mode = session[:scaife_mode]
+    ui[:scaife_mode] = session[:scaife_mode]
 
-    @scaife_mode_msg = session[:scaife_mode_msg]
+    ui[:scaife_mode_msg] = session[:scaife_mode_msg]
+
+    @project = Project.find_by_id(ui[:project_id])
+    save_project = false
+
+    if ![nil, "", "0"].include?(@project.default_shuffle_seed)
+      ui[:seed] = @project.default_shuffle_seed.to_i
+      session[:seed] = ui[:seed]
+      @project.default_shuffle_seed = ""
+      save_project = true
+    end
+    if ![nil, "", "0", "0.0"].include?(@project.default_efp_ct)
+      @project.efp_confidence_threshold = @project.default_efp_ct.to_f
+      @project.default_efp_ct = ""
+      save_project = true
+    end
+    if ![nil, "", "0", "0.0"].include?(@project.default_etp_ct)
+      @project.confidence_threshold = @project.default_etp_ct.to_f
+      @project.default_etp_ct = ""
+      save_project = true
+    end
+    if ![nil, ""].include?(@project.default_ordering)
+      ui[:sort_keys_selected] = @project.default_ordering
+      session[:sort_keys_selected] = ui[:sort_keys_selected]
+      @project.default_ordering = ""
+      save_project = true
+    end
+    if ![nil, ""].include?(@project.default_filtering)
+      # For now if this is nonempty, we assume the filter is Category='I'
+      # TODO (RC-1875) update filter values from default_filtering
+      # which should go to :verdict, :path, :line, etc.
+      ui[:category] = "I"
+      session[:category] = ui[:category]
+      @project.default_filtering = ""
+      save_project = true
+    end
+
+    if save_project
+      @project.save
+    end
+
+    # If a classifier was run on this project previously use that value as default
+    ui[:classifier_chosen] = ""
+    ui[:predicted_verdicts] = 0
+    if @project.last_used_confidence_scheme.present?
+      selected_classifier = ClassifierScheme.find_by_id(@project.last_used_confidence_scheme)
+
+      if selected_classifier.present?
+        ui[:classifier_chosen] = selected_classifier.classifier_instance_name
+        ui[:scaife_classifier_instance_id] = selected_classifier.scaife_classifier_instance_id
+        ui[:confidence_threshold] = Project.where(id: @project_id).pluck(:confidence_threshold)
+        ui[:predicted_verdicts] = Display.where(project_id: @project_id)
+                                    .where('displays.confidence >= ?', ui[:confidence_threshold])
+                                    .uniq.pluck(:meta_alert_id).size
+      end
+    end
+
+    return ui
+  end
+
+
+  def index
+    if @errors.blank?
+      @errors = Set[]
+    end
+
+    # Get UI elements, make hash into class instance vars
+    ui = ui_vars
+    ui.each do |k, v|
+      self.instance_variable_set("@" + k.to_s, v)
+    end
+
+    if ENV["SCALE_EXPERIMENT"] == "1"
+      check_experiment_finished(@project_id)
+    end
+
+    @scaife_active = self.scaife_active()
+
+    if @scaife_active
+      flash[:scaife_updates_available] = has_scaife_updates(@project_id)
+    end
+
     ## can add notes and cwe_likelihood later for filtering
     # @cwe_likelihood = (params[:cwe_likelihood] == nil || params[:cwe_likelihood] == "") ? -1 : params[:cwe_likelihood]
 
@@ -121,133 +211,107 @@ class AlertConditionsController < ApplicationController
     #Variable for classifier and prioritization scheme header dropdowns to show only on alertConditions page
     @inAlertConditions = []
 
-  # Get the project object
-  @project = Project.find_by_id(@project_id)
+    # Get the project object
+    @project = Project.find_by_id(@project_id)
 
-  # If a classifier was run on this project previously use that value as default
-  @classifier_chosen = ""
+    # Determines of the project has been uploaded to SCAIFE, defaults to it has not been uploaded (used in Demo mode also)
+    @project_not_uploaded_to_scaife = true
 
-  if @project.last_used_confidence_scheme.present?
-    selected_classifier = ClassifierScheme.find_by_id(@project.last_used_confidence_scheme)
+    # Retrieve available classifiers from SCAIFE
+    @classifierList = []
+    @priorityList = []
+    scaife_priority_ids = []
 
-    if selected_classifier.present?
-      @classifier_chosen = selected_classifier.classifier_instance_name
-    end
-  end
+    if "Connected" == @scaife_mode
+      c = ScaifeStatisticsController.new
+      list_classifiers_result = c.listClassifiers(session[:login_token])
 
-  # Determines of the project has been uploaded to SCAIFE, defaults to it has not been uploaded (used in Demo mode also)
-  @project_not_uploaded_to_scaife = true
-
-  # Retrieve available classifiers from SCAIFE
-  @classifierList = []
-  @priorityList = []
-  scaife_priority_ids = []
-
-  if "Connected" == @scaife_mode
-    c = ScaifeStatisticsController.new
-    list_classifiers_result = c.listClassifiers(session[:login_token])
-
-    if list_classifiers_result.is_a?(String)
+      if list_classifiers_result.is_a?(String)
         puts "#{__method__}() error listClassifiers(): #{c.scaife_status_code}: #{list_classifiers_result}"
-      @classifierScaifeError = list_classifiers_result
-    else
-      if list_classifiers_result.blank?
-        @classifierScaifeError = "Classifiers Unavailable in the SCAIFE Stats Module"
+        @classifierScaifeError = list_classifiers_result
       else
-        # make sure there are some SCAIFE projects to select
-        c = ScaifeDatahubController.new
-        list_projects_result = c.listProjects(session[:login_token])
-        if list_projects_result.is_a?(String) #Failed to connect to Registration/DataHub server
-         puts "#{__method__}() error listProjects(): #{c.scaife_status_code}: #{list_projects_result}"
-          @classifierScaifeError = "Failed to retrieve SCAIFE projects from DataHub"
-        elsif list_projects_result.blank?
-          @classifierScaifeError = "Must upload a project to SCAIFE first"
+        if list_classifiers_result.blank?
+          @classifierScaifeError = "Classifiers Unavailable in the SCAIFE Stats Module"
         else
-          list_classifiers_result.each do |object|
-            @classifierList.push(object.classifier_type)
+          # make sure there are some SCAIFE projects to select
+          c = ScaifeDatahubController.new
+          list_projects_result = c.listProjects(session[:login_token])
+          if list_projects_result.is_a?(String) #Failed to connect to Registration/DataHub server
+            puts "#{__method__}() error listProjects(): #{c.scaife_status_code}: #{list_projects_result}"
+            @classifierScaifeError = "Failed to retrieve SCAIFE projects from DataHub"
+          elsif list_projects_result.blank?
+            @classifierScaifeError = "Must upload a project to SCAIFE first"
+          else
+            list_classifiers_result.each do |object|
+              @classifierList.push(object.classifier_type)
+            end
           end
         end
       end
-    end
 
-    # Get the available classifier instances that can be run in SCAIFE
-    scale_existing_classifiers = ClassifierScheme.pluck("classifier_instance_name", "scaife_classifier_instance_id")
+      # Get the available classifier instances that can be run in SCAIFE
+      scale_existing_classifiers = ClassifierScheme.pluck("classifier_instance_name", "scaife_classifier_instance_id")
 
-    @available_classifiers_to_run = []
+      @available_classifiers_to_run = []
 
-    if scale_existing_classifiers.present?
-      scale_existing_classifiers.each do |class_name, class_id|
-        if class_id.present?
-          @available_classifiers_to_run.push(class_name) # Classifier Instance has been created in SCAIFE and can be used
+      if scale_existing_classifiers.present?
+        scale_existing_classifiers.each do |class_name, class_id|
+          if class_id.present?
+            @available_classifiers_to_run.push(class_name) # Classifier Instance has been created in SCAIFE and can be used
+          end
         end
       end
-    end
 
-    if @project.scaife_project_id.present?
-      @project_not_uploaded_to_scaife = false
-    end
+      if @project.scaife_project_id.present?
+        @project_not_uploaded_to_scaife = false
+      end
 
-    c = ScaifePrioritizationController.new
+      c = ScaifePrioritizationController.new
 
-    scaife_project_id = c.get_scaife_project_id(@project_id)
-    result = c.listPriorities(session[:login_token], scaife_project_id)
+      scaife_project_id = c.get_scaife_project_id(@project_id)
+      result = c.listPriorities(session[:login_token], scaife_project_id)
 
-    if result.is_a?(String)
-      puts "#{__method__}() error listPriorities(): #{c.scaife_status_code}: #{result}"
+      if result.is_a?(String)
+        puts "#{__method__}() error listPriorities(): #{c.scaife_status_code}: #{result}"
+      else
+        result.each do |priority_scheme|
+          @priorityList.push([priority_scheme.priority_scheme_id, priority_scheme.priority_scheme_name])
+          scaife_priority_ids.push(priority_scheme.priority_scheme_id)
+        end
+      end
+
+      scale_priority_list = []
+      scale_priority_list.push(*PriorityScheme.pluck("id", "name", "scaife_p_scheme_id", "p_scheme_type"))
+
+      if not scaife_priority_ids.empty?
+        scale_priority_list.each do |p|
+          if not scaife_priority_ids.include? p[2]
+            if p[3] == "global" or p[3] == "local"
+              @priorityList.push([p[0], p[1]])
+            end
+          end
+        end
+      else
+        @priorityList.push(*PriorityScheme.pluck("id", "name")) #["priority1", "priority2", "priority3"]
+      end
+
+      @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
     else
-      result.each do |priority_scheme|
-        @priorityList.push([priority_scheme.priority_scheme_id, priority_scheme.priority_scheme_name])
-        scaife_priority_ids.push(priority_scheme.priority_scheme_id)
-      end
-    end
+      @classifierList = ["Demo-Xgboost", "Demo-Random Forest", "Demo-Logistic Regression"]
 
-    scale_priority_list = []
-    scale_priority_list.push(*PriorityScheme.pluck("id", "name", "scaife_p_scheme_id", "p_scheme_type"))
+      # In Demo mode all classifiers can be run since the data is artificial
+      @available_classifiers_to_run = ClassifierScheme.pluck("classifier_instance_name")
 
-    if not scaife_priority_ids.empty?
-      scale_priority_list.each do |p|
-        if not scaife_priority_ids.include? p[2]
-          if p[3] == "global" or p[3] == "local"
-            @priorityList.push([p[0], p[1]])
-          end
-        end
-      end
-    else
-      @priorityList.push(*PriorityScheme.pluck("id", "name")) #["priority1", "priority2", "priority3"]
-    end
+      @priorityList = PriorityScheme.pluck("id", "name") #["priority1", "priority2", "priority3"]
+      @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
+    end # end if SCAIFE connected
 
-    @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
-  else
-    @classifierList = ["Demo-Xgboost", "Demo-Random Forest", "Demo-Logistic Regression"]
+    @existingClassifiers = ClassifierScheme.pluck("classifier_instance_name, classifier_type")
 
-    # In Demo mode all classifiers can be run since the data is artificial
-    @available_classifiers_to_run = ClassifierScheme.pluck("classifier_instance_name")
+    # Using triple-click to select and copy a path from the web app
+    # will include a leading and trailing space, so remove them.
 
-    @priorityList = PriorityScheme.pluck("id", "name") #["priority1", "priority2", "priority3"]
-    @priorityList.push(["0", "Create New Scheme"]) #add a create new scheme to the list of available values
-  end # end if SCAIFE connected
-
-  @existingClassifiers = ClassifierScheme.pluck("classifier_instance_name, classifier_type")
-
-         # Using triple-click to select and copy a path from the web app
-         # will include a leading and trailing space, so remove them.
-
-
-        # Load the alertConditions view page
-
-          #Taxonomies
-
-          @cert_rules = []
-          @cwes = []
-
-          @project.displays.pluck(:condition).uniq.each do |r|
-             cond_prefix = r[0..2]
-             if cond_prefix == "CWE"
-               @cwes.append(r)
-             else
-               @cert_rules.append(r)
-             end
-          end
+    # Load the alertConditions view page
 
     @options_for_ids = ["All IDs", "Display (d) ID", "Meta-Alert (m) ID"]
     @ids = Hash.new
@@ -258,30 +322,12 @@ class AlertConditionsController < ApplicationController
     #<%= number_field_tag(:ID, @ID) %>
 
     @options_for_categories = ["View All", "CWEs", "CERT Rules"]
-    @taxonomies = Hash.new
-    @taxonomies["View All"] = ""
-    @taxonomies["CWEs"] = @cwes
-    @taxonomies["CERT Rules"] = @cert_rules
-    @path = @path.strip
 
-    if(@selected_taxonomy == "View All")
-      @taxonomy = @taxonomies["View All"]
-    elsif(@selected_taxonomy == "CWEs")
-      if @taxonomies["CWEs"].empty?
-        @taxonomy = [""]
-      else
-        @taxonomy = @taxonomies["CWEs"]
-      end
-    else
-      if @taxonomies["CERT Rules"].empty?
-        @taxonomy = [""]
-      else
-        @taxonomy = @taxonomies["CERT Rules"]
-      end
-    end
-
-    # Construct the SQL query
-    filter = Display.constructSQLFilter(@project_id, @selected_id_type, @ID, @verdict, @path, @line, @tool, @checker, @condition, @taxonomy) #, @previous, @cwe_likelihood, @notes)
+    # # Construct the SQL query
+    tc = taxonomy_conditions(@project, ui[:selected_taxonomy])
+    filter = Display.constructSQLFilter(@project_id, ui, tc,
+                                        @project[:efp_confidence_threshold],
+                                        @project[:confidence_threshold])
 
     # If no page selected, default to the first
     page = params[:page].to_i || 1
@@ -297,8 +343,6 @@ class AlertConditionsController < ApplicationController
           @tools = @project.displays.pluck(:tool).uniq.map {|a| [a,a]}.sort.unshift(["All Tools", ""])
           @conditions = @project.displays.pluck(:condition).uniq.map {|a| [a,a]}.sort.unshift(["All", ""])
 
-
-
           @projects = Project.all.map {|p| [p.name, p.id]}.sort
         end
       }
@@ -310,19 +354,8 @@ class AlertConditionsController < ApplicationController
 
         $alertConditionHash = Hash.new
         $fusedAlertConditionHash = Hash.new
-        ordering = @sort_column + " " + @sort_direction + ", path asc, line asc"
-        @displays = Display
-          .where(filter)
-          .order(ordering)
 
-        if @seed != ""
-          if @seed.to_i == 0
-            rng = Random.new
-          else
-            rng = Random.new(@seed.to_i)
-          end
-          @displays = @displays.shuffle(random: rng)
-        end
+        @displays = display_list( filter, ui[:sort_keys_selected], ui[:seed])
 
         $displayedAlertConditions = @displays
 
@@ -355,22 +388,183 @@ class AlertConditionsController < ApplicationController
     end
 
     update_confidence_fields(@project_id)
+  rescue => e
+    puts("CAUGHT ERROR " + e.to_s + "\n")
+    puts(e.backtrace.join("\n"))
   end
 
-   # Check for updates to confidence field
+
+  # Return list of display elements to
+  def display_list(filter, ordering, seed)
+    ordering = ordering.split(', ').map { |key|
+      Rails.configuration.x.all_sort_keys[key]
+    }.join(', ')
+
+    list = Display.where(filter).order(ordering)
+
+    if seed != ""
+      if seed.to_i == 0
+        rng = Random.new
+      else
+        rng = Random.new(seed.to_i)
+      end
+      list = list.shuffle(random: rng)
+    end
+    return list
+  end
+
+  # Return conditions supported by current taxonomy (or "" for all)
+  def taxonomy_conditions(project, selected_taxonomy)
+    cert_rules = []
+    cwes = []
+
+    project.displays.pluck(:condition).uniq.each do |r|
+      cond_prefix = r[0..2]
+      if cond_prefix == "CWE"
+        cwes.append(r)
+      else
+        cert_rules.append(r)
+      end
+    end
+
+    tax_conditions = Hash.new
+    tax_conditions["View All"] = ""
+    tax_conditions["CWEs"] = cwes
+    tax_conditions["CERT Rules"] = cert_rules
+
+    conditions = [""]
+    if(selected_taxonomy == "View All")
+      conditions = tax_conditions["View All"]
+    elsif(selected_taxonomy == "CWEs")
+      if !tax_conditions["CWEs"].empty?
+        conditions = tax_conditions["CWEs"]
+      end
+    else
+      if !tax_conditions["CERT Rules"].empty?
+        conditions = tax_conditions["CERT Rules"]
+      end
+    end
+    return conditions
+  end
+
+
+  def sortByKeysModal
+    # These two vars are lists...but elsewhere they are strings
+    @sort_keys_selected = session[:sort_keys_selected].split(', ')
+    @sort_keys_unselected = Rails.configuration.x.all_sort_keys.keys - @sort_keys_selected
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def sortByKeysSubmit
+    @sort_keys_selected = params[:sort_keys_selected]
+    session[:sort_keys_selected] = @sort_keys_selected
+
+    # currently copied from submitLogin
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # See if experiment has completed
+  def check_experiment_finished(project_id)
+    project = Project.find_by_id(project_id)
+    experiment = Experiment.configs[project[:experiment]]
+    if experiment.nil?
+      return
+    end
+    max_adjudications = experiment.max_adjudications
+    if max_adjudications.nil?
+      max_adjudications == 0
+    else
+      max_adjudications = max_adjudications.to_i
+    end
+    knowns = Display.where("verdict != 0", project: project_id) # not Unknown
+    puts("Experiment: #{knowns.size.to_s} known out of #{max_adjudications.to_s}!\n")
+    if max_adjudications > 0 && max_adjudications <= knowns.size
+      finish_experiment(project, project_id)
+    end
+  end
+
+  def manual_finish_experiment()
+    project_id = params[:project_id]
+    project = Project.find_by_id(project_id)
+    finish_experiment(project, project_id)
+  end
+
+  # Mark experiment as finished & stop
+  def finish_experiment(project, project_id)
+    puts("Ending experiment #{project[:name]}")
+    @errors.add("ENDING EXPERIMENT #{project[:name]}. DO NOT ADJUDICATE MORE META-ALERTS. Check the export directory for exported experiment data files. For large codebases, this will take awhile to export. DO NOT STOP OR RESTART ANY OF THE CONTAINERS UNTIL ALL 3 FILES HAVE BEEN EXPORTED AFTER THE EXPERIMENT ENDS. Also, please be careful to save those end-of-experiment files someplace safe that will remain, so you can share information about classification performance with the SEI research team.")
+    project[:experiment] = nil
+    project.save
+
+    experiment = Experiment.find_by(primary_project_id: project_id)
+    experiment_data = experiment.as_json
+
+    performance_metrics = []
+    classifier_metrics = []
+
+    PerformanceMetric.all.each do |pm|
+      performance_metrics.append(pm.as_json)
+    end
+
+    ClassifierMetric.all.each do |cm|
+      classifier_metrics.append(cm.as_json)
+    end
+
+    manual_verdicts = Determination.where(project_id: project_id, verdict: 2)
+                        .or(Determination.where(project_id: project_id, verdict: 4)).size
+    predicted_verdicts = Display.where(project_id: project_id)
+                           .where('displays.confidence >= ?',
+                                  Project.where(id: @project_id).pluck(:confidence_threshold))
+                           .uniq.pluck(:meta_alert_id).size
+
+    exports_path = "/home/exports"
+    export_file_name = "#{exports_path}/scale_#{project[:name].gsub(" ", "_")}.json"
+    export_data = {
+      :experiment_data => experiment_data,
+      :performance_metrics => performance_metrics,
+      :classifier_metrics => classifier_metrics,
+      :manual_verdicts => manual_verdicts,
+      :predicted_verdicts => predicted_verdicts,
+    }
+
+    puts("experiment_data is " + experiment_data.to_s() + "\n")
+    puts("manual_verdicts is " + manual_verdicts.to_s() + "\n")
+    puts("predicted_verdicts is " + predicted_verdicts.to_s() + "\n")
+
+    File.open(export_file_name, "w") { |f| f.write export_data.to_json }
+
+    puts("Local experiment finished & exported!\nInitiating export of Datahub server and Stats server experiment data.")
+
+    scaife_project_id = project[:scaife_project_id]
+    c = ScaifeDatahubController.new
+    result_c = c.initiateExperimentExport(session[:login_token], scaife_project_id)
+    puts("Datahub export result: #{result_c}")
+
+    s = ScaifeStatisticsController.new
+    result_s = s.initiateExperimentExport(session[:login_token], scaife_project_id)
+    puts("Stats export result: #{result_s}")
+
+  end
+
+  # Check for updates to confidence field
   def update_confidence_fields(scale_project_id)
     scale_project = Project.find_by_id(scale_project_id)
     if scale_project[:confidence_lock] == 2
-      puts("222 Reading next_confidence fields ")
       scale_project.update_attribute(:confidence_lock, 3)
       alertConditions = Display.where(project_id: scale_project_id)
       alertConditions.each do |d|
         if d[:project_id] == scale_project_id and
           d[:next_confidence] != nil and
           d[:next_confidence] != d[:confidence]
-          puts("333 Reading next_confidence fields ")
           d.update_attribute(:confidence, d[:next_confidence])
           d.update_attribute(:class_label, d[:class_label])
+          d.update_category_project(scale_project_id)
         end
       end
       scale_project.update_attribute(:confidence_lock, 0)
@@ -384,11 +578,10 @@ class AlertConditionsController < ApplicationController
     session[:display_ids] = nil
     session[:verdict] = nil
     session[:previous] = nil
-    session[:sort_direction] = nil
-    session[:path] = nil
+    session[:category] = nil
+    session[:filter_path] = nil
     session[:line] = nil
     session[:tool] = nil
-    session[:sort_column] = nil
     session[:seed] = nil
     session[:checker] = nil
     session[:condition] = nil
@@ -425,6 +618,7 @@ class AlertConditionsController < ApplicationController
         $fusedAlertConditionHash[meta_alert_id].each do |sub|
           d = Display.find_by_id(sub[:id].to_i)
           @scale_project_id = d[:project_id]
+          d.update_attribute(:time, DateTime.now)
           case elem
             when "flag"
               d.update_attribute(:flag, new_value)
@@ -438,13 +632,15 @@ class AlertConditionsController < ApplicationController
               d.update_attribute(:inapplicable_environment, new_value[2])
               d.update_attribute(:dangerous_construct, new_value[3])
           end
-          LogDetermination(d, meta_alert_id, d[:project_id])
+          new_det_id = LogDetermination(d, meta_alert_id, d[:project_id])
+          LogIntermediateData(d[:project_id], new_det_id)
         end
       else
         alertConditions = Display.where(meta_alert_id: meta_alert_id)
 
         alertConditions.each do |d|
           @scale_project_id = d[:project_id]
+          d.update_attribute(:time, DateTime.now)
           case elem
             when "flag"
               d.update_attribute(:flag, new_value)
@@ -459,7 +655,8 @@ class AlertConditionsController < ApplicationController
               d.update_attribute(:dangerous_construct, new_value[3])
           end
           $alertConditionHash[d[:id]] = d
-          LogDetermination(d, meta_alert_id, d[:project_id])
+          new_det_id = LogDetermination(d, meta_alert_id, d[:project_id])
+          LogIntermediateData(d[:project_id], new_det_id)
         end
       end
     end
@@ -492,16 +689,67 @@ class AlertConditionsController < ApplicationController
     respond_to do |format|
       format.json { render json: { message: "Displays Updated" }, status: "200" }
     end
+  rescue => e
+    puts("CAUGHT ERROR " + e.to_s + "\n")
+    puts(e.backtrace.join("\n"))
   end
 
-  def LogDetermination(display, meta_alert_id, project_id)
-      log_det(display)
-      new_determination = Determination.where(meta_alert_id: meta_alert_id,
-                                              project_id: project_id).size
 
-      if new_determination != display[:previous]
-        display.update_attribute(:previous, new_determination)
-      end
+  def LogDetermination(display, meta_alert_id, project_id)
+    new_det_id = log_det(display, session[:login_user_id])
+    prev_dets = Determination.where(meta_alert_id: meta_alert_id,
+                                    project_id: project_id).size
+    if prev_dets != display[:previous]
+      display.update_attribute(:previous, prev_dets)
+    end
+    return new_det_id
+  end
+
+  def LogIntermediateData(project_id, det_id)
+    if not ENV["SCALE_EXPERIMENT"] == "1"
+      return
+    end
+    if not det_id.is_a? Integer
+      return
+    end
+
+    con = ActiveRecord::Base.connection
+    ui = ui_vars
+
+    project = Project.find_by_id(project_id)
+    tc = taxonomy_conditions(project, ui[:selected_taxonomy])
+
+    # Figure out top_meta_alert
+    filter = Display.constructSQLFilter(project_id, ui, tc,
+                                        project[:efp_confidence_threshold],
+                                        project[:confidence_threshold])
+    top_two = display_list( filter, ui[:sort_keys_selected], ui[:seed]).first(2)
+    adjudicated_meta_alert_id = -1
+    row = con.execute("SELECT meta_alert_id FROM Determinations WHERE Determinations.id ='#{det_id}';")
+    adjudicated_meta_alert_id = row[0][0]
+    if top_two[0][:meta_alert_id] != adjudicated_meta_alert_id
+      top_meta_alert = top_two[0][:meta_alert_id]
+    else
+      top_meta_alert = top_two[1][:meta_alert_id]
+    end
+
+    cmd = "INSERT INTO audit_status_log ("\
+          "'determination_id', 'project_id', 'sort_keys', 'filter_selected_id_type', "\
+          "'filter_id', 'filter_meta_alert_id', 'filter_display_ids', "\
+          "'filter_verdict', 'filter_previous', 'filter_path', 'filter_line', "\
+          "'filter_checker', 'filter_condition', 'filter_tool', 'filter_taxonomy', "\
+          "'filter_category', 'seed', 'alertConditionsPerPage', 'fused', "\
+          "'scaife_mode', 'classifier_chosen', 'predicted_verdicts', "\
+          "'etp_confidence_threshold', 'efp_confidence_threshold','top_meta_alert') VALUES ("\
+          "'#{det_id}', '#{project_id}', '#{ui[:sort_keys_selected]}', '#{ui[:selected_id_type]}', "\
+          "'#{ui[:ID]}', '#{ui[:meta_alert_id]}', '#{ui[:display_ids]}', "\
+          "'#{ui[:verdict]}', '#{ui[:previous]}', '#{ui[:path]}', '#{ui[:line]}', "\
+          "'#{ui[:checker]}', '#{ui[:condition]}', '#{ui[:tool]}', '#{ui[:selected_taxonomy]}', "\
+          "'#{ui[:category]}', '#{ui[:seed]}', '#{ui[:alertConditionsPerPage]}', '#{ui[:view]}', "\
+          "'#{ui[:scaife_mode]}', '#{ui[:classifier_chosen]}', '#{ui[:predicted_verdicts]}', "\
+          "'#{project[:confidence_threshold]}', '#{project[:efp_confidence_threshold]}', '#{top_meta_alert}')"
+
+    result = con.execute(cmd)
   end
 
 
@@ -510,6 +758,7 @@ class AlertConditionsController < ApplicationController
     # desired flag and verdict via an AJAX request.
 
     # Fetch the desired verdict, flag, and notes sent via the form
+    project_id = params[:project_id]
     verdict = params[:mass_update_verdict].to_i
     flag = params[:flag]
     ignored = params[:ignored]
@@ -530,19 +779,23 @@ class AlertConditionsController < ApplicationController
         when "unfused"
           selectedIds.each do |display_id|
             d = Display.find_by_id(display_id)
-            helpers.update_attrs(d, verdict, flag, ignored, dead, ienv, dc)
+            new_det_id = helpers.update_attrs(d, verdict, flag, ignored, dead, ienv, dc)
+            LogIntermediateData(d[:project_id], new_det_id)
           end
         when "fused"
-          project_id = params[:project_id]
           selectedIds.each do |id|
             ds = Display.where(project_id: project_id).where(meta_alert_id: id)
             ds.each do |d|
-              helpers.update_attrs(d, verdict, flag, ignored, dead, ienv, dc)
+              new_det_id = helpers.update_attrs(d, verdict, flag, ignored, dead, ienv, dc)
+              LogIntermediateData(d[:project_id], new_det_id)
             end
           end
         end
       end
     end
+  rescue => e
+    puts("CAUGHT ERROR " + e.to_s + "\n")
+    puts(e.backtrace.join("\n"))
   end
 
   def export
@@ -646,44 +899,93 @@ class AlertConditionsController < ApplicationController
     end
   end
 
-  def self.archiveDB(project_id)
+  def self.archiveDB(project_id, initialize: false, force: false)
+    # NOTE: This method should not be run inside another transaction
+    # with an open DB connection
+
     @project = Project.find_by_id(project_id)
-    @displays = @project.displays
-    @displays.reload
-    con = ActiveRecord::Base.connection()
-    determinations = con.execute(
-      "SELECT * FROM determinations WHERE project_id=#{con.quote(project_id.to_s)}")
 
     backup_db = backup_external_db_from_id(@project.id)
-    if not File.exists? backup_db
-      archive_db = archive_backup_db_from_id(@project.id)
-      if File.exists? archive_db
-        # project has been "created", but only database() has been
-        # called and not fromDatabase()
-        src_db = archive_db
-      else
-        # this shouldn't happen under normal operations
-        raise "neither #{backup_db} or #{archive_db} exist"
+    if initialize
+      # This flag will initialize the external project DB completely
+      # from the internal DB. Normally digest_alerts.py takes care of
+      # this, but when migrating existing projects from earlier versions
+      # of SCALe, after a schema change, and for when projects have to
+      # be initialized from data only obtained from SCAIFE,
+      # digest_alerts.py does not get called, so use this instead.
+      if File.exists? backup_db
+        if force
+          File.delete(backup_db)
+          if File.exists? archive_backup_db_from_id(@project.id)
+            File.delete(archive_backup_db_from_id(@project.id))
+          end
+        end
       end
-    else
+      puts "initialize schema for #{backup_db}"
+      if not Dir.exists? backup_dir_from_id(@project.id)
+        FileUtils.mkdir_p backup_dir_from_id(@project.id)
+      end
+      if  not Dir.exists? archive_backup_dir_from_id(@project.id)
+        FileUtils.mkdir_p archive_backup_dir_from_id(@project.id)
+      end
+      if not File.exists? backup_db
+        # starting from scratch
+        script = scripts_dir().join("init_project_db.py")
+        cmd = "#{script} #{backup_db}"
+        stdout, stderr, status = Open3.capture3(cmd)
+        if not status.success?
+          puts "problem running: #{cmd}"
+          if stderr.present?
+            puts "---- stderr ----"
+            puts "stderr:\n#{stderr}"
+          end
+          if stdout.present?
+            puts "---- stdout ----"
+            puts "stdout:\n#{stdout}"
+          end
+          if stderr.present? or stdout.present?
+            puts "----"
+          end
+        end
+      end
       src_db = backup_db
+    else
+      # This is the most common case, standard behavior, external db
+      # exists already
+      if not File.exists? backup_db
+        archive_db = archive_backup_db_from_id(@project.id)
+        if File.exists? archive_db
+          # project has been "created", but only database() has been
+          # called and not fromDatabase()
+          src_db = archive_db
+        else
+          # this shouldn't happen under normal operations
+          raise "neither #{backup_db} or #{archive_db} exist"
+        end
+      else
+        src_db = backup_db
+      end
     end
 
     # shuffle source db to external for updates
     FileUtils.cp(src_db, external_db())
 
-    priority_schemes = PriorityScheme.where(project_id: project_id).to_a
+    @displays = @project.displays.reload
+    determinations = @project.determinations.reload
+    priority_schemes = @project.priority_schemes.reload
+    performance_metrics = @project.performance_metrics.reload
+    classifier_metrics = @project.classifier_metrics.reload
     user_uploads = UserUpload.all.to_a
+    users = User.all.to_a
     classifier_schemes = ClassifierScheme.all.to_a
-    performance_metrics = PerformanceMetrics.where(project_id: project_id).to_a
-    classifier_metrics = ClassifierMetrics.where(project_id: project_id).to_a
-    #meta_alert_updated_vals = con.execute("SELECT confidence, meta_alert_priority, MIN(meta_alert_id) FROM displays WHERE project_id=#{con.quote(project_id.to_s)} GROUP BY meta_alert_id")
+    project_languages = @project.languages.reload
+    project_tools = @project.tools.reload
+    project_taxonomies = @project.taxonomies.reload
+    msgs_by_alert_id =
+      initialize ? @project.messages.group_by(&:alert_id) : nil
+    audit_status_log = ActiveRecord::Base.connection.execute("SELECT * FROM audit_status_log WHERE project_id='#{project_id}';").to_a
 
-    project_languages = @project.languages
-    project_tools = @project.tools
-    project_taxonomies = @project.taxonomies
-
-    # this is an instance method defined in ApplicationRecord
+    # this is an instance method defined in ApplicationController
     with_external_db() do |con|
       ActiveRecord::Base.transaction do
         @displays.each do |d|
@@ -707,132 +1009,136 @@ class AlertConditionsController < ApplicationController
         end
       end
 
-      # Replace determinations table with display's determination table
-      ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM Determinations")
-        det_fields = ["project_id", "meta_alert_id", "time", "verdict",
-                      "flag", "notes", "ignored", "dead",
-                      "inapplicable_environment", "dangerous_construct"]
-        ActiveRecord::Base.transaction do
-          determinations.each do |r|
-            values = det_fields.collect{|f| ActiveRecord::Base.connection.quote(r[f])}
-            values[det_fields.find_index("project_id")] = 0
-            con.execute(
-              "INSERT INTO Determinations (" + det_fields.join(", ") +
-              ") VALUES (" + values.join(", ") + ")")
+      # Update project table with display's project table (ext db uses a 0 id)
+      fields = con.columns("Projects").collect{|t| t.name}
+      con.execute("DELETE FROM Projects")
+      values = fields.collect{|f| ActiveRecord::Base.connection.quote(@project[f])}
+      values[fields.find_index("id")] = 0
+      con.execute("INSERT INTO Projects (" + fields.join(", ") +
+                  ") VALUES (" + values.join(", ") + ")")
+
+      # Replace these tables, zeroing out project id
+      tables = {"Determinations" => determinations,
+                "PrioritySchemes" => priority_schemes,
+                "PerformanceMetrics" => performance_metrics,
+                "ClassifierMetrics" => classifier_metrics,
+                "UserUploads" => user_uploads,
+                "ClassifierSchemes" => classifier_schemes,
+                "AuditStatusLog" => audit_status_log}
+      tables.each do |k,v|
+        con.execute("DELETE FROM #{k}")
+        fields = con.columns(k).collect{|t| t.name}
+        fields.delete("id")
+        v.each do |r|
+          values = fields.collect{|f| ActiveRecord::Base.connection.quote(r[f])}
+          proj_index = fields.find_index("project_id")
+          unless proj_index.nil?
+            values[proj_index] = 0
           end
+          if k == "Determinations"
+            # note: user_id in other tables is a string
+            user_index = fields.find_index("user_id")
+            unless user_index.nil?
+              values[user_index] = 0
+            end
+          end
+          con.execute(
+            "INSERT INTO #{k} (" + fields.join(", ") +
+            ") VALUES (" + values.join(", ") + ")")
         end
       end
+      # make sure Users table is blank
+      con.execute("DELETE FROM Users")
 
-      # Update project table with display's project table
-      proj_fields = ["id", "name", "description", "created_at", "updated_at",
-        "version", "last_used_confidence_scheme", "last_used_priority_scheme",
-        "current_classifier_scheme", "source_file", "source_url",
-        "test_suite_name", "test_suite_version", "test_suite_type",
-        "test_suite_sard_id", "project_data_source", "author_source",
-        "manifest_file", "manifest_url", "function_info_file",
-        "file_info_file", "license_file", "scaife_uploaded_on",
-        "publish_data_updates", "subscribe_to_data_updates", "scaife_test_suite_id",
-        "scaife_package_id", "scaife_project_id"
-      ]
-      ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM Projects")
-        values = proj_fields.collect{|f| ActiveRecord::Base.connection.quote(@project[f])}
-        values[proj_fields.find_index("id")] = 0
-        con.execute("INSERT INTO Projects (" + proj_fields.join(", ") +
-                    ") VALUES (" + values.join(", ") + ")")
+
+      def self._obj_exists(con, table, id)
+        res = con.execute(
+          "SELECT * FROM #{table} WHERE id=#{con.quote(id)}")
+        return res.present? ? res : false
       end
 
-      #copy data from PrioritySchemes to external db
       ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM PrioritySchemes")
-        ps_fields = ["id", "name", "project_id", "formula",
-              "weighted_columns", "confidence", "created_at", "updated_at",
-              "cert_severity", "cert_likelihood", "cert_remediation",
-              "cert_priority", "cert_level", "cwe_likelihood"]
-        ActiveRecord::Base.transaction do
-          priority_schemes.each do |ps|
-            values = ps_fields.collect{|f| ActiveRecord::Base.connection.quote(ps[f])}
-            values[ps_fields.find_index("project_id")] = 0
-            con.execute(
-              "INSERT INTO PrioritySchemes (" + ps_fields.join(", ") +
-              ") VALUES (" + values.join(", ") + ")"
-            )
+        if initialize
+          # see scripts.satsv2sql.insert_alerts() for where this tool
+          # spectrum increment comes from; alert_ids are also spaced out
+          # the same way
+          incr = 1000
+
+          con.execute("DELETE FROM Messages")
+          con.execute("DELETE FROM Alerts")
+          con.execute("DELETE FROM MetaAlerts")
+          con.execute("DELETE FROM MetaAlertLinks")
+          tool_msg_ids = {}
+          @displays.each do |d|
+            if not tool_msg_ids.include? d.tool_id
+              tool_msg_ids[d.tool_id] = d.tool_id
+            end
+            primary_msg_id = false
+            messages = msgs_by_alert_id[d.alert_id]
+            messages.each do |msg|
+              msg_id = tool_msg_ids[d.tool_id]
+              primary_msg_id ||= msg_id
+              # note: do not export msg.link
+              con.execute(%Q[
+                INSERT INTO Messages(id, project_id, alert_id, path,
+                  line, message)
+                VALUES(
+                  #{msg_id},
+                  0,
+                  #{msg.alert_id},
+                  #{con.quote(msg.path)},
+                  #{con.quote(msg.line)},
+                  #{con.quote(msg.message)})
+              ])
+              tool_msg_ids[d.tool_id] += incr
+            end
+            if not primary_msg_id
+              raise "no primary message id found"
+            end
+            checker = con.exec_query(%Q[
+              SELECT * FROM Checkers
+              WHERE tool_id=#{d.tool_id}
+                AND name=#{con.quote(d.checker)}
+            ])[0]
+            if not _obj_exists(con, "Alerts", d.alert_id)
+              con.execute(%Q[
+                INSERT INTO Alerts(id, checker_id,
+                  primary_msg, scaife_alert_id)
+                VALUES(
+                  #{d.alert_id},
+                  #{checker["id"]},
+                  #{primary_msg_id},
+                  #{con.quote(d.scaife_alert_id)})
+              ])
+            end
+            cond = con.exec_query(%Q[
+              SELECT * FROM Conditions
+              WHERE taxonomy_id=#{con.quote(d.taxonomy_id)}
+                AND name=#{con.quote(d.condition)}
+            ])[0]
+            if not _obj_exists(con, "MetaAlerts", d.meta_alert_id)
+              con.execute(%Q[
+                INSERT INTO MetaAlerts(id, condition_id, class_label,
+                  confidence_score, priority_score, scaife_meta_alert_id,
+                  code_language)
+                VALUES(
+                  #{d.meta_alert_id},
+                  #{cond["id"]},
+                  #{con.quote(d.class_label)},
+                  #{con.quote(d.confidence)},
+                  #{con.quote(d.meta_alert_priority)},
+                  #{con.quote(d.scaife_meta_alert_id)},
+                  #{con.quote(d.code_language)})
+              ])
+            end
+            con.execute(%Q[
+              INSERT INTO MetaAlertLinks(alert_id, meta_alert_id)
+              VALUES(#{d.alert_id}, #{d.meta_alert_id})
+            ])
           end
-        end
-      end
-
-      #copy data from UserUploads to external db
-      ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM UserUploads")
-        uu_fields = ["id", "meta_alert_id", "user_columns", "created_at",
-          "updated_at"]
-
-        ActiveRecord::Base.transaction do
-          user_uploads.each do |r|
-            values = uu_fields.collect{|f| ActiveRecord::Base.connection.quote(r[f])}
-            con.execute(
-              "INSERT INTO UserUploads (" + uu_fields.join(", ") +
-              ") VALUES (" + values.join(", ") + ")"
-            )
-          end
-        end
-      end
-
-      #export data from ClassifierSchemes to external db
-      ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM ClassifierSchemes")
-        cs_fields = [
-          "id", "classifier_instance_name", "classifier_type",
-          "source_domain", "created_at", "updated_at",
-          "adaptive_heuristic_name", "adaptive_heuristic_parameters",
-          "use_pca", "feature_category", "semantic_features", 
-          "ahpo_name", "ahpo_parameters", "num_meta_alert_threshold"]
-
-        ActiveRecord::Base.transaction do
-          classifier_schemes.each do |r|
-            values = cs_fields.collect{|f| ActiveRecord::Base.connection.quote(r[f])}
-            con.execute(
-              "INSERT INTO ClassifierSchemes (" + cs_fields.join(", ") +
-              ") VALUES (" + values.join(", ") + ")")
-          end
-        end
-      end
-
-      #copy data from PerformanceMetrics to external db
-      ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM PerformanceMetrics")
-        pm_fields = ["scaife_mode", "function_name", "metric_description", "transaction_timestamp", "user_id", "user_organization_id", "project_id", "elapsed_time", "cpu_time"]
-        ActiveRecord::Base.transaction do
-          performance_metrics.each do |pm|
-            values = pm_fields.collect{|f| ActiveRecord::Base.connection.quote(pm[f])}
-            values[pm_fields.find_index("project_id")] = 0
-            con.execute(
-              "INSERT INTO PerformanceMetrics (" + pm_fields.join(", ") +
-              ") VALUES (" + values.join(", ") + ")"
-            )
-          end
-        end
-      end
-
-      #copy data from ClassifierMetrics to external db
-      ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM ClassifierMetrics")
-        cm_fields = ["project_id", "scaife_classifier_instance_id", "transaction_timestamp", "num_labeled_meta_alerts_used_for_classifier_evaluation", "test_accuracy", "test_precision", "test_recall", "test_f1", "num_labeled_meta_alerts_used_for_classifier_training", "num_labeled_T_test_suite_used_for_classifier_training", "num_labeled_F_test_suite_used_for_classifier_training", "num_labeled_T_manual_verdicts_used_for_classifier_training", "num_labeled_F_manual_verdicts_used_for_classifier_training", "num_code_metrics_tools_used_for_classifier_training", "top_features_impacting_classifier", "train_accuracy", "train_precision", "train_recall", "train_f1"]
-        ActiveRecord::Base.transaction do
-          classifier_metrics.each do |cm|
-            values = cm_fields.collect{|f| ActiveRecord::Base.connection.quote(cm[f])}
-            values[cm_fields.find_index("project_id")] = 0
-            con.execute(
-              "INSERT INTO ClassifierMetrics (" + cm_fields.join(", ") +
-              ") VALUES (" + values.join(", ") + ")"
-            )
-          end
-        end
-      end
-
-      ActiveRecord::Base.transaction do
-        @displays.each do |d|
+        else
+          # updating existing external DB
+          @displays.each do |d|
             meta_alert_id = d.meta_alert_id
             scaife_meta_alert_id = d.scaife_meta_alert_id
             class_label = d.class_label
@@ -876,20 +1182,38 @@ class AlertConditionsController < ApplicationController
               " SET scaife_alert_id='" + scaife_alert_id + \
               "' WHERE id=" + alert_id.to_s
             )
+          end
         end
+      rescue ActiveRecord::ActiveRecordError => e
+        puts
+        puts "CAUGHT ActiveRecordError EXCEPTION"
+        puts self.filter_stacktrace(e)
+        puts
+        raise ScaifeError.new("aborting archive init due to DB error")
       end
 
       con.execute("ATTACH '#{internal_db().to_s}' AS DEV")
+      # in case any scaife_ids were assigned
       ActiveRecord::Base.transaction do
-        con.execute("DELETE FROM Tools")
         con.execute("DELETE FROM Languages")
-        con.execute("INSERT INTO Tools SELECT * FROM DEV.tools")
+        con.execute("DELETE FROM Taxonomies")
+        con.execute("DELETE FROM Tools")
         con.execute("INSERT INTO Languages SELECT * FROM DEV.languages")
+        con.execute("INSERT INTO Taxonomies SELECT * FROM DEV.taxonomies")
+        con.execute("INSERT INTO Tools SELECT * FROM DEV.tools")
+
         con.execute("DELETE FROM ProjectLanguages")
         project_languages.each do |lang|
           con.execute(
             "INSERT INTO ProjectLanguages ('project_id', 'language_id')" +
               " VALUES (0, #{lang.id})"
+          )
+        end
+        con.execute("DELETE FROM ProjectTaxonomies")
+        project_taxonomies.each do |taxo|
+          con.execute(
+            "INSERT INTO ProjectTaxonomies ('project_id', 'taxonomy_id')" +
+              " VALUES (0, #{taxo.id})"
           )
         end
         con.execute("DELETE FROM ProjectTools")
@@ -899,30 +1223,30 @@ class AlertConditionsController < ApplicationController
               " VALUES (0, #{tool.id})"
           )
         end
-        con.execute("DELETE FROM ProjectTaxonomies")
-        project_taxonomies.each do |taxonomy|
-          con.execute(
-            "INSERT INTO ProjectTaxonomies ('project_id', 'taxonomy_id')" +
-              " VALUES (0, #{taxonomy.id})"
-          )
-        end
-        # in case any scaife_ids were assigned
-        con.execute("DELETE FROM ConditionCheckerLinks")
-        con.execute("INSERT INTO ConditionCheckerLinks SELECT * FROM DEV.condition_checker_links")
         con.execute("DELETE FROM Conditions")
         con.execute("INSERT INTO Conditions SELECT * FROM DEV.conditions")
         con.execute("DELETE FROM Checkers")
         con.execute("INSERT INTO Checkers SELECT * FROM DEV.checkers")
-        con.execute("DELETE FROM Taxonomies")
-        con.execute("INSERT INTO Taxonomies SELECT * FROM DEV.taxonomies")
+      rescue ActiveRecord::ActiveRecordError => e
+        puts
+        puts "CAUGHT ActiveRecordError EXCEPTION"
+        puts self.filter_stacktrace(e)
+        puts
+        raise ScaifeError.new("abort during internal attach")
       end
     end
     # connection now back to development db
 
     # shuffle changes back to backup_db or archive_db
     FileUtils.cp(external_db(), src_db)
+    if initialize
+      FileUtils.cp(external_db(), archive_backup_db_from_id(@project.id))
+    end
     return src_db
   end
+  delegate :archiveDB, to: :class
+
+
 
   def exportDB
     # This controller action will dump a sqlite database in the external
@@ -933,7 +1257,7 @@ class AlertConditionsController < ApplicationController
     if not '#{@project.id.to_s}'.match('\d*')  # from web request, so must sanitize
       print "invalid project id: #{@project.id.to_s}"
     else
-      ext_db = self.class.archiveDB(@project.id)
+      ext_db = self.archiveDB(@project.id)
       timestamp = Time.now.strftime('%Y-%m-%d_%H:%M:%S')
       send_file(Rails.root.join(ext_db), filename: "#{@project.name}-#{timestamp}.sqlite3")
     end
@@ -946,6 +1270,7 @@ class AlertConditionsController < ApplicationController
     @scale_project_id = params[:project_id]
     @project = Project.find(@scale_project_id)
     @classifier_instance_name = params[:classifier_scheme_name]
+    @is_experiment = params[:experiment]
 
     scheme = ClassifierScheme.where("classifier_instance_name = ?", "#{@classifier_instance_name}").first
 
@@ -968,7 +1293,7 @@ class AlertConditionsController < ApplicationController
         # make sure exported DB is up to date and reflects
         # the current project (project_scale_to_scaife() consumes
         # data from the external DB)
-        self.class.archiveDB(@scale_project_id)
+        self.archiveDB(@scale_project_id)
 
         classifier_metrics = result.classifier_analysis
         classifier_analysis = Hash.new
@@ -990,19 +1315,48 @@ class AlertConditionsController < ApplicationController
         classifier_analysis["num_code_metrics_tools_used_for_classifier_training"] = classifier_metrics["num_code_metrics_tools_used_for_classifier_training"]
         classifier_analysis["top_features_impacting_classifier"] = classifier_metrics["top_features_impacting_classifier"]
 
-        ClassifierMetrics.addRecord(@project_id, result.classifier_instance_id, classifier_analysis)
+        ClassifierMetric.addRecord(@project_id, result.classifier_instance_id, classifier_analysis)
         meta_alerts_probabilities = result.probability_data
         puts "Received " + meta_alerts_probabilities.length.to_s + " confidence values from the Stats Module"
+        #puts meta_alerts_probabilities
         ActiveRecord::Base.transaction do
+          min = max = miss = 0
           for entry in meta_alerts_probabilities
             meta_alert_id = entry.meta_alert_id
             class_label = entry.label
             probability = entry.probability
             records = Display.where(scaife_meta_alert_id: meta_alert_id)
-            if nil != records
+            if records.present?
               records.update_all(class_label: class_label.to_s)
-              records.update_all(confidence: probability.to_f.truncate(2))
+              records.update_all(confidence: nil)
+              records.update_all(category: "I")
             end
+            # Only display confidence values associated with meta-alerts that dont have true or false verdicts
+            records = Display.where(scaife_meta_alert_id: meta_alert_id).where.not(verdict: 2).where.not(verdict: 4)
+            if nil != records
+              confidence = probability.to_f.truncate(2)
+              category = Display.compute_category(class_label, confidence,
+                                                  @project[:confidence_threshold],
+                                                  @project[:efp_confidence_threshold])
+              records.update_all(confidence: confidence)
+              records.update_all(category: category)
+            else
+              puts "oops no records: #{meta_alert_id}"
+              miss += 1
+            end
+            if min == 0 or probability < min
+                min = probability
+            end
+            if probability > max
+              max = probability
+            end
+          end
+          nc = Display.where(project_id: @project.id, confidence: -1).count
+          min = min.to_f.truncate(3)
+          max = max.to_f.truncate(3)
+          puts "classifier results min/max/miss: #{min}/#{max}/#{miss}"
+          if nc > 0
+            puts "classifier -1 count: #{nc}"
           end
         end
 
@@ -1012,7 +1366,7 @@ class AlertConditionsController < ApplicationController
         # make sure exported DB is up to date and reflects
         # the current project (project_scale_to_scaife() consumes
         # data from the external DB)
-        self.class.archiveDB(@scale_project_id)
+        self.archiveDB(@scale_project_id)
 
       end
     elsif "Demo" == @scaife_mode
@@ -1039,7 +1393,7 @@ class AlertConditionsController < ApplicationController
       classifier_analysis["num_code_metrics_tools_used_for_classifier_training"] = 3
       classifier_analysis["top_features_impacting_classifier"] = "num_alerts_per_source_file: 1.5;code_language__C++: 0.125"
 
-      res = ClassifierMetrics.addRecord(@project_id, "sample_scaife_classifier_instance_id", classifier_analysis)
+      res = ClassifierMetric.addRecord(@project_id, "sample_scaife_classifier_instance_id", classifier_analysis)
       if not res
         msg = "failed to insert classifier metric #{@project_id}:sample_scaife_classifier_instance_id"
         flash[:demo_run_classifier_message] = msg
@@ -1074,10 +1428,10 @@ class AlertConditionsController < ApplicationController
     end
 
     end_timestamps = get_timestamps()
-    PerformanceMetrics.addRecord(@scaife_mode, "runClassifier", "Time to run a SCAIFE classifier", "SCALe_user", "Unknown", @project.id, start_timestamps, end_timestamps)
+    PerformanceMetric.addRecord(@scaife_mode, "runClassifier", "Time to run a SCAIFE classifier", "SCALe_user", "Unknown", @project.id, start_timestamps, end_timestamps)
 
     # POST route has to be defined for this to work
-    redirect_to(@project)
+    redirect_to(@project) unless @is_experiment
 
   end
 
@@ -1221,8 +1575,8 @@ class AlertConditionsController < ApplicationController
 
       secondary_message_list =  Message.where(project_id: project_id).group_by(&:alert_id)
 
-      alerts.each do |entry_id, display_list|
-          d = display_list[0]
+      alerts.each do |entry_id, dl|
+          d = dl[0]
           scale_alert_id = d.alert_id
           checker_id = nil
           #tool_name = d.tool.split("_")[0] #remove "_oss"
@@ -1349,72 +1703,11 @@ class AlertConditionsController < ApplicationController
   end
 
 
-  def project_language_requirements(project)
-    # required groups include all versions of that language
-    required_lang_groups =
-      LanguageGroup.group_languages_by_key(project.seen_all_languages())
-    # selected groups include only those versions selected
-    selected_lang_groups = \
-      LanguageGroup.group_languages_by_key(project.languages())
-    selected_langs_in_scaife, selected_langs_not_in_scaife, scaife_langs_by_id = self.partition_scaife_languages(project.languages())
-    lang_groups_missing = {}
-    langs_not_in_scaife = Set[]
-    required_lang_groups.each() do |key, lg|
-      if selected_lang_groups.include? key
-        # user has selected at least one language version from a seen group
-        langs_not_in_scaife += lg.languages & selected_langs_not_in_scaife
-      else
-        lang_groups_missing[key] = lg
-      end
-    end
-    lang_groups_not_in_scaife = {}
-    lang_groups_in_scaife = LanguageGroup.group_languages_by_key(selected_langs_in_scaife)
-    LanguageGroup.group_languages_by_key(selected_langs_not_in_scaife).each do |key, lg  |
-      if not lang_groups_in_scaife.include? key
-        lang_groups_not_in_scaife[key] = lg
-      end
-    end
-    return lang_groups_missing, lang_groups_not_in_scaife, selected_langs_in_scaife, scaife_langs_by_id
-  end
-
-
-  def project_taxonomy_requirements(project)
-    # required groups include all versions of that taxonomy
-    required_taxo_groups =
-      TaxonomyGroup.group_taxonomies_by_key(project.seen_taxonomies())
-    # selected groups include only those versions selected
-    selected_taxo_groups = \
-      TaxonomyGroup.group_taxonomies_by_key(project.taxonomies())
-    selected_taxos_in_scaife, selected_taxos_not_in_scaife, scaife_taxos_by_id = self.partition_scaife_taxonomies(project.taxonomies())
-    taxo_groups_missing = {}
-    taxos_not_in_scaife = Set[]
-    required_taxo_groups.each() do |key, tg|
-      if selected_taxo_groups.include? key
-        # user has selected at least one taxonomy version from a seen group
-        taxos_not_in_scaife += tg.taxonomies & selected_taxos_not_in_scaife
-      else
-        taxo_groups_missing[key] = tg
-      end
-    end
-    taxo_groups_not_in_scaife = {}
-    taxo_groups_in_scaife = TaxonomyGroup.group_taxonomies_by_key(selected_taxos_in_scaife)
-    TaxonomyGroup.group_taxonomies_by_key(selected_taxos_not_in_scaife).each do |key, tg  |
-      if not taxo_groups_in_scaife.include? key
-        taxo_groups_not_in_scaife[key] = tg
-      end
-    end
-    return taxo_groups_missing, taxo_groups_not_in_scaife, selected_taxos_in_scaife, scaife_taxos_by_id
-  end
-
-
-  def project_tool_requirements(project)
-    # required groups include all versions of that tool
-    tools_in_scaife, tools_not_in_scaife, scaife_tools_by_id = self.partition_scaife_tools(project.tools())
-    return tools_not_in_scaife, tools_in_scaife, scaife_tools_by_id
-  end
-
-
   def uploadProject
+    # Note: in order to indicate failure conditions to automation
+    # scripts, the redirects use code :see_other (303) rather than the
+    # default :found (302) upon success
+    puts "uploadProject() here"
     @project_id = params[:project_id]
     @project = Project.find(params[:project_id])
 
@@ -1434,7 +1727,8 @@ class AlertConditionsController < ApplicationController
       @upload_project_message = "Failed to connect to SCAIFE servers"
       flash[:scaife_project_upload_message] =  @upload_project_message
       respond_to do |format|
-        format.any { redirect_to "/" and return}
+        format.any { redirect_back fallback_location: '/',
+                     status: :see_other and return }
       end
     end
 
@@ -1451,7 +1745,8 @@ class AlertConditionsController < ApplicationController
       flash[:scaife_project_upload_message] = @upload_project_message
       puts "uploadProject() scaife generic lang req err: #{@upload_project_message}"
       respond_to do |format|
-        format.any { redirect_to "/" and return}
+        format.any { redirect_back fallback_location: '/',
+                     status: :see_other and return }
       end
     end
     if unsatisfied_lang_names.present?
@@ -1472,7 +1767,8 @@ class AlertConditionsController < ApplicationController
       flash[:scaife_project_upload_message] =  @upload_project_message
       puts "uploadProject() scaife lang missing err: #{@upload_project_message}"
       respond_to do |format|
-        format.any { redirect_to "/" and return}
+        format.any { redirect_back fallback_location: '/',
+                     status: :see_other and return }
       end
     end
 
@@ -1484,7 +1780,8 @@ class AlertConditionsController < ApplicationController
       flash[:scaife_project_upload_message] =  @upload_project_message
       puts "uploadProject() scaife generic taxo req err: #{@upload_project_message}"
       respond_to do |format|
-        format.any { redirect_to "/" and return}
+        format.any { redirect_back fallback_location: '/',
+                     status: :see_other and return }
       end
     end
     unsatisfied_taxo_names =
@@ -1504,10 +1801,12 @@ class AlertConditionsController < ApplicationController
       end
       verb = verb.join('/')
       @upload_project_message = "Project upload requires taxonomies of the following #{'type'.pluralize(unsatisfied_taxo_names.length)} to be #{verb} first: #{unsatisfied_taxo_names.join(', ')}. To do that, edit the project and then select #{instruction}"
+      puts "uploadProject() scaife taxo missing err: #{@upload_project_message}"
       flash[:scaife_project_upload_message] =  @upload_project_message
       puts "uploadProject() scaife taxo missing err: #{@upload_project_message}"
       respond_to do |format|
-        format.any { redirect_to "/" and return}
+        format.any { redirect_back fallback_location: '/',
+                     status: :see_other and return }
       end
     end
 
@@ -1516,10 +1815,12 @@ class AlertConditionsController < ApplicationController
       tools_not_in_scaife, tools_in_scaife, scaife_tools_by_id = project_tool_requirements(@project)
     rescue ScaifeError => e
       @upload_project_message = e.message
+      puts "uploadProject() scaife generic tool req err: #{@upload_project_message}"
       flash[:scaife_project_upload_message] =  @upload_project_message
       puts "uploadProject() scaife generic tool req err: #{@upload_project_message}"
       respond_to do |format|
-        format.any { redirect_to "/" and return}
+        format.any { redirect_back fallback_location: '/',
+                     status: :see_other and return }
       end
     end
     if tools_not_in_scaife.present?
@@ -1532,10 +1833,12 @@ class AlertConditionsController < ApplicationController
         tool_label_list << label
       end
       @upload_project_message = "Project upload requires the following #{'tool'.pluralize(tools_not_in_scaife.length)} to be uploaded to SCAIFE first: #{tool_label_list.join(', ')}. To do that, edit the project and then select select SCAIFE Tools -> Upload"
+      puts "uploadProject() scaife tool missing err: #{@upload_project_message}"
       flash[:scaife_project_upload_message] =  @upload_project_message
       puts "uploadProject() scaife tool missing err: #{@upload_project_message}"
       respond_to do |format|
-        format.any { redirect_to "/" and return}
+        format.any { redirect_back fallback_location: '/',
+                     status: :see_other and return }
       end
     end
 
@@ -1543,7 +1846,7 @@ class AlertConditionsController < ApplicationController
     # the current project (project_scale_to_scaife() consumes
     # data from the external DB)
     puts "Syncing Databases..."
-    self.class.archiveDB(@project_id)
+    self.archiveDB(@project_id)
 
     # these restructurings are for not having to refactor the code
     # further down
@@ -1812,7 +2115,7 @@ class AlertConditionsController < ApplicationController
 
         if scaife_condition_id.present?
           m_alert = {
-            "condition_id": scaife_condition_id, 
+            "condition_id": scaife_condition_id,
             "filepath": filepath,
             "line_number": line_number,
             "alert_ids": scaife_alert_ids,
@@ -1826,7 +2129,7 @@ class AlertConditionsController < ApplicationController
       end
     end
 
-    if alerts_not_loaded.present? 
+    if alerts_not_loaded.present?
       puts alerts_not_loaded.length.to_s + " SCALe alerts failed to upload to SCAIFE: " + alerts_not_loaded.to_s
     end
 
@@ -1855,15 +2158,17 @@ class AlertConditionsController < ApplicationController
       scale_project.update(scaife_project_id: @scaife_project_id)
       scale_project.update(scaife_uploaded_on: Time.now)
 
-      # DECISION: Should data forwarding and publishing updates be automatically turned on
-      # when a project is uploaded to SCAIFE?? For now, it is.
+      # DECISION: Should data forwarding and publishing updates be
+      # automatically turned on when a project is uploaded to SCAIFE??
+      # For now, it is.
       result, status_code = datahub_controller.enableDataForwarding(session[:login_token], @scaife_project_id)
       if 200 != status_code
         @upload_project_message = "Failed to enable data forwarding."
         flash[:scaife_project_upload_message] =  @upload_project_message
         puts "uploadProject() error createProject(): (#{datahub_controller.scaife_status_code}): #{result}"
         respond_to do |format|
-          format.any { redirect_to "/" and return}
+          format.any { redirect_back fallback_location: '/',
+                       status: :see_other and return }
         end
       end
 
@@ -1872,17 +2177,21 @@ class AlertConditionsController < ApplicationController
     end
 
     end_timestamps = get_timestamps()
-    PerformanceMetrics.addRecord(@scaife_mode, "uploadProject", "Time to upload a SCALe project to SCAIFE", "SCALe_user", "Unknown", @scaife_project_id, start_timestamps, end_timestamps)
+    PerformanceMetric.addRecord(@scaife_mode, "uploadProject", "Time to upload a SCALe project to SCAIFE", "SCALe_user", "Unknown", @scaife_project_id, start_timestamps, end_timestamps)
 
     # make sure exported DB is up to date and reflects
     # the current project (project_scale_to_scaife() consumes
     # data from the external DB)
     puts "Syncing Databases..."
-    self.class.archiveDB(@project_id)
+    self.archiveDB(@project_id)
+
+    end_timestamps = get_timestamps()
+    PerformanceMetric.addRecord(@scaife_mode, "uploadProject", "Time to upload a SCALe project to SCAIFE", "SCALe_user", "Unknown", @scaife_project_id, start_timestamps, end_timestamps)
 
     flash[:scaife_project_upload_message] = @upload_project_message
     respond_to do |format|
-        format.any { redirect_to "/"}
+      # use 302 redirect on success
+      format.any { redirect_to "/"}
     end
 
   end

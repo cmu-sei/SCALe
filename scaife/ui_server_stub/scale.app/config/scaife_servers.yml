@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -41,9 +41,10 @@ test:
   pulsar: 'pulsar:6650'
   automation:
     # this is used by both python and ruby to create an account
-    # for automated testing
+    # for automated testing, for both SCALe and SCAIFE
     account:
       name: "automation00"
       password: "autopass00"
+      org: "acme"
       first_name: "Auto"
       last_name: "Mation"

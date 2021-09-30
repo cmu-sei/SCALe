@@ -10,7 +10,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -56,4 +56,11 @@ if $? != 0
 end
 if output =~ /\S+/
   puts output
+end
+
+if Rails.env == "test"
+  user = "test_user"
+  passwd = "test_passwd"
+  puts "ENV == test; creating test user: #{user}:#{passwd}"
+  User.create("Test", "User", "ORG", user, passwd).save!
 end

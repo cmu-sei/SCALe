@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -56,7 +56,7 @@ module Datahub
     def self.openapi_types
       {
         :'ui_alert_id' => :'String',
-        :'code_language' => :'LanguageVersion'
+        :'code_language' => :'LanguageMetadata'
       }
     end
 

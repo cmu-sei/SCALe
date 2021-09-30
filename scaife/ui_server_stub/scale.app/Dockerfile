@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -23,8 +23,8 @@
 # </legal>
 FROM ubuntu:bionic
 
-ARG SCAIFE_MODE
-ARG RAILS_ENV
+ARG SCAIFE_MODE=""
+ARG RAILS_ENV=""
 
 ## First install packages that don't depend on SCALe
 
@@ -34,28 +34,13 @@ RUN apt-get -q update \
            autoconf build-essential sqlite3 sqlite3-pcre wget zip \
            unzip python python-pip python-dev tzdata libncurses5-dev \
            libssl-dev libsqlite3-dev ruby ruby-dev ca-certificates \
-           libffi-dev libssl-dev libyaml-dev procps zlib1g-dev curl \
+           libffi-dev libssl-dev libyaml-dev procps zlib1g-dev \
+           global curl git \
     && apt-get -q --purge -y autoremove \
     && apt-get -q clean
 
 # note: pip upgrade required for optimal grpcio install
 RUN pip install -q --no-cache-dir --upgrade pip
-
-# GNU Global
-RUN mkdir -p /opt/global \
-    && cd /opt/global \
-    && wget --no-verbose https://ftp.gnu.org/pub/gnu/global/global-6.5.1.tar.gz \
-    && tar -xzf global-6.5.1.tar.gz \
-    && rm global-6.5.1.tar.gz \
-    && cd global-6.5.1 \
-    && autoconf \
-    && ./configure \
-    && make \
-    && make install \
-    && cd .. \
-    && rm -rf global-6.5.1 \
-    && apt-get -q --purge -y autoremove autoconf \
-    && apt-get -q clean
 
 # Pandoc
 RUN wget --no-verbose https://github.com/jgm/pandoc/releases/download/2.6/pandoc-2.6-1-amd64.deb \
@@ -87,8 +72,11 @@ WORKDIR $SCALE_APP_DIR
 RUN ln -s $SCALE_APP_DIR /scale.app
 
 # propagate test mode from ARG
-ENV SCAIFE_MODE=${SCAIFE_MODE}
-ENV RAILS_ENV=${RAILS_ENV}
+ENV SCAIFE_MODE=$SCAIFE_MODE
+ENV RAILS_ENV=$RAILS_ENV
+
+ARG USECERT
+ENV E_USECERT=$USECERT
 
 # grab external python requirements
 COPY requirements.txt $SCALE_APP_DIR
@@ -107,40 +95,12 @@ RUN if [ "$PRODUCTION" -eq "0" ]; then \
 
 # Add bundled gems
 COPY Gemfile Gemfile.lock   ./
-RUN bundle config set path ./vendor/bundle \
-    && bundle install --jobs 8
+RUN bundle config set path ./vendor/bundle && bundle install --quiet --jobs 8
 
-# Initialize database
-COPY Rakefile ./
-COPY config ./config/
-COPY scripts/init_shared_tables.py scripts/bootstrap.py \
-     scripts/languages.json scripts/tools.json scripts/taxonomies.json \
-     ./scripts/
-COPY scripts/data/conditions scripts/data/conditions/
-COPY scripts/data/properties scripts/data/properties/
-COPY db ./db/
-
-# db:schema:load will destroy pre-existing data if present,
-# so just use migrate
-# needs ARG RAILS_ENV
-RUN bundle exec rake db:migrate && \
-    bundle exec rake db:seed
-
-# Add manual & store outside scale.app
-COPY doc ./doc
-COPY scripts/builddocs.sh ./scripts/builddocs.sh
-RUN ./scripts/builddocs.sh
-
-# don't pre-initialize; already done above
-# COPY init.sh  ./
-# RUN ./init.sh
-
-## Add everything else
-
+# Add everything else
 COPY . $SCALE_APP_DIR
 
-# This volume should link to the host's ~/.m2 settings
-# VOLUME /home/scale/.m2
+RUN ./init.sh
 
 EXPOSE 8083
 

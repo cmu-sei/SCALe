@@ -1,0 +1,100 @@
+{
+    "comment": "Downloaded and slightly tweaked from: https://github.com/microsoft/sarif-tutorials/blob/main/samples/3-Beyond-basics/bad-eval-with-code-flow.sarif",
+    "version": "2.1.0",
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "CodeSonar"
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "IO.TAINT.FNAME",
+                    "message": {
+                        "text": "Use of tainted variable 'raw_input' in the insecure function 'fopen'."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "3-Beyond-basics/bad-fopen-with-code-flow.c"
+                                },
+                                "region": {
+                                    "startLine": 8
+                                }
+                            }
+                        }
+                    ],
+                    "codeFlows": [
+                        {
+                            "message": {
+                                "text": "Tracing the path from user input to insecure usage."
+                            },
+                            "threadFlows": [
+                                {
+                                    "locations": [
+                                        {
+                                            "location": {
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "3-Beyond-basics/bad-fopen-with-code-flow.c"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 3
+                                                    }
+                                                }
+                                            },
+                                            "state": {
+                                                "expr": {
+                                                    "text": "undef"
+                                                }
+                                            },
+                                            "nestingLevel": 0
+                                        },
+                                        {
+                                            "location": {
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "3-Beyond-basics/bad-fopen-with-code-flow.c"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 4
+                                                    }
+                                                }
+                                            },
+                                            "state": {
+                                                "expr": {
+                                                    "text": "42"
+                                                }
+                                            },
+                                            "nestingLevel": 0
+                                        },
+                                        {
+                                            "location": {
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "3-Beyond-basics/bad-fopen-with-code-flow.c"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 38
+                                                    }
+                                                }
+                                            },
+                                            "state": {
+                                                "raw_input": {
+                                                    "text": "42"
+                                                }
+                                            },
+                                            "nestingLevel": 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

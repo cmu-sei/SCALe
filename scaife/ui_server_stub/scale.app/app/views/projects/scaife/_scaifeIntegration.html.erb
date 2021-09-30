@@ -4,14 +4,14 @@
   <% end %>
   <%= render partial: "projects/scaife/tabs" %>
   <div class="row top-buffer">
-    <div <%= @errors.present? ? "" : "hidden" %> id="scaife-integration-error-msg" class="alert alert-danger">
+    <div id="scaife-integration-error-msg" class="alert alert-danger" style="display: <%= @errors.present? ? "block" : "none" %>">
       <% if @errors.present? %>
         <% @errors.each do |err| %>
           <%= "#{err}" %></br>
         <% end %>
       <% end %>
     </div>
-    <div <%= @success.present? ? "" : "hidden" %> id="scaife-integration-success-msg" class="alert alert-success">
+    <div id="scaife-integration-success-msg" class="alert alert-success" style="display: <%= @errors.present? ? "block" : "none" %>">
       <% if @success.present? %>
         <%= @success %>
       <% end %>

@@ -1,6 +1,6 @@
 # coding: utf-8
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -27,7 +27,7 @@ import sys
 from setuptools import setup, find_packages
 
 NAME = "swagger_server"
-VERSION = "2.0.0"
+VERSION = "2.2.0"
 
 # To install the library, run the following
 #
@@ -52,6 +52,6 @@ setup(
     entry_points={
         'console_scripts': ['swagger_server=swagger_server.__main__:main']},
     long_description="""\
-    Module to facilitate auditing static analysis alerts using classifiers, optional adaptive heuristics, and alert prioritization. The module enables jump-starting labeled datasets using test suites. It is intended to enable a wide range of users (with widely varying datasets, static analysis tools, ranging from having no labeled data to having a lot of labeled data, and regardless of if they have their own statistical experts) to benefit from using classifiers and sophisticated prioritization to automatically triage handling their static analysis alerts.
+    Module to facilitate auditing static analysis meta-alerts using classifiers, optional adaptive heuristics, and meta-alert prioritization. The module enables jump-starting labeled datasets using test suites. It is intended to enable a wide range of users (with widely varying datasets, static analysis tools, ranging from having no labeled data to having a lot of labeled data, and regardless of if they have their own statistical experts) to benefit from using classifiers and sophisticated prioritization to automatically triage handling their static analysis meta-alerts.
     """
 )

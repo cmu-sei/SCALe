@@ -1,10 +1,11 @@
 #!/bin/sh
+#
 # Script to take the markdown in doc and convert it into .html in public
 # This script assumes that pandoc > v2.6 is installed on the current machine:
 #    http://pandoc.org/installing.html
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -31,10 +32,12 @@
 SCRIPT_LOC=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT_LOC")
 
-if [ ! -d $SCRIPT_PATH ]; then
+if [ ! -d "$SCRIPT_PATH" ]; then
     echo "Unable to find script execution directory."
     exit 1
 fi
+
+# . "$SCRIPT_PATH/env.sh"
 
 # Locations
 SRC_DIR=$SCRIPT_PATH/../doc
@@ -48,6 +51,7 @@ STYLES_FILE=styles/styles.css
 TEMPLATE_FILE=$CONTROL_DIR/html.template
 LUA_FILE=$CONTROL_DIR/md-to-html.lua
 BUILD_CMD="pandoc"
+
 
 if ! type $BUILD_CMD > /dev/null; then
     echo "Documentation build requires pandoc 2.6 or higher.  http://pandoc.org/installing.html"
@@ -63,15 +67,16 @@ fi
 # attachments, images, and styles go as is
 mkdir -p $DEST_DIR
 
-cp -R $ATTACHMENTS_DIR $DEST_DIR
-cp -R $IMAGES_DIR $DEST_DIR
-cp -R $STYLES_DIR $DEST_DIR
+cp -R -L $ATTACHMENTS_DIR $DEST_DIR
+cp -R -L $IMAGES_DIR $DEST_DIR
+cp -R -L $STYLES_DIR $DEST_DIR
 
 for f in $SRC_DIR/*.md; do
  SRC_NAME=$f
  TMP_NAME=$(basename "$f")
  DEST_NAME="${DEST_DIR}/${TMP_NAME%.*}.html"
 
- echo "Converting $SRC_NAME to $DEST_NAME"
- eval "$BUILD_CMD -c $STYLES_FILE --template=$TEMPLATE_FILE -f markdown $SRC_NAME -o $DEST_NAME --lua-filter=$LUA_FILE"
- done
+echo "Converting $SRC_NAME to $DEST_NAME"
+eval "$BUILD_CMD -c $STYLES_FILE --template=$TEMPLATE_FILE -f markdown $SRC_NAME -o $DEST_NAME --lua-filter=$LUA_FILE"
+done
+

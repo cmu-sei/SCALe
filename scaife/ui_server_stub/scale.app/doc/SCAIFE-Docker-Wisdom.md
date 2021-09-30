@@ -145,6 +145,14 @@ both inside and outside a container, we recommend you keep two copies of
 the code, one for building a dependent container, and one for running on
 your host.
 
+If you pass `--no-cache` to the `docker build` command, it will ignore
+any cached image and rebuild the container from scratch. This results
+in a much slower build. However, relying on the cache can cause
+intermediate images to become obsolete, as new software packages can
+appear in the apt repositories (or pip or rubygems or...). Therefore,
+we recommend that you rebuild your containers from scratch every two
+weeks.
+
 #### Initializing a dependent container
 
 If you want to share the host\'s source filesystem with a dependent
@@ -287,7 +295,16 @@ This command should produce:
 "request_id": "deadbeat"
 }
 ```
-Each Swagger server has some tox  regression tests. These command will
+**Running containers in Test Mode**
+
+Test mode adds some data and settings to containers and databases that are used by automated tests.
+To start all servers in test mode, use the `docker-compose.test.yml` file as part of the
+`docker-compose` command. For instance, a test mode startup command example is the following (which also shares
+volumes, to speed up subsequent tests):
+`docker-compose -f docker-compose.yml -f docker-compose.m2.yml -f docker-compose.test.yml up --build`
+
+
+Each Swagger server has some tox  regression tests. These command will
 test each Swagger server (except for stats). The tests can be run while
 the production servers are still running:
 
@@ -302,8 +319,7 @@ The Stats server is more complicated. To run its tox tests, you need to
 take down both stats and datahub servers. Then these commands will test
 Stats:
 
-**Command to run regression tests on an independent stats container**
-
+**Command to run regression tests with independent Swagger containers and DataHub in Test Mode**
 ```
 docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d
 datahub
@@ -324,6 +340,12 @@ require the DH to be in test mode)):
 
 **Command to run tox tests on an independent Swagger container (WARNING:
 will leave test data files and database changes!)**
+
+Performance Measurements
+--------------------------
+To record performance measurements when running SCAIFE, start the Stats Module server using the "--experiment" flag followed by "y" or "n".  By default, performance measurements are automatically collected when SCAIFE is run in test mode.
+
+To calculate and display performance measurements, run "python swagger_server/controllers/performance_measurements.py" from the stats_server_stub directory.  If trying to access performance measurements after running SCAIFE in test mode, add the "--mode" flag followed by "test" (i.e., "python swagger_server/controllers/performance_measurements.py --mode test")
 
 ```
 # Access a bash command line on the container ${SERVER} (e.g., datahub)
@@ -831,6 +853,13 @@ Troubleshooting
 ```
 > sudo rm -rf .tox
 ```
+-   Pulsar is the most memory-hungry container. It can easily die from
+    lack-of-memory. To run a simple classifier on dos2unix, Pulsar
+    uses 1.1 GB of memory, and will crash with "error 137" if this
+    memory is not available.  Docker on Mac defaults to 2 GB of
+    memory, but this can (and should) be upgraded. To do this, select
+    Docker->Preferences->Resources.
+
 Summary: Quick-Start for How to Test SCAIFE Code with and without Containers
 ============================================================================
 
@@ -988,5 +1017,9 @@ user instructions in the SCAIFE HTML manual pages about how to do that.
                 above bullet)
 
 
+Using SCAIFE in Experiment Mode
+===============================
+
+See the [SCAIFE Experiment Mode documentation](SCAIFE-Experiment-Mode.md) for more information.
 
 ------------------------------------------------------------------------

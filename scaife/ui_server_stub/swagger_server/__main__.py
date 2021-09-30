@@ -12,7 +12,7 @@
 #    python -m swagger_server --mode test
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -43,13 +43,16 @@ from swagger_server import encoder
 def main(mode=None):
     app = connexion.App(__name__, specification_dir='./swagger/')
     app.app.json_encoder = encoder.JSONEncoder
-    app.app.config['templates_path'] = './templates'  # folder with the HTML docs
-    app.app.config['UPLOAD_FOLDER'] = './uploaded_files'  # folder to upload files to
+    # folder with the HTML docs
+    app.app.config['templates_path'] = './templates'
+    # folder to upload files to
+    app.app.config['UPLOAD_FOLDER'] = './uploaded_files'
     app.app.config['DATABASE_NAME'] = 'ui_test'
     app.app.config['SECRET_KEY'] = 'secretkey'
     app.app.config['datahub_server'] = 'datahubkey'
     app.app.config['stats_server'] = 'statskey'
-    CORS(app.app)  # add CORS support to the app, remove cors in production
+    # add CORS support to the app, remove cors in production
+    CORS(app.app)
     app.run(host='127.0.0.1', port=8083)
 
 
@@ -61,7 +64,7 @@ if __name__ == '__main__':
         automatically launching within a container, e.g. "python -m
         swagger_server --mode test"
     """)
-    parser.add_argument("--mode", required=False,
+    parser.add_argument("-m", "--mode", required=False,
             help="specify 'test' or 'production'")
     args = parser.parse_args()
 

@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -71,16 +71,16 @@ class ClassifierMetricsTest < ActiveSupport::TestCase
                 classifier_analysis["num_code_metrics_tools_used_for_classifier_training"] = num_code_metrics_tools_used_for_classifier_training
                 classifier_analysis["top_features_impacting_classifier"] = top_features_impacting_classifier
 
-		count = ClassifierMetrics.count
-		success = ClassifierMetrics.addRecord(
+		count = ClassifierMetric.count
+		success = ClassifierMetric.addRecord(
 			project_id,
 			scaife_classifier_instance_id,
 			classifier_analysis
 		)
 
 		assert_equal(true, success)
-		assert_equal(count + 1, ClassifierMetrics.count)
-		assert ClassifierMetrics.exists?(
+		assert_equal(count + 1, ClassifierMetric.count)
+		assert ClassifierMetric.exists?(
                     project_id: project_id,
                     scaife_classifier_instance_id: scaife_classifier_instance_id,
                     num_labeled_meta_alerts_used_for_classifier_evaluation: num_labeled_meta_alerts,

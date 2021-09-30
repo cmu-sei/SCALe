@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -35,6 +35,8 @@ module Api
 module Datahub
 
   class GetAlertsResponse
+    attr_accessor :git_commit_hash
+
     attr_accessor :meta_alerts
 
     attr_accessor :alerts
@@ -42,6 +44,7 @@ module Datahub
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'git_commit_hash' => :'git_commit_hash',
         :'meta_alerts' => :'meta_alerts',
         :'alerts' => :'alerts'
       }
@@ -55,6 +58,7 @@ module Datahub
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'git_commit_hash' => :'String',
         :'meta_alerts' => :'Array<MetaAlertWId>',
         :'alerts' => :'Array<AlertWId>'
       }
@@ -80,6 +84,10 @@ module Datahub
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'git_commit_hash')
+        self.git_commit_hash = attributes[:'git_commit_hash']
+      end
 
       if attributes.key?(:'meta_alerts')
         if (value = attributes[:'meta_alerts']).is_a?(Array)
@@ -112,6 +120,7 @@ module Datahub
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          git_commit_hash == o.git_commit_hash &&
           meta_alerts == o.meta_alerts &&
           alerts == o.alerts
     end
@@ -125,7 +134,7 @@ module Datahub
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [meta_alerts, alerts].hash
+      [git_commit_hash, meta_alerts, alerts].hash
     end
 
     # Builds the object from hash

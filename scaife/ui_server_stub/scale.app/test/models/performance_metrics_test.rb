@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -44,8 +44,8 @@ class PerformanceMetricsTest < ActiveSupport::TestCase
 		project_id = 1000
                 start_timestamps = end_timestamps = get_timestamps()
 
-		count = PerformanceMetrics.count
-		success = PerformanceMetrics.addRecord(
+		count = PerformanceMetric.count
+		success = PerformanceMetric.addRecord(
 			scaife_mode,
                         function_name,
                         metric_description,
@@ -61,8 +61,8 @@ class PerformanceMetricsTest < ActiveSupport::TestCase
                 cpu_time = (end_timestamps["cpu_time"] - start_timestamps["cpu_time"]) / 2.0
 
 		assert_equal(true, success)
-		assert_equal(count + 1, PerformanceMetrics.count)
-		assert PerformanceMetrics.exists?(
+		assert_equal(count + 1, PerformanceMetric.count)
+		assert PerformanceMetric.exists?(
                     scaife_mode: scaife_mode,
                     function_name: function_name,
                     metric_description: metric_description,

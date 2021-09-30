@@ -3,7 +3,7 @@ title: 'SCALe : Export Analysis Results from the Web Application'
 ---
  [SCALe](index.md) / [Source Code Analysis Lab (SCALe)](Welcome.md) / [SCALe Quick Start Demo for Auditors](SCALe-Quick-Start-Demo-for-Auditors.md)
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->

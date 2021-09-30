@@ -1,37 +1,4 @@
-# -*- coding: UTF-8 -*-
-
-# <legal>
-# SCALe version r.6.5.5.1.A
-# 
-# Copyright 2021 Carnegie Mellon University.
-# 
-# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
-# INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
-# UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
-# IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
-# FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
-# OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
-# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
-# TRADEMARK, OR COPYRIGHT INFRINGEMENT.
-# 
-# Released under a MIT (SEI)-style license, please see COPYRIGHT file or
-# contact permission@sei.cmu.edu for full terms.
-# 
-# [DISTRIBUTION STATEMENT A] This material has been approved for public
-# release and unlimited distribution.  Please see Copyright notice for
-# non-US Government use and distribution.
-# 
-# DM19-1274
-# </legal>
-
-import sys, os, re, sqlite3, json, yaml, subprocess
-#from urllib import urljoin
-from subprocess import CalledProcessError
-from urlparse import urljoin
-from glob import glob
-from bs4 import BeautifulSoup
-
-import bootstrap
+# -*- coding: utf-8 -*-
 
 # Notes on usage
 #
@@ -73,10 +40,44 @@ import bootstrap
 # action will be loaded below in order to fully simulate what would be
 # happening during a real user session. This pre-load (and auth token
 # extraction) is referred to as "priming" in the code below.
+#
+# <legal>
+# SCALe version r.6.7.0.0.A
+# 
+# Copyright 2021 Carnegie Mellon University.
+# 
+# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+# INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON
+# UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR
+# IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF
+# FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS
+# OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT,
+# TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+# 
+# Released under a MIT (SEI)-style license, please see COPYRIGHT file or
+# contact permission@sei.cmu.edu for full terms.
+# 
+# [DISTRIBUTION STATEMENT A] This material has been approved for public
+# release and unlimited distribution.  Please see Copyright notice for
+# non-US Government use and distribution.
+# 
+# DM19-1274
+# </legal>
+
+import sys, os, re, sqlite3, json, yaml, subprocess
+#from urllib import urljoin
+from subprocess import CalledProcessError
+from urlparse import urljoin
+from glob import glob
+from bs4 import BeautifulSoup
+
+import bootstrap
 
 # True, False, 1, 2, ... a value of 2 or higher will print out full
 # command line invocations of curl
 from bootstrap import VERBOSE
+VERBOSE(1)
 
 # disable this in order to use persistent (not deleted afterwards) tmp
 # file names in scale.app/tmp -- mostly for use in curl invocations
@@ -85,6 +86,29 @@ EPHEMERAL_TMP = True
 
 class ScaleSession(object):
 
+    all_sort_fields = {}
+    for param, abbrv in (
+            ('Display (d) ID', 'id'),
+            ('Meta-Alert (m) ID', 'meta_alert_id'),
+            ('Flag', 'flag'),
+            ('Line', 'line'),
+            ('Severity', 'severity'),
+            ('Likelihood', 'likelihod'),
+            ('Remediation', 'remediation'),
+            ('CERT Priority', 'priority'),
+            ('Level', 'level'),
+            ('Checker', 'checker'),
+            ('Message', 'message'),
+            ('Path', 'path'),
+            ('Label', 'label'),
+            ('Confidence', 'confidence'),
+            ('Category', 'category'),
+            ('AlertCondition Priority', 'meta_alert_priority')):
+        all_sort_fields[param] = param
+        all_sort_fields[param.lower()] = param
+        all_sort_fields[abbrv] = param
+    all_sort_dirs = ("asc", "desc")
+
     # class variable shared across session instances
     engines = {}
 
@@ -92,18 +116,17 @@ class ScaleSession(object):
     def register_engine(cls, name, f):
         cls.engines[name] = f
 
-    def __init__(self, host="localhost", port="8083", user=None, passwd=None,
-            engine="curl", use_ssl=None):
+    def __init__(self, host="localhost", port="8083", engine="curl", use_ssl=None):
         if use_ssl is None:
             self.use_ssl = bootstrap.scale_server_uses_ssl()
         else:
             self.use_ssl = use_ssl
         protocol = "https" if self.use_ssl else "http"
         self.base_url = "%s://%s:%s" % (protocol, host, port)
-        if not (user and passwd):
-            user, passwd = default_user_pass()
-        self.user = user
-        self.passwd = passwd
+        self.scale_active = False
+        self.scale_registered = set()
+        self.scale_user = None
+        self.scale_passwd = None
         self.scaife_active = False
         self.scaife_registered = set()
         self.scaife_user = None
@@ -126,36 +149,42 @@ class ScaleSession(object):
             self.db_con = sqlite3.connect(self.db_file)
         return self.db_con
 
-    def post(self, url, params, auth=True, set_referrer=True):
+    def post(self, url, params, auth=True, set_referrer=True,
+             accept_json=False, accept_redirects=2):
         if "authenticity_token" not in params and self.auth_token and auth:
             params["authenticity_token"] = self.auth_token
         res = self.engines[self.engine](url, params,
                 cookie_file=self.cookie_file, use_ssl=self.use_ssl,
-                user=self.user, passwd=self.passwd,
-                referrer=self.last_url, method="POST")
+                referrer=self.last_url, accept_json=accept_json,
+                accept_redirects=accept_redirects,
+                method="POST")
         if auth:
             self.extract_auth_token(res)
         if set_referrer:
             self.last_url = url
         return res
 
-    def get(self, url, params=None, auth=True, set_referrer=True):
+    def get(self, url, params=None, auth=True, set_referrer=True,
+            accept_json=False, accept_redirects=2):
         res = self.engines[self.engine](url, params=params,
                 cookie_file=self.cookie_file, use_ssl=self.use_ssl,
-                user=self.user, passwd=self.passwd,
-                referrer=self.last_url, method="GET")
+                referrer=self.last_url, accept_json=accept_json,
+                accept_redirects=accept_redirects,
+                method="GET")
         if auth:
             self.extract_auth_token(res)
         if set_referrer:
             self.last_url = url
         return res
 
-    def put(self, url, params, auth=True, set_referrer=True):
+    def put(self, url, params, auth=True, set_referrer=True,
+            accept_json=False, accept_redirects=2):
         params["_method"] = "put"
         res = self.engines[self.engine](url, params=params,
                 cookie_file=self.cookie_file, use_ssl=self.use_ssl,
-                user=self.user, passwd=self.passwd,
-                referrer=self.last_url, method="PUT")
+                referrer=self.last_url, accept_json=accept_json,
+                accept_redirects=accept_redirects,
+                method="PUT")
         if auth:
             self.extract_auth_token(res)
         if set_referrer:
@@ -163,11 +192,11 @@ class ScaleSession(object):
         return res
 
     def delete(self, url, params=None, auth=True,
-            set_referrer=True, follow_redirects=False):
+            set_referrer=True, accept_redirects=2):
         res = self.engines[self.engine](url, params=params,
                 cookie_file=self.cookie_file, use_ssl=self.use_ssl,
-                user=self.user, passwd=self.passwd,
                 referrer=self.last_url, accept_json=True,
+                accept_redirects=accept_redirects,
                 accept_additional_codes=[204],
                 method="DELETE")
         if auth:
@@ -271,7 +300,24 @@ class ScaleSession(object):
             print("query_index()")
         return self.get(self.route())
 
-    def query_project(self, fused=None):
+    def event_view_project(self, verdict="", previous="",
+            path=None, line=None, checker=None, tool=None,
+            condition=None, taxonomy=None, category=None,
+            page=None, fused=None):
+        self.query_project(verdict=verdict, previous=previous,
+            path=path, line=line, checker=checker, tool=tool,
+            condition=condition, taxonomy=taxonomy, category=category,
+            page=page, fused=fused)
+        res = self.query_alert_conditions(verdict=verdict, previous=previous,
+            path=path, line=line, checker=checker, tool=tool,
+            condition=condition, taxonomy=taxonomy, category=category,
+            page=page, fused=fused, primed=True)
+        return res
+
+    def query_project(self, verdict="", previous="",
+            path=None, line=None, checker=None, tool=None,
+            condition=None, taxonomy=None, category=None,
+            page=None, fused=None):
         # load the alerts page for a project
         # note: in order to change fused vs unfused, this is the place
         #       if it hasn't been set yet it will default to 'fused'
@@ -283,7 +329,24 @@ class ScaleSession(object):
                 path += "/unfused"
             else:
                 path += "/fused"
-        return self.get(self.route(path))
+        path = "projects/%s" % self.project_id
+        if any([verdict, previous, path, line, checker, tool, condition,
+            taxonomy, category, page]):
+            params = self.default_params()
+            params["verdict"] = verdict or -1
+            params["previous"] = previous or -1
+            params["path"] = path or ""
+            params["line"] = line or ""
+            params["checker"] = checker or ""
+            params["tool"] = tool or ""
+            params["condition"] = condition or ""
+            params["taxonomy"] = taxonomy or "View All"
+            params["category"] = category or "All"
+            params["page"] = page or 1
+            params["commit"] = "Filter"
+        else:
+            params = None
+        return self.get(self.route(path), params=params)
 
     def query_project_new_form(self):
         # pulls up the create project form
@@ -299,17 +362,29 @@ class ScaleSession(object):
         path = "projects/%s/database" % self.project_id
         return self.get(self.route(path))
 
+    def query_project_export_db(self):
+        if VERBOSE:
+            print("query_project_export_db()")
+        path = "projects/%s/exportdb" % self.project_id
+        return self.get(self.route(path))
+
     ### these actually make updates to a SCALe project
 
     def query_project_create_submit(self, name,
-            description=None, primed=False):
+            description=None, project_type=None, primed=False):
         # create project with name and description
         if VERBOSE:
             print("query_project_create_submit()")
         path = "projects"
+        if not project_type:
+            project_type = "scale"
+        project_types = ('scale', 'scaife', 'scaife-ci')
+        if project_type not in project_types:
+            raise ValueError("unknown project type: '%s' not in (%s)"
+                % (project_type, ', '.join(project_types)))
         params = self.default_params()
         params.update({
-            "project_type": "scale",
+            "project_type": project_type,
             "project": {
               "name": name,
               "description": description,
@@ -322,6 +397,41 @@ class ScaleSession(object):
         html = self.post(self.route(path), params)
         # set self.project_id to newly created project
         self.update_project_ids()
+        return html
+
+    def query_scaife_ci_submit(self,
+            git_url="", git_user="", git_access_token="",
+            author_source="", license_string="",
+            primed=False):
+        # create project with name and description
+        if VERBOSE:
+            print("query_scaife_ci_submit()")
+        path = "projects/%s/scaife_ci" % self.project_id
+        params = self.default_params()
+        params.update({
+            "project": {
+              "author_source": author_source or "",
+              "license_file": license_string or "",
+              "git_url": git_url or "",
+              "git_user": git_user or "",
+              "git_access_token": git_access_token or "",
+            },
+            "commit": "Create",
+        })
+        # requires auth token (but still works without it...)
+        if not primed:
+            self.query_project_new_form()
+        html = self.post(self.route(path), params)
+        try:
+            soup = BeautifulSoup(html, 'lxml')
+        except TypeError:
+            raise RuntimeError("problem parsing create scaife_ci project html")
+        tag = soup.find(id="errors")
+        if tag:
+            err_str = tag.get_text.strip()
+            if err_str:
+                raise ValueError(
+                    "unable to finish creating SCAIFE/CI project: %s" % err_str)
         return html
 
     def query_project_destroy(self, primed=True):
@@ -493,6 +603,71 @@ class ScaleSession(object):
         # sets fused mode in session cookie -- important!
         self.query_project(fused=fused)
 
+    def event_scaife_ci_project_create(self, name,
+            description=None, project_id=None, author_source=None,
+            license_string=None, lang_ids=None, tool_ids=None, taxo_ids=None,
+            git_url=None, git_user=None, git_access_token=None,
+            primed=False):
+        # create project with name and description
+        if VERBOSE:
+            print("event_scaife_ci_project_create_submit()")
+        if not name and not project_id:
+            raise ValueError("no project name/description or existing project id provided")
+        if not primed:
+            self.query_index()
+        if project_id is None:
+            self.query_project_create_submit(name=name, description=description,
+                    project_type='scaife-ci', primed=True)
+            project_id = self.project_id
+        self.assert_project_ids_exist(project_id)
+        if lang_ids:
+            lang_ids = set(lang_ids)
+            self.assert_lang_ids_exist(lang_ids)
+            self.query_langs_select_submit(select_lang_ids=lang_ids,
+                    primed=True)
+        if taxo_ids:
+            taxo_ids = set(taxo_ids)
+            self.assert_taxo_ids_exist(taxo_ids)
+            self.query_taxos_select_submit(select_taxo_ids=taxo_ids,
+                    primed=True)
+        if tool_ids:
+            tool_ids = set(tool_ids)
+            self.assert_tool_ids_exist(taxo_ids)
+            self.query_tools_select_submit(select_tool_ids=tool_ids,
+                    primed=True)
+        res = self.query_scaife_ci_submit(git_url=git_url,
+            git_user=git_user, git_access_token=git_access_token,
+            author_source=author_source, license_string=license_string,
+            primed=True)
+        return res
+
+    def query_alert_conditions(self, verdict="", previous="",
+            path=None, line=None, checker=None, tool=None,
+            condition=None, taxonomy=None, category=None,
+            page=None, fused=None, primed=False):
+        # load the alerts table for a project
+        # note: in order to change fused vs unfused, this is the place
+        #       if it hasn't been set yet it will default to 'fused'
+        if VERBOSE:
+            print("query_project()")
+        path = "alert_conditions"
+        params = self.default_params()
+        params["verdict"] = verdict or -1
+        params["previous"] = previous or -1
+        params["path"] = path or ""
+        params["line"] = line or ""
+        params["checker"] = checker or ""
+        params["tool"] = tool or ""
+        params["condition"] = condition or ""
+        params["taxonomy"] = taxonomy or "View All"
+        params["category"] = category or "All"
+        params["page"] = page or 1
+        params["commit"] = "Filter"
+        if not primed:
+            self.query_project(params)
+        params["project_id"] = self.project_id
+        return self.get(self.route(path), params=params)
+
     def query_mass_update(self, alert_conditions, primed=False,
             scaife_mode_select = "Demo",
             verdict = -1,
@@ -507,13 +682,13 @@ class ScaleSession(object):
         path = "alertConditions/update"
         params = self.default_params()
         if flag != -1:
-            flag = self._normalize_bool(flag)
+            flag = self._normalize_bool_param(flag)
         if ignored != -1:
-            ignored = self._normalize_bool(ignored)
+            ignored = self._normalize_bool_param(ignored)
         if dead != -1:
-            dead = self._normalize_bool(dead)
+            dead = self._normalize_bool_param(dead)
         if ie != -1:
-            ie = self._normalize_bool(ie)
+            ie = self._normalize_bool_param(ie)
         params.update({
             # only requires project_id in fused view
             "project_id": self.project_id,
@@ -572,18 +747,19 @@ class ScaleSession(object):
             "display": display_params,
         })
         if not primed:
-            self.query_project()
-        return self.put(self.route(path), params)
+            self.event_view_project()
+        return self.put(self.route(path), params, accept_json=True)
 
-    def query_update_alert_condition(self, meta_alert_id, primed=False,
+    def query_update_alert_conditions(self, meta_alert_id, primed=False,
             flag         = None,
             verdict      = None,
             notes        = None,
             supplemental = None ):
         # part 2 of event_update_alert_determinations()
         if VERBOSE:
-            print("query_update_alert_condition()")
+            print("query_update_alert_conditions()")
         path = "alertConditions/update-alerts"
+        elems_to_set = 0
         for v in (flag, verdict, notes, supplemental):
             if v is not None:
                 elems_to_set += 1
@@ -593,7 +769,6 @@ class ScaleSession(object):
         params = self.default_params()
         params.update({
             # does not require project_id
-            "row_id": display_id,
             "meta_alert_id": meta_alert_id,
         })
         if flag is not None:
@@ -621,10 +796,11 @@ FROM displays WHERE meta_alert_id = ?
             params["elem"] = "supplemental"
             params["value"] = [ign, dead, ia, dc]
         if not primed:
-            self.query_project()
+            self.event_view_project()
         return self.post(self.route(path), params)
 
-    def event_update_alert_determinations(self, meta_alert_id, row_id,
+    def event_update_alert_determinations(self,
+            meta_alert_id, row_id, primed=False,
             flag    = None,
             verdict = None,
             notes   = None,
@@ -637,15 +813,16 @@ FROM displays WHERE meta_alert_id = ?
         if VERBOSE:
             print("event_update_alert_determinations()")
         vals_present = False
-        for v in (flag, verdict, supplemental, notes,
-                ignored, dead, ie, dc):
+        for v in (flag, verdict, notes, ignored, dead, ie, dc):
             if v is not None:
                 vals_present = True
                 break
         if not vals_present:
             raise ValueError("at least one value must be set")
-        # auth token (doesn't seem to be required though)
-        self.query_project()
+        if not primed:
+            # auth token (doesn't seem to be required though)
+            # also loads $fusedAlerts
+            self.event_view_project()
         # first action
         res1 = self.query_update_display(row_id, primed=True,
             flag=flag,
@@ -662,8 +839,9 @@ FROM displays WHERE meta_alert_id = ?
             supp = [ignored, dead, ie, dc]
         else:
             supp = None
-        res2 = self.query_update_alert_condition(
-            meta_alert_id, row_id, primed=True,
+        res2 = self.query_update_alert_conditions(
+            meta_alert_id, primed=True,
+            #meta_alert_id, row_id, primed=True,
             flag=flag,
             verdict=verdict,
             notes=notes,
@@ -678,12 +856,10 @@ FROM displays WHERE meta_alert_id = ?
         if select_lang_ids:
             self.assert_lang_ids_exist(select_lang_ids)
         if deselect_lang_ids:
-            self.assert_langs_ids_exist(deselect_lang_ids)
-        if not lang_ids:
-            # langs already selected
-            return
-        select_langs = dict(((str(x), str(x)) for x in select_lang_ids))
-        deselect_langs = dict(((str(x), str(x)) for x in deselect_lang_ids))
+            self.assert_lang_ids_exist(deselect_lang_ids)
+        select_langs = dict(((str(x), str(x)) for x in select_lang_ids or []))
+        deselect_langs = \
+                dict(((str(x), str(x)) for x in deselect_lang_ids or []))
         if not primed:
             self.query_project()
         params = self.default_params()
@@ -715,26 +891,73 @@ FROM displays WHERE meta_alert_id = ?
         if select_taxos:
             params["select_taxos"] = select_taxos
         if deselect_taxos:
-            params["deselect_taxos"] = select_taxos
+            params["deselect_taxos"] = deselect_taxos
         self.post(self.route(path), params)
 
-    ### SCAIFE integration
-
-    def query_scaife_register_submit(self, account=None, primed=False):
+    def query_tools_select_submit(self, select_tool_ids=None,
+            deselect_tool_ids=None, primed=False):
         if VERBOSE:
-            print("query_scaife_register_submit()")
-        if account is None:
-            account = default_account_scaife()
-        path = "scaife-registration/register-submit"
+            print("query_tools_select_submit()")
+        path = "tool_select_submit"
+        if select_tool_ids:
+            self.assert_tool_ids_exist(select_tool_ids)
+        if deselect_tool_ids:
+            self.assert_tool_ids_exist(deselect_tool_ids)
+        select_tools = dict(((str(x), str(x)) for x in select_tool_ids or []))
+        deselect_tools = \
+                dict(((str(x), str(x)) for x in deselect_tool_ids or []))
         if not primed:
-            self.query_index()
-        if self.scaife_active:
-            self.query_scaife_logout(primed=True)
+            self.query_project()
+        params = self.default_params()
+        x = self.project_tool_ids()
+        cur = self.con.cursor()
+        params["project_id"] = self.project_id
+        if select_tools:
+            params["select_tools"] = select_tools
+        if deselect_tools:
+            params["deselect_tools"] = deselect_tools
+        self.post(self.route(path), params)
+
+    def event_sort_by_keys_submit(self, sort_keys_selected=None):
+        if VERBOSE:
+            print("query_sort_by_keys_submit()")
+        path = "alertConditions/sort_by_keys_submit"
+        if not sort_keys_selected:
+            sort_keys_selected = "Path ASC, Line ASC"
+        skeys_selected = []
+        if isinstance(sort_keys_selected, basestring):
+            sort_keys_selected = re.split(r",\s+", sort_keys_selected)
+        for val in sort_keys_selected:
+            val = re.split(r"\s+", val)
+            order = val.pop()
+            key = ' '.join(val)
+            if order.lower() not in self.all_sort_dirs:
+                raise ValueError("unknown sort direction: %s" % order)
+            if key not in self.all_sort_fields:
+                raise ValueError("unknown sort field: %s" % key)
+            key = self.all_sort_fields[key]
+            skeys_selected.append("%s %s" % (key, order.upper()))
+        sort_keys_selected = ', '.join(skeys_selected)
+        params = self.default_params()
+        params["sort_keys_selected"] = sort_keys_selected
+        # not sure yet what that actually returns; want to detect errors
+        # here ideally
+        res = self.post(self.route(path), params)
+        # but the end result is reloading the alerts page; sort keys
+        # were set in the session cookie thanks to the last post()
+        html = self.query_project()
+        return html
+
+    ### Authentication
+
+    def query_register_submit(self, path, account):
+        if VERBOSE:
+            print("query_register_submit()")
         params = self.default_params()
         params.update({
             "firstname_field": account["first_name"],
             "lastname_field": account["last_name"],
-            "org_field": "acme",
+            "org_field": account["org"],
             "user_field": account["name"],
             "password_field": account["password"],
             "commit": "Register",
@@ -742,20 +965,11 @@ FROM displays WHERE meta_alert_id = ?
         res = self.post(self.route(path), params)
         if re.search(r"Invalid", res, re.I):
             raise ScaifeError("account exists")
-        self.scaife_registered.add(account["name"])
-        self.scaife_active = True
         return res
 
-    def query_scaife_login_submit(self, account=None, primed=False):
+    def query_login_submit(self, path, account):
         if VERBOSE:
-            print("query_scaife_login_submit()")
-        if account is None:
-            account = default_account_scaife()
-        path = "scaife-registration/login-submit"
-        if not primed:
-            self.query_index()
-        if self.scaife_active:
-            self.query_scaife_logout(primed=True)
+            print("query_login_submit()")
         params = self.default_params()
         params.update({
             "user_field": account["name"],
@@ -765,23 +979,106 @@ FROM displays WHERE meta_alert_id = ?
         res = self.post(self.route(path), params)
         if re.search(r"Invalid", res, re.I):
             raise ScaifeError("invalid login")
+        return res
+
+    def query_logout(self, path):
+        if VERBOSE:
+            print("query_logout()")
+        res = self.post(self.route(path), self.default_params())
+        return res
+
+    ### SCALe authentication
+
+    def query_scale_register_submit(self, account=None, primed=False):
+        if account is None:
+            account = default_account_scale()
+        path = "users/register-submit"
+        if not primed:
+            self.query_index()
+        if self.scale_active:
+            self.query_scale_logout(primed=True)
+        res = self.query_register_submit(path, account)
+        self.scale_registered.add(account["name"])
+        self.scale_active = True
+        return res
+
+    def query_scale_login_submit(self, account=None, primed=False):
+        if account is None:
+            account = default_account_scale()
+        path = "users/login-submit"
+        if not primed:
+            self.query_index()
+        if self.scale_active:
+            self.query_scale_logout(primed=True)
+        res = self.query_login_submit(path, account)
+        self.scale_active = True
+        return res
+
+    def query_scale_logout(self, primed=False):
+        path = "users/logout"
+        if not primed:
+            self.query_index()
+        res = self.query_logout(path)
+        self.scale_active = False
+        return res
+
+    def event_scale_session_establish(self, renew=False,
+            account=None, primed=False):
+        if renew or not self.scale_active:
+            if not primed:
+               self.query_index()
+            if account is None:
+                account = default_account_scale()
+            if self.scale_active:
+                self.query_scale_logout(primed=True)
+            if account["name"] not in self.scale_registered:
+                try:
+                    self.query_scale_register_submit(
+                            account=account, primed=True)
+                except ScaifeError:
+                    if VERBOSE:
+                        print("SCALe account already registered")
+                    pass
+            if not self.scale_active:
+                self.query_scale_login_submit(account=account, primed=True)
+
+    ### SCAIFE integration
+
+    def query_scaife_register_submit(self, account=None, primed=False):
+        if account is None:
+            account = default_account_scaife()
+        path = "scaife-registration/register-submit"
+        if not primed:
+            self.query_index()
+        if self.scaife_active:
+            self.query_scaife_logout(primed=True)
+        res = self.query_register_submit(path, account)
+        self.scaife_registered.add(account["name"])
+        self.scaife_active = True
+        return res
+
+    def query_scaife_login_submit(self, account=None, primed=False):
+        if account is None:
+            account = default_account_scaife()
+        path = "scaife-registration/login-submit"
+        if not primed:
+            self.query_index()
+        if self.scaife_active:
+            self.query_scaife_logout(primed=True)
+        res = self.query_login_submit(path, account)
         self.scaife_active = True
         return res
 
     def query_scaife_logout(self, primed=False):
-        if VERBOSE:
-            print("query_scaife_logout()")
         path = "scaife-registration/logout"
         if not primed:
             self.query_index()
-        res = self.post(self.route(path), self.default_params())
+        res = self.query_logout(path)
         self.scaife_active = False
         return res
 
     def event_scaife_session_establish(self, renew=False,
             account=None, primed=False):
-        if VERBOSE:
-            print("event_scaife_session_establish()")
         if renew or not self.scaife_active:
             if not primed:
                self.query_index()
@@ -816,7 +1113,19 @@ FROM displays WHERE meta_alert_id = ?
             "upload_langs": langs,
             "commit": "Upload Languages",
         })
-        res = self.post(self.route(path), params)
+        try:
+            res = self.post(self.route(path), params)
+        except FetchError as e:
+            if e.code == 207:
+                errors = [
+                    x.strip() for x in re.findall(r"ERROR:\s+(.*)", e.raw)]
+                if errors:
+                    raise ScaifeError(
+                        "language upload error: %s" % " : ".join(errors))
+                else:
+                    raise ScaifeError("language upload error: 207")
+            else:
+                raise e
         return res
 
     def query_scaife_taxos_upload_submit(self, taxo_ids, primed=False):
@@ -835,7 +1144,19 @@ FROM displays WHERE meta_alert_id = ?
             "upload_taxos": taxos,
             "commit": "Upload Taxonomies",
         })
-        res = self.post(self.route(path), params)
+        try:
+            res = self.post(self.route(path), params)
+        except FetchError as e:
+            if e.code == 207:
+                errors = [
+                    x.strip() for x in re.findall(r"ERROR:\s+(.*)", e.raw)]
+                if errors:
+                    raise ScaifeError(
+                        "taxonomy upload error: %s" % " : ".join(errors))
+                else:
+                    raise ScaifeError("taxonomy upload error: 207")
+            else:
+                raise e
         return res
 
     def query_scaife_tools_upload_submit(self, tool_ids, primed=False):
@@ -856,16 +1177,16 @@ FROM displays WHERE meta_alert_id = ?
         try:
             res = self.post(self.route(path), params)
         except FetchError as e:
-            if e.code == 500:
-                raise ScaifeError(
-                    "probable language selection/upload requirement unmet")
-        #if re.search(r"scaife-integration-error-msg", res):
-        #    # this would happen if there was no self.project_id submitted,
-        #    # i.e. from the splash page modal
-        #    if re.search(r"languages", res, re.I):
-        #        raise ScaifeError("language upload requirement unmet")
-        #    else:
-        #        raise ScaifeError("tool upload error")
+            if e.code == 207:
+                errors = [
+                    x.strip() for x in re.findall(r"ERROR:\s+(.*)", e.raw)]
+                if errors:
+                    raise ScaifeError(
+                        "tool upload error: %s" % " : ".join(errors))
+                else:
+                    raise ScaifeError("tool upload error: 207")
+            else:
+                raise e
         return res
 
     def query_scaife_project_upload(self, primed=False):
@@ -876,7 +1197,20 @@ FROM displays WHERE meta_alert_id = ?
         path = "projects/%s/upload_project" % self.project_id
         if not primed:
             self.query_index()
-        self.get(self.route(path))
+        #self.get(self.route(path))
+        try:
+            self.get(self.route(path), accept_redirects=False)
+        except FetchError as e:
+            if str(e.code).startswith("3"):
+                if e.code == 303:
+                    raise ScaifeError("probable project lang/taxo/tool "
+                        "upload requirement unmet for project: %s"
+                                % self.project_id)
+                # allow 302
+            else:
+                print("FetchError: %s" % e)
+                print("FetchError msg:", e.message)
+                raise e
 
     def query_scaife_classifier_create_form(self, classifier_type=None,
             primed=False):
@@ -972,7 +1306,8 @@ FROM displays WHERE meta_alert_id = ?
         if not primed:
             self.query_project()
         params = {
-            # project_id in url
+            # project_id in url, but still expected here (by runClassifier)
+            "project_id": self.project_id,
             "classifier_scheme_name": classifier_name,
         }
         res = self.post(self.route(path), params)
@@ -1224,7 +1559,7 @@ class ScaifeError(Exception):
 
 def curl_engine(url, params=None, files=None, cookie_file=None,
         user=None, passwd=None, referrer=None, method=None, as_json=False,
-        accept_json=False, follow_redirects=True, use_ssl=True,
+        accept_json=False, accept_redirects=True, use_ssl=True,
         accept_additional_codes=None):
     header_file = bootstrap.get_tmp_file(
             basename="auto.headers.txt", ephemeral=EPHEMERAL_TMP)
@@ -1235,8 +1570,9 @@ def curl_engine(url, params=None, files=None, cookie_file=None,
     # silent, but show errors
     cmd += ["-s", "--show-error"]
     # follow redirects (pretty common in rails) in case the later pages
-    # end up setting values in the session cookie
-    if follow_redirects:
+    # end up setting values in the session cookie; if set to 1 or True,
+    # don't follow, just return the first 3** result without following.
+    if accept_redirects > 1:
         cmd.append("-L")
     if use_ssl:
         # self-signed certificate ignore; note that it's up to the
@@ -1291,17 +1627,23 @@ def curl_engine(url, params=None, files=None, cookie_file=None,
         raise FetchError((e.returncode, output, method, url))
     res = open(output_file).read()
     hline = open(header_file).next().strip()
-    m = re.search(r"HTTP/\d\.\d\s+(\d+)\s+(.*)$", hline)
+    code = status = None
+    m = re.search(r"HTTP/\d\.\d\s+(\d+)(?:\s+(.*))?$", hline)
     if m:
         code, status = int(m.group(1)), m.group(2)
     for hline in (x.strip() for x in open(header_file)):
         m = re.search(r"^Content-Type:\s+application/([^;]+)", hline)
         if m and m.group(1) == "json":
             res = json.loads(res)
-    # 302 redirects are ok, although the -L option to curl should have
-    # piled through them
-    if code not in (200, 302) and code not in (accept_additional_codes or []):
-        raise FetchError((code, status, method, url, res))
+    # 3** redirects are possibly ok, although the -L option to curl
+    # should have piled through them if accept_redirects > 1
+    if code != 200 and code not in (accept_additional_codes or []):
+        if str(code).startswith("3"):
+            if not accept_redirects:
+                raise FetchError((code, status, method, url, res))
+        else:
+            # anything not 200 or 3**
+            raise FetchError((code, status, method, url, res))
     return res
 
 # future engines, for example a pure python version, should accept the
@@ -1340,25 +1682,6 @@ def to_curl_form_pairs(params, name="", as_files=False):
                 params = '@' + params
         yield name, params
 
-def default_user_pass():
-    # yes, this is gross; in the future the user/pass for SCALe needs to
-    # be placed in a config file, perhaps YAML, so that they can be
-    # portably shared across frameworks and languages, including rails
-    cfiles = glob(os.path.join(bootstrap.base_dir, "app/controllers/*.rb"))
-    cfiles = glob(os.path.join(bootstrap.base_dir, "app/controllers/*.rb"))
-    cmd = ["grep", "http_basic_authenticate_with"] + cfiles
-    res = subprocess.check_output(cmd)
-    name = passwd = None
-    m = re.search(r":name\s+=>\s+['\"]([^'\"]+)", res)
-    if m:
-        name = m.group(1)
-    m = re.search(r":password\s+=>\s+['\"]([^'\"]+)", res)
-    if m:
-        passwd = m.group(1)
-    if not (name and passwd):
-        raise ValueError("could not extract name/pass from app")
-    return name, passwd
-
 scaife_account = None
 
 def default_account_scaife(config_file=None):
@@ -1373,6 +1696,9 @@ def default_account_scaife(config_file=None):
                 "config test:automation:account "
                 "block not found: %s" % config_file)
         scaife_account = {}
-        for f in ('name', 'password', 'first_name', 'last_name'):
+        for f in ('name', 'password', 'first_name', 'last_name', 'org'):
             scaife_account[f] = config_account[f]
     return scaife_account
+
+def default_account_scale(config_file=None):
+    return default_account_scaife(config_file)

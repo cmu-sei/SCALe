@@ -4,7 +4,7 @@
 # OpenAPI Generator version: 5.0.1
 #
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -58,7 +58,7 @@ module Statistics
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'source_files' => :'Array<Sourcefile>',
+        :'source_files' => :'Array<SourceFile>',
         :'meta_alerts' => :'Array<MetaAlert>',
         :'alerts' => :'Array<Alert>'
       }

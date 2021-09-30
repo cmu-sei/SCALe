@@ -3,7 +3,7 @@
 # Tests that the 'canonicalize_project.py' script works correctly.
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -31,7 +31,8 @@ import pytest
 import os, sys
 import subprocess
 
-import bootstrap, util
+import scripts.bootstrap as bootstrap
+import util
 
 KEEP_OUTPUT = False
 
@@ -78,7 +79,7 @@ class TestCanonicalization:
         #
         # 1.  Create Project 1 (project names and descriptions
         #     are ignored by the canonicalization process)
-        # 2.  Create Project 2 and set one meta-alert verdict to 
+        # 2.  Create Project 2 and set one meta-alert verdict to
         #     "True" and one meta-alert to "False"
         # 3.  Create Project 3 by following exactly the same steps used
         #     to create Project 1
@@ -91,7 +92,7 @@ class TestCanonicalization:
         # From the scale.app directory, run the following test to verify the
         # data was updated correctly:
         #  pytest ./test/python/test_canonicalization.py
- 
+
         try:
             script = os.path.join(bootstrap.scripts_dir,
                     "canonicalize_project.py")

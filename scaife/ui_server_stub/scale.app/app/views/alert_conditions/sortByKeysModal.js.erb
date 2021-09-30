@@ -1,0 +1,62 @@
+$(document).ready(function() {
+        $("#sorting-modal").find(".modal-content").html("<%= j (render partial: 'sortByKeysModal') %>");
+        $("#sorting-modal").modal();
+
+        /* ********************* Sorting Modal ******************************************************* */
+
+	/*List items selected in sorting modal*/
+	$('#sortForm').on('click', '.list_item', function(e){
+		$('.list_item').removeClass("active_item");
+		$(e.target).addClass("active_item");
+	});
+
+	//Add keys to use in the sorting
+	$('#sortForm').on('click', '#add_sk_button', function(e){
+		var keyToAdd = $('#sort_keys_unselected li.active_item');
+		if(keyToAdd.text() != ""){
+			$('#sort_keys_unselected li.active_item').remove();
+			$('#sort_keys_unselected .list_item').removeClass("active_item");
+			$('#sort_keys_selected').append('<li class="list_item">' + keyToAdd.text() +'</li>');
+		}
+	});
+
+	//Remove keys from the list to use in sorting
+	$('#sortForm').on('click', '#remove_sk_button', function(e){
+		var keyToRemove = $('#sort_keys_selected li.active_item');
+		if(keyToRemove.text() != ""){
+			$('#sort_keys_selected li.active_item').remove();
+			$('#sort_keys_selected .list_item').removeClass("active_item");
+			$('#sort_keys_unselected').append('<li class="list_item">' + keyToRemove.text() +'</li>');
+		}
+	});
+
+    $(document).on('click', '#submit-sort-modal', function(e){
+    	e.preventDefault();
+	let sort_keys_selected = getSortKeys();
+        console.log(sort_keys_selected);
+	$.ajax({
+	    type: "POST",
+	    url: "/alertConditions/sort_by_keys_submit",
+	    contentType: 'application/json',
+	    data: JSON.stringify({sort_keys_selected: sort_keys_selected}),
+	    datatype: "json",
+	    success: function(result){
+		$('#sorting-modal').modal('toggle');
+		window.location.reload();
+	    },
+	    error: function(error_obj){
+                return false;
+	    }});
+	});
+});
+
+function getSortKeys(){
+    var sort_keys = '';
+    $('#sort_keys_selected .list_item').each(function(index){
+	if(index != 0) {
+	    sort_keys += ', ';
+	}
+	sort_keys += $(this).text();
+    });
+    return sort_keys;
+}

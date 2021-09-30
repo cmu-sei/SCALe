@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 

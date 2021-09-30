@@ -1,7 +1,7 @@
 # Source Code Analysis Lab (SCALe)
 
 <!-- <legal> -->
-<!-- SCALe version r.6.5.5.1.A -->
+<!-- SCALe version r.6.7.0.0.A -->
 <!--  -->
 <!-- Copyright 2021 Carnegie Mellon University. -->
 <!--  -->
@@ -25,13 +25,30 @@
 <!-- </legal> -->
 
 
-# SCAIFE/SCALe HTML manual
+## Installation Instructions (GitHub: `scaife-scale` branch)
+SCALe can be installed as containers on Linux and Mac machines. So far, we have only tested installs on Linux and Mac machines. To make SCALe releases work on Windows machines, we will need to make a change in handling symbolic links. In the future, we plan to make that change and test if SCALe installs on Windows then works. (Given that SCALe is fully Docker-containerized, we expect it to.)
 
-Much use, system design, and development information is provided in the included SCALe/SCAIFE HTML manual. To view it, in your web browser open this file location (first starting at SCAIFE home page, second starting at SCALe home page):
+You need a Linux or Mac machine (or VM) that has:
 
-* `scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html`
-* `scaife/ui_server_stub/scale.app/public/doc/scale2/SCAIFE-Welcome.html`
+* a connection to the internet, during the time that the docker containers are built with the docker-compose installation command below
+* `docker` installed, from the Docker website https://www.docker.com/resources/what-container (Docker Community Edition, Docker version 19.03.8, build afacb8b7f0 is a tested and working version installed on an `Ubuntu` version `20.0 LTS` (Note that it’s best to download the latest stable version for your machine directly from Docker’s own website, not to use the default installed `docker` version on the Linux operating system.)
+* `curl` installed (e.g., for machines that can install using apt, ```sudo apt-get install curl``` would install `curl`). `curl` is used in command lines or scripts to transfer data. For more information about curl, see https://curl.haxx.se/  )
+* docker-compose installed. For instance, on a Linux machine with `curl` installed, the following command can be used:
+```
+curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
 
+
+Start by installing as from the tarball instructions, minus using ```tar`` instructions.
+Next, follow GitHub-style SCALe installation instructions provided in the file `scaife/README.md`
+
+You should also be able to do SCAIFE API -related testing by following the instructions in the following technical manual:
+https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=644354
+"How to Instantiate SCAIFE API Calls: Using SEI SCAIFE Code, the SCAIFE API, Swagger-Editor, and Developing Your Tool with Auto-Generated Code"
+
+
+## Installation Instructions (GitHub: `main` branch, version of SCALe that does not work with the rest of the SCAIFE system)
+Install as from the tarball instructions, minus using ```tar`` instructions.
 
 ## Installation Instructions (Tarball)
 
@@ -58,20 +75,6 @@ The current version of the SEI CERT Coding rules are available online at:  https
 The current version of the CWEs is available at: https://cwe.mitre.org/
 
 
-## Installation Instructions (GitHub: `scaife-scale` branch)
-Start by installing as from the tarball instructions, minus using ```tar`` instructions.
-Next, follow GitHub-style SCALe installation instructions provided in the file `scaife/README.md`
-
-You should also be able to do SCAIFE API -related testing by following the instructions in the following technical manual:
-https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=644354
-"How to Instantiate SCAIFE API Calls: Using SEI SCAIFE Code, the SCAIFE API, Swagger-Editor, and Developing Your Tool with Auto-Generated Code"
-
-
-
-## Installation Instructions (GitHub: `main` branch, version of SCALe that does not work with the rest of the SCAIFE system)
-Install as from the tarball instructions, minus using ```tar`` instructions.
-
-
 ## Installation Instructions (VM)
 
 If the SCALe web app is provided via a virtual machine (VM), then the SCALe app will be configured to run automatically when the machine boots, except for VMs with Docker containers. Instructions for starting the Docker containers on those types of VMs are provided in the HTML manual at `scale.app/public/doc/scale2/SCAIFE-Server-Management.html` (markdown version [here](doc/SCAIFE-Server-Management.md).
@@ -79,7 +82,18 @@ If the SCALe web app is provided via a virtual machine (VM), then the SCALe app 
 Less relevant but possibly useful: Some information (but not all) that is SCALe-specific about installing SCALe (e.g., changing the user login name and password) that may be useful is located here: `scale.app/public/doc/scale2/Installing-SCALe.html` (markdown version [here](doc/SCAIFE-Server-Management.md).
 
 
-### SCAIFE System version 1.0.0 (Previous Version) Release VM with Containers
+
+# SCAIFE/SCALe HTML manual
+
+Much use, system design, and development information is provided in the included SCALe/SCAIFE HTML manual. To view it, in your web browser open this file location (first starting at SCAIFE home page, second starting at SCALe home page):
+
+* `scaife/ui_server_stub/scale.app/public/doc/scale2/Welcome.html`
+* `scaife/ui_server_stub/scale.app/public/doc/scale2/SCAIFE-Welcome.html`
+
+
+
+
+### SCAIFE System version 1.0.0 (Old Version) Release VM with Containers
 
 The SCAIFE System version 1.0.0 Release VM includes Docker containers. Installers will find the following information useful:
 The release VM is distributed in an approximately 10 GB OVA file.
@@ -130,13 +144,11 @@ In SCAIFE, we recently switched to use OpenAPI version 3 format (previously we u
 
 1. Different Fortify versions should use different checker sets in SCALe, but currently they don't.
 
-1. "`SPECIAL`" checkers in SCALe currently may not be always handled correctly.
-
 1. Some SCALe GUI features may not work on browsers other than Firefox (e.g., Chrome or Microsoft Edge).
 
 1. No field for the checker mappings CSV currently exist in SCALe, though that is required for one of the API calls involving the  SCAIFE UI Module.
 
-1. SCALe (but not the rest of SCAIFE) currently uses Python version 2, but Python version 2 is not officially supported anymore. We have modified most of the SCALe Python code so it works with both Python 3 and Python 2. In the future, SCALe updates to Python 3 need to be completed. 
+1. SCALe (but not the rest of SCAIFE) currently uses Python version 2, but Python version 2 is not officially supported anymore. We have modified most of the SCALe Python code so it works with both Python 3 and Python 2. In the future, SCALe updates to Python 3 need to be completed.
 
 1. The SCAIFE authentication system will be refactored in the future, to enhance SCAIFE modularity.
 
@@ -148,8 +160,33 @@ In SCAIFE, we recently switched to use OpenAPI version 3 format (previously we u
 
 1. The SCALe Vagrant-built VM will not produce a fully-functional SCALe VM anymore. It is missing several Python requirements (in scale.app/requirements.txt). It is also missing Maven, and the dependencies that Maven needs to run Selenium testing.
 
-1. The Selenium sanitizer test currently fails. It needs updates in the reference database, since we've integrated new static analysis tools to work with SCALe.
+### Relevant Unfixed Bugs
 
+The ID starting with `RC-`represents the bug in the SEI internal bug database.
+
+
+```
+| ID      | Summary                                                                                                  |
+RC-1572 SCALe bugfix: package.py symbolic link only sometimes transferred to tarball
+RC-1727 SCALe bugfix: fix GitHub automated test errors
+RC-1710 SCALe bugfix: Enable a project to be uploaded to SCAIFE with a single code_language_name + code_language_version 
+RC-1631 Bugfix: SCALe does not show existing classifier schemes from Stats module
+RC-1770 SCALe bugfix: new tool output can't be imported into SCALe anymore during project edit
+RC-1785 SCALe bugfix: Selenium test function returns different values but should return same values
+RC-1095 SCALe bugfix: make test-suite projects editable in SCALe
+RC-1685 SCALe bugfix: fix 2 Ruby test-ruby errors
+RC-1684 SCALe bugfix: fix JavaScript test error
+RC-1670 SCALe Transition Bugfix: Selecting Filter by "All IDs" does not clear ID field.
+RC-689 SCALe Bugfix: perlcritic parser broken
+RC-1529 SCALe bugfix: automated scale script bug but only with containers in test mode
+RC-449 SCALe Transition Bugfix: Editing Existing Priority Scheme "confidence" value doesn't populate GUI
+RC-1044 SCALe (post-release SCAIFE) bugfix: fix manual SCALe project creation
+RC-842 SCALe transition bugfix: Deleted classifier in current_classifier_scheme leads to empty modal popup
+RC-840 SCALe Bugfix: selenium tests, project doesn't get deleted at the end of each test
+RC-671 SCALe and SCAIFE bugfix: New Manual Alerts not Exported Properly.
+RC-682 SCALe bugfix: manual alerts don't properly fuse
+
+```
 
 ## Support
 

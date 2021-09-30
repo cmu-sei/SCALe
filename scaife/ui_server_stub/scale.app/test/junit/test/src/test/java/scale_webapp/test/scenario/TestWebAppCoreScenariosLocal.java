@@ -1,5 +1,5 @@
 // <legal>
-// SCALe version r.6.5.5.1.A
+// SCALe version r.6.7.0.0.A
 // 
 // Copyright 2021 Carnegie Mellon University.
 // 
@@ -274,220 +274,222 @@ public class TestWebAppCoreScenariosLocal extends TestCase{
 		String userUploadFilePath = new File(this.config.inputDirectory, "misc/user_upload_example.csv").toString();
 		String priorityName = "priorityScheme1";
 
+		try {
+			// Build a model of our Web App with the given driver.
+			webApp = config.createApp();
+
+			// Launch the app, create a project, then go back to the home page
+			webApp.launch();
+			webApp.createMultiToolProject(projectName, projectDescription, archivePath, tools);
+
+			WebDriver driver = webApp.getDriver();
+			webApp.waitForAlertConditionsTableLoad();
+			webApp.waitForPageLoad(driver);
+
+			// upload user columns
+			webApp.PrioritySchemeModal.uploadUserCols(userUploadFilePath);
+
+			webApp.waitForAlertConditionsTableLoad();
+
+			// set first AlertCondition to false, second AlertCondition to true
+			AlertConditionRow row = webApp.AlertConditionsViewer.getAlertConditionRows().get(0);
+
+			scrollIntoView(driver, row.verdict);
+			new WebDriverWait(webApp.getDriver(), 100)
+					.until(ExpectedConditions.elementToBeClickable(By.linkText("FIO30-C")));
+			webApp.waitForAlertConditionsTableLoad();
+			row.setVerdict(Verdict.False);
+			row = webApp.AlertConditionsViewer.getAlertConditionRows().get(1);
+			scrollIntoView(driver, row.verdict);
+			webApp.waitForAlertConditionsTableLoad();
+			row.setVerdict(Verdict.True);
+
+			webApp.waitForAlertConditionsTableLoad();
+			webApp.waitForPageLoad(driver);
+
+			// Open prioritizationScheme modal and verify results
+			Actions action = new Actions(driver);
+			WebElement priority_menu = driver.findElement(By.xpath("//li[@id='priorityscheme-dropdown']//a"));
+			scrollIntoView(driver, priority_menu);
+			new WebDriverWait(webApp.getDriver(), 1000).until(ExpectedConditions.elementToBeClickable(priority_menu));
+			action.moveToElement(priority_menu).click().perform();
+
+			new WebDriverWait(webApp.getDriver(), 25).until(ExpectedConditions.elementToBeClickable(
+					driver.findElement(By.xpath("//*[@class='priorities' and contains(text(),'Create New Scheme')]"))));
+			action.moveToElement(
+					driver.findElement(By.xpath("//*[@class='priorities' and contains(text(),'Create New Scheme')]")))
+					.click().perform();
+
+			webApp.waitForPageLoad(driver);
+
+			// set values in the Priority Scheme modal
+			webApp.PrioritySchemeModal.setName(priorityName);
+
+			// set user uploaded field weights
+			webApp.PrioritySchemeModal.setUserUploadWeights();
+
+			// setup CWE tab
+			webApp.PrioritySchemeModal.fillCWETab();
+			webApp.PrioritySchemeModal.modifyCWEPrioritySchemaWithUserUpload();
+			webApp.waitForPageLoad(driver);
+
+			// setup CERT tab
+			webApp.PrioritySchemeModal.fillCERTTab();
+			webApp.PrioritySchemeModal.modifyCERTPrioritySchemaWithUserUpload();
+			webApp.waitForPageLoad(driver);
+
+			// generate the formula to calculate the priority
+			webApp.PrioritySchemeModal.genFormula();
+
+			// save priority scheme
+			webApp.PrioritySchemeModal.saveScheme();
+
+			// run priority scheme
+			webApp.PrioritySchemeModal.runScheme();
+
+			webApp.waitForPageLoad(driver);
+
 			try {
-				// Build a model of our Web App with the given driver.
-				webApp = config.createApp();
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-				// Launch the app, create a project, then go back to the home page
-				webApp.launch();
-				webApp.createMultiToolProject(projectName, projectDescription, archivePath, tools);
+			String classifierName = "classifierScheme1";
+			// WORKAROUND: Implement a better way!
+			// Check to ensure the test classifier does not exist, if it does delete it
+			// first before running the rest of the test.
+			// TODO: Discuss DB mocks or an easier way to delete the classifier after it has
+			// been created (currently deleting between running tests)
+			// Removing just the project doesn't remove the classifier scheme.
+			List<WebElement> classifierList = driver
+					.findElements(By.xpath("//li[@id='classifier-dropdown']//ul//li//a"));
+			WebElement removeClassifier = null;
 
-				WebDriver driver = webApp.getDriver();
-				webApp.waitForAlertConditionsTableLoad();
-				webApp.waitForPageLoad(driver);
-
-				// upload user columns
-				webApp.PrioritySchemeModal.uploadUserCols(userUploadFilePath);
-
-				webApp.waitForAlertConditionsTableLoad();
-
-				// set first AlertCondition to false, second AlertCondition to true
-				AlertConditionRow row = webApp.AlertConditionsViewer.getAlertConditionRows().get(0);
-
-				scrollIntoView(driver, row.verdict);
-				new WebDriverWait(webApp.getDriver(), 100).until(ExpectedConditions
-						.elementToBeClickable(By.linkText("FIO30-C")));
-				webApp.waitForAlertConditionsTableLoad();
-				row.setVerdict(Verdict.False);
-				row = webApp.AlertConditionsViewer.getAlertConditionRows().get(1);
-				scrollIntoView(driver, row.verdict);
-				webApp.waitForAlertConditionsTableLoad();
-				row.setVerdict(Verdict.True);
-
-				webApp.waitForAlertConditionsTableLoad();
-				webApp.waitForPageLoad(driver);
-
-				// Open prioritizationScheme modal and verify results
-				Actions action = new Actions(driver);
-				WebElement priority_menu = driver.findElement(By.xpath("//li[@id='priorityscheme-dropdown']//a"));
-				scrollIntoView(driver, priority_menu);
-				new WebDriverWait(webApp.getDriver(), 1000).until(ExpectedConditions
-						.elementToBeClickable(priority_menu));
-				action.moveToElement(priority_menu).click().perform();
-
-				new WebDriverWait(webApp.getDriver(), 25).until(ExpectedConditions
-						.elementToBeClickable(driver.findElement(By.xpath("//*[@class='priorities' and contains(text(),'Create New Scheme')]"))));
-				action.moveToElement(driver.findElement(By.xpath("//*[@class='priorities' and contains(text(),'Create New Scheme')]"))).click().perform();
-
-				webApp.waitForPageLoad(driver);
-
-				// set values in the Priority Scheme modal
-				webApp.PrioritySchemeModal.setName(priorityName);
-
-				// set user uploaded field weights
-				webApp.PrioritySchemeModal.setUserUploadWeights();
-
-				// setup CWE tab
-				webApp.PrioritySchemeModal.fillCWETab();
-				webApp.PrioritySchemeModal.modifyCWEPrioritySchemaWithUserUpload();
-				webApp.waitForPageLoad(driver);
-
-				// setup CERT tab
-				webApp.PrioritySchemeModal.fillCERTTab();
-				webApp.PrioritySchemeModal.modifyCERTPrioritySchemaWithUserUpload();
-				webApp.waitForPageLoad(driver);
-
-				// generate the formula to calculate the priority
-				webApp.PrioritySchemeModal.genFormula();
-
-				// save priority scheme
-				webApp.PrioritySchemeModal.saveScheme();
-
-				// run priority scheme
-				webApp.PrioritySchemeModal.runScheme();
-
-				webApp.waitForPageLoad(driver);
-
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				String classifierName = "classifierScheme1";
-				// WORKAROUND: Implement a better way!
-				// Check to ensure the test classifier does not exist, if it does delete it first before running the rest of the test.
-				// TODO: Discuss DB mocks or an easier way to delete the classifier after it has been created (currently deleting between running tests)
-				// Removing just the project doesn't remove the classifier scheme.
-				List<WebElement> classifierList = driver.findElements(By.xpath("//li[@id='classifier-dropdown']//ul//li//a"));
-				WebElement removeClassifier = null;
-
-				if(classifierList.size() > 1) {
-					for (WebElement c : classifierList) {
-						if(c.getAttribute("innerHTML").contentEquals(classifierName)){
-							removeClassifier = c;
-						}
+			if (classifierList.size() > 1) {
+				for (WebElement c : classifierList) {
+					if (c.getAttribute("innerHTML").contentEquals(classifierName)) {
+						removeClassifier = c;
 					}
 				}
+			}
 
-				if(removeClassifier != null) {
-					removeModalContents(removeClassifier, "classifier", driver);
-				}
+			if (removeClassifier != null) {
+				removeModalContents(removeClassifier, "classifier", driver);
+			}
 
-				webApp.waitForAlertConditionsTableLoad();
+			webApp.waitForAlertConditionsTableLoad();
 
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				webApp.waitForAlertConditionsTableLoad();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			webApp.waitForAlertConditionsTableLoad();
 
-				WebElement classifierTextElem = webApp.getDriver().findElement(By.id("classifier_instance_chosen"));
-				Select select = new Select(classifierTextElem);
-				WebElement option = select.getFirstSelectedOption();
+			WebElement classifierTextElem = webApp.getDriver().findElement(By.id("classifier_instance_chosen"));
+			Select select = new Select(classifierTextElem);
+			WebElement option = select.getFirstSelectedOption();
 
-				String classifierSelectText = option.getText();
-				assertEquals(classifierSelectText, "-Select Classifier Instance-");
+			String classifierSelectText = option.getText();
+			assertEquals(classifierSelectText, "-Select Classifier Instance-");
 
-				// Open the modal and verify the results.
-				action = new Actions(driver);
+			// Open the modal and verify the results.
+			action = new Actions(driver);
 
-				// Hover over classifier dropdown and open a new classifier modal
+			// Hover over classifier dropdown and open a new classifier modal
 
-				new WebDriverWait(webApp.getDriver(), 40).until(ExpectedConditions
-						.elementToBeClickable(By.xpath("//li[@id='classifier-dropdown']//a")));
-				action.moveToElement(driver.findElement(By.xpath("//li[@id='classifier-dropdown']//a"))).click().perform();
+			new WebDriverWait(webApp.getDriver(), 40)
+					.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[@id='classifier-dropdown']//a")));
+			action.moveToElement(driver.findElement(By.xpath("//li[@id='classifier-dropdown']//a"))).click().perform();
 
-				new WebDriverWait(webApp.getDriver(), 40).until(ExpectedConditions
-						.elementToBeClickable(By.xpath("//li[@id='new-classifier-link']//a")));
-				action.moveToElement(driver.findElement(By.xpath("//li[@id='new-classifier-link']//a"))).perform();
+			new WebDriverWait(webApp.getDriver(), 40)
+					.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[@id='new-classifier-link']//a")));
+			action.moveToElement(driver.findElement(By.xpath("//li[@id='new-classifier-link']//a"))).perform();
 
-				new WebDriverWait(webApp.getDriver(), 40).until(ExpectedConditions
-						.visibilityOfElementLocated(By.className("classifiers")));
-				action.moveToElement(driver.findElements(By.className("classifiers")).get(0)).click().perform();
+			new WebDriverWait(webApp.getDriver(), 40)
+					.until(ExpectedConditions.visibilityOfElementLocated(By.className("classifiers")));
+			action.moveToElement(driver.findElements(By.className("classifiers")).get(0)).click().perform();
 
-				// Classifier Modal is opened
-				new WebDriverWait(webApp.getDriver(), 30).until(ExpectedConditions
-						.visibilityOfElementLocated(By.id("modal-placement")));
-				WebElement modal_close_button = driver.findElement(By.id("classifier-class-modal"));
+			// Classifier Modal is opened
+			new WebDriverWait(webApp.getDriver(), 30)
+					.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-placement")));
+			WebElement modal_close_button = driver.findElement(By.id("classifier-class-modal"));
 
-				// set values in the Classifier Modal
-				driver.findElement(By.id("classifier_name")).sendKeys(classifierName);
+			// set values in the Classifier Modal
+			driver.findElement(By.id("classifier_name")).sendKeys(classifierName);
 
-				WebElement projectSelected = driver.findElements(By.xpath("//div[@id='all_projects']//li[@class='list_item']")).get(0);
-				projectSelected.click();
+			WebElement projectSelected = driver
+					.findElements(By.xpath("//div[@id='all_projects']//li[@class='list_item']")).get(0);
+			projectSelected.click();
 
-				// Add projects to the selected projects section
-				WebElement add_button = driver.findElement(By.id("add_button"));
+			// Add projects to the selected projects section
+			WebElement add_button = driver.findElement(By.id("add_button"));
 
-				new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.elementToBeClickable(add_button));
-				add_button.click();
+			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.elementToBeClickable(add_button));
+			add_button.click();
 
-				new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@id='ah']//li[@class='ah-tabs ']//a")));
+			new WebDriverWait(webApp.getDriver(), 10).until(ExpectedConditions
+					.presenceOfAllElementsLocatedBy(By.xpath("//div[@id='ah']//li[@class='ah-tabs ']//a")));
 
-				// Select an adaptive heuristic
-				List<WebElement> ahList = driver.findElements(By.xpath("//div[@id='ah']//li[@class='ah-tabs ']//a"));
-				WebElement ahSelected = ahList.get(1);
+			// Select an adaptive heuristic
+			List<WebElement> ahList = driver.findElements(By.xpath("//div[@id='ah']//li[@class='ah-tabs ']//a"));
+			WebElement ahSelected = ahList.get(1);
 
-				scrollIntoView(driver, ahSelected);
-				ahSelected.click();
+			scrollIntoView(driver, ahSelected);
+			ahSelected.click();
 
-				// Selected an AHPO
-				Select ahpo_select = new Select(driver.findElement(By.id("ahpoSelects")));
-				ahpo_select.selectByVisibleText("sei-ahpo");
+			// Selected an AHPO
+			Select ahpo_select = new Select(driver.findElement(By.id("ahpoSelects")));
+			ahpo_select.selectByVisibleText("sei-ahpo");
 
-				WebElement submit_button = driver.findElement(By.id("submit-modal"));
-				submit_button.click();
+			WebElement submit_button = driver.findElement(By.id("submit-modal"));
+			submit_button.click();
 
+			// Verify the results
+			webApp.waitForAlertConditionsTableLoad();
 
-				// Verify the results
-				webApp.waitForAlertConditionsTableLoad();
+			WebElement classifierTextSelect = webApp.getDriver().findElement(By.id("classifier_instance_chosen"));
+			Select classifier_select = new Select(classifierTextSelect);
+			classifier_select.selectByVisibleText(classifierName);
 
-				WebElement classifierTextSelect = webApp.getDriver().findElement(By.id("classifier_instance_chosen"));
-				Select classifier_select = new Select(classifierTextSelect);
-				classifier_select.selectByVisibleText(classifierName);
+			// classify
+			new WebDriverWait(webApp.getDriver(), 10)
+					.until(ExpectedConditions.elementToBeClickable(By.id("run-classifier-btn")));
+			driver.findElement(By.id("run-classifier-btn")).click();
+			webApp.waitForAlertConditionsTableLoad();
 
-				// classify
-				new WebDriverWait(webApp.getDriver(), 10).until(
-						ExpectedConditions.elementToBeClickable(
-								By.id("run-classifier-btn")));
-				driver.findElement(By.id("run-classifier-btn")).click();
-				webApp.waitForAlertConditionsTableLoad();
+			// NOTE: this step is unnecessary, DB is directly loaded since
+			// this test runs in the local scenario
+			//
+			// export the newly-created project to default download directory
+			/*
+			 * webApp.goHome(); ProjectRow pr =
+			 * webApp.Home.getProjectRowByName(projectName); pr.exportDbLink.click();
+			 */
 
-				// NOTE: this step is unnecessary, DB is directly loaded since
-				// this test runs in the local scenario
-				//
-				// export the newly-created project to default download directory
-				/*
+			// test exported db
+			String noSanitizeOption = "--sanitizer-no-sanitize";
+			runTestSanitizerScript(testPyScript, projectName, keepTestProject, noSanitizeOption);
+
+			// test sanitized db
+			noSanitizeOption = "";
+			runTestSanitizerScript(testPyScript, projectName, keepTestProject, noSanitizeOption);
+
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			if (keepTestProject) {
 				webApp.goHome();
-				ProjectRow pr = webApp.Home.getProjectRowByName(projectName);
-				pr.exportDbLink.click();
-				*/
-
-				// test exported db
-				String noSanitizeOption = "--sanitizer-no-sanitize";
-				runTestSanitizerScript(testPyScript, projectName, keepTestProject, noSanitizeOption);
-
-
-				// test sanitized db
-				noSanitizeOption = "";
-				runTestSanitizerScript(testPyScript, projectName, keepTestProject, noSanitizeOption);
-
-				try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				} finally {
-					if (keepTestProject) {
-				webApp.goHome();
-			webApp.driver.quit();
-			webApp.close();
+				webApp.driver.quit();
+				webApp.close();
 			} else {
 				cleanupWebApp(webApp, projectName);
 			}

@@ -52,6 +52,7 @@ GEM
     ast (2.4.0)
     autoprefixer-rails (9.4.7)
       execjs
+    bcrypt (3.1.16)
     best_in_place (3.1.1)
       actionpack (>= 3.2)
       railties (>= 3.2)
@@ -83,6 +84,8 @@ GEM
     eventmachine (1.2.7)
     execjs (2.7.0)
     ffi (1.10.0)
+    git (1.9.1)
+      rchardet (~> 1.8)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (0.3.8)
@@ -185,6 +188,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    rchardet (1.8.0)
     ref (2.0.0)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
@@ -261,11 +265,13 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  bcrypt
   best_in_place (= 3.1.1)
   bootsnap
   bootstrap-sass (= 3.3.7)
   coffee-rails
   execjs
+  git
   jquery-rails (~> 4.3.1)
   jquery-ui-rails (~> 6.0.1)
   jshint

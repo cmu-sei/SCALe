@@ -47,6 +47,10 @@ $(document).ready(function() {
     //console.log("run taxo_map_setup");
     taxo_map_setup(load_element);
     tab_link = $("#taxo-tab-link");
+  <% when "toolSelect" %>
+    //console.log("run tool_select_setup");
+    tool_select_setup(load_element);
+    tab_link = $("#tool-tab-link");
   <% when "toolUpload" %>
     //console.log("run tool_upload_setup");
     tool_upload_setup(load_element);
@@ -59,6 +63,8 @@ $(document).ready(function() {
     //console.log("run scaife_integration_setup");
     scaife_integration_setup(load_element);
     tab_link = $("#scaife-integration-tab-link");
+  <% else %>
+      console.log("UNKNOWN @current_action");
   <% end %>
   if (tab_link != null && tab_link.length > 0) {
     tab_link.tab('show');

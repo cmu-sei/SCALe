@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -26,6 +26,7 @@ import datetime
 
 import six
 import typing
+from swagger_server import type_util
 
 
 def _deserialize(data, klass):
@@ -39,7 +40,7 @@ def _deserialize(data, klass):
     if data is None:
         return None
 
-    if klass in six.integer_types or klass in (float, str, bool):
+    if klass in six.integer_types or klass in (float, str, bool, bytearray):
         return _deserialize_primitive(data, klass)
     elif klass == object:
         return _deserialize_object(data)
@@ -47,10 +48,10 @@ def _deserialize(data, klass):
         return deserialize_date(data)
     elif klass == datetime.datetime:
         return deserialize_datetime(data)
-    elif type(klass) == typing.GenericMeta:
-        if klass.__extra__ == list:
+    elif type_util.is_generic(klass):
+        if type_util.is_list(klass):
             return _deserialize_list(data, klass.__args__[0])
-        if klass.__extra__ == dict:
+        if type_util.is_dict(klass):
             return _deserialize_dict(data, klass.__args__[1])
     else:
         return deserialize_model(data, klass)
@@ -75,7 +76,7 @@ def _deserialize_primitive(data, klass):
 
 
 def _deserialize_object(value):
-    """Return a original value.
+    """Return an original value.
 
     :return: object.
     """

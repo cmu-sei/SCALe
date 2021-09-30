@@ -1,6 +1,6 @@
 # coding: utf-8
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -37,8 +37,7 @@ class RequestToken(Model):
 
     Do not edit the class manually.
     """
-
-    def __init__(self, request_id: str = None, message: str = None):  # noqa: E501
+    def __init__(self, request_id: str=None, message: str=None):  # noqa: E501
         """RequestToken - a model defined in Swagger
 
         :param request_id: The request_id of this RequestToken.  # noqa: E501
@@ -55,7 +54,6 @@ class RequestToken(Model):
             'request_id': 'request_id',
             'message': 'message'
         }
-
         self._request_id = request_id
         self._message = message
 
@@ -74,6 +72,7 @@ class RequestToken(Model):
     def request_id(self) -> str:
         """Gets the request_id of this RequestToken.
 
+        Id used to correlate messages with each other  # noqa: E501
 
         :return: The request_id of this RequestToken.
         :rtype: str
@@ -84,10 +83,13 @@ class RequestToken(Model):
     def request_id(self, request_id: str):
         """Sets the request_id of this RequestToken.
 
+        Id used to correlate messages with each other  # noqa: E501
 
         :param request_id: The request_id of this RequestToken.
         :type request_id: str
         """
+        if request_id is None:
+            raise ValueError("Invalid value for `request_id`, must not be `None`")  # noqa: E501
 
         self._request_id = request_id
 

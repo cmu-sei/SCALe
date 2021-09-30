@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -56,8 +56,8 @@ class Condition < ApplicationRecord
 
   def platform
     if @platform.blank?
-      @platform = self.additional_fields["platform"] \
-        || self.additional_fields["cwe_platform"]
+      @platform = self.additional_fields[:platform] \
+        || self.additional_fields[:cwe_platform]
     end
     return @platform
   end
@@ -98,6 +98,25 @@ class Condition < ApplicationRecord
     return scaife_cond
   end
 
+  def type()
+    return self.taxonomy.type
+  end
+
+  class << self
+
+    def by_scaife_id(id)
+      # lazy loader by scaife ID
+      @by_scaife_id ||= {}
+      if @by_scaife_id[id].blank?
+        @by_scaife_id[id] = self.where(scaife_cond_id: id).first
+        if @by_scaife_id[id].blank?
+          raise ScaifeError.new("unknown condition scaife ID: #{id}")
+        end
+      end
+      return @by_scaife_id[id]
+    end
+
+  end
 
 end
 

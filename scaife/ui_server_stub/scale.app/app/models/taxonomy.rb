@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -41,7 +41,7 @@ class Taxonomy < ApplicationRecord
   def format_fields()
     if @format_fields.blank?
       if self.format.present?
-        @format_fields = JSON.parse(self.format)
+        @format_fields = JSON.parse(self.format).map { |f| f.to_sym }
       else
         @format_fields = []
       end

@@ -1,5 +1,5 @@
 # <legal>
-# SCALe version r.6.5.5.1.A
+# SCALe version r.6.7.0.0.A
 # 
 # Copyright 2021 Carnegie Mellon University.
 # 
@@ -26,11 +26,6 @@ require 'scaife/api/registration'
 
 class ScaifeRegistrationController < ScaifeController
 
-  def _clear_scaife_session()
-    session.delete(:login_token)
-    session.delete(:scaife_mode)
-  end
-
   def getLoginModal
     respond_to do |format|
       format.html
@@ -45,9 +40,12 @@ class ScaifeRegistrationController < ScaifeController
     end
   end
 
-  def get_server_access(server, login_token)
+  def get_server_access(server, login_token, silent: false)
+    if login_token.blank?
+      raise ScaifeAccessError.new("no token present")
+    end
     begin
-      api = UIToRegistrationApi.new
+      api = Scaife::Api::Registration::UIToRegistrationApi.new
       response, status_code, headers = \
         api.get_server_access_with_http_info(server, login_token)
       if status_code != 200
@@ -55,12 +53,13 @@ class ScaifeRegistrationController < ScaifeController
         response = "Unknown Result"
       end
     rescue Scaife::Api::Registration::ApiError => e
-      staus_code = e.code
+      status_code = e.code
       if [400, 404, 405].include? e.code
         # Invalid Request, not found, etc
         response = maybe_json_response(e.response_body)
-        if login_token.present?
+        if login_token.present? and not silent
           puts "defined server access fail: #{e}"
+          puts login_token
         end
       else
         # Unknown error
@@ -82,11 +81,11 @@ class ScaifeRegistrationController < ScaifeController
       return code, code_is_known, data, response_msg
     end
     begin
-      query_data = LoginCredentials.build_from_hash({
+      query_data = Scaife::Api::Registration::LoginCredentials.build_from_hash({
         username: user,
         password: pass
       })
-      api = UIToRegistrationApi.new
+      api = Scaife::Api::Registration::UIToRegistrationApi.new
       data, code, headers = \
         api.login_user_with_http_info(query_data)
       if code == 200
@@ -133,14 +132,14 @@ class ScaifeRegistrationController < ScaifeController
       @scaife_response_msg = "Please populate all of the fields"
     else
       begin
-        query_data = UserInformation.build_from_hash({
+        query_data = Scaife::Api::Registration::UserInformation.build_from_hash({
           first_name: first,
           last_name: last,
           organization_name: org,
           username: user,
           password: pass
         })
-        api = UIToRegistrationApi.new
+        api = Scaife::Api::Registration::UIToRegistrationApi.new
         @scaife_response, @scaife_status_code, response_headers = \
           api.register_users_with_http_info(query_data)
         if @scaife_status_code == 201
@@ -203,22 +202,28 @@ class ScaifeRegistrationController < ScaifeController
     @scaife_status_code = @scaife_response = nil
     begin
       begin
-        api = UIToRegistrationApi.new
-        response_dta, @scaife_status_code, response_headers = \
-            api.logout_user_with_http_info(session[:login_token])
-        if @scaife_status_code == 200
-          @scaife_response = "User Successfully Logged Out"
-          disconnectPulsar()
+        api = Scaife::Api::Registration::UIToRegistrationApi.new
+        if session[:login_token].present?
+            response_dta, @scaife_status_code, response_headers = \
+                api.logout_user_with_http_info(session[:login_token])
+          if @scaife_status_code == 200
+            @scaife_response = "User Successfully Logged Out"
+          else
+            # Unknown 2?? response...
+            puts "error in #{__method__}: #{@scaife_status_code}: #{response_dta}"
+            @scaife_response = "Problem with SCAIFE registration server"
+          end
         else
-          # Unknown 2?? response...
-          puts "error in #{__method__}: #{@scaife_status_code}: #{response_dta}"
-          @scaife_response = "Problem with SCAIFE registration server"
+          puts "not logged in, no token present"
+          @scaife_response = "Not logged in"
         end
       rescue Scaife::Api::Registration::ApiError => e
         @scaife_status_code = e.code
         if [400, 405].include? e.code
           # Invalid Request or Logout Unavailable
           @scaife_response = maybe_json_response(e.response_body)
+        elsif session[:login_token].blank?
+          @scaife_response = "User not logged on"
         else
           # Unexpected Error
           puts "\nException #{__method__} calling UIToRegistrationApi->logout_users: #{e.message}\n"
@@ -227,6 +232,7 @@ class ScaifeRegistrationController < ScaifeController
       end
     ensure
       self._clear_scaife_session()
+      disconnectPulsar()
     end
     respond_to do |format|
       format.js

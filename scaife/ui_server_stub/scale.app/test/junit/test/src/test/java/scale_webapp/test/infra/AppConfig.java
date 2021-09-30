@@ -1,5 +1,5 @@
 // <legal>
-// SCALe version r.6.5.5.1.A
+// SCALe version r.6.7.0.0.A
 // 
 // Copyright 2021 Carnegie Mellon University.
 // 
@@ -55,8 +55,8 @@ public class AppConfig {
 	public String protocol = "http";
 	public String host = "localhost";
 	public int port = 8083;
-	public String user = "scale";
-	public String password = "Change_me!";
+	public String scale_user = "scale";
+	public String scale_password = "sample_passwd";
 	public String inputDirectory = null;
 	public Browser browser;
 	public Integer implicitTimeout = 20;
@@ -77,7 +77,7 @@ public class AppConfig {
 	 */
 	public ScaleWebApp createApp() {
 		WebDriver driver = getDriver();
-		return new ScaleWebApp(this.protocol, this.host, this.port, this.user, this.password, driver);
+		return new ScaleWebApp(this.protocol, this.host, this.port, this.scale_user, this.scale_password, driver);
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class AppConfig {
 	 */
 	public ScaleScaifeWebApp createScaifeEnabledApp() {
 		WebDriver driver = getDriver();
-		return new ScaleScaifeWebApp(this.protocol, this.host, this.port, this.user, this.password, this.scaife_user, this.scaife_password, driver);
+		return new ScaleScaifeWebApp(this.protocol, this.host, this.port, this.scale_user, this.scale_password, this.scaife_user, this.scaife_password, driver);
 	}
 
 	/**
@@ -127,8 +127,8 @@ public class AppConfig {
 		this.protocol = options.getString("protocol");
 		this.host = options.getString("host");
 		this.port = options.getInt("port");
-		this.user = options.getString("user");
-		this.password = options.getString("password");
+		this.scale_user = options.getString("scale_user");
+		this.scale_password = options.getString("scale_password");
 		this.root = options.getString("root");
 		this.scaife_user = options.getString("scaife_user");
 		this.scaife_password = options.getString("scaife_password");
